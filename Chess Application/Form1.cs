@@ -12,7 +12,7 @@ namespace Chess_Application
 {
     public partial class Form1 : Form
     {
-        PictureBox[,] pozitie = new PictureBox[8, 8];
+        PictureBox[,] pozitie = new PictureBox[9, 9];
         int clickCounter = 0;
         int pozitieCifra1;
         int pozitieLitera1;
@@ -83,70 +83,73 @@ namespace Chess_Application
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            pozitie[0, 0] = _1A;
-            pozitie[0, 1] = _2A;
-            pozitie[0, 2] = _3A;
-            pozitie[0, 3] = _4A;
-            pozitie[0, 4] = _5A;
-            pozitie[0, 5] = _6A;
-            pozitie[0, 6] = _7A;
-            pozitie[0, 7] = _8A;
-            pozitie[1, 0] = _1B;
-            pozitie[1, 1] = _2B;
-            pozitie[1, 2] = _3B;
-            pozitie[1, 3] = _4B;
-            pozitie[1, 4] = _5B;
-            pozitie[1, 5] = _6B;
-            pozitie[1, 6] = _7B;
-            pozitie[1, 7] = _8B;
-            pozitie[2, 0] = _1C;
-            pozitie[2, 1] = _2C;
-            pozitie[2, 2] = _3C;
-            pozitie[2, 3] = _4C;
-            pozitie[2, 4] = _5C;
-            pozitie[2, 5] = _6C;
-            pozitie[2, 6] = _7C;
-            pozitie[2, 7] = _8C;
-            pozitie[3, 0] = _1D;
-            pozitie[3, 1] = _2D;
-            pozitie[3, 2] = _3D;
-            pozitie[3, 3] = _4D;
-            pozitie[3, 4] = _5D;
-            pozitie[3, 5] = _6D;
-            pozitie[3, 6] = _7D;
-            pozitie[3, 7] = _8D;
-            pozitie[4, 0] = _1E;
-            pozitie[4, 1] = _2E;
-            pozitie[4, 2] = _3E;
-            pozitie[4, 3] = _4E;
-            pozitie[4, 4] = _5E;
-            pozitie[4, 5] = _6E;
-            pozitie[4, 6] = _7E;
-            pozitie[4, 7] = _8E;
-            pozitie[5, 0] = _1F;
-            pozitie[5, 1] = _2F;
-            pozitie[5, 2] = _3F;
-            pozitie[5, 3] = _4F;
-            pozitie[5, 4] = _5F;
-            pozitie[5, 5] = _6F;
-            pozitie[5, 6] = _7F;
-            pozitie[5, 7] = _8F;
-            pozitie[6, 0] = _1G;
-            pozitie[6, 1] = _2G;
-            pozitie[6, 2] = _3G;
-            pozitie[6, 3] = _4G;
-            pozitie[6, 4] = _5G;
-            pozitie[6, 5] = _6G;
-            pozitie[6, 6] = _7G;
-            pozitie[6, 7] = _8G;
-            pozitie[7, 0] = _1H;
-            pozitie[7, 1] = _2H;
-            pozitie[7, 2] = _3H;
-            pozitie[7, 3] = _4H;
-            pozitie[7, 4] = _5H;
-            pozitie[7, 5] = _6H;
-            pozitie[7, 6] = _7H;
-            pozitie[7, 7] = _8H;
+            pozitie[1, 1] = _1A;
+            pozitie[1, 2] = _2A;
+            pozitie[1, 3] = _3A;
+            pozitie[1, 4] = _4A;
+            pozitie[1, 5] = _5A;
+            pozitie[1, 6] = _6A;
+            pozitie[1, 7] = _7A;
+            pozitie[1, 8] = _8A;
+            pozitie[2, 1] = _1B;
+            pozitie[2, 2] = _2B;
+            pozitie[2, 3] = _3B;
+            pozitie[2, 4] = _4B;
+            pozitie[2, 5] = _5B;
+            pozitie[2, 6] = _6B;
+            pozitie[2, 7] = _7B;
+            pozitie[2, 8] = _8B;
+            pozitie[3, 1] = _1C;
+            pozitie[3, 2] = _2C;
+            pozitie[3, 3] = _3C;
+            pozitie[3, 4] = _4C;
+            pozitie[3, 5] = _5C;
+            pozitie[3, 6] = _6C;
+            pozitie[3, 7] = _7C;
+            pozitie[3, 8] = _8C;
+            pozitie[4, 1] = _1D;
+            pozitie[4, 2] = _2D;
+            pozitie[4, 3] = _3D;
+            pozitie[4, 4] = _4D;
+            pozitie[4, 5] = _5D;
+            pozitie[4, 6] = _6D;
+            pozitie[4, 7] = _7D;
+            pozitie[4, 8] = _8D;
+            pozitie[5, 1] = _1E;
+            pozitie[5, 2] = _2E;
+            pozitie[5, 3] = _3E;
+            pozitie[5, 4] = _4E;
+            pozitie[5, 5] = _5E;
+            pozitie[5, 6] = _6E;
+            pozitie[5, 7] = _7E;
+            pozitie[5, 8] = _8E;
+            pozitie[6, 1] = _1F;
+            pozitie[6, 2] = _2F;
+            pozitie[6, 3] = _3F;
+            pozitie[6, 4] = _4F;
+            pozitie[6, 5] = _5F;
+            pozitie[6, 6] = _6F;
+            pozitie[6, 7] = _7F;
+            pozitie[6, 8] = _8F;
+            pozitie[7, 1] = _1G;
+            pozitie[7, 2] = _2G;
+            pozitie[7, 3] = _3G;
+            pozitie[7, 4] = _4G;
+            pozitie[7, 5] = _5G;
+            pozitie[7, 6] = _6G;
+            pozitie[7, 7] = _7G;
+            pozitie[7, 8] = _8G;
+            pozitie[8, 1] = _1H;
+            pozitie[8, 2] = _2H;
+            pozitie[8, 3] = _3H;
+            pozitie[8, 4] = _4H;
+            pozitie[8, 5] = _5H;
+            pozitie[8, 6] = _6H;
+            pozitie[8, 7] = _7H;
+            pozitie[8, 8] = _8H;
+            _1A.Controls.Add(pctBlackBishop);
+            pctBlackBishop.Location = new Point(0, 0);
+            pctBlackBishop.BackColor = Color.Transparent;
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -169,7 +172,7 @@ namespace Chess_Application
                 x.Text = pozitieCifra1.ToString();
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
-                clkCounter.Text = clickCounter.ToString();
+                clkCounter.Text = "Selecteaza casuta in care sa muti";
             }
             else
             {
@@ -178,7 +181,7 @@ namespace Chess_Application
                 pozitieCifra2 = 0;
                 pozitieLitera2 = 0;
                 clickCounter = 0;
-                clkCounter.Text = clickCounter.ToString();
+                clkCounter.Text = "Selecteaza piesa pe care s-o muti";
             }
             
         }
@@ -195,7 +198,7 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
                 
                 clickCounter++;
-                clkCounter.Text = clickCounter.ToString();
+                clkCounter.Text = "Selecteaza casuta in care sa muti";
             }
             else
             {
@@ -204,7 +207,7 @@ namespace Chess_Application
                 pozitieCifra2 = 0;
                 pozitieLitera2 = 1;
                 clickCounter = 0;
-                clkCounter.Text = clickCounter.ToString();
+                clkCounter.Text = "Selecteaza piesa pe care s-o muti";
             }
         }
 
@@ -218,7 +221,7 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
 
                 clickCounter++;
-                clkCounter.Text = clickCounter.ToString();
+                clkCounter.Text = "Selecteaza casuta in care sa muti";
             }
             else
             {
@@ -227,7 +230,7 @@ namespace Chess_Application
                 pozitieCifra2 = 1;
                 pozitieLitera2 = 2;
                 clickCounter = 0;
-                clkCounter.Text = clickCounter.ToString();
+                clkCounter.Text = "Selecteaza piesa pe care s-o muti";
             }
         }
     }
