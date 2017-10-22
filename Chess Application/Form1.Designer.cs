@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.clkCount = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.y = new System.Windows.Forms.Label();
-            this.x = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this._1A = new System.Windows.Forms.PictureBox();
             this._2A = new System.Windows.Forms.PictureBox();
             this._3A = new System.Windows.Forms.PictureBox();
@@ -107,6 +101,9 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.button1 = new System.Windows.Forms.Button();
+            this.x = new System.Windows.Forms.Label();
+            this.y = new System.Windows.Forms.Label();
+            this.clkCounter = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -177,12 +174,9 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.clkCount);
-            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.clkCounter);
             this.panel2.Controls.Add(this.y);
             this.panel2.Controls.Add(this.x);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this._1A);
             this.panel2.Controls.Add(this._2A);
             this.panel2.Controls.Add(this._3A);
@@ -252,80 +246,31 @@
             this.panel2.Size = new System.Drawing.Size(811, 549);
             this.panel2.TabIndex = 1;
             // 
-            // clkCount
-            // 
-            this.clkCount.AutoSize = true;
-            this.clkCount.Location = new System.Drawing.Point(615, 136);
-            this.clkCount.Name = "clkCount";
-            this.clkCount.Size = new System.Drawing.Size(35, 13);
-            this.clkCount.TabIndex = 6;
-            this.clkCount.Text = "label4";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(535, 136);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Click Counter:";
-            // 
-            // y
-            // 
-            this.y.AutoSize = true;
-            this.y.Location = new System.Drawing.Point(615, 111);
-            this.y.Name = "y";
-            this.y.Size = new System.Drawing.Size(35, 13);
-            this.y.TabIndex = 4;
-            this.y.Text = "label3";
-            // 
-            // x
-            // 
-            this.x.AutoSize = true;
-            this.x.Location = new System.Drawing.Point(615, 86);
-            this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(35, 13);
-            this.x.TabIndex = 3;
-            this.x.Text = "label3";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(532, 111);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Pozitie 2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(532, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Pozitie 1";
-            // 
             // _1A
             // 
+            this._1A.BackColor = System.Drawing.Color.Silver;
             this._1A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this._1A.Location = new System.Drawing.Point(0, 0);
             this._1A.Name = "_1A";
             this._1A.Size = new System.Drawing.Size(64, 64);
             this._1A.TabIndex = 0;
             this._1A.TabStop = false;
+            this._1A.Click += new System.EventHandler(this._1A_Click);
             // 
             // _2A
             // 
+            this._2A.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
             this._2A.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this._2A.Location = new System.Drawing.Point(64, 0);
             this._2A.Name = "_2A";
             this._2A.Size = new System.Drawing.Size(64, 64);
             this._2A.TabIndex = 0;
             this._2A.TabStop = false;
+            this._2A.Click += new System.EventHandler(this._2A_Click);
             // 
             // _3A
             // 
+            this._3A.BackColor = System.Drawing.Color.Silver;
             this._3A.Location = new System.Drawing.Point(128, 0);
             this._3A.Name = "_3A";
             this._3A.Size = new System.Drawing.Size(64, 64);
@@ -334,6 +279,7 @@
             // 
             // _4A
             // 
+            this._4A.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
             this._4A.Location = new System.Drawing.Point(192, 0);
             this._4A.Name = "_4A";
             this._4A.Size = new System.Drawing.Size(64, 64);
@@ -379,6 +325,7 @@
             this._1B.Size = new System.Drawing.Size(64, 64);
             this._1B.TabIndex = 0;
             this._1B.TabStop = false;
+            this._1B.Click += new System.EventHandler(this._1B_Click);
             // 
             // _2B
             // 
@@ -885,6 +832,33 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // x
+            // 
+            this.x.AutoSize = true;
+            this.x.Location = new System.Drawing.Point(591, 84);
+            this.x.Name = "x";
+            this.x.Size = new System.Drawing.Size(35, 13);
+            this.x.TabIndex = 1;
+            this.x.Text = "label1";
+            // 
+            // y
+            // 
+            this.y.AutoSize = true;
+            this.y.Location = new System.Drawing.Point(594, 101);
+            this.y.Name = "y";
+            this.y.Size = new System.Drawing.Size(35, 13);
+            this.y.TabIndex = 2;
+            this.y.Text = "label1";
+            // 
+            // clkCounter
+            // 
+            this.clkCounter.AutoSize = true;
+            this.clkCounter.Location = new System.Drawing.Point(597, 118);
+            this.clkCounter.Name = "clkCounter";
+            this.clkCounter.Size = new System.Drawing.Size(35, 13);
+            this.clkCounter.TabIndex = 3;
+            this.clkCounter.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1045,12 +1019,9 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label clkCounter;
         private System.Windows.Forms.Label y;
         private System.Windows.Forms.Label x;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label clkCount;
-        private System.Windows.Forms.Label label3;
     }
 }
 

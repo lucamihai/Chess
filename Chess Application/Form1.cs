@@ -149,26 +149,6 @@ namespace Chess_Application
             pozitie[7, 7] = _8H;
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -179,10 +159,7 @@ namespace Chess_Application
             
         }
 
-        private void btnMisca_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
         private void _1A_Click(object sender, EventArgs e)
         {
             if (clickCounter == 0)
@@ -192,7 +169,7 @@ namespace Chess_Application
                 x.Text = pozitieCifra1.ToString();
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
-                clkCount.Text = clickCounter.ToString();
+                clkCounter.Text = clickCounter.ToString();
             }
             else
             {
@@ -201,14 +178,12 @@ namespace Chess_Application
                 pozitieCifra2 = 0;
                 pozitieLitera2 = 0;
                 clickCounter = 0;
-                clkCount.Text = clickCounter.ToString();
+                clkCounter.Text = clickCounter.ToString();
             }
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
             
         }
+
+       
 
         private void _2A_Click(object sender, EventArgs e)
         {
@@ -220,7 +195,7 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
                 
                 clickCounter++;
-                clkCount.Text = clickCounter.ToString();
+                clkCounter.Text = clickCounter.ToString();
             }
             else
             {
@@ -229,7 +204,30 @@ namespace Chess_Application
                 pozitieCifra2 = 0;
                 pozitieLitera2 = 1;
                 clickCounter = 0;
-                clkCount.Text = clickCounter.ToString();
+                clkCounter.Text = clickCounter.ToString();
+            }
+        }
+
+        private void _1B_Click(object sender, EventArgs e)
+        {
+            if (clickCounter == 0)
+            {
+                pozitieCifra1 = 1;
+                pozitieLitera1 = 2;
+                x.Text = pozitieCifra1.ToString();
+                y.Text = pozitieLitera1.ToString();
+
+                clickCounter++;
+                clkCounter.Text = clickCounter.ToString();
+            }
+            else
+            {
+                x.Text = pozitieCifra2.ToString();
+                y.Text = pozitieLitera2.ToString();
+                pozitieCifra2 = 1;
+                pozitieLitera2 = 2;
+                clickCounter = 0;
+                clkCounter.Text = clickCounter.ToString();
             }
         }
     }
