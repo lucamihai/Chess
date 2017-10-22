@@ -250,7 +250,7 @@
             // checkBoxVerde
             // 
             this.checkBoxVerde.AutoSize = true;
-            this.checkBoxVerde.Location = new System.Drawing.Point(531, 110);
+            this.checkBoxVerde.Location = new System.Drawing.Point(529, 100);
             this.checkBoxVerde.Name = "checkBoxVerde";
             this.checkBoxVerde.Size = new System.Drawing.Size(94, 17);
             this.checkBoxVerde.TabIndex = 2;
