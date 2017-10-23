@@ -126,16 +126,16 @@
             this.label9 = new System.Windows.Forms.Label();
             this.panelPiese = new System.Windows.Forms.Panel();
             this.pionNegru = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbTuraAlb = new System.Windows.Forms.PictureBox();
+            this.pbTuraNegru = new System.Windows.Forms.PictureBox();
+            this.pbCalAlb = new System.Windows.Forms.PictureBox();
+            this.pbCalNegru = new System.Windows.Forms.PictureBox();
+            this.pbRegeNegru = new System.Windows.Forms.PictureBox();
+            this.pbReginaAlb = new System.Windows.Forms.PictureBox();
+            this.pbReginaNegru = new System.Windows.Forms.PictureBox();
+            this.pbRegeAlb = new System.Windows.Forms.PictureBox();
+            this.pbNebunNegru = new System.Windows.Forms.PictureBox();
+            this.pbNebunAlb = new System.Windows.Forms.PictureBox();
             this.pbPionAlb = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
@@ -207,16 +207,16 @@
             this.panel3.SuspendLayout();
             this.panelPiese.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pionNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalAlb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalNegru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeNegru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNegru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeAlb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).BeginInit();
             this.SuspendLayout();
             // 
@@ -225,6 +225,7 @@
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.clkCounter);
             this.panel2.Controls.Add(this.y);
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.x);
             this.panel2.Controls.Add(this._1A);
             this.panel2.Controls.Add(this._2A);
@@ -290,7 +291,7 @@
             this.panel2.Controls.Add(this._6H);
             this.panel2.Controls.Add(this._7H);
             this.panel2.Controls.Add(this._8H);
-            this.panel2.Location = new System.Drawing.Point(282, 85);
+            this.panel2.Location = new System.Drawing.Point(282, 70);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(852, 512);
             this.panel2.TabIndex = 1;
@@ -969,7 +970,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(282, 38);
+            this.button1.Location = new System.Drawing.Point(581, 361);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -1067,7 +1068,7 @@
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Location = new System.Drawing.Point(222, 85);
+            this.panel1.Location = new System.Drawing.Point(222, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(54, 512);
             this.panel1.TabIndex = 13;
@@ -1082,7 +1083,7 @@
             this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Location = new System.Drawing.Point(282, 603);
+            this.panel3.Location = new System.Drawing.Point(282, 588);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(512, 47);
             this.panel3.TabIndex = 14;
@@ -1170,20 +1171,20 @@
             // panelPiese
             // 
             this.panelPiese.Controls.Add(this.pionNegru);
-            this.panelPiese.Controls.Add(this.pictureBox11);
-            this.panelPiese.Controls.Add(this.pictureBox10);
-            this.panelPiese.Controls.Add(this.pictureBox9);
-            this.panelPiese.Controls.Add(this.pictureBox8);
-            this.panelPiese.Controls.Add(this.pictureBox7);
-            this.panelPiese.Controls.Add(this.pictureBox6);
-            this.panelPiese.Controls.Add(this.pictureBox5);
-            this.panelPiese.Controls.Add(this.pictureBox4);
-            this.panelPiese.Controls.Add(this.pictureBox3);
-            this.panelPiese.Controls.Add(this.pictureBox2);
+            this.panelPiese.Controls.Add(this.pbTuraAlb);
+            this.panelPiese.Controls.Add(this.pbTuraNegru);
+            this.panelPiese.Controls.Add(this.pbCalAlb);
+            this.panelPiese.Controls.Add(this.pbCalNegru);
+            this.panelPiese.Controls.Add(this.pbRegeNegru);
+            this.panelPiese.Controls.Add(this.pbReginaAlb);
+            this.panelPiese.Controls.Add(this.pbReginaNegru);
+            this.panelPiese.Controls.Add(this.pbRegeAlb);
+            this.panelPiese.Controls.Add(this.pbNebunNegru);
+            this.panelPiese.Controls.Add(this.pbNebunAlb);
             this.panelPiese.Controls.Add(this.pbPionAlb);
-            this.panelPiese.Location = new System.Drawing.Point(76, 85);
+            this.panelPiese.Location = new System.Drawing.Point(76, 70);
             this.panelPiese.Name = "panelPiese";
-            this.panelPiese.Size = new System.Drawing.Size(140, 433);
+            this.panelPiese.Size = new System.Drawing.Size(140, 606);
             this.panelPiese.TabIndex = 15;
             // 
             // pionNegru
@@ -1196,95 +1197,105 @@
             this.pionNegru.TabIndex = 11;
             this.pionNegru.TabStop = false;
             // 
-            // pictureBox11
+            // pbTuraAlb
             // 
-            this.pictureBox11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox11.Location = new System.Drawing.Point(0, 64);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox11.TabIndex = 10;
-            this.pictureBox11.TabStop = false;
+            this.pbTuraAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbTuraAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbTuraAlb.BackgroundImage")));
+            this.pbTuraAlb.Location = new System.Drawing.Point(0, 64);
+            this.pbTuraAlb.Name = "pbTuraAlb";
+            this.pbTuraAlb.Size = new System.Drawing.Size(64, 64);
+            this.pbTuraAlb.TabIndex = 10;
+            this.pbTuraAlb.TabStop = false;
             // 
-            // pictureBox10
+            // pbTuraNegru
             // 
-            this.pictureBox10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox10.Location = new System.Drawing.Point(70, 64);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox10.TabIndex = 9;
-            this.pictureBox10.TabStop = false;
+            this.pbTuraNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbTuraNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbTuraNegru.BackgroundImage")));
+            this.pbTuraNegru.Location = new System.Drawing.Point(70, 64);
+            this.pbTuraNegru.Name = "pbTuraNegru";
+            this.pbTuraNegru.Size = new System.Drawing.Size(64, 64);
+            this.pbTuraNegru.TabIndex = 9;
+            this.pbTuraNegru.TabStop = false;
             // 
-            // pictureBox9
+            // pbCalAlb
             // 
-            this.pictureBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox9.Location = new System.Drawing.Point(0, 128);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox9.TabIndex = 8;
-            this.pictureBox9.TabStop = false;
+            this.pbCalAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbCalAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCalAlb.BackgroundImage")));
+            this.pbCalAlb.Location = new System.Drawing.Point(0, 128);
+            this.pbCalAlb.Name = "pbCalAlb";
+            this.pbCalAlb.Size = new System.Drawing.Size(64, 64);
+            this.pbCalAlb.TabIndex = 8;
+            this.pbCalAlb.TabStop = false;
             // 
-            // pictureBox8
+            // pbCalNegru
             // 
-            this.pictureBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox8.Location = new System.Drawing.Point(70, 128);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox8.TabIndex = 7;
-            this.pictureBox8.TabStop = false;
+            this.pbCalNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbCalNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCalNegru.BackgroundImage")));
+            this.pbCalNegru.Location = new System.Drawing.Point(70, 128);
+            this.pbCalNegru.Name = "pbCalNegru";
+            this.pbCalNegru.Size = new System.Drawing.Size(64, 64);
+            this.pbCalNegru.TabIndex = 7;
+            this.pbCalNegru.TabStop = false;
             // 
-            // pictureBox7
+            // pbRegeNegru
             // 
-            this.pictureBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox7.Location = new System.Drawing.Point(70, 320);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox7.TabIndex = 6;
-            this.pictureBox7.TabStop = false;
+            this.pbRegeNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbRegeNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRegeNegru.BackgroundImage")));
+            this.pbRegeNegru.Location = new System.Drawing.Point(70, 320);
+            this.pbRegeNegru.Name = "pbRegeNegru";
+            this.pbRegeNegru.Size = new System.Drawing.Size(64, 64);
+            this.pbRegeNegru.TabIndex = 6;
+            this.pbRegeNegru.TabStop = false;
             // 
-            // pictureBox6
+            // pbReginaAlb
             // 
-            this.pictureBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox6.Location = new System.Drawing.Point(0, 256);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox6.TabIndex = 5;
-            this.pictureBox6.TabStop = false;
+            this.pbReginaAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbReginaAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbReginaAlb.BackgroundImage")));
+            this.pbReginaAlb.Location = new System.Drawing.Point(0, 256);
+            this.pbReginaAlb.Name = "pbReginaAlb";
+            this.pbReginaAlb.Size = new System.Drawing.Size(64, 64);
+            this.pbReginaAlb.TabIndex = 5;
+            this.pbReginaAlb.TabStop = false;
             // 
-            // pictureBox5
+            // pbReginaNegru
             // 
-            this.pictureBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox5.Location = new System.Drawing.Point(70, 256);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox5.TabIndex = 4;
-            this.pictureBox5.TabStop = false;
+            this.pbReginaNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbReginaNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbReginaNegru.BackgroundImage")));
+            this.pbReginaNegru.Location = new System.Drawing.Point(70, 256);
+            this.pbReginaNegru.Name = "pbReginaNegru";
+            this.pbReginaNegru.Size = new System.Drawing.Size(64, 64);
+            this.pbReginaNegru.TabIndex = 4;
+            this.pbReginaNegru.TabStop = false;
             // 
-            // pictureBox4
+            // pbRegeAlb
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox4.Location = new System.Drawing.Point(0, 320);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
+            this.pbRegeAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbRegeAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRegeAlb.BackgroundImage")));
+            this.pbRegeAlb.Location = new System.Drawing.Point(0, 320);
+            this.pbRegeAlb.Name = "pbRegeAlb";
+            this.pbRegeAlb.Size = new System.Drawing.Size(64, 64);
+            this.pbRegeAlb.TabIndex = 3;
+            this.pbRegeAlb.TabStop = false;
             // 
-            // pictureBox3
+            // pbNebunNegru
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox3.Location = new System.Drawing.Point(70, 192);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
+            this.pbNebunNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbNebunNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbNebunNegru.BackgroundImage")));
+            this.pbNebunNegru.Location = new System.Drawing.Point(70, 192);
+            this.pbNebunNegru.Name = "pbNebunNegru";
+            this.pbNebunNegru.Size = new System.Drawing.Size(64, 64);
+            this.pbNebunNegru.TabIndex = 2;
+            this.pbNebunNegru.TabStop = false;
             // 
-            // pictureBox2
+            // pbNebunAlb
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pictureBox2.Location = new System.Drawing.Point(0, 192);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
+            this.pbNebunAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbNebunAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbNebunAlb.BackgroundImage")));
+            this.pbNebunAlb.Location = new System.Drawing.Point(0, 192);
+            this.pbNebunAlb.Name = "pbNebunAlb";
+            this.pbNebunAlb.Size = new System.Drawing.Size(64, 64);
+            this.pbNebunAlb.TabIndex = 1;
+            this.pbNebunAlb.TabStop = false;
             // 
             // pbPionAlb
             // 
@@ -1301,11 +1312,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1146, 703);
+            this.ClientSize = new System.Drawing.Size(1146, 874);
             this.Controls.Add(this.panelPiese);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);
@@ -1387,16 +1397,16 @@
             this.panel3.PerformLayout();
             this.panelPiese.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pionNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalAlb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalNegru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeNegru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNegru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeAlb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1501,16 +1511,16 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panelPiese;
         private System.Windows.Forms.PictureBox pionNegru;
-        private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pbTuraAlb;
+        private System.Windows.Forms.PictureBox pbTuraNegru;
+        private System.Windows.Forms.PictureBox pbCalAlb;
+        private System.Windows.Forms.PictureBox pbCalNegru;
+        private System.Windows.Forms.PictureBox pbRegeNegru;
+        private System.Windows.Forms.PictureBox pbReginaAlb;
+        private System.Windows.Forms.PictureBox pbReginaNegru;
+        private System.Windows.Forms.PictureBox pbRegeAlb;
+        private System.Windows.Forms.PictureBox pbNebunNegru;
+        private System.Windows.Forms.PictureBox pbNebunAlb;
         private System.Windows.Forms.PictureBox pbPionAlb;
     }
 }

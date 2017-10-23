@@ -52,24 +52,23 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class LocatieTabla
         {
-            int arePiesa = 0;//0-nu are, 1-pion, 2-tura, 3-cal, 4-nebun, 5-regina, 6-rege;
-            bool sePoate = false;
-            PictureBox p;
+            bool arePiesa = false;
+            PictureBox imagineLocatie;
             public LocatieTabla(Piesa p, PictureBox b)
             {
-                this.p = b;
+                imagineLocatie = b;
                 b.BackgroundImage = p.imaginePiesa.BackgroundImage;
             }
             public LocatieTabla(PictureBox b)
             {
-                p = b;
+                imagineLocatie = b;
             }
             public void MarcheazaVerde(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
             {
-                this.sePoate = true;
+                
                 if (c.Checked == true)
                 {
-                    p.BackColor=Color.Green;
+                    imagineLocatie.BackColor=Color.Green;
                 }
             }
 
@@ -118,8 +117,11 @@ namespace Chess_Application
         private void Form1_Load(object sender, EventArgs e)
         {
             //LocatieTabla A1 = new LocatieTabla(10,_1A);
-            pion1alb = new Piesa(1, 1, pbPionAlb);
+            pion1alb = new Piesa(1, 1, pbTuraAlb);
             A1 = new LocatieTabla(pion1alb, _1B);
+
+            LocatieTabla[,] locatii = new LocatieTabla[10, 10];
+            LocatieTabla[1, 1] = A1;
 
 
         }
@@ -131,9 +133,9 @@ namespace Chess_Application
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //LocatieTabla h = new LocatieTabla(1, _1A);
-            //h.MarcheazaVerde(checkBox1);
-            
+            LocatieTabla h = new LocatieTabla(pion1alb, _1A);
+            h.MarcheazaVerde(checkBox1);
+
         }
 
         
