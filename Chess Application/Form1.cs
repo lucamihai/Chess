@@ -157,6 +157,7 @@ namespace Chess_Application
                 pozitieCifra2 = 0;
                 pozitieLitera2 = 0;
                 clickCounter = 0;
+
                 clkCounter.Text = "Selecteaza piesa pe care s-o muti";
             }
             
