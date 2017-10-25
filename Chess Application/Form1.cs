@@ -72,14 +72,16 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class LocatieTabla
         {
-            public Piesa piesa = null;
+            
             
             int tipPiesa = 0;
+            int culoare = 0;
             bool arePiesa = false;
             public bool sePoate = false;
             public PictureBox imagineLocatie;
             public LocatieTabla(Piesa p, PictureBox b)
             {
+                culoare = p.culoare;
                 arePiesa = true;
                 tipPiesa = p.tipPiesa;
                 imagineLocatie = b;
@@ -88,6 +90,7 @@ namespace Chess_Application
             public LocatieTabla(PictureBox b)
             {
                 imagineLocatie = b;
+
                 
             }
 
@@ -122,38 +125,42 @@ namespace Chess_Application
             public void Muta(LocatieTabla origine)
             {
                 imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
+                tipPiesa = origine.tipPiesa;
             }
 
-            public void Verifica(Piesa a)//apelata la click pe piesa
+            public void Verifica(int i, int j, LocatieTabla[,] loc )//apelata la click pe piesa
             {
-                if (a.tipPiesa == 1)
+                if (tipPiesa == 1)
                 {
-                    if (a.culoare == 1)//merge 
+                    if (culoare == 1)//merge 
+                    {
+                        if (loc[i + 1, j].imagineLocatie.BackgroundImage == null)
+                        {
+                            loc[i + 1, j].Marcheaza();
+                        }
+                    }
+                    if (culoare == 2)
                     {
 
                     }
-                    if (a.culoare == 2)
-                    {
-
-                    }
                 }
-                if (a.tipPiesa == 2)
+                if (tipPiesa == 2)
                 {
 
                 }
-                if (a.tipPiesa == 3)
+                if (tipPiesa == 3)
                 {
 
                 }
-                if (a.tipPiesa == 4)
+                if (tipPiesa == 4)
                 {
 
                 }
-                if (a.tipPiesa == 5)
+                if (tipPiesa == 5)
                 {
 
                 }
-                if (a.tipPiesa == 6)
+                if (tipPiesa == 6)
                 {
 
                 }
@@ -183,7 +190,7 @@ namespace Chess_Application
             pion7Alb = new Piesa(1, 1, pbPionAlb); pion8Alb = new Piesa(1, 1, pbPionAlb);
 
             pion1Negru = new Piesa(1, 1, pbPionNegru);
-            tura1Negru = new Piesa(1, 1, pbTuraNegru); tura2Negru = new Piesa(1, 1, pbTuraNegru);
+            tura1Negru = new Piesa(2, 2, pbTuraNegru); tura2Negru = new Piesa(1, 1, pbTuraNegru);
             nebun1Negru = new Piesa(1, 1, pbNebunNegru); nebun2Negru = new Piesa(1, 1, pbNebunNegru);
             cal1Negru = new Piesa(1, 1, pbCalNegru); cal2Negru = new Piesa(1, 1, pbCalNegru);
             reginaNegru = new Piesa(1, 1, pbReginaNegru); regeNegru = new Piesa(1, 1, pbRegeNegru);
@@ -208,7 +215,7 @@ namespace Chess_Application
             B6 = new LocatieTabla(pion6Alb, _6B);
             B7 = new LocatieTabla(pion7Alb, _7B);
             B8 = new LocatieTabla(pion8Alb, _8B);
-
+            
             H1 = new LocatieTabla(tura1Negru, _1H);
             H2 = new LocatieTabla(cal1Negru, _2H);
             H3 = new LocatieTabla(nebun1Negru, _3H);
@@ -251,7 +258,7 @@ namespace Chess_Application
             locatii[2, 1] = B1;
             locatii[3, 1] = C1;
 
-
+            //locatii[3,1].Marcheaza();
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -334,12 +341,39 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
                 clkCounter.Text = "Selecteaza casuta in care sa muti";
-                
+                B1.Verifica(2, 1, locatii);
 
             }
             else if (B1 != orig)
             {
                 B1.Muta(orig);
+                orig.StergeLocatie();
+                x.Text = pozitieCifra2.ToString();
+                y.Text = pozitieLitera2.ToString();
+                pozitieCifra2 = 0;
+                pozitieLitera2 = 0;
+                clickCounter = 0;
+                clkCounter.Text = "Selecteaza piesa pe care s-o muti";
+
+            }
+        }
+        private void _1H_Click(object sender, EventArgs e)
+        {
+            if (clickCounter == 0 && _1H.BackgroundImage != null)
+            {
+                orig = H1;
+
+                pozitieCifra1 = 1;
+                pozitieLitera1 = 1;
+                x.Text = pozitieCifra1.ToString();
+                y.Text = pozitieLitera1.ToString();
+                clickCounter++;
+                clkCounter.Text = "Selecteaza casuta in care sa muti";
+
+            }
+            else if (H1 != orig)
+            {
+                H1.Muta(orig);
                 orig.StergeLocatie();
                 x.Text = pozitieCifra2.ToString();
                 y.Text = pozitieLitera2.ToString();

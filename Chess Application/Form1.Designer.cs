@@ -861,6 +861,7 @@
             this._1H.Size = new System.Drawing.Size(64, 64);
             this._1H.TabIndex = 0;
             this._1H.TabStop = false;
+            this._1H.Click += new System.EventHandler(this._1H_Click);
             // 
             // _2H
             // 
