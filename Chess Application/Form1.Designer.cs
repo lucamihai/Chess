@@ -33,6 +33,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.clkCounter = new System.Windows.Forms.Label();
             this.y = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.x = new System.Windows.Forms.Label();
             this._1A = new System.Windows.Forms.PictureBox();
             this._2A = new System.Windows.Forms.PictureBox();
@@ -105,7 +106,6 @@
             this.quitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -125,7 +125,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panelPiese = new System.Windows.Forms.Panel();
-            this.pionNegru = new System.Windows.Forms.PictureBox();
+            this.pbPionNegru = new System.Windows.Forms.PictureBox();
             this.pbTuraAlb = new System.Windows.Forms.PictureBox();
             this.pbTuraNegru = new System.Windows.Forms.PictureBox();
             this.pbCalAlb = new System.Windows.Forms.PictureBox();
@@ -206,7 +206,7 @@
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelPiese.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pionNegru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPionNegru)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCalAlb)).BeginInit();
@@ -326,6 +326,16 @@
             this.y.TabIndex = 2;
             this.y.Text = "Litera: ";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(581, 361);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // x
             // 
             this.x.AutoSize = true;
@@ -344,6 +354,7 @@
             this._1A.Size = new System.Drawing.Size(64, 64);
             this._1A.TabIndex = 0;
             this._1A.TabStop = false;
+            this._1A.Click += new System.EventHandler(this._1A_Click);
             // 
             // _2A
             // 
@@ -353,6 +364,7 @@
             this._2A.Size = new System.Drawing.Size(64, 64);
             this._2A.TabIndex = 0;
             this._2A.TabStop = false;
+            this._2A.Click += new System.EventHandler(this._2A_Click);
             // 
             // _3A
             // 
@@ -968,16 +980,6 @@
             this.menuStrip2.TabIndex = 3;
             this.menuStrip2.Text = "menuStrip2";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(581, 361);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -1170,7 +1172,7 @@
             // 
             // panelPiese
             // 
-            this.panelPiese.Controls.Add(this.pionNegru);
+            this.panelPiese.Controls.Add(this.pbPionNegru);
             this.panelPiese.Controls.Add(this.pbTuraAlb);
             this.panelPiese.Controls.Add(this.pbTuraNegru);
             this.panelPiese.Controls.Add(this.pbCalAlb);
@@ -1186,16 +1188,17 @@
             this.panelPiese.Name = "panelPiese";
             this.panelPiese.Size = new System.Drawing.Size(140, 606);
             this.panelPiese.TabIndex = 15;
+            this.panelPiese.Visible = false;
             // 
-            // pionNegru
+            // pbPionNegru
             // 
-            this.pionNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pionNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pionNegru.BackgroundImage")));
-            this.pionNegru.Location = new System.Drawing.Point(70, 0);
-            this.pionNegru.Name = "pionNegru";
-            this.pionNegru.Size = new System.Drawing.Size(64, 64);
-            this.pionNegru.TabIndex = 11;
-            this.pionNegru.TabStop = false;
+            this.pbPionNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbPionNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbPionNegru.BackgroundImage")));
+            this.pbPionNegru.Location = new System.Drawing.Point(70, 0);
+            this.pbPionNegru.Name = "pbPionNegru";
+            this.pbPionNegru.Size = new System.Drawing.Size(64, 64);
+            this.pbPionNegru.TabIndex = 11;
+            this.pbPionNegru.TabStop = false;
             // 
             // pbTuraAlb
             // 
@@ -1396,7 +1399,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panelPiese.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pionNegru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPionNegru)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCalAlb)).EndInit();
@@ -1510,7 +1513,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panelPiese;
-        private System.Windows.Forms.PictureBox pionNegru;
+        private System.Windows.Forms.PictureBox pbPionNegru;
         private System.Windows.Forms.PictureBox pbTuraAlb;
         private System.Windows.Forms.PictureBox pbTuraNegru;
         private System.Windows.Forms.PictureBox pbCalAlb;
