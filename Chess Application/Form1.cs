@@ -12,51 +12,36 @@ namespace Chess_Application
 {
     public partial class Form1 : Form
     {
-        Piesa pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
-        Piesa pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
-
-        private void panelPiese_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-
-        }
         int clickCounter = 0;
         int pozitieCifra1;
         int pozitieLitera1;
         int pozitieCifra2;
         int pozitieLitera2;
 
+        public LocatieTabla[,] locatii;
+
+        Piesa pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
+        Piesa pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
+
         Piesa tura1Alb, tura2Alb;
         Piesa nebun1Alb, nebun2Alb;
         Piesa cal1Alb, cal2Alb;
-        Piesa reginaAlb;
-        Piesa regeAlb;
-
-
+        Piesa reginaAlb; Piesa regeAlb;
 
         Piesa tura1Negru, tura2Negru;
+
         Piesa nebun1Negru, nebun2Negru;
         Piesa cal1Negru, cal2Negru;
         Piesa reginaNegru, regeNegru;
 
         LocatieTabla orig;
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         LocatieTabla A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
         LocatieTabla H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
+
+        LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
+        LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
+       
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Piesa
         {
@@ -78,17 +63,20 @@ namespace Chess_Application
             }
             public int culoare = 1;//1-alb, 2-negru;
             public int tipPiesa = 0;//0-nici una, 1-pion, 2-tura, 3-cal, 4-nebun, 5-regina, 6-rege;
-            public void VerificaPosibilitati()//self-explanatory -  verifica posibilitatile de miscare a piesei: tipul ofera comportamentul miscarii, iar culoarea directia...
+            public void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)//self-explanatory -  verifica posibilitatile de miscare a piesei: tipul ofera comportamentul miscarii, iar culoarea directia...
             {
-
-            }
+               
+            }            
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class LocatieTabla
         {
+            public Piesa piesa = null;
+            
             int tipPiesa = 0;
             bool arePiesa = false;
+            public bool sePoate = false;
             public PictureBox imagineLocatie;
             public LocatieTabla(Piesa p, PictureBox b)
             {
@@ -100,21 +88,28 @@ namespace Chess_Application
             public LocatieTabla(PictureBox b)
             {
                 imagineLocatie = b;
+                
             }
 
             public void SelecteazaCasute(int i, int j)
             {
                 if (tipPiesa == 1)
                 {
-                    //List<int> poateMerge = new List<int>();
-                    // poateMerge.Add(i + 1);
-                    // poateMerge.Add(j);
+                    
                 }
             }
             public void MarcheazaVerde(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
             {
 
                 if (c.Checked == true)
+                {
+                    imagineLocatie.BackColor = Color.Green;
+                }
+            }
+            public void Marcheaza()//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
+            {
+
+                
                 {
                     imagineLocatie.BackColor = Color.Green;
                 }
@@ -163,6 +158,11 @@ namespace Chess_Application
 
                 }
             }
+        }
+
+        class Pion :Piesa
+        {
+
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public Form1()
@@ -225,9 +225,31 @@ namespace Chess_Application
             G6 = new LocatieTabla(pion6Negru, _6G);
             G7 = new LocatieTabla(pion7Negru, _7G);
             G8 = new LocatieTabla(pion8Negru, _8G);
-            LocatieTabla[,] locatii = new LocatieTabla[10, 10];
+
+            C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D);
+            C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D);
+            C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D);
+            C4 = new LocatieTabla(_4C); D4 = new LocatieTabla(_4D);
+            C5 = new LocatieTabla(_5C); D5 = new LocatieTabla(_5D);
+            C6 = new LocatieTabla(_6C); D6 = new LocatieTabla(_6D);
+            C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D);
+            C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D);
+
+            E1 = new LocatieTabla(_1C); F1 = new LocatieTabla(_1D);
+            E2 = new LocatieTabla(_2C); F2 = new LocatieTabla(_2D);
+            E3 = new LocatieTabla(_3C); F3 = new LocatieTabla(_3D);
+            E4 = new LocatieTabla(_4C); F4 = new LocatieTabla(_4D);
+            E5 = new LocatieTabla(_5C); F5 = new LocatieTabla(_5D);
+            E6 = new LocatieTabla(_6C); F6 = new LocatieTabla(_6D);
+            E7 = new LocatieTabla(_7C); F7 = new LocatieTabla(_7D);
+            E8 = new LocatieTabla(_8C); F8 = new LocatieTabla(_8D);
+
+            locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1;
             locatii[1, 2] = A2;
+            locatii[1, 3] = A3;
+            locatii[2, 1] = B1;
+            locatii[3, 1] = C1;
 
 
         }
@@ -250,12 +272,14 @@ namespace Chess_Application
             if (clickCounter == 0 && _1A.BackgroundImage != null)
             {
                 orig = A1;
+                
                 pozitieCifra1 = 1;
                 pozitieLitera1 = 1;
                 x.Text = pozitieCifra1.ToString();
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
                 clkCounter.Text = "Selecteaza casuta in care sa muti";
+                
             }
             else if (A1 != orig)
             {
@@ -276,6 +300,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2A.BackgroundImage != null)
             {
+                
                 orig = A2;
                 pozitieCifra1 = 1;
                 pozitieLitera1 = 1;
@@ -301,6 +326,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1B.BackgroundImage != null)
             {
+                
                 orig = B1;
                 pozitieCifra1 = 1;
                 pozitieLitera1 = 1;
@@ -308,6 +334,8 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
                 clkCounter.Text = "Selecteaza casuta in care sa muti";
+                
+
             }
             else if (B1 != orig)
             {
