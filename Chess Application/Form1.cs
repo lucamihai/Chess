@@ -18,6 +18,8 @@ namespace Chess_Application
         int pozitieCifra2;
         int pozitieLitera2;
 
+        PictureBox[,] culoriCasute;
+
         public LocatieTabla[,] locatii;
 
         Piesa pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
@@ -72,8 +74,7 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class LocatieTabla
         {
-            
-            
+     
             int tipPiesa = 0;
             int culoare = 0;
             bool arePiesa = false;
@@ -126,9 +127,10 @@ namespace Chess_Application
             {
                 imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
                 tipPiesa = origine.tipPiesa;
+                culoare = origine.culoare;
             }
 
-            public void Verifica(int i, int j, LocatieTabla[,] loc )//apelata la click pe piesa
+            public void Verifica(int i, int j, LocatieTabla[,] loc, PictureBox[,] culori )//apelata la click pe piesa
             {
                 if (tipPiesa == 1)
                 {
@@ -136,6 +138,7 @@ namespace Chess_Application
                     {
                         if (loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                         {
+                            culori[i + 1, j].BackColor = loc[i + 1, j].imagineLocatie.BackColor;
                             loc[i + 1, j].Marcheaza();
                         }
                     }
@@ -251,6 +254,7 @@ namespace Chess_Application
             E7 = new LocatieTabla(_7C); F7 = new LocatieTabla(_7D);
             E8 = new LocatieTabla(_8C); F8 = new LocatieTabla(_8D);
 
+            culoriCasute = new PictureBox[70,70];
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1;
             locatii[1, 2] = A2;
@@ -341,7 +345,7 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
                 clkCounter.Text = "Selecteaza casuta in care sa muti";
-                B1.Verifica(2, 1, locatii);
+                B1.Verifica(2, 1, locatii, culoriCasute);
 
             }
             else if (B1 != orig)
