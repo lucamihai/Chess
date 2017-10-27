@@ -501,6 +501,7 @@
             this._1C.Size = new System.Drawing.Size(64, 64);
             this._1C.TabIndex = 0;
             this._1C.TabStop = false;
+            this._1C.Click += new System.EventHandler(this._1C_Click);
             // 
             // _2C
             // 
@@ -510,6 +511,7 @@
             this._2C.Size = new System.Drawing.Size(64, 64);
             this._2C.TabIndex = 0;
             this._2C.TabStop = false;
+            this._2C.Click += new System.EventHandler(this._2C_Click);
             // 
             // _3C
             // 

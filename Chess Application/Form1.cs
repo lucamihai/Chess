@@ -18,7 +18,7 @@ namespace Chess_Application
         int pozitieCifra2;
         int pozitieLitera2;
 
-        PictureBox[,] culoriCasute;
+        Color[,] culoriCasute;
 
         public LocatieTabla[,] locatii;
 
@@ -74,7 +74,7 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class LocatieTabla
         {
-     
+            Piesa plm;
             int tipPiesa = 0;
             int culoare = 0;
             bool arePiesa = false;
@@ -82,6 +82,7 @@ namespace Chess_Application
             public PictureBox imagineLocatie;
             public LocatieTabla(Piesa p, PictureBox b)
             {
+                plm = p;
                 culoare = p.culoare;
                 arePiesa = true;
                 tipPiesa = p.tipPiesa;
@@ -91,7 +92,6 @@ namespace Chess_Application
             public LocatieTabla(PictureBox b)
             {
                 imagineLocatie = b;
-
                 
             }
 
@@ -115,6 +115,7 @@ namespace Chess_Application
 
                 
                 {
+                    sePoate = true;
                     imagineLocatie.BackColor = Color.Green;
                 }
             }
@@ -128,32 +129,126 @@ namespace Chess_Application
                 imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
                 tipPiesa = origine.tipPiesa;
                 culoare = origine.culoare;
+                origine.culoare = 0;
+                origine.tipPiesa = 0;
             }
 
-            public void Verifica(int i, int j, LocatieTabla[,] loc, PictureBox[,] culori )//apelata la click pe piesa
+            public void RestaureazaCuloare(int i, int j, LocatieTabla[,] loc, Color[,] c)
+            {
+                loc[i, j].imagineLocatie.BackColor = c[i, j];
+                c[i, j] = Color.Empty;
+            }
+
+            public void Verifica(int i, int j, LocatieTabla[,] loc, Color[,] culori )//apelata la click pe piesa; edit: de folosit doar culoarea in if-uri(casute goale==culoare 0) 
             {
                 if (tipPiesa == 1)
                 {
-                    if (culoare == 1)//merge 
+                    if (culoare == 1)//pion alb
                     {
                         if (loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                         {
-                            culori[i + 1, j].BackColor = loc[i + 1, j].imagineLocatie.BackColor;
+                            culori[i + 1, j] = loc[i + 1, j].imagineLocatie.BackColor;
                             loc[i + 1, j].Marcheaza();
                         }
+                        if (j < 8 && loc[i + 1, j + 1].culoare==2)
+                        {
+                            culori[i + 1, j] = loc[i + 1, j].imagineLocatie.BackColor;
+                            loc[i + 1, j + 1].Marcheaza();
+                        }
+                        if (j > 1 && loc[i + 1, j - 1].culoare == 2)
+                        {
+                            culori[i + 1, j] = loc[i + 1, j].imagineLocatie.BackColor;
+                            loc[i + 1, j - 1].Marcheaza();
+                        }
+
                     }
-                    if (culoare == 2)
+                    if (culoare == 2)//pion negru
                     {
-
+                        if (loc[i - 1, j].imagineLocatie.BackgroundImage == null)
+                        {
+                            culori[i + 1, j] = loc[i + 1, j].imagineLocatie.BackColor;
+                            loc[i + 1, j].Marcheaza();
+                        }
+                        if (j < 8 && loc[i - 1, j + 1].culoare == 2)
+                        {
+                            culori[i + 1, j] = loc[i + 1, j].imagineLocatie.BackColor;
+                            loc[i + 1, j + 1].Marcheaza();
+                        }
+                        if (j > 1 && loc[i - 1, j - 1].culoare == 2)
+                        {
+                            culori[i + 1, j] = loc[i + 1, j].imagineLocatie.BackColor;
+                            loc[i + 1, j - 1].Marcheaza();
+                        }
                     }
                 }
-                if (tipPiesa == 2)
+                if (tipPiesa == 2)//tura
                 {
-
+                    for (int k = j; k>=1; k--)
+                    {
+                        if (loc[i, k].imagineLocatie.BackgroundImage==null || loc[i,k].culoare==2)
+                        {
+                            loc[i, k].Marcheaza();
+                        }
+                    }
+                    for (int k = j ; k <= 8; k++)
+                    {
+                        if (loc[i, k].imagineLocatie.BackgroundImage == null || loc[i, k].culoare == 2)
+                        {
+                            loc[i, k].Marcheaza();
+                        }
+                    }
+                    for (int k = i ; k >= 1; k--)
+                    {
+                        if (loc[k, j].imagineLocatie.BackgroundImage == null || loc[k, j].culoare == 2)
+                        {
+                            loc[k, j].Marcheaza();
+                        }
+                    }
+                    for (int k = j - 1; k > 1; k++)
+                    {
+                        if (loc[k, j].imagineLocatie.BackgroundImage == null || loc[k, j].culoare == 2)
+                        {
+                            loc[k, j].Marcheaza();
+                        }
+                    }
                 }
-                if (tipPiesa == 3)
+                if (tipPiesa == 3)//cal
                 {
-
+                    if ((i < 8 && j < 7) && (loc[i + 1, j + 2].imagineLocatie.BackgroundImage==null || loc[i + 1, j + 2].culoare == 2))
+                    {
+                        loc[i + 1, j + 2].Marcheaza();
+                    }
+                    if ((i < 8 && j > 2) && (loc[i + 1, j - 2].imagineLocatie.BackgroundImage == null || loc[i + 1, j - 2].culoare == 2))
+                    {
+                        loc[i + 1, j - 2].Marcheaza();
+                    }
+                    //===
+                    if ((i < 7 && j < 8) && (loc[i + 2, j + 1].imagineLocatie.BackgroundImage == null || loc[i + 2, j + 1].culoare == 2))
+                    {
+                        loc[i + 2, j + 1].Marcheaza();
+                    }
+                    if ((i < 7 && j > 1) && (loc[i + 2, j - 1].imagineLocatie.BackgroundImage == null || loc[i + 2, j - 1].culoare == 2))
+                    {
+                        loc[i + 2, j - 1].Marcheaza();
+                    }
+                    //===
+                    if ((i > 1 && j < 7) && (loc[i - 1, j + 2].imagineLocatie.BackgroundImage == null || loc[i - 1, j + 2].culoare == 2))
+                    {
+                        loc[i - 1, j + 2].Marcheaza();
+                    }
+                    if ((i > 1 && j > 2) && (loc[i - 1, j - 2].imagineLocatie.BackgroundImage == null || loc[i - 1, j - 2].culoare == 2))
+                    {
+                        loc[i - 1, j - 2].Marcheaza();
+                    }
+                    //===                 
+                    if ((i > 2 && j < 8) && (loc[i - 2, j + 1].imagineLocatie.BackgroundImage == null || loc[i - 2, j + 1].culoare == 2))
+                    {
+                        loc[i - 2, j + 1].Marcheaza();
+                    }
+                    if ((i > 2 && j > 1) && (loc[i - 2, j - 1].imagineLocatie.BackgroundImage == null || loc[i - 2, j - 1].culoare == 2))
+                    {
+                        loc[i - 2, j - 1].Marcheaza();
+                    }
                 }
                 if (tipPiesa == 4)
                 {
@@ -183,9 +278,9 @@ namespace Chess_Application
         private void Form1_Load(object sender, EventArgs e)
         {
             //LocatieTabla A1 = new LocatieTabla(10,_1A);
-            tura1Alb = new Piesa(1, 1, pbTuraAlb); tura2Alb = new Piesa(1, 2, pbTuraAlb);
+            tura1Alb = new Piesa(1, 2, pbTuraAlb); tura2Alb = new Piesa(1, 2, pbTuraAlb);
             nebun1Alb = new Piesa(1, 1, pbNebunAlb); nebun2Alb = new Piesa(1, 1, pbNebunAlb);
-            cal1Alb = new Piesa(1, 1, pbCalAlb); cal2Alb = new Piesa(1, 1, pbCalAlb);
+            cal1Alb = new Piesa(1, 3, pbCalAlb); cal2Alb = new Piesa(1, 1, pbCalAlb);
             reginaAlb = new Piesa(1, 1, pbReginaAlb); regeAlb = new Piesa(1, 1, pbRegeAlb);
             pion1Alb = new Piesa(1, 1, pbPionAlb); pion2Alb = new Piesa(1, 1, pbPionAlb);
             pion3Alb = new Piesa(1, 1, pbPionAlb); pion4Alb = new Piesa(1, 1, pbPionAlb);
@@ -202,9 +297,10 @@ namespace Chess_Application
             pion5Negru = new Piesa(1, 1, pbPionNegru); pion6Negru = new Piesa(1, 1, pbPionNegru);
             pion7Negru = new Piesa(1, 1, pbPionNegru); pion8Negru = new Piesa(1, 1, pbPionNegru);
 
+
             A1 = new LocatieTabla(tura1Alb, _1A);
-            A2 = new LocatieTabla(nebun1Alb, _2A);
-            A3 = new LocatieTabla(cal1Alb, _3A);
+            A2 = new LocatieTabla(cal1Alb, _2A);
+            A3 = new LocatieTabla(nebun1Alb, _3A);
             A4 = new LocatieTabla(reginaAlb, _4A);
             A5 = new LocatieTabla(regeAlb, _5A);
             A6 = new LocatieTabla(nebun2Alb, _6A);
@@ -237,7 +333,7 @@ namespace Chess_Application
             G8 = new LocatieTabla(pion8Negru, _8G);
 
             C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D);
-            C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D);
+            C2 = new LocatieTabla(tura1Negru, _2C); D2 = new LocatieTabla(_2D);
             C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D);
             C4 = new LocatieTabla(_4C); D4 = new LocatieTabla(_4D);
             C5 = new LocatieTabla(_5C); D5 = new LocatieTabla(_5D);
@@ -254,13 +350,30 @@ namespace Chess_Application
             E7 = new LocatieTabla(_7C); F7 = new LocatieTabla(_7D);
             E8 = new LocatieTabla(_8C); F8 = new LocatieTabla(_8D);
 
-            culoriCasute = new PictureBox[70,70];
-            locatii = new LocatieTabla[10, 10];
+            culoriCasute = new Color[70,70];
+            locatii = new LocatieTabla[100, 100];
             locatii[1, 1] = A1;
             locatii[1, 2] = A2;
             locatii[1, 3] = A3;
             locatii[2, 1] = B1;
+            locatii[2, 2] = B2;
+            locatii[2, 3] = B3;
+            locatii[2, 4] = B4;
+            locatii[2, 5] = B5;
+            locatii[2, 6] = B6;
+            locatii[2, 7] = B7;
+            locatii[2, 8] = B8;
             locatii[3, 1] = C1;
+            locatii[3, 2] = C2;
+            locatii[3, 3] = C3;
+            locatii[3, 4] = C4;
+            locatii[3, 5] = C5;
+            locatii[4, 1] = D1;
+            locatii[4, 2] = D2;
+            locatii[5, 1] = E1;
+            locatii[6, 1] = F1;
+            locatii[7, 1] = G1;
+            locatii[8, 1] = H1;
 
             //locatii[3,1].Marcheaza();
         }
@@ -310,8 +423,7 @@ namespace Chess_Application
         private void _2A_Click(object sender, EventArgs e)
         {
             if (clickCounter == 0 && _2A.BackgroundImage != null)
-            {
-                
+            {  
                 orig = A2;
                 pozitieCifra1 = 1;
                 pozitieLitera1 = 1;
@@ -319,6 +431,7 @@ namespace Chess_Application
                 y.Text = pozitieLitera1.ToString();
                 clickCounter++;
                 clkCounter.Text = "Selecteaza casuta in care sa muti";
+                A2.Verifica(1, 2, locatii, culoriCasute);
             }
             else if (A2 != orig)
             {
@@ -358,6 +471,66 @@ namespace Chess_Application
                 pozitieLitera2 = 0;
                 clickCounter = 0;
                 clkCounter.Text = "Selecteaza piesa pe care s-o muti";
+
+            }
+        }
+
+        private void _1C_Click(object sender, EventArgs e)
+        {
+            if (clickCounter == 0 && _1C.BackgroundImage != null)
+            {
+
+                orig = C1;
+                pozitieCifra1 = 1;
+                pozitieLitera1 = 1;
+                x.Text = pozitieCifra1.ToString();
+                y.Text = pozitieLitera1.ToString();
+                clickCounter++;
+                clkCounter.Text = "Selecteaza casuta in care sa muti";
+                C1.Verifica(3, 1, locatii, culoriCasute);
+
+            }
+            else if (C1 != orig && C1.sePoate==true)
+            {
+                C1.Muta(orig);
+                orig.StergeLocatie();
+                x.Text = pozitieCifra2.ToString();
+                y.Text = pozitieLitera2.ToString();
+                pozitieCifra2 = 0;
+                pozitieLitera2 = 0;
+                clickCounter = 0;
+                clkCounter.Text = "Selecteaza piesa pe care s-o muti";
+                C1.sePoate = false;
+            }
+        }
+
+        private void _2C_Click(object sender, EventArgs e)
+        {
+            if (clickCounter == 0 && _2C.BackgroundImage != null)
+            {
+
+                orig = C2;
+                pozitieCifra1 = 1;
+                pozitieLitera1 = 1;
+                x.Text = pozitieCifra1.ToString();
+                y.Text = pozitieLitera1.ToString();
+                clickCounter++;
+                clkCounter.Text = "Selecteaza casuta in care sa muti";
+                C2.Verifica(2, 1, locatii, culoriCasute);
+
+            }
+            else if (C2 != orig && C2.sePoate == true)
+            {
+                C2.Muta(orig);
+                orig.StergeLocatie();
+                x.Text = pozitieCifra2.ToString();
+                y.Text = pozitieLitera2.ToString();
+                pozitieCifra2 = 0;
+                pozitieLitera2 = 0;
+                clickCounter = 0;
+                clkCounter.Text = "Selecteaza piesa pe care s-o muti";
+                //if (C2.imagineLocatie.BackgroundImage == null) C2.sePoate = true;
+                //else C2.sePoate = false;
 
             }
         }
