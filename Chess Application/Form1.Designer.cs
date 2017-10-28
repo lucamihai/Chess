@@ -374,6 +374,7 @@
             this._3A.Size = new System.Drawing.Size(64, 64);
             this._3A.TabIndex = 0;
             this._3A.TabStop = false;
+            this._3A.Click += new System.EventHandler(this._3A_Click);
             // 
             // _4A
             // 
@@ -438,6 +439,7 @@
             this._2B.Size = new System.Drawing.Size(64, 64);
             this._2B.TabIndex = 0;
             this._2B.TabStop = false;
+            this._2B.Click += new System.EventHandler(this._2B_Click);
             // 
             // _3B
             // 
@@ -873,6 +875,7 @@
             this._2H.Size = new System.Drawing.Size(64, 64);
             this._2H.TabIndex = 0;
             this._2H.TabStop = false;
+            this._2H.Click += new System.EventHandler(this._2H_Click);
             // 
             // _3H
             // 
@@ -882,6 +885,7 @@
             this._3H.Size = new System.Drawing.Size(64, 64);
             this._3H.TabIndex = 0;
             this._3H.TabStop = false;
+            this._3H.Click += new System.EventHandler(this._3H_Click);
             // 
             // _4H
             // 
