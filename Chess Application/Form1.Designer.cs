@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -295,6 +296,8 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(852, 512);
             this.panel2.TabIndex = 1;
+
+
             // 
             // checkBox1
             // 
@@ -354,7 +357,7 @@
             this._1A.Size = new System.Drawing.Size(64, 64);
             this._1A.TabIndex = 0;
             this._1A.TabStop = false;
-            this._1A.Click += new System.EventHandler(this._1A_Click);
+
             // 
             // _2A
             // 
@@ -364,7 +367,7 @@
             this._2A.Size = new System.Drawing.Size(64, 64);
             this._2A.TabIndex = 0;
             this._2A.TabStop = false;
-            this._2A.Click += new System.EventHandler(this._2A_Click);
+
             // 
             // _3A
             // 
@@ -374,7 +377,7 @@
             this._3A.Size = new System.Drawing.Size(64, 64);
             this._3A.TabIndex = 0;
             this._3A.TabStop = false;
-            this._3A.Click += new System.EventHandler(this._3A_Click);
+
             // 
             // _4A
             // 
@@ -429,7 +432,7 @@
             this._1B.Size = new System.Drawing.Size(64, 64);
             this._1B.TabIndex = 0;
             this._1B.TabStop = false;
-            this._1B.Click += new System.EventHandler(this._1B_Click);
+
             // 
             // _2B
             // 
@@ -439,7 +442,7 @@
             this._2B.Size = new System.Drawing.Size(64, 64);
             this._2B.TabIndex = 0;
             this._2B.TabStop = false;
-            this._2B.Click += new System.EventHandler(this._2B_Click);
+
             // 
             // _3B
             // 
@@ -503,7 +506,7 @@
             this._1C.Size = new System.Drawing.Size(64, 64);
             this._1C.TabIndex = 0;
             this._1C.TabStop = false;
-            this._1C.Click += new System.EventHandler(this._1C_Click);
+
             // 
             // _2C
             // 
@@ -513,7 +516,7 @@
             this._2C.Size = new System.Drawing.Size(64, 64);
             this._2C.TabIndex = 0;
             this._2C.TabStop = false;
-            this._2C.Click += new System.EventHandler(this._2C_Click);
+
             // 
             // _3C
             // 
@@ -865,7 +868,7 @@
             this._1H.Size = new System.Drawing.Size(64, 64);
             this._1H.TabIndex = 0;
             this._1H.TabStop = false;
-            this._1H.Click += new System.EventHandler(this._1H_Click);
+
             // 
             // _2H
             // 
@@ -931,6 +934,72 @@
             this._8H.Size = new System.Drawing.Size(64, 64);
             this._8H.TabIndex = 0;
             this._8H.TabStop = false;
+
+
+            this._1A.Click += new System.EventHandler(this._1A_Click);
+            this._2A.Click += new System.EventHandler(this._2A_Click);
+            this._3A.Click += new System.EventHandler(this._3A_Click);
+            this._4A.Click += new System.EventHandler(this._4A_Click);
+            this._5A.Click += new System.EventHandler(this._5A_Click);
+            this._6A.Click += new System.EventHandler(this._6A_Click);
+            this._7A.Click += new System.EventHandler(this._7A_Click);
+            this._8A.Click += new System.EventHandler(this._8A_Click);
+            this._1B.Click += new System.EventHandler(this._1B_Click);
+            this._2B.Click += new System.EventHandler(this._2B_Click);
+            this._3B.Click += new System.EventHandler(this._3B_Click);
+            this._4B.Click += new System.EventHandler(this._4B_Click);
+            this._5B.Click += new System.EventHandler(this._5B_Click);
+            this._6B.Click += new System.EventHandler(this._6B_Click);
+            this._7B.Click += new System.EventHandler(this._7B_Click);
+            this._8B.Click += new System.EventHandler(this._8B_Click);
+            this._1C.Click += new System.EventHandler(this._1C_Click);
+            this._2C.Click += new System.EventHandler(this._2C_Click);
+            this._3C.Click += new System.EventHandler(this._3C_Click);
+            this._4C.Click += new System.EventHandler(this._4C_Click);
+            this._5C.Click += new System.EventHandler(this._5C_Click);
+            this._6C.Click += new System.EventHandler(this._6C_Click);
+            this._7C.Click += new System.EventHandler(this._7C_Click);
+            this._8C.Click += new System.EventHandler(this._8C_Click);
+            this._1D.Click += new System.EventHandler(this._1D_Click);
+            this._2D.Click += new System.EventHandler(this._2D_Click);
+            this._3D.Click += new System.EventHandler(this._3D_Click);
+            this._4D.Click += new System.EventHandler(this._4D_Click);
+            this._5D.Click += new System.EventHandler(this._5D_Click);
+            this._6D.Click += new System.EventHandler(this._6D_Click);
+            this._7D.Click += new System.EventHandler(this._7D_Click);
+            this._8D.Click += new System.EventHandler(this._8D_Click);
+            this._1E.Click += new System.EventHandler(this._1E_Click);
+            this._2E.Click += new System.EventHandler(this._2E_Click);
+            this._3E.Click += new System.EventHandler(this._3E_Click);
+            this._4E.Click += new System.EventHandler(this._4E_Click);
+            this._5E.Click += new System.EventHandler(this._5E_Click);
+            this._6E.Click += new System.EventHandler(this._6E_Click);
+            this._7E.Click += new System.EventHandler(this._7E_Click);
+            this._8E.Click += new System.EventHandler(this._8E_Click);
+            this._1F.Click += new System.EventHandler(this._1F_Click);
+            this._2F.Click += new System.EventHandler(this._2F_Click);
+            this._3F.Click += new System.EventHandler(this._3F_Click);
+            this._4F.Click += new System.EventHandler(this._4F_Click);
+            this._5F.Click += new System.EventHandler(this._5F_Click);
+            this._6F.Click += new System.EventHandler(this._6F_Click);
+            this._7F.Click += new System.EventHandler(this._7F_Click);
+            this._8F.Click += new System.EventHandler(this._8F_Click);
+            this._1G.Click += new System.EventHandler(this._1G_Click);
+            this._2G.Click += new System.EventHandler(this._2G_Click);
+            this._3G.Click += new System.EventHandler(this._3G_Click);
+            this._4G.Click += new System.EventHandler(this._4G_Click);
+            this._5G.Click += new System.EventHandler(this._5G_Click);
+            this._6G.Click += new System.EventHandler(this._6G_Click);
+            this._7G.Click += new System.EventHandler(this._7G_Click);
+            this._8G.Click += new System.EventHandler(this._8G_Click);
+            this._1H.Click += new System.EventHandler(this._1H_Click);
+            this._2H.Click += new System.EventHandler(this._2H_Click);
+            this._3H.Click += new System.EventHandler(this._3H_Click);
+            this._4H.Click += new System.EventHandler(this._4H_Click);
+            this._5H.Click += new System.EventHandler(this._5H_Click);
+            this._6H.Click += new System.EventHandler(this._6H_Click);
+            this._7H.Click += new System.EventHandler(this._7H_Click);
+            this._8H.Click += new System.EventHandler(this._8H_Click);
             // 
             // menuStrip1
             // 
