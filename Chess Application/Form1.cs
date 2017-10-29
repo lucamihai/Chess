@@ -139,15 +139,15 @@ namespace Chess_Application
                 {
                     if (culoare == 1)//pion alb
                     {
-                        if (loc[i + 1, j].imagineLocatie.BackgroundImage == null)
+                        if (loc[i + 1, j]!=null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                         {
                             loc[i + 1, j].Marcheaza();
                         }
-                        if (j < 8 && loc[i + 1, j + 1].culoare==2)
+                        if (i<8&&j < 8 && loc[i + 1, j + 1].culoare==2)
                         {
                             loc[i + 1, j + 1].Marcheaza();
                         }
-                        if (j > 1 && loc[i + 1, j - 1].culoare == 2)
+                        if (i<8&&j > 1 && loc[i + 1, j - 1].culoare == 2)
                         {
                             loc[i + 1, j - 1].Marcheaza();
                         }
@@ -155,15 +155,15 @@ namespace Chess_Application
                     }
                     if (culoare == 2)//pion negru
                     {
-                        if (loc[i - 1, j].imagineLocatie.BackgroundImage == null)
+                        if (loc[i - 1, j]!=null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
                         {
                             loc[i - 1, j].Marcheaza();
                         }
-                        if (j < 8 && loc[i - 1, j + 1].culoare == 2)
+                        if (i>1&&j < 8 && loc[i - 1, j + 1].culoare == 1)
                         {
                             loc[i - 1, j + 1].Marcheaza();
                         }
-                        if (j > 1 && loc[i - 1, j - 1].culoare == 2)
+                        if (i>1&&j > 1 && loc[i - 1, j - 1].culoare == 1)
                         {
                             loc[i - 1, j - 1].Marcheaza();
                         }
@@ -316,13 +316,107 @@ namespace Chess_Application
                         }
                     }
                 }
-                if (tipPiesa == 5)
+                if (tipPiesa == 5)//miscari regina obtinute din miscarile turei si miscarile nebunului
                 {
+                    for (int k = j; k >= 1; k--)
+                    {
+                        if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) loc[i, k].Marcheaza(); break; }
+                        if (loc[i, k].culoare != loc[i, j].culoare) loc[i, k].Marcheaza();
+                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+                    }
+                    for (int k = j; k <= 8; k++)
+                    {
+                        if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) loc[i, k].Marcheaza(); break; }
+                        if (loc[i, k].culoare != loc[i, j].culoare) loc[i, k].Marcheaza();
+                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+                    }
+                    for (int k = i; k >= 1; k--)
+                    {
+                        if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) loc[k, j].Marcheaza(); break; }
+                        if (loc[k, j].culoare != loc[i, j].culoare) loc[k, j].Marcheaza();
+                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+                    }
+                    for (int k = i; k <= 8; k++)
+                    {
+                        if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) loc[k, j].Marcheaza(); break; }
+                        if (loc[k, j].culoare != loc[i, j].culoare) loc[k, j].Marcheaza();
+                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+                    }
+
+                    for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
+                    {
+                        if (loc[i, j].culoare != loc[l, c].culoare)
+                        {
+                            loc[l, c].Marcheaza();
+                        }
+                        if (culoare == 1)
+                        {
+                            if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
+                        }
+                        if (culoare == 2)
+                        {
+                            if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                        }
+
+                    }
+                    for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
+                    {
+                        if (loc[i, j].culoare != loc[l, c].culoare)
+                        {
+                            loc[l, c].Marcheaza();
+                        }
+                        if (culoare == 1)
+                        {
+                            if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
+                        }
+                        if (culoare == 2)
+                        {
+                            if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                        }
+                    }
+                    for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
+                    {
+                        if (loc[i, j].culoare != loc[l, c].culoare)
+                        {
+                            loc[l, c].Marcheaza();
+                        }
+                        if (culoare == 1)
+                        {
+                            if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
+                        }
+                        if (culoare == 2)
+                        {
+                            if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                        }
+                    }
+                    for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
+                    {
+                        if (loc[i, j].culoare != loc[l, c].culoare)
+                        {
+                            loc[l, c].Marcheaza();
+                        }
+                        if (culoare == 1)
+                        {
+                            if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
+                        }
+                        if (culoare == 2)
+                        {
+                            if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                        }
+                    }
 
                 }
-                if (tipPiesa == 6)
+                if (tipPiesa == 6)//rege, miscare obtinuta prin verificarea celor 8 casute adiacente (sau cate exista) acestuia
                 {
+                    if (loc[i + 1, j] != null && loc[i + 1, j].culoare != loc[i, j].culoare) loc[i + 1, j].Marcheaza();
+                    if (loc[i + 1, j+1] != null && loc[i + 1, j+1].culoare != loc[i, j].culoare) loc[i + 1, j+1].Marcheaza();
+                    if (loc[i, j + 1] != null && loc[i, j + 1].culoare != loc[i, j].culoare) loc[i, j + 1].Marcheaza();
+                    if (loc[i - 1, j + 1] != null && loc[i - 1, j + 1].culoare != loc[i, j].culoare) loc[i - 1, j + 1].Marcheaza();
 
+                    if (loc[i - 1, j] != null && loc[i - 1, j].culoare != loc[i, j].culoare) loc[i - 1, j].Marcheaza();
+                    if (loc[i - 1, j - 1] != null && loc[i - 1, j - 1].culoare != loc[i, j].culoare) loc[i - 1, j - 1].Marcheaza();
+                    if (loc[i, j - 1] != null && loc[i, j - 1].culoare != loc[i, j].culoare) loc[i, j - 1].Marcheaza();
+                    if (loc[i + 1, j - 1] != null && loc[i + 1, j - 1].culoare != loc[i, j].culoare) loc[i + 1, j - 1].Marcheaza();
                 }
             }
         }
@@ -343,7 +437,7 @@ namespace Chess_Application
             tura1Alb = new Piesa(1, 2, pbTuraAlb); tura2Alb = new Piesa(1, 2, pbTuraAlb);
             nebun1Alb = new Piesa(1, 4, pbNebunAlb); nebun2Alb = new Piesa(1, 1, pbNebunAlb);
             cal1Alb = new Piesa(1, 3, pbCalAlb); cal2Alb = new Piesa(1, 1, pbCalAlb);
-            reginaAlb = new Piesa(1, 1, pbReginaAlb); regeAlb = new Piesa(1, 1, pbRegeAlb);
+            reginaAlb = new Piesa(1, 5, pbReginaAlb); regeAlb = new Piesa(1, 6, pbRegeAlb);
             pion1Alb = new Piesa(1, 1, pbPionAlb); pion2Alb = new Piesa(1, 1, pbPionAlb);
             pion3Alb = new Piesa(1, 1, pbPionAlb); pion4Alb = new Piesa(1, 1, pbPionAlb);
             pion5Alb = new Piesa(1, 1, pbPionAlb); pion6Alb = new Piesa(1, 1, pbPionAlb);
@@ -353,14 +447,14 @@ namespace Chess_Application
             tura1Negru = new Piesa(2, 2, pbTuraNegru); tura2Negru = new Piesa(2, 1, pbTuraNegru);
             nebun1Negru = new Piesa(2, 4, pbNebunNegru); nebun2Negru = new Piesa(2, 2, pbNebunNegru);
             cal1Negru = new Piesa(2, 3, pbCalNegru); cal2Negru = new Piesa(2, 3, pbCalNegru);
-            reginaNegru = new Piesa(2, 1, pbReginaNegru); regeNegru = new Piesa(2, 1, pbRegeNegru);
+            reginaNegru = new Piesa(2, 5, pbReginaNegru); regeNegru = new Piesa(2, 6, pbRegeNegru);
             pion1Negru = new Piesa(2, 1, pbPionNegru); pion2Negru = new Piesa(2, 1, pbPionNegru);
             pion3Negru = new Piesa(2, 1, pbPionNegru); pion4Negru = new Piesa(2, 1, pbPionNegru);
             pion5Negru = new Piesa(2, 1, pbPionNegru); pion6Negru = new Piesa(2, 1, pbPionNegru);
             pion7Negru = new Piesa(2, 1, pbPionNegru); pion8Negru = new Piesa(2, 1, pbPionNegru);
 
 
-            A1 = new LocatieTabla(tura1Alb, _1A);
+            A1 = new LocatieTabla(regeNegru, _1A);
             A2 = new LocatieTabla(cal1Alb, _2A);
             A3 = new LocatieTabla(nebun1Alb, _3A);
             A4 = new LocatieTabla(reginaAlb, _4A);
@@ -377,7 +471,7 @@ namespace Chess_Application
             B7 = new LocatieTabla(pion7Alb, _7B);
             B8 = new LocatieTabla(pion8Alb, _8B);
             
-            H1 = new LocatieTabla(tura1Negru, _1H);
+            H1 = new LocatieTabla(pion1Negru, _1H);
             H2 = new LocatieTabla(cal1Negru, _2H);
             H3 = new LocatieTabla(nebun1Negru, _3H);
             H4 = new LocatieTabla(regeNegru, _4H);
