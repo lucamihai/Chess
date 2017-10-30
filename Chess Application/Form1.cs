@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace Chess_Application
 {
+    
     public partial class Form1 : Form
     {
+        int randMutare = 1;
         int clickCounter = 0;
         int pozitieCifra1;
         string pozitieLitera1;
@@ -41,7 +43,31 @@ namespace Chess_Application
 
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
-       
+
+        private void meniu1_Load(object sender, EventArgs e)
+        {
+            panel1.SendToBack();
+            panel2.SendToBack();
+            panel3.SendToBack();
+            meniu1.BringToFront();           
+        }
+
+        private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewGame();
+            meniu1.Show();
+        }
+
+        private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Piesa
         {
@@ -75,7 +101,7 @@ namespace Chess_Application
             public bool poateFaceMiscari = false;
             Piesa plm;
             int tipPiesa = 0;
-            int culoare = 0;
+            public int culoare = 0;
             public bool sePoate = false;
             public PictureBox imagineLocatie;
             public LocatieTabla(Piesa p, PictureBox b)
@@ -88,7 +114,8 @@ namespace Chess_Application
             }
             public LocatieTabla(PictureBox b)
             {
-                imagineLocatie = b;               
+                imagineLocatie = b;
+                imagineLocatie.BackgroundImage = null;               
             }
 
             public void MarcheazaVerde(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
@@ -461,38 +488,8 @@ namespace Chess_Application
             }
         }
 
-        class Pion :Piesa
+        public void NewGame()
         {
-
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            tura1Alb = new Piesa(1, 2, pbTuraAlb); tura2Alb = new Piesa(1, 2, pbTuraAlb);
-            cal1Alb = new Piesa(1, 3, pbCalAlb); cal2Alb = new Piesa(1, 3, pbCalAlb);
-            nebun1Alb = new Piesa(1, 4, pbNebunAlb); nebun2Alb = new Piesa(1, 4, pbNebunAlb);
-            reginaAlb = new Piesa(1, 5, pbReginaAlb); regeAlb = new Piesa(1, 6, pbRegeAlb);
-            pion1Alb = new Piesa(1, 1, pbPionAlb); pion2Alb = new Piesa(1, 1, pbPionAlb);
-            pion3Alb = new Piesa(1, 1, pbPionAlb); pion4Alb = new Piesa(1, 1, pbPionAlb);
-            pion5Alb = new Piesa(1, 1, pbPionAlb); pion6Alb = new Piesa(1, 1, pbPionAlb);
-            pion7Alb = new Piesa(1, 1, pbPionAlb); pion8Alb = new Piesa(1, 1, pbPionAlb);
-
-            pion1Negru = new Piesa(2, 1, pbPionNegru);
-            tura1Negru = new Piesa(2, 2, pbTuraNegru); tura2Negru = new Piesa(2, 2, pbTuraNegru);
-            cal1Negru = new Piesa(2, 3, pbCalNegru); cal2Negru = new Piesa(2, 3, pbCalNegru);
-            nebun1Negru = new Piesa(2, 4, pbNebunNegru); nebun2Negru = new Piesa(2, 4, pbNebunNegru);
-            reginaNegru = new Piesa(2, 5, pbReginaNegru); regeNegru = new Piesa(2, 6, pbRegeNegru);
-            pion1Negru = new Piesa(2, 1, pbPionNegru); pion2Negru = new Piesa(2, 1, pbPionNegru);
-            pion3Negru = new Piesa(2, 1, pbPionNegru); pion4Negru = new Piesa(2, 1, pbPionNegru);
-            pion5Negru = new Piesa(2, 1, pbPionNegru); pion6Negru = new Piesa(2, 1, pbPionNegru);
-            pion7Negru = new Piesa(2, 1, pbPionNegru); pion8Negru = new Piesa(2, 1, pbPionNegru);
-
-
             A1 = new LocatieTabla(tura1Alb, _1A);
             A2 = new LocatieTabla(cal1Alb, _2A);
             A3 = new LocatieTabla(nebun1Alb, _3A);
@@ -509,7 +506,7 @@ namespace Chess_Application
             B6 = new LocatieTabla(pion6Alb, _6B);
             B7 = new LocatieTabla(pion7Alb, _7B);
             B8 = new LocatieTabla(pion8Alb, _8B);
-            
+
             H1 = new LocatieTabla(tura1Negru, _1H);
             H2 = new LocatieTabla(cal1Negru, _2H);
             H3 = new LocatieTabla(nebun1Negru, _3H);
@@ -611,6 +608,43 @@ namespace Chess_Application
             locatii[8, 7] = H7;
             locatii[8, 8] = H8;
             C1.StergeLocatie();//de revenit(for some reason C1 nu functioneaza properly fara linia asta)
+            randMutare = 1;
+            labelRandMutare.Text = "Piesele albe incep!";
+        }
+
+        class Pion :Piesa
+        {
+
+        }
+        //---------------------------------------------------------------------------------------------------------------------------------------------
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            tura1Alb = new Piesa(1, 2, pbTuraAlb); tura2Alb = new Piesa(1, 2, pbTuraAlb);
+            cal1Alb = new Piesa(1, 3, pbCalAlb); cal2Alb = new Piesa(1, 3, pbCalAlb);
+            nebun1Alb = new Piesa(1, 4, pbNebunAlb); nebun2Alb = new Piesa(1, 4, pbNebunAlb);
+            reginaAlb = new Piesa(1, 5, pbReginaAlb); regeAlb = new Piesa(1, 6, pbRegeAlb);
+            pion1Alb = new Piesa(1, 1, pbPionAlb); pion2Alb = new Piesa(1, 1, pbPionAlb);
+            pion3Alb = new Piesa(1, 1, pbPionAlb); pion4Alb = new Piesa(1, 1, pbPionAlb);
+            pion5Alb = new Piesa(1, 1, pbPionAlb); pion6Alb = new Piesa(1, 1, pbPionAlb);
+            pion7Alb = new Piesa(1, 1, pbPionAlb); pion8Alb = new Piesa(1, 1, pbPionAlb);
+
+            pion1Negru = new Piesa(2, 1, pbPionNegru);
+            tura1Negru = new Piesa(2, 2, pbTuraNegru); tura2Negru = new Piesa(2, 2, pbTuraNegru);
+            cal1Negru = new Piesa(2, 3, pbCalNegru); cal2Negru = new Piesa(2, 3, pbCalNegru);
+            nebun1Negru = new Piesa(2, 4, pbNebunNegru); nebun2Negru = new Piesa(2, 4, pbNebunNegru);
+            reginaNegru = new Piesa(2, 5, pbReginaNegru); regeNegru = new Piesa(2, 6, pbRegeNegru);
+            pion1Negru = new Piesa(2, 1, pbPionNegru); pion2Negru = new Piesa(2, 1, pbPionNegru);
+            pion3Negru = new Piesa(2, 1, pbPionNegru); pion4Negru = new Piesa(2, 1, pbPionNegru);
+            pion5Negru = new Piesa(2, 1, pbPionNegru); pion6Negru = new Piesa(2, 1, pbPionNegru);
+            pion7Negru = new Piesa(2, 1, pbPionNegru); pion8Negru = new Piesa(2, 1, pbPionNegru);
+
+            NewGame();
+            
         }
         public void RestoreCulori(LocatieTabla[,] loc)
         {
@@ -687,6 +721,7 @@ namespace Chess_Application
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             LocatieTabla h = new LocatieTabla(pion1Alb, _1A);
             h.MarcheazaVerde(checkBox1);
 
@@ -701,12 +736,16 @@ namespace Chess_Application
                     loc[i, j].sePoate = false;
                 }
             }
+            randMutare++;
+            if (randMutare > 2) randMutare = 1;
+            if (randMutare == 1) labelRandMutare.Text = "Randul pieselor albe";
+            if (randMutare == 2) labelRandMutare.Text = "Randul pieselor negre";
         }
 
 
         private void _1A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1A.BackgroundImage != null)
+            if (clickCounter == 0 && _1A.BackgroundImage != null && randMutare == A1.culoare)
             {
                 A1.Verifica(1, 1, locatii);
                 if (A1.poateFaceMiscari == true)
@@ -727,7 +766,7 @@ namespace Chess_Application
 
         private void _2A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2A.BackgroundImage != null)
+            if (clickCounter == 0 && _2A.BackgroundImage != null && randMutare == A2.culoare)
             {
                 A2.Verifica(1, 2, locatii);
                 if (A2.poateFaceMiscari == true)
@@ -748,7 +787,7 @@ namespace Chess_Application
 
         private void _3A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3A.BackgroundImage != null)
+            if (clickCounter == 0 && _3A.BackgroundImage != null && randMutare == A3.culoare)
             {
                 A3.Verifica(1, 3, locatii);
                 if (A3.poateFaceMiscari == true)
@@ -769,7 +808,7 @@ namespace Chess_Application
 
         private void _4A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4A.BackgroundImage != null)
+            if (clickCounter == 0 && _4A.BackgroundImage != null && randMutare == A4.culoare)
             {
                 A4.Verifica(1, 4, locatii);
                 if (A4.poateFaceMiscari == true)
@@ -790,7 +829,7 @@ namespace Chess_Application
 
         private void _5A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5A.BackgroundImage != null)
+            if (clickCounter == 0 && _5A.BackgroundImage != null && randMutare == A5.culoare)
             {
                 A5.Verifica(1, 5, locatii);
                 if (A5.poateFaceMiscari == true)
@@ -811,7 +850,7 @@ namespace Chess_Application
 
         private void _6A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6A.BackgroundImage != null)
+            if (clickCounter == 0 && _6A.BackgroundImage != null && randMutare == A6.culoare)
             {
                 A6.Verifica(1, 6, locatii);
                 if (A6.poateFaceMiscari == true)
@@ -832,7 +871,7 @@ namespace Chess_Application
 
         private void _7A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7A.BackgroundImage != null)
+            if (clickCounter == 0 && _7A.BackgroundImage != null && randMutare == A7.culoare)
             {
                 A7.Verifica(1, 7, locatii);
                 if (A7.poateFaceMiscari == true)
@@ -853,7 +892,7 @@ namespace Chess_Application
 
         private void _8A_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8A.BackgroundImage != null)
+            if (clickCounter == 0 && _8A.BackgroundImage != null && randMutare == A8.culoare)
             {
                 A8.Verifica(1, 8, locatii);
                 if (A8.poateFaceMiscari == true)
@@ -874,7 +913,7 @@ namespace Chess_Application
 
         private void _1B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1B.BackgroundImage != null)
+            if (clickCounter == 0 && _1B.BackgroundImage != null && randMutare == B1.culoare)
             {
                 B1.Verifica(2, 1, locatii);
                 if (B1.poateFaceMiscari == true)
@@ -895,7 +934,7 @@ namespace Chess_Application
 
         private void _2B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2B.BackgroundImage != null)
+            if (clickCounter == 0 && _2B.BackgroundImage != null && randMutare == B2.culoare)
             {
                 B2.Verifica(2, 2, locatii);
                 if (B2.poateFaceMiscari == true)
@@ -916,7 +955,7 @@ namespace Chess_Application
 
         private void _3B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3B.BackgroundImage != null)
+            if (clickCounter == 0 && _3B.BackgroundImage != null && randMutare == B3.culoare)
             {
                 B3.Verifica(2, 3, locatii);
                 if (B3.poateFaceMiscari == true)
@@ -937,7 +976,7 @@ namespace Chess_Application
 
         private void _4B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4B.BackgroundImage != null)
+            if (clickCounter == 0 && _4B.BackgroundImage != null && randMutare == B4.culoare)
             {
                 B4.Verifica(2, 4, locatii);
                 if (B4.poateFaceMiscari == true)
@@ -958,7 +997,7 @@ namespace Chess_Application
 
         private void _5B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5B.BackgroundImage != null)
+            if (clickCounter == 0 && _5B.BackgroundImage != null && randMutare == B5.culoare)
             {
                 B5.Verifica(2, 5, locatii);
                 if (B5.poateFaceMiscari == true)
@@ -979,7 +1018,7 @@ namespace Chess_Application
 
         private void _6B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6B.BackgroundImage != null)
+            if (clickCounter == 0 && _6B.BackgroundImage != null && randMutare == B6.culoare)
             {
                 B6.Verifica(2, 6, locatii);
                 if (B6.poateFaceMiscari == true)
@@ -1000,7 +1039,7 @@ namespace Chess_Application
 
         private void _7B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7B.BackgroundImage != null)
+            if (clickCounter == 0 && _7B.BackgroundImage != null && randMutare == B7.culoare)
             {
                 B7.Verifica(2, 7, locatii);
                 if (B7.poateFaceMiscari == true)
@@ -1021,7 +1060,7 @@ namespace Chess_Application
 
         private void _8B_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8B.BackgroundImage != null)
+            if (clickCounter == 0 && _8B.BackgroundImage != null && randMutare == B8.culoare)
             {
                 B8.Verifica(2, 8, locatii);
                 if (B8.poateFaceMiscari == true)
@@ -1042,7 +1081,7 @@ namespace Chess_Application
 
         private void _1C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1C.BackgroundImage != null)
+            if (clickCounter == 0 && _1C.BackgroundImage != null && randMutare == C1.culoare)
             {
                 C1.Verifica(3, 1, locatii);
                 if (C1.poateFaceMiscari == true)
@@ -1063,7 +1102,7 @@ namespace Chess_Application
 
         private void _2C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2C.BackgroundImage != null)
+            if (clickCounter == 0 && _2C.BackgroundImage != null && randMutare == C2.culoare)
             {
                 C2.Verifica(3, 2, locatii);
                 if (C2.poateFaceMiscari == true)
@@ -1084,7 +1123,7 @@ namespace Chess_Application
 
         private void _3C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3C.BackgroundImage != null)
+            if (clickCounter == 0 && _3C.BackgroundImage != null && randMutare == C3.culoare)
             {
                 C3.Verifica(3, 3, locatii);
                 if (C3.poateFaceMiscari == true)
@@ -1105,7 +1144,7 @@ namespace Chess_Application
 
         private void _4C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4C.BackgroundImage != null)
+            if (clickCounter == 0 && _4C.BackgroundImage != null && randMutare == C4.culoare)
             {
                 C4.Verifica(3, 4, locatii);
                 if (C4.poateFaceMiscari == true)
@@ -1126,7 +1165,7 @@ namespace Chess_Application
 
         private void _5C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5C.BackgroundImage != null)
+            if (clickCounter == 0 && _5C.BackgroundImage != null && randMutare == C5.culoare)
             {
                 C5.Verifica(3, 5, locatii);
                 if (C5.poateFaceMiscari == true)
@@ -1147,7 +1186,7 @@ namespace Chess_Application
 
         private void _6C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6C.BackgroundImage != null)
+            if (clickCounter == 0 && _6C.BackgroundImage != null && randMutare == C6.culoare)
             {
                 C6.Verifica(3, 6, locatii);
                 if (C6.poateFaceMiscari == true)
@@ -1168,7 +1207,7 @@ namespace Chess_Application
 
         private void _7C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7C.BackgroundImage != null)
+            if (clickCounter == 0 && _7C.BackgroundImage != null && randMutare == C7.culoare)
             {
                 C7.Verifica(3, 7, locatii);
                 if (C7.poateFaceMiscari == true)
@@ -1189,7 +1228,7 @@ namespace Chess_Application
 
         private void _8C_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8C.BackgroundImage != null)
+            if (clickCounter == 0 && _8C.BackgroundImage != null && randMutare == C8.culoare)
             {
                 C8.Verifica(3, 8, locatii);
                 if (C8.poateFaceMiscari == true)
@@ -1210,7 +1249,7 @@ namespace Chess_Application
 
         private void _1D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1D.BackgroundImage != null)
+            if (clickCounter == 0 && _1D.BackgroundImage != null && randMutare == D1.culoare)
             {
                 D1.Verifica(4, 1, locatii);
                 if (D1.poateFaceMiscari == true)
@@ -1231,7 +1270,7 @@ namespace Chess_Application
 
         private void _2D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2D.BackgroundImage != null)
+            if (clickCounter == 0 && _2D.BackgroundImage != null && randMutare == D2.culoare)
             {
                 D2.Verifica(4, 2, locatii);
                 if (D2.poateFaceMiscari == true)
@@ -1252,7 +1291,7 @@ namespace Chess_Application
 
         private void _3D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3D.BackgroundImage != null)
+            if (clickCounter == 0 && _3D.BackgroundImage != null && randMutare == D3.culoare)
             {
                 D3.Verifica(4, 3, locatii);
                 if (D3.poateFaceMiscari == true)
@@ -1273,7 +1312,7 @@ namespace Chess_Application
 
         private void _4D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4D.BackgroundImage != null)
+            if (clickCounter == 0 && _4D.BackgroundImage != null && randMutare == D4.culoare)
             {
                 D4.Verifica(4, 4, locatii);
                 if (D4.poateFaceMiscari == true)
@@ -1294,7 +1333,7 @@ namespace Chess_Application
 
         private void _5D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5D.BackgroundImage != null)
+            if (clickCounter == 0 && _5D.BackgroundImage != null && randMutare == D5.culoare)
             {
                 D5.Verifica(4, 5, locatii);
                 if (D5.poateFaceMiscari == true)
@@ -1315,7 +1354,7 @@ namespace Chess_Application
 
         private void _6D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6D.BackgroundImage != null)
+            if (clickCounter == 0 && _6D.BackgroundImage != null && randMutare == D6.culoare)
             {
                 D6.Verifica(4, 6, locatii);
                 if (D6.poateFaceMiscari == true)
@@ -1336,7 +1375,7 @@ namespace Chess_Application
 
         private void _7D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7D.BackgroundImage != null)
+            if (clickCounter == 0 && _7D.BackgroundImage != null && randMutare == D7.culoare)
             {
                 D7.Verifica(4, 7, locatii);
                 if (D7.poateFaceMiscari == true)
@@ -1357,7 +1396,7 @@ namespace Chess_Application
 
         private void _8D_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8D.BackgroundImage != null)
+            if (clickCounter == 0 && _8D.BackgroundImage != null && randMutare == D8.culoare)
             {
                 D8.Verifica(4, 8, locatii);
                 if (D8.poateFaceMiscari == true)
@@ -1378,7 +1417,7 @@ namespace Chess_Application
 
         private void _1E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1E.BackgroundImage != null)
+            if (clickCounter == 0 && _1E.BackgroundImage != null && randMutare == E1.culoare)
             {
                 E1.Verifica(5, 1, locatii);
                 if (E1.poateFaceMiscari == true)
@@ -1399,7 +1438,7 @@ namespace Chess_Application
 
         private void _2E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2E.BackgroundImage != null)
+            if (clickCounter == 0 && _2E.BackgroundImage != null && randMutare == E2.culoare)
             {
                 E2.Verifica(5, 2, locatii);
                 if (E2.poateFaceMiscari == true)
@@ -1420,7 +1459,7 @@ namespace Chess_Application
 
         private void _3E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3E.BackgroundImage != null)
+            if (clickCounter == 0 && _3E.BackgroundImage != null && randMutare == E3.culoare)
             {
                 E3.Verifica(5, 3, locatii);
                 if (E3.poateFaceMiscari == true)
@@ -1441,7 +1480,7 @@ namespace Chess_Application
 
         private void _4E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4E.BackgroundImage != null)
+            if (clickCounter == 0 && _4E.BackgroundImage != null && randMutare == E4.culoare)
             {
                 E4.Verifica(5, 4, locatii);
                 if (E4.poateFaceMiscari == true)
@@ -1462,7 +1501,7 @@ namespace Chess_Application
 
         private void _5E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5E.BackgroundImage != null)
+            if (clickCounter == 0 && _5E.BackgroundImage != null && randMutare == E5.culoare)
             {
                 E5.Verifica(5, 5, locatii);
                 if (E5.poateFaceMiscari == true)
@@ -1483,7 +1522,7 @@ namespace Chess_Application
 
         private void _6E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6E.BackgroundImage != null)
+            if (clickCounter == 0 && _6E.BackgroundImage != null && randMutare == E6.culoare)
             {
                 E6.Verifica(5, 6, locatii);
                 if (E6.poateFaceMiscari == true)
@@ -1504,7 +1543,7 @@ namespace Chess_Application
 
         private void _7E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7E.BackgroundImage != null)
+            if (clickCounter == 0 && _7E.BackgroundImage != null && randMutare == E7.culoare)
             {
                 E7.Verifica(5, 7, locatii);
                 if (E7.poateFaceMiscari == true)
@@ -1525,7 +1564,7 @@ namespace Chess_Application
 
         private void _8E_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8E.BackgroundImage != null)
+            if (clickCounter == 0 && _8E.BackgroundImage != null && randMutare == E8.culoare)
             {
                 E8.Verifica(5, 8, locatii);
                 if (E8.poateFaceMiscari == true)
@@ -1546,7 +1585,7 @@ namespace Chess_Application
 
         private void _1F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1F.BackgroundImage != null)
+            if (clickCounter == 0 && _1F.BackgroundImage != null && randMutare == F1.culoare)
             {
                 F1.Verifica(6, 1, locatii);
                 if (F1.poateFaceMiscari == true)
@@ -1567,7 +1606,7 @@ namespace Chess_Application
 
         private void _2F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2F.BackgroundImage != null)
+            if (clickCounter == 0 && _2F.BackgroundImage != null && randMutare == F2.culoare)
             {
                 F2.Verifica(6, 2, locatii);
                 if (F2.poateFaceMiscari == true)
@@ -1588,7 +1627,7 @@ namespace Chess_Application
 
         private void _3F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3F.BackgroundImage != null)
+            if (clickCounter == 0 && _3F.BackgroundImage != null && randMutare == F3.culoare)
             {
                 F3.Verifica(6, 3, locatii);
                 if (F3.poateFaceMiscari == true)
@@ -1609,7 +1648,7 @@ namespace Chess_Application
 
         private void _4F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4F.BackgroundImage != null)
+            if (clickCounter == 0 && _4F.BackgroundImage != null && randMutare == F4.culoare)
             {
                 F4.Verifica(6, 4, locatii);
                 if (F4.poateFaceMiscari == true)
@@ -1630,7 +1669,7 @@ namespace Chess_Application
 
         private void _5F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5F.BackgroundImage != null)
+            if (clickCounter == 0 && _5F.BackgroundImage != null && randMutare == F5.culoare)
             {
                 F5.Verifica(6, 5, locatii);
                 if (F5.poateFaceMiscari == true)
@@ -1651,7 +1690,7 @@ namespace Chess_Application
 
         private void _6F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6F.BackgroundImage != null)
+            if (clickCounter == 0 && _6F.BackgroundImage != null && randMutare == F6.culoare)
             {
                 F6.Verifica(6, 6, locatii);
                 if (F6.poateFaceMiscari == true)
@@ -1672,7 +1711,7 @@ namespace Chess_Application
 
         private void _7F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7F.BackgroundImage != null)
+            if (clickCounter == 0 && _7F.BackgroundImage != null && randMutare == F7.culoare)
             {
                 F7.Verifica(6, 7, locatii);
                 if (F7.poateFaceMiscari == true)
@@ -1693,7 +1732,7 @@ namespace Chess_Application
 
         private void _8F_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8F.BackgroundImage != null)
+            if (clickCounter == 0 && _8F.BackgroundImage != null && randMutare == F8.culoare)
             {
                 F8.Verifica(6, 8, locatii);
                 if (F8.poateFaceMiscari == true)
@@ -1714,7 +1753,7 @@ namespace Chess_Application
 
         private void _1G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1G.BackgroundImage != null)
+            if (clickCounter == 0 && _1G.BackgroundImage != null && randMutare == G1.culoare)
             {
                 G1.Verifica(7, 1, locatii);
                 if (G1.poateFaceMiscari == true)
@@ -1735,7 +1774,7 @@ namespace Chess_Application
 
         private void _2G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2G.BackgroundImage != null)
+            if (clickCounter == 0 && _2G.BackgroundImage != null && randMutare == G2.culoare)
             {
                 G2.Verifica(7, 2, locatii);
                 if (G2.poateFaceMiscari == true)
@@ -1756,7 +1795,7 @@ namespace Chess_Application
 
         private void _3G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3G.BackgroundImage != null)
+            if (clickCounter == 0 && _3G.BackgroundImage != null && randMutare == G3.culoare)
             {
                 G3.Verifica(7, 3, locatii);
                 if (G3.poateFaceMiscari == true)
@@ -1777,7 +1816,7 @@ namespace Chess_Application
 
         private void _4G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4G.BackgroundImage != null)
+            if (clickCounter == 0 && _4G.BackgroundImage != null && randMutare == G4.culoare)
             {
                 G4.Verifica(7, 4, locatii);
                 if (G4.poateFaceMiscari == true)
@@ -1798,7 +1837,7 @@ namespace Chess_Application
 
         private void _5G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5G.BackgroundImage != null)
+            if (clickCounter == 0 && _5G.BackgroundImage != null && randMutare == G5.culoare)
             {
                 G5.Verifica(7, 5, locatii);
                 if (G5.poateFaceMiscari == true)
@@ -1819,7 +1858,7 @@ namespace Chess_Application
 
         private void _6G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6G.BackgroundImage != null)
+            if (clickCounter == 0 && _6G.BackgroundImage != null && randMutare == G6.culoare)
             {
                 G6.Verifica(7, 6, locatii);
                 if (G6.poateFaceMiscari == true)
@@ -1840,7 +1879,7 @@ namespace Chess_Application
 
         private void _7G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7G.BackgroundImage != null)
+            if (clickCounter == 0 && _7G.BackgroundImage != null && randMutare == G7.culoare)
             {
                 G7.Verifica(7, 7, locatii);
                 if (G7.poateFaceMiscari == true)
@@ -1861,7 +1900,7 @@ namespace Chess_Application
 
         private void _8G_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8G.BackgroundImage != null)
+            if (clickCounter == 0 && _8G.BackgroundImage != null && randMutare == G8.culoare)
             {
                 G8.Verifica(7, 8, locatii);
                 if (G8.poateFaceMiscari == true)
@@ -1882,7 +1921,7 @@ namespace Chess_Application
 
         private void _1H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _1H.BackgroundImage != null)
+            if (clickCounter == 0 && _1H.BackgroundImage != null && randMutare == H1.culoare)
             {
                 H1.Verifica(8, 1, locatii);
                 if (H1.poateFaceMiscari == true)
@@ -1903,7 +1942,7 @@ namespace Chess_Application
 
         private void _2H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _2H.BackgroundImage != null)
+            if (clickCounter == 0 && _2H.BackgroundImage != null && randMutare == H2.culoare)
             {
                 H2.Verifica(8, 2, locatii);
                 if (H2.poateFaceMiscari == true)
@@ -1924,7 +1963,7 @@ namespace Chess_Application
 
         private void _3H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _3H.BackgroundImage != null)
+            if (clickCounter == 0 && _3H.BackgroundImage != null && randMutare == H3.culoare)
             {
                 H3.Verifica(8, 3, locatii);
                 if (H3.poateFaceMiscari == true)
@@ -1945,7 +1984,7 @@ namespace Chess_Application
 
         private void _4H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _4H.BackgroundImage != null)
+            if (clickCounter == 0 && _4H.BackgroundImage != null && randMutare == H4.culoare)
             {
                 H4.Verifica(8, 4, locatii);
                 if (H4.poateFaceMiscari == true)
@@ -1966,7 +2005,7 @@ namespace Chess_Application
 
         private void _5H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _5H.BackgroundImage != null)
+            if (clickCounter == 0 && _5H.BackgroundImage != null && randMutare == H5.culoare)
             {
                 H5.Verifica(8, 5, locatii);
                 if (H5.poateFaceMiscari == true)
@@ -1987,7 +2026,7 @@ namespace Chess_Application
 
         private void _6H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _6H.BackgroundImage != null)
+            if (clickCounter == 0 && _6H.BackgroundImage != null && randMutare == H6.culoare)
             {
                 H6.Verifica(8, 6, locatii);
                 if (H6.poateFaceMiscari == true)
@@ -2008,7 +2047,7 @@ namespace Chess_Application
 
         private void _7H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _7H.BackgroundImage != null)
+            if (clickCounter == 0 && _7H.BackgroundImage != null && randMutare == H7.culoare)
             {
                 H7.Verifica(8, 7, locatii);
                 if (H7.poateFaceMiscari == true)
@@ -2029,7 +2068,7 @@ namespace Chess_Application
 
         private void _8H_Click(object sender, EventArgs e)
         {
-            if (clickCounter == 0 && _8H.BackgroundImage != null)
+            if (clickCounter == 0 && _8H.BackgroundImage != null && randMutare == H8.culoare)
             {
                 H8.Verifica(8, 8, locatii);
                 if (H8.poateFaceMiscari == true)

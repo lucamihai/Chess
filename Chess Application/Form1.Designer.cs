@@ -137,6 +137,8 @@
             this.pbNebunNegru = new System.Windows.Forms.PictureBox();
             this.pbNebunAlb = new System.Windows.Forms.PictureBox();
             this.pbPionAlb = new System.Windows.Forms.PictureBox();
+            this.labelRandMutare = new System.Windows.Forms.Label();
+            this.meniu1 = new Chess_Application.Meniu();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -291,7 +293,7 @@
             this.panel2.Controls.Add(this._6H);
             this.panel2.Controls.Add(this._7H);
             this.panel2.Controls.Add(this._8H);
-            this.panel2.Location = new System.Drawing.Point(282, 70);
+            this.panel2.Location = new System.Drawing.Point(236, 106);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(852, 512);
             this.panel2.TabIndex = 1;
@@ -1058,7 +1060,7 @@
             this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1146, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1165, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1078,18 +1080,21 @@
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
             this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(175, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
+            this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem1_Click);
             // 
             // quitGameToolStripMenuItem
             // 
             this.quitGameToolStripMenuItem.Name = "quitGameToolStripMenuItem";
             this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.quitGameToolStripMenuItem.Text = "Quit to main menu";
+            this.quitGameToolStripMenuItem.Click += new System.EventHandler(this.quitGameToolStripMenuItem_Click);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
             this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
+            this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.quitApplicationToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -1196,7 +1201,7 @@
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Location = new System.Drawing.Point(222, 70);
+            this.panel1.Location = new System.Drawing.Point(176, 106);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(54, 512);
             this.panel1.TabIndex = 13;
@@ -1211,7 +1216,7 @@
             this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Location = new System.Drawing.Point(282, 588);
+            this.panel3.Location = new System.Drawing.Point(236, 624);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(512, 47);
             this.panel3.TabIndex = 14;
@@ -1310,7 +1315,7 @@
             this.panelPiese.Controls.Add(this.pbNebunNegru);
             this.panelPiese.Controls.Add(this.pbNebunAlb);
             this.panelPiese.Controls.Add(this.pbPionAlb);
-            this.panelPiese.Location = new System.Drawing.Point(76, 70);
+            this.panelPiese.Location = new System.Drawing.Point(12, 70);
             this.panelPiese.Name = "panelPiese";
             this.panelPiese.Size = new System.Drawing.Size(140, 606);
             this.panelPiese.TabIndex = 15;
@@ -1436,18 +1441,43 @@
             this.pbPionAlb.TabIndex = 0;
             this.pbPionAlb.TabStop = false;
             // 
+            // labelRandMutare
+            // 
+            this.labelRandMutare.AutoSize = true;
+            this.labelRandMutare.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.labelRandMutare.Location = new System.Drawing.Point(402, 54);
+            this.labelRandMutare.Name = "labelRandMutare";
+            this.labelRandMutare.Size = new System.Drawing.Size(111, 16);
+            this.labelRandMutare.TabIndex = 16;
+            this.labelRandMutare.Text = "Piesele albe incep!";
+            // 
+            // meniu1
+            // 
+            this.meniu1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuPopup;
+            this.meniu1.AutoSize = true;
+            this.meniu1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.meniu1.BackColor = System.Drawing.Color.Black;
+            this.meniu1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.meniu1.Location = new System.Drawing.Point(0, 24);
+            this.meniu1.Name = "meniu1";
+            this.meniu1.Size = new System.Drawing.Size(1165, 689);
+            this.meniu1.TabIndex = 17;
+            this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1146, 874);
+            this.ClientSize = new System.Drawing.Size(1165, 713);
+            this.Controls.Add(this.meniu1);
+            this.Controls.Add(this.labelRandMutare);
             this.Controls.Add(this.panelPiese);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);
+            this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -1651,6 +1681,8 @@
         private System.Windows.Forms.PictureBox pbNebunNegru;
         private System.Windows.Forms.PictureBox pbNebunAlb;
         private System.Windows.Forms.PictureBox pbPionAlb;
+        private System.Windows.Forms.Label labelRandMutare;
+        private Meniu meniu1;
     }
 }
 
