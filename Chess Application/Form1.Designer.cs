@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -296,8 +295,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(852, 512);
             this.panel2.TabIndex = 1;
-
-
             // 
             // checkBox1
             // 
@@ -352,527 +349,635 @@
             // _1A
             // 
             this._1A.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._1A.Image = ((System.Drawing.Image)(resources.GetObject("_1A.Image")));
             this._1A.Location = new System.Drawing.Point(0, 448);
             this._1A.Name = "_1A";
             this._1A.Size = new System.Drawing.Size(64, 64);
             this._1A.TabIndex = 0;
             this._1A.TabStop = false;
-
+            this._1A.Click += new System.EventHandler(this._1A_Click);
             // 
             // _2A
             // 
             this._2A.BackColor = System.Drawing.Color.Silver;
+            this._2A.Image = ((System.Drawing.Image)(resources.GetObject("_2A.Image")));
             this._2A.Location = new System.Drawing.Point(64, 448);
             this._2A.Name = "_2A";
             this._2A.Size = new System.Drawing.Size(64, 64);
             this._2A.TabIndex = 0;
             this._2A.TabStop = false;
-
+            this._2A.Click += new System.EventHandler(this._2A_Click);
             // 
             // _3A
             // 
             this._3A.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._3A.Image = ((System.Drawing.Image)(resources.GetObject("_3A.Image")));
             this._3A.Location = new System.Drawing.Point(128, 448);
             this._3A.Name = "_3A";
             this._3A.Size = new System.Drawing.Size(64, 64);
             this._3A.TabIndex = 0;
             this._3A.TabStop = false;
-
+            this._3A.Click += new System.EventHandler(this._3A_Click);
             // 
             // _4A
             // 
             this._4A.BackColor = System.Drawing.Color.Silver;
+            this._4A.Image = ((System.Drawing.Image)(resources.GetObject("_4A.Image")));
             this._4A.Location = new System.Drawing.Point(192, 448);
             this._4A.Name = "_4A";
             this._4A.Size = new System.Drawing.Size(64, 64);
             this._4A.TabIndex = 0;
             this._4A.TabStop = false;
+            this._4A.Click += new System.EventHandler(this._4A_Click);
             // 
             // _5A
             // 
             this._5A.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._5A.Image = ((System.Drawing.Image)(resources.GetObject("_5A.Image")));
             this._5A.Location = new System.Drawing.Point(256, 448);
             this._5A.Name = "_5A";
             this._5A.Size = new System.Drawing.Size(64, 64);
             this._5A.TabIndex = 0;
             this._5A.TabStop = false;
+            this._5A.Click += new System.EventHandler(this._5A_Click);
             // 
             // _6A
             // 
             this._6A.BackColor = System.Drawing.Color.Silver;
+            this._6A.Image = ((System.Drawing.Image)(resources.GetObject("_6A.Image")));
             this._6A.Location = new System.Drawing.Point(320, 448);
             this._6A.Name = "_6A";
             this._6A.Size = new System.Drawing.Size(64, 64);
             this._6A.TabIndex = 0;
             this._6A.TabStop = false;
+            this._6A.Click += new System.EventHandler(this._6A_Click);
             // 
             // _7A
             // 
             this._7A.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._7A.Image = ((System.Drawing.Image)(resources.GetObject("_7A.Image")));
             this._7A.Location = new System.Drawing.Point(384, 448);
             this._7A.Name = "_7A";
             this._7A.Size = new System.Drawing.Size(64, 64);
             this._7A.TabIndex = 0;
             this._7A.TabStop = false;
+            this._7A.Click += new System.EventHandler(this._7A_Click);
             // 
             // _8A
             // 
             this._8A.BackColor = System.Drawing.Color.Silver;
+            this._8A.Image = ((System.Drawing.Image)(resources.GetObject("_8A.Image")));
             this._8A.Location = new System.Drawing.Point(448, 448);
             this._8A.Name = "_8A";
             this._8A.Size = new System.Drawing.Size(64, 64);
             this._8A.TabIndex = 0;
             this._8A.TabStop = false;
+            this._8A.Click += new System.EventHandler(this._8A_Click);
             // 
             // _1B
             // 
             this._1B.BackColor = System.Drawing.Color.Silver;
+            this._1B.Image = ((System.Drawing.Image)(resources.GetObject("_1B.Image")));
             this._1B.Location = new System.Drawing.Point(0, 384);
             this._1B.Name = "_1B";
             this._1B.Size = new System.Drawing.Size(64, 64);
             this._1B.TabIndex = 0;
             this._1B.TabStop = false;
-
+            this._1B.Click += new System.EventHandler(this._1B_Click);
             // 
             // _2B
             // 
             this._2B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._2B.Image = ((System.Drawing.Image)(resources.GetObject("_2B.Image")));
             this._2B.Location = new System.Drawing.Point(64, 384);
             this._2B.Name = "_2B";
             this._2B.Size = new System.Drawing.Size(64, 64);
             this._2B.TabIndex = 0;
             this._2B.TabStop = false;
-
+            this._2B.Click += new System.EventHandler(this._2B_Click);
             // 
             // _3B
             // 
             this._3B.BackColor = System.Drawing.Color.Silver;
+            this._3B.Image = ((System.Drawing.Image)(resources.GetObject("_3B.Image")));
             this._3B.Location = new System.Drawing.Point(128, 384);
             this._3B.Name = "_3B";
             this._3B.Size = new System.Drawing.Size(64, 64);
             this._3B.TabIndex = 0;
             this._3B.TabStop = false;
+            this._3B.Click += new System.EventHandler(this._3B_Click);
             // 
             // _4B
             // 
             this._4B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._4B.Image = ((System.Drawing.Image)(resources.GetObject("_4B.Image")));
             this._4B.Location = new System.Drawing.Point(192, 384);
             this._4B.Name = "_4B";
             this._4B.Size = new System.Drawing.Size(64, 64);
             this._4B.TabIndex = 0;
             this._4B.TabStop = false;
+            this._4B.Click += new System.EventHandler(this._4B_Click);
             // 
             // _5B
             // 
             this._5B.BackColor = System.Drawing.Color.Silver;
+            this._5B.Image = ((System.Drawing.Image)(resources.GetObject("_5B.Image")));
             this._5B.Location = new System.Drawing.Point(256, 384);
             this._5B.Name = "_5B";
             this._5B.Size = new System.Drawing.Size(64, 64);
             this._5B.TabIndex = 0;
             this._5B.TabStop = false;
+            this._5B.Click += new System.EventHandler(this._5B_Click);
             // 
             // _6B
             // 
             this._6B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._6B.Image = ((System.Drawing.Image)(resources.GetObject("_6B.Image")));
             this._6B.Location = new System.Drawing.Point(320, 384);
             this._6B.Name = "_6B";
             this._6B.Size = new System.Drawing.Size(64, 64);
             this._6B.TabIndex = 0;
             this._6B.TabStop = false;
+            this._6B.Click += new System.EventHandler(this._6B_Click);
             // 
             // _7B
             // 
             this._7B.BackColor = System.Drawing.Color.Silver;
+            this._7B.Image = ((System.Drawing.Image)(resources.GetObject("_7B.Image")));
             this._7B.Location = new System.Drawing.Point(384, 384);
             this._7B.Name = "_7B";
             this._7B.Size = new System.Drawing.Size(64, 64);
             this._7B.TabIndex = 0;
             this._7B.TabStop = false;
+            this._7B.Click += new System.EventHandler(this._7B_Click);
             // 
             // _8B
             // 
             this._8B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._8B.Image = ((System.Drawing.Image)(resources.GetObject("_8B.Image")));
             this._8B.Location = new System.Drawing.Point(448, 384);
             this._8B.Name = "_8B";
             this._8B.Size = new System.Drawing.Size(64, 64);
             this._8B.TabIndex = 0;
             this._8B.TabStop = false;
+            this._8B.Click += new System.EventHandler(this._8B_Click);
             // 
             // _1C
             // 
             this._1C.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._1C.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("_1C.BackgroundImage")));
+            this._1C.Image = ((System.Drawing.Image)(resources.GetObject("_1C.Image")));
             this._1C.Location = new System.Drawing.Point(0, 320);
             this._1C.Name = "_1C";
             this._1C.Size = new System.Drawing.Size(64, 64);
             this._1C.TabIndex = 0;
             this._1C.TabStop = false;
-
+            this._1C.Click += new System.EventHandler(this._1C_Click);
             // 
             // _2C
             // 
             this._2C.BackColor = System.Drawing.Color.Silver;
+            this._2C.Image = ((System.Drawing.Image)(resources.GetObject("_2C.Image")));
             this._2C.Location = new System.Drawing.Point(64, 320);
             this._2C.Name = "_2C";
             this._2C.Size = new System.Drawing.Size(64, 64);
             this._2C.TabIndex = 0;
             this._2C.TabStop = false;
-
+            this._2C.Click += new System.EventHandler(this._2C_Click);
             // 
             // _3C
             // 
             this._3C.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._3C.Image = ((System.Drawing.Image)(resources.GetObject("_3C.Image")));
             this._3C.Location = new System.Drawing.Point(128, 320);
             this._3C.Name = "_3C";
             this._3C.Size = new System.Drawing.Size(64, 64);
             this._3C.TabIndex = 0;
             this._3C.TabStop = false;
+            this._3C.Click += new System.EventHandler(this._3C_Click);
             // 
             // _4C
             // 
             this._4C.BackColor = System.Drawing.Color.Silver;
+            this._4C.Image = ((System.Drawing.Image)(resources.GetObject("_4C.Image")));
             this._4C.Location = new System.Drawing.Point(192, 320);
             this._4C.Name = "_4C";
             this._4C.Size = new System.Drawing.Size(64, 64);
             this._4C.TabIndex = 0;
             this._4C.TabStop = false;
+            this._4C.Click += new System.EventHandler(this._4C_Click);
             // 
             // _5C
             // 
             this._5C.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._5C.Image = ((System.Drawing.Image)(resources.GetObject("_5C.Image")));
             this._5C.Location = new System.Drawing.Point(256, 320);
             this._5C.Name = "_5C";
             this._5C.Size = new System.Drawing.Size(64, 64);
             this._5C.TabIndex = 0;
             this._5C.TabStop = false;
+            this._5C.Click += new System.EventHandler(this._5C_Click);
             // 
             // _6C
             // 
             this._6C.BackColor = System.Drawing.Color.Silver;
+            this._6C.Image = ((System.Drawing.Image)(resources.GetObject("_6C.Image")));
             this._6C.Location = new System.Drawing.Point(320, 320);
             this._6C.Name = "_6C";
             this._6C.Size = new System.Drawing.Size(64, 64);
             this._6C.TabIndex = 0;
             this._6C.TabStop = false;
+            this._6C.Click += new System.EventHandler(this._6C_Click);
             // 
             // _7C
             // 
             this._7C.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._7C.Image = ((System.Drawing.Image)(resources.GetObject("_7C.Image")));
             this._7C.Location = new System.Drawing.Point(384, 320);
             this._7C.Name = "_7C";
             this._7C.Size = new System.Drawing.Size(64, 64);
             this._7C.TabIndex = 0;
             this._7C.TabStop = false;
+            this._7C.Click += new System.EventHandler(this._7C_Click);
             // 
             // _8C
             // 
             this._8C.BackColor = System.Drawing.Color.Silver;
+            this._8C.Image = ((System.Drawing.Image)(resources.GetObject("_8C.Image")));
             this._8C.Location = new System.Drawing.Point(448, 320);
             this._8C.Name = "_8C";
             this._8C.Size = new System.Drawing.Size(64, 64);
             this._8C.TabIndex = 0;
             this._8C.TabStop = false;
+            this._8C.Click += new System.EventHandler(this._8C_Click);
             // 
             // _1D
             // 
             this._1D.BackColor = System.Drawing.Color.Silver;
+            this._1D.Image = ((System.Drawing.Image)(resources.GetObject("_1D.Image")));
             this._1D.Location = new System.Drawing.Point(0, 256);
             this._1D.Name = "_1D";
             this._1D.Size = new System.Drawing.Size(64, 64);
             this._1D.TabIndex = 0;
             this._1D.TabStop = false;
+            this._1D.Click += new System.EventHandler(this._1D_Click);
             // 
             // _2D
             // 
             this._2D.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._2D.Image = ((System.Drawing.Image)(resources.GetObject("_2D.Image")));
             this._2D.Location = new System.Drawing.Point(64, 256);
             this._2D.Name = "_2D";
             this._2D.Size = new System.Drawing.Size(64, 64);
             this._2D.TabIndex = 0;
             this._2D.TabStop = false;
+            this._2D.Click += new System.EventHandler(this._2D_Click);
             // 
             // _3D
             // 
             this._3D.BackColor = System.Drawing.Color.Silver;
+            this._3D.Image = ((System.Drawing.Image)(resources.GetObject("_3D.Image")));
             this._3D.Location = new System.Drawing.Point(128, 256);
             this._3D.Name = "_3D";
             this._3D.Size = new System.Drawing.Size(64, 64);
             this._3D.TabIndex = 0;
             this._3D.TabStop = false;
+            this._3D.Click += new System.EventHandler(this._3D_Click);
             // 
             // _4D
             // 
             this._4D.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._4D.Image = ((System.Drawing.Image)(resources.GetObject("_4D.Image")));
             this._4D.Location = new System.Drawing.Point(192, 256);
             this._4D.Name = "_4D";
             this._4D.Size = new System.Drawing.Size(64, 64);
             this._4D.TabIndex = 0;
             this._4D.TabStop = false;
+            this._4D.Click += new System.EventHandler(this._4D_Click);
             // 
             // _5D
             // 
             this._5D.BackColor = System.Drawing.Color.Silver;
+            this._5D.Image = ((System.Drawing.Image)(resources.GetObject("_5D.Image")));
             this._5D.Location = new System.Drawing.Point(256, 256);
             this._5D.Name = "_5D";
             this._5D.Size = new System.Drawing.Size(64, 64);
             this._5D.TabIndex = 0;
             this._5D.TabStop = false;
+            this._5D.Click += new System.EventHandler(this._5D_Click);
             // 
             // _6D
             // 
             this._6D.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._6D.Image = ((System.Drawing.Image)(resources.GetObject("_6D.Image")));
             this._6D.Location = new System.Drawing.Point(320, 256);
             this._6D.Name = "_6D";
             this._6D.Size = new System.Drawing.Size(64, 64);
             this._6D.TabIndex = 0;
             this._6D.TabStop = false;
+            this._6D.Click += new System.EventHandler(this._6D_Click);
             // 
             // _7D
             // 
             this._7D.BackColor = System.Drawing.Color.Silver;
+            this._7D.Image = ((System.Drawing.Image)(resources.GetObject("_7D.Image")));
             this._7D.Location = new System.Drawing.Point(384, 256);
             this._7D.Name = "_7D";
             this._7D.Size = new System.Drawing.Size(64, 64);
             this._7D.TabIndex = 0;
             this._7D.TabStop = false;
+            this._7D.Click += new System.EventHandler(this._7D_Click);
             // 
             // _8D
             // 
             this._8D.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._8D.Image = ((System.Drawing.Image)(resources.GetObject("_8D.Image")));
             this._8D.Location = new System.Drawing.Point(448, 256);
             this._8D.Name = "_8D";
             this._8D.Size = new System.Drawing.Size(64, 64);
             this._8D.TabIndex = 0;
             this._8D.TabStop = false;
+            this._8D.Click += new System.EventHandler(this._8D_Click);
             // 
             // _1E
             // 
             this._1E.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._1E.Image = ((System.Drawing.Image)(resources.GetObject("_1E.Image")));
             this._1E.Location = new System.Drawing.Point(0, 192);
             this._1E.Name = "_1E";
             this._1E.Size = new System.Drawing.Size(64, 64);
             this._1E.TabIndex = 0;
             this._1E.TabStop = false;
+            this._1E.Click += new System.EventHandler(this._1E_Click);
             // 
             // _2E
             // 
             this._2E.BackColor = System.Drawing.Color.Silver;
+            this._2E.Image = ((System.Drawing.Image)(resources.GetObject("_2E.Image")));
             this._2E.Location = new System.Drawing.Point(64, 192);
             this._2E.Name = "_2E";
             this._2E.Size = new System.Drawing.Size(64, 64);
             this._2E.TabIndex = 0;
             this._2E.TabStop = false;
+            this._2E.Click += new System.EventHandler(this._2E_Click);
             // 
             // _3E
             // 
             this._3E.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._3E.Image = ((System.Drawing.Image)(resources.GetObject("_3E.Image")));
             this._3E.Location = new System.Drawing.Point(128, 192);
             this._3E.Name = "_3E";
             this._3E.Size = new System.Drawing.Size(64, 64);
             this._3E.TabIndex = 0;
             this._3E.TabStop = false;
+            this._3E.Click += new System.EventHandler(this._3E_Click);
             // 
             // _4E
             // 
             this._4E.BackColor = System.Drawing.Color.Silver;
+            this._4E.Image = ((System.Drawing.Image)(resources.GetObject("_4E.Image")));
             this._4E.Location = new System.Drawing.Point(192, 192);
             this._4E.Name = "_4E";
             this._4E.Size = new System.Drawing.Size(64, 64);
             this._4E.TabIndex = 0;
             this._4E.TabStop = false;
+            this._4E.Click += new System.EventHandler(this._4E_Click);
             // 
             // _5E
             // 
             this._5E.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._5E.Image = ((System.Drawing.Image)(resources.GetObject("_5E.Image")));
             this._5E.Location = new System.Drawing.Point(256, 192);
             this._5E.Name = "_5E";
             this._5E.Size = new System.Drawing.Size(64, 64);
             this._5E.TabIndex = 0;
             this._5E.TabStop = false;
+            this._5E.Click += new System.EventHandler(this._5E_Click);
             // 
             // _6E
             // 
             this._6E.BackColor = System.Drawing.Color.Silver;
+            this._6E.Image = ((System.Drawing.Image)(resources.GetObject("_6E.Image")));
             this._6E.Location = new System.Drawing.Point(320, 192);
             this._6E.Name = "_6E";
             this._6E.Size = new System.Drawing.Size(64, 64);
             this._6E.TabIndex = 0;
             this._6E.TabStop = false;
+            this._6E.Click += new System.EventHandler(this._6E_Click);
             // 
             // _7E
             // 
             this._7E.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._7E.Image = ((System.Drawing.Image)(resources.GetObject("_7E.Image")));
             this._7E.Location = new System.Drawing.Point(384, 192);
             this._7E.Name = "_7E";
             this._7E.Size = new System.Drawing.Size(64, 64);
             this._7E.TabIndex = 0;
             this._7E.TabStop = false;
+            this._7E.Click += new System.EventHandler(this._7E_Click);
             // 
             // _8E
             // 
             this._8E.BackColor = System.Drawing.Color.Silver;
+            this._8E.Image = ((System.Drawing.Image)(resources.GetObject("_8E.Image")));
             this._8E.Location = new System.Drawing.Point(448, 192);
             this._8E.Name = "_8E";
             this._8E.Size = new System.Drawing.Size(64, 64);
             this._8E.TabIndex = 0;
             this._8E.TabStop = false;
+            this._8E.Click += new System.EventHandler(this._8E_Click);
             // 
             // _1F
             // 
             this._1F.BackColor = System.Drawing.Color.Silver;
+            this._1F.Image = ((System.Drawing.Image)(resources.GetObject("_1F.Image")));
             this._1F.Location = new System.Drawing.Point(0, 128);
             this._1F.Name = "_1F";
             this._1F.Size = new System.Drawing.Size(64, 64);
             this._1F.TabIndex = 0;
             this._1F.TabStop = false;
+            this._1F.Click += new System.EventHandler(this._1F_Click);
             // 
             // _2F
             // 
             this._2F.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._2F.Image = ((System.Drawing.Image)(resources.GetObject("_2F.Image")));
             this._2F.Location = new System.Drawing.Point(64, 128);
             this._2F.Name = "_2F";
             this._2F.Size = new System.Drawing.Size(64, 64);
             this._2F.TabIndex = 0;
             this._2F.TabStop = false;
+            this._2F.Click += new System.EventHandler(this._2F_Click);
             // 
             // _3F
             // 
             this._3F.BackColor = System.Drawing.Color.Silver;
+            this._3F.Image = ((System.Drawing.Image)(resources.GetObject("_3F.Image")));
             this._3F.Location = new System.Drawing.Point(128, 128);
             this._3F.Name = "_3F";
             this._3F.Size = new System.Drawing.Size(64, 64);
             this._3F.TabIndex = 0;
             this._3F.TabStop = false;
+            this._3F.Click += new System.EventHandler(this._3F_Click);
             // 
             // _4F
             // 
             this._4F.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._4F.Image = ((System.Drawing.Image)(resources.GetObject("_4F.Image")));
             this._4F.Location = new System.Drawing.Point(192, 128);
             this._4F.Name = "_4F";
             this._4F.Size = new System.Drawing.Size(64, 64);
             this._4F.TabIndex = 0;
             this._4F.TabStop = false;
+            this._4F.Click += new System.EventHandler(this._4F_Click);
             // 
             // _5F
             // 
             this._5F.BackColor = System.Drawing.Color.Silver;
+            this._5F.Image = ((System.Drawing.Image)(resources.GetObject("_5F.Image")));
             this._5F.Location = new System.Drawing.Point(256, 128);
             this._5F.Name = "_5F";
             this._5F.Size = new System.Drawing.Size(64, 64);
             this._5F.TabIndex = 0;
             this._5F.TabStop = false;
+            this._5F.Click += new System.EventHandler(this._5F_Click);
             // 
             // _6F
             // 
             this._6F.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._6F.Image = ((System.Drawing.Image)(resources.GetObject("_6F.Image")));
             this._6F.Location = new System.Drawing.Point(320, 128);
             this._6F.Name = "_6F";
             this._6F.Size = new System.Drawing.Size(64, 64);
             this._6F.TabIndex = 0;
             this._6F.TabStop = false;
+            this._6F.Click += new System.EventHandler(this._6F_Click);
             // 
             // _7F
             // 
             this._7F.BackColor = System.Drawing.Color.Silver;
+            this._7F.Image = ((System.Drawing.Image)(resources.GetObject("_7F.Image")));
             this._7F.Location = new System.Drawing.Point(384, 128);
             this._7F.Name = "_7F";
             this._7F.Size = new System.Drawing.Size(64, 64);
             this._7F.TabIndex = 0;
             this._7F.TabStop = false;
+            this._7F.Click += new System.EventHandler(this._7F_Click);
             // 
             // _8F
             // 
             this._8F.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._8F.Image = ((System.Drawing.Image)(resources.GetObject("_8F.Image")));
             this._8F.Location = new System.Drawing.Point(448, 128);
             this._8F.Name = "_8F";
             this._8F.Size = new System.Drawing.Size(64, 64);
             this._8F.TabIndex = 0;
             this._8F.TabStop = false;
+            this._8F.Click += new System.EventHandler(this._8F_Click);
             // 
             // _1G
             // 
             this._1G.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._1G.Image = ((System.Drawing.Image)(resources.GetObject("_1G.Image")));
             this._1G.Location = new System.Drawing.Point(0, 64);
             this._1G.Name = "_1G";
             this._1G.Size = new System.Drawing.Size(64, 64);
             this._1G.TabIndex = 0;
             this._1G.TabStop = false;
+            this._1G.Click += new System.EventHandler(this._1G_Click);
             // 
             // _2G
             // 
             this._2G.BackColor = System.Drawing.Color.Silver;
+            this._2G.Image = ((System.Drawing.Image)(resources.GetObject("_2G.Image")));
             this._2G.Location = new System.Drawing.Point(64, 64);
             this._2G.Name = "_2G";
             this._2G.Size = new System.Drawing.Size(64, 64);
             this._2G.TabIndex = 0;
             this._2G.TabStop = false;
+            this._2G.Click += new System.EventHandler(this._2G_Click);
             // 
             // _3G
             // 
             this._3G.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._3G.Image = ((System.Drawing.Image)(resources.GetObject("_3G.Image")));
             this._3G.Location = new System.Drawing.Point(128, 64);
             this._3G.Name = "_3G";
             this._3G.Size = new System.Drawing.Size(64, 64);
             this._3G.TabIndex = 0;
             this._3G.TabStop = false;
+            this._3G.Click += new System.EventHandler(this._3G_Click);
             // 
             // _4G
             // 
             this._4G.BackColor = System.Drawing.Color.Silver;
+            this._4G.Image = ((System.Drawing.Image)(resources.GetObject("_4G.Image")));
             this._4G.Location = new System.Drawing.Point(192, 64);
             this._4G.Name = "_4G";
             this._4G.Size = new System.Drawing.Size(64, 64);
             this._4G.TabIndex = 0;
             this._4G.TabStop = false;
+            this._4G.Click += new System.EventHandler(this._4G_Click);
             // 
             // _5G
             // 
             this._5G.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._5G.Image = ((System.Drawing.Image)(resources.GetObject("_5G.Image")));
             this._5G.Location = new System.Drawing.Point(256, 64);
             this._5G.Name = "_5G";
             this._5G.Size = new System.Drawing.Size(64, 64);
             this._5G.TabIndex = 0;
             this._5G.TabStop = false;
+            this._5G.Click += new System.EventHandler(this._5G_Click);
             // 
             // _6G
             // 
             this._6G.BackColor = System.Drawing.Color.Silver;
+            this._6G.Image = ((System.Drawing.Image)(resources.GetObject("_6G.Image")));
             this._6G.Location = new System.Drawing.Point(320, 64);
             this._6G.Name = "_6G";
             this._6G.Size = new System.Drawing.Size(64, 64);
             this._6G.TabIndex = 0;
             this._6G.TabStop = false;
+            this._6G.Click += new System.EventHandler(this._6G_Click);
             // 
             // _7G
             // 
             this._7G.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._7G.Image = ((System.Drawing.Image)(resources.GetObject("_7G.Image")));
             this._7G.Location = new System.Drawing.Point(384, 64);
             this._7G.Name = "_7G";
             this._7G.Size = new System.Drawing.Size(64, 64);
             this._7G.TabIndex = 0;
             this._7G.TabStop = false;
+            this._7G.Click += new System.EventHandler(this._7G_Click);
             // 
             // _8G
             // 
             this._8G.BackColor = System.Drawing.Color.Silver;
+            this._8G.Image = ((System.Drawing.Image)(resources.GetObject("_8G.Image")));
             this._8G.Location = new System.Drawing.Point(448, 64);
             this._8G.Name = "_8G";
             this._8G.Size = new System.Drawing.Size(64, 64);
             this._8G.TabIndex = 0;
             this._8G.TabStop = false;
+            this._8G.Click += new System.EventHandler(this._8G_Click);
             // 
             // _1H
             // 
             this._1H.BackColor = System.Drawing.Color.Silver;
+            this._1H.Image = ((System.Drawing.Image)(resources.GetObject("_1H.Image")));
             this._1H.Location = new System.Drawing.Point(0, 0);
             this._1H.Name = "_1H";
             this._1H.Size = new System.Drawing.Size(64, 64);
             this._1H.TabIndex = 0;
             this._1H.TabStop = false;
-
+            this._1H.Click += new System.EventHandler(this._1H_Click);
             // 
             // _2H
             // 
             this._2H.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._2H.Image = ((System.Drawing.Image)(resources.GetObject("_2H.Image")));
             this._2H.Location = new System.Drawing.Point(64, 0);
             this._2H.Name = "_2H";
             this._2H.Size = new System.Drawing.Size(64, 64);
@@ -883,6 +988,7 @@
             // _3H
             // 
             this._3H.BackColor = System.Drawing.Color.Silver;
+            this._3H.Image = ((System.Drawing.Image)(resources.GetObject("_3H.Image")));
             this._3H.Location = new System.Drawing.Point(128, 0);
             this._3H.Name = "_3H";
             this._3H.Size = new System.Drawing.Size(64, 64);
@@ -893,112 +999,56 @@
             // _4H
             // 
             this._4H.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._4H.Image = ((System.Drawing.Image)(resources.GetObject("_4H.Image")));
             this._4H.Location = new System.Drawing.Point(192, 0);
             this._4H.Name = "_4H";
             this._4H.Size = new System.Drawing.Size(64, 64);
             this._4H.TabIndex = 0;
             this._4H.TabStop = false;
+            this._4H.Click += new System.EventHandler(this._4H_Click);
             // 
             // _5H
             // 
             this._5H.BackColor = System.Drawing.Color.Silver;
+            this._5H.Image = ((System.Drawing.Image)(resources.GetObject("_5H.Image")));
             this._5H.Location = new System.Drawing.Point(256, 0);
             this._5H.Name = "_5H";
             this._5H.Size = new System.Drawing.Size(64, 64);
             this._5H.TabIndex = 0;
             this._5H.TabStop = false;
+            this._5H.Click += new System.EventHandler(this._5H_Click);
             // 
             // _6H
             // 
             this._6H.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._6H.Image = ((System.Drawing.Image)(resources.GetObject("_6H.Image")));
             this._6H.Location = new System.Drawing.Point(320, 0);
             this._6H.Name = "_6H";
             this._6H.Size = new System.Drawing.Size(64, 64);
             this._6H.TabIndex = 0;
             this._6H.TabStop = false;
+            this._6H.Click += new System.EventHandler(this._6H_Click);
             // 
             // _7H
             // 
             this._7H.BackColor = System.Drawing.Color.Silver;
+            this._7H.Image = ((System.Drawing.Image)(resources.GetObject("_7H.Image")));
             this._7H.Location = new System.Drawing.Point(384, 0);
             this._7H.Name = "_7H";
             this._7H.Size = new System.Drawing.Size(64, 64);
             this._7H.TabIndex = 0;
             this._7H.TabStop = false;
+            this._7H.Click += new System.EventHandler(this._7H_Click);
             // 
             // _8H
             // 
             this._8H.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            this._8H.Image = ((System.Drawing.Image)(resources.GetObject("_8H.Image")));
             this._8H.Location = new System.Drawing.Point(448, 0);
             this._8H.Name = "_8H";
             this._8H.Size = new System.Drawing.Size(64, 64);
             this._8H.TabIndex = 0;
             this._8H.TabStop = false;
-
-
-            this._1A.Click += new System.EventHandler(this._1A_Click);
-            this._2A.Click += new System.EventHandler(this._2A_Click);
-            this._3A.Click += new System.EventHandler(this._3A_Click);
-            this._4A.Click += new System.EventHandler(this._4A_Click);
-            this._5A.Click += new System.EventHandler(this._5A_Click);
-            this._6A.Click += new System.EventHandler(this._6A_Click);
-            this._7A.Click += new System.EventHandler(this._7A_Click);
-            this._8A.Click += new System.EventHandler(this._8A_Click);
-            this._1B.Click += new System.EventHandler(this._1B_Click);
-            this._2B.Click += new System.EventHandler(this._2B_Click);
-            this._3B.Click += new System.EventHandler(this._3B_Click);
-            this._4B.Click += new System.EventHandler(this._4B_Click);
-            this._5B.Click += new System.EventHandler(this._5B_Click);
-            this._6B.Click += new System.EventHandler(this._6B_Click);
-            this._7B.Click += new System.EventHandler(this._7B_Click);
-            this._8B.Click += new System.EventHandler(this._8B_Click);
-            this._1C.Click += new System.EventHandler(this._1C_Click);
-            this._2C.Click += new System.EventHandler(this._2C_Click);
-            this._3C.Click += new System.EventHandler(this._3C_Click);
-            this._4C.Click += new System.EventHandler(this._4C_Click);
-            this._5C.Click += new System.EventHandler(this._5C_Click);
-            this._6C.Click += new System.EventHandler(this._6C_Click);
-            this._7C.Click += new System.EventHandler(this._7C_Click);
-            this._8C.Click += new System.EventHandler(this._8C_Click);
-            this._1D.Click += new System.EventHandler(this._1D_Click);
-            this._2D.Click += new System.EventHandler(this._2D_Click);
-            this._3D.Click += new System.EventHandler(this._3D_Click);
-            this._4D.Click += new System.EventHandler(this._4D_Click);
-            this._5D.Click += new System.EventHandler(this._5D_Click);
-            this._6D.Click += new System.EventHandler(this._6D_Click);
-            this._7D.Click += new System.EventHandler(this._7D_Click);
-            this._8D.Click += new System.EventHandler(this._8D_Click);
-            this._1E.Click += new System.EventHandler(this._1E_Click);
-            this._2E.Click += new System.EventHandler(this._2E_Click);
-            this._3E.Click += new System.EventHandler(this._3E_Click);
-            this._4E.Click += new System.EventHandler(this._4E_Click);
-            this._5E.Click += new System.EventHandler(this._5E_Click);
-            this._6E.Click += new System.EventHandler(this._6E_Click);
-            this._7E.Click += new System.EventHandler(this._7E_Click);
-            this._8E.Click += new System.EventHandler(this._8E_Click);
-            this._1F.Click += new System.EventHandler(this._1F_Click);
-            this._2F.Click += new System.EventHandler(this._2F_Click);
-            this._3F.Click += new System.EventHandler(this._3F_Click);
-            this._4F.Click += new System.EventHandler(this._4F_Click);
-            this._5F.Click += new System.EventHandler(this._5F_Click);
-            this._6F.Click += new System.EventHandler(this._6F_Click);
-            this._7F.Click += new System.EventHandler(this._7F_Click);
-            this._8F.Click += new System.EventHandler(this._8F_Click);
-            this._1G.Click += new System.EventHandler(this._1G_Click);
-            this._2G.Click += new System.EventHandler(this._2G_Click);
-            this._3G.Click += new System.EventHandler(this._3G_Click);
-            this._4G.Click += new System.EventHandler(this._4G_Click);
-            this._5G.Click += new System.EventHandler(this._5G_Click);
-            this._6G.Click += new System.EventHandler(this._6G_Click);
-            this._7G.Click += new System.EventHandler(this._7G_Click);
-            this._8G.Click += new System.EventHandler(this._8G_Click);
-            this._1H.Click += new System.EventHandler(this._1H_Click);
-            this._2H.Click += new System.EventHandler(this._2H_Click);
-            this._3H.Click += new System.EventHandler(this._3H_Click);
-            this._4H.Click += new System.EventHandler(this._4H_Click);
-            this._5H.Click += new System.EventHandler(this._5H_Click);
-            this._6H.Click += new System.EventHandler(this._6H_Click);
-            this._7H.Click += new System.EventHandler(this._7H_Click);
             this._8H.Click += new System.EventHandler(this._8H_Click);
             // 
             // menuStrip1

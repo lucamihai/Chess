@@ -610,6 +610,7 @@ namespace Chess_Application
             locatii[8, 6] = H6;
             locatii[8, 7] = H7;
             locatii[8, 8] = H8;
+            C1.StergeLocatie();//de revenit(for some reason C1 nu functioneaza properly fara linia asta)
         }
         public void RestoreCulori(LocatieTabla[,] loc)
         {
