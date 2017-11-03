@@ -41,6 +41,7 @@
             this.btnExitApp.TabIndex = 5;
             this.btnExitApp.Text = "Exit";
             this.btnExitApp.UseVisualStyleBackColor = true;
+            this.btnExitApp.Click += new System.EventHandler(this.btnExitApp_Click);
             // 
             // btnOptionsMenu
             // 

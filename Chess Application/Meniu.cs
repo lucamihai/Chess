@@ -23,5 +23,10 @@ namespace Chess_Application
             this.Hide();
 
         }
+
+        private void btnExitApp_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -22,8 +22,8 @@ namespace Chess_Application
 
         public LocatieTabla[,] locatii;
 
-        Piesa pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
-        Piesa pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
+        Pion pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
+        Pion pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
 
         Piesa tura1Alb, tura2Alb;
         Piesa nebun1Alb, nebun2Alb;
@@ -96,6 +96,11 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Pion :Piesa
         {
+            public Pion(int c, PictureBox p)
+            {
+                culoare = c;
+                imaginePiesa = p;
+            }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
                 if (culoare == 1)//pion alb
@@ -150,9 +155,14 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Tura :Piesa
         {
+            public Tura(int c, PictureBox p)
+            {
+                culoare = c;
+                imaginePiesa = p;
+            }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
-                if (tipPiesa == 2)//tura
+               
                 {
                     //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
 
@@ -208,6 +218,11 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Cal :Piesa
         {
+            public Cal(int c, PictureBox p)
+            {
+                culoare = c;
+                imaginePiesa = p;
+            }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
                 //self explanatory right here
@@ -261,6 +276,11 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Nebun :Piesa
         {
+            public Nebun(int c, PictureBox p)
+            {
+                culoare = c;
+                imaginePiesa = p;
+            }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
                 //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
@@ -339,6 +359,11 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Regina :Piesa
         {
+            public Regina(int c, PictureBox p)
+            {
+                culoare = c;
+                imaginePiesa = p;
+            }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
                 for (int k = j; k >= 1; k--)
@@ -451,6 +476,11 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Rege :Piesa
         {
+            public Rege(int c, PictureBox p)
+            {
+                culoare = c;
+                imaginePiesa = p;
+            }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
                 if (loc[i + 1, j] != null && loc[i + 1, j].culoare != loc[i, j].culoare) { loc[i + 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
@@ -509,6 +539,7 @@ namespace Chess_Application
             }
             public void Muta(LocatieTabla origine)
             {
+                piesa = origine.piesa;
                 imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
                 tipPiesa = origine.tipPiesa;
                 culoare = origine.culoare;
@@ -869,6 +900,8 @@ namespace Chess_Application
 
         public void NewGame()
         {
+
+            
             A1 = new LocatieTabla(tura1Alb, _1A);
             A2 = new LocatieTabla(cal1Alb, _2A);
             A3 = new LocatieTabla(nebun1Alb, _3A);
@@ -885,7 +918,7 @@ namespace Chess_Application
             B6 = new LocatieTabla(pion6Alb, _6B);
             B7 = new LocatieTabla(pion7Alb, _7B);
             B8 = new LocatieTabla(pion8Alb, _8B);
-
+            //=====
             H1 = new LocatieTabla(tura1Negru, _1H);
             H2 = new LocatieTabla(cal1Negru, _2H);
             H3 = new LocatieTabla(nebun1Negru, _3H);
@@ -902,7 +935,7 @@ namespace Chess_Application
             G6 = new LocatieTabla(pion6Negru, _6G);
             G7 = new LocatieTabla(pion7Negru, _7G);
             G8 = new LocatieTabla(pion8Negru, _8G);
-
+            //=====
             C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D);
             C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D);
             C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D);
@@ -911,7 +944,7 @@ namespace Chess_Application
             C6 = new LocatieTabla(_6C); D6 = new LocatieTabla(_6D);
             C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D);
             C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D);
-
+            //=====
             E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
             E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
             E3 = new LocatieTabla(_3E); F3 = new LocatieTabla(_3F);
@@ -920,7 +953,7 @@ namespace Chess_Application
             E6 = new LocatieTabla(_6E); F6 = new LocatieTabla(_6F);
             E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
-
+            //=====
             locatii = new LocatieTabla[100, 100];
             locatii[1, 1] = A1;
             locatii[1, 2] = A2;
@@ -986,7 +1019,9 @@ namespace Chess_Application
             locatii[8, 6] = H6;
             locatii[8, 7] = H7;
             locatii[8, 8] = H8;
-            C1.StergeLocatie();//de revenit(for some reason C1 nu functioneaza properly fara linia asta)
+            RestoreCulori(locatii);
+            // C1.StergeLocatie();de revenit(for some reason C1 nu functioneaza properly fara linia asta)
+            clickCounter = 0;
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
         }
@@ -999,24 +1034,23 @@ namespace Chess_Application
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            tura1Alb = new Piesa(1, 2, pbTuraAlb); tura2Alb = new Piesa(1, 2, pbTuraAlb);
-            cal1Alb = new Piesa(1, 3, pbCalAlb); cal2Alb = new Piesa(1, 3, pbCalAlb);
-            nebun1Alb = new Piesa(1, 4, pbNebunAlb); nebun2Alb = new Piesa(1, 4, pbNebunAlb);
-            reginaAlb = new Piesa(1, 5, pbReginaAlb); regeAlb = new Piesa(1, 6, pbRegeAlb);
-            pion1Alb = new Piesa(1, 1, pbPionAlb); pion2Alb = new Piesa(1, 1, pbPionAlb);
-            pion3Alb = new Piesa(1, 1, pbPionAlb); pion4Alb = new Piesa(1, 1, pbPionAlb);
-            pion5Alb = new Piesa(1, 1, pbPionAlb); pion6Alb = new Piesa(1, 1, pbPionAlb);
-            pion7Alb = new Piesa(1, 1, pbPionAlb); pion8Alb = new Piesa(1, 1, pbPionAlb);
+            tura1Alb = new Tura(1, pbTuraAlb); tura2Alb = new Tura(1, pbTuraAlb);
+            cal1Alb = new Cal(1, pbCalAlb); cal2Alb = new Cal(1, pbCalAlb);
+            nebun1Alb = new Nebun(1, pbNebunAlb); nebun2Alb = new Nebun(1, pbNebunAlb);
+            reginaAlb = new Regina(1, pbReginaAlb); regeAlb = new Rege(1, pbRegeAlb);
+            pion1Alb = new Pion(1, pbPionAlb); pion2Alb = new Pion(1, pbPionAlb);
+            pion3Alb = new Pion(1, pbPionAlb); pion4Alb = new Pion(1, pbPionAlb);
+            pion5Alb = new Pion(1, pbPionAlb); pion6Alb = new Pion(1, pbPionAlb);
+            pion7Alb = new Pion(1, pbPionAlb); pion8Alb = new Pion(1, pbPionAlb);
 
-            pion1Negru = new Piesa(2, 1, pbPionNegru);
-            tura1Negru = new Piesa(2, 2, pbTuraNegru); tura2Negru = new Piesa(2, 2, pbTuraNegru);
-            cal1Negru = new Piesa(2, 3, pbCalNegru); cal2Negru = new Piesa(2, 3, pbCalNegru);
-            nebun1Negru = new Piesa(2, 4, pbNebunNegru); nebun2Negru = new Piesa(2, 4, pbNebunNegru);
-            reginaNegru = new Piesa(2, 5, pbReginaNegru); regeNegru = new Piesa(2, 6, pbRegeNegru);
-            pion1Negru = new Piesa(2, 1, pbPionNegru); pion2Negru = new Piesa(2, 1, pbPionNegru);
-            pion3Negru = new Piesa(2, 1, pbPionNegru); pion4Negru = new Piesa(2, 1, pbPionNegru);
-            pion5Negru = new Piesa(2, 1, pbPionNegru); pion6Negru = new Piesa(2, 1, pbPionNegru);
-            pion7Negru = new Piesa(2, 1, pbPionNegru); pion8Negru = new Piesa(2, 1, pbPionNegru);
+            tura1Negru = new Tura(2, pbTuraNegru); tura2Negru = new Tura(2, pbTuraNegru);
+            cal1Negru = new Cal(2, pbCalNegru); cal2Negru = new Cal(2, pbCalNegru);
+            nebun1Negru = new Nebun(2, pbNebunNegru); nebun2Negru = new Nebun(2, pbNebunNegru);
+            reginaNegru = new Regina(2, pbReginaNegru); regeNegru = new Rege(2, pbRegeNegru);
+            pion1Negru = new Pion(2, pbPionNegru); pion2Negru = new Pion(2, pbPionNegru);
+            pion3Negru = new Pion(2, pbPionNegru); pion4Negru = new Pion(2, pbPionNegru);
+            pion5Negru = new Pion(2, pbPionNegru); pion6Negru = new Pion(2, pbPionNegru);
+            pion7Negru = new Pion(2, pbPionNegru); pion8Negru = new Pion(2, pbPionNegru);
 
             NewGame();
 
@@ -1122,7 +1156,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1A.BackgroundImage != null && randMutare == A1.culoare)
             {
-                A1.Verifica(1, 1, locatii);
+                A1.piesa.VerificaPosibilitati(1, 1, locatii);
                 if (A1.poateFaceMiscari == true)
                 {
                     orig = A1;
@@ -1143,7 +1177,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2A.BackgroundImage != null && randMutare == A2.culoare)
             {
-                A2.Verifica(1, 2, locatii);
+                A2.piesa.VerificaPosibilitati(1, 2, locatii);
                 if (A2.poateFaceMiscari == true)
                 {
                     orig = A2;
@@ -1164,7 +1198,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3A.BackgroundImage != null && randMutare == A3.culoare)
             {
-                A3.Verifica(1, 3, locatii);
+                A3.piesa.VerificaPosibilitati(1, 3, locatii);
                 if (A3.poateFaceMiscari == true)
                 {
                     orig = A3;
@@ -1185,7 +1219,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4A.BackgroundImage != null && randMutare == A4.culoare)
             {
-                A4.Verifica(1, 4, locatii);
+                A4.piesa.VerificaPosibilitati(1, 4, locatii);
                 if (A4.poateFaceMiscari == true)
                 {
                     orig = A4;
@@ -1206,7 +1240,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5A.BackgroundImage != null && randMutare == A5.culoare)
             {
-                A5.Verifica(1, 5, locatii);
+                A5.piesa.VerificaPosibilitati(1, 5, locatii);
                 if (A5.poateFaceMiscari == true)
                 {
                     orig = A5;
@@ -1227,7 +1261,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6A.BackgroundImage != null && randMutare == A6.culoare)
             {
-                A6.Verifica(1, 6, locatii);
+                A6.piesa.VerificaPosibilitati(1, 6, locatii);
                 if (A6.poateFaceMiscari == true)
                 {
                     orig = A6;
@@ -1248,7 +1282,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7A.BackgroundImage != null && randMutare == A7.culoare)
             {
-                A7.Verifica(1, 7, locatii);
+                A7.piesa.VerificaPosibilitati(1, 7, locatii);
                 if (A7.poateFaceMiscari == true)
                 {
                     orig = A7;
@@ -1269,7 +1303,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8A.BackgroundImage != null && randMutare == A8.culoare)
             {
-                A8.Verifica(1, 8, locatii);
+                A8.piesa.VerificaPosibilitati(1, 8, locatii);
                 if (A8.poateFaceMiscari == true)
                 {
                     orig = A8;
@@ -1290,7 +1324,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1B.BackgroundImage != null && randMutare == B1.culoare)
             {
-                B1.Verifica(2, 1, locatii);
+                B1.piesa.VerificaPosibilitati(2, 1, locatii);
                 if (B1.poateFaceMiscari == true)
                 {
                     orig = B1;
@@ -1311,7 +1345,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2B.BackgroundImage != null && randMutare == B2.culoare)
             {
-                B2.Verifica(2, 2, locatii);
+                B2.piesa.VerificaPosibilitati(2, 2, locatii);
                 if (B2.poateFaceMiscari == true)
                 {
                     orig = B2;
@@ -1332,7 +1366,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3B.BackgroundImage != null && randMutare == B3.culoare)
             {
-                B3.Verifica(2, 3, locatii);
+                B3.piesa.VerificaPosibilitati(2, 3, locatii);
                 if (B3.poateFaceMiscari == true)
                 {
                     orig = B3;
@@ -1353,7 +1387,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4B.BackgroundImage != null && randMutare == B4.culoare)
             {
-                B4.Verifica(2, 4, locatii);
+                B4.piesa.VerificaPosibilitati(2, 4, locatii);
                 if (B4.poateFaceMiscari == true)
                 {
                     orig = B4;
@@ -1374,7 +1408,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5B.BackgroundImage != null && randMutare == B5.culoare)
             {
-                B5.Verifica(2, 5, locatii);
+                B5.piesa.VerificaPosibilitati(2, 5, locatii);
                 if (B5.poateFaceMiscari == true)
                 {
                     orig = B5;
@@ -1395,7 +1429,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6B.BackgroundImage != null && randMutare == B6.culoare)
             {
-                B6.Verifica(2, 6, locatii);
+                B6.piesa.VerificaPosibilitati(2, 6, locatii);
                 if (B6.poateFaceMiscari == true)
                 {
                     orig = B6;
@@ -1416,7 +1450,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7B.BackgroundImage != null && randMutare == B7.culoare)
             {
-                B7.Verifica(2, 7, locatii);
+                B7.piesa.VerificaPosibilitati(2, 7, locatii);
                 if (B7.poateFaceMiscari == true)
                 {
                     orig = B7;
@@ -1437,7 +1471,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8B.BackgroundImage != null && randMutare == B8.culoare)
             {
-                B8.Verifica(2, 8, locatii);
+                B8.piesa.VerificaPosibilitati(2, 8, locatii);
                 if (B8.poateFaceMiscari == true)
                 {
                     orig = B8;
@@ -1458,7 +1492,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1C.BackgroundImage != null && randMutare == C1.culoare)
             {
-                C1.Verifica(3, 1, locatii);
+                C1.piesa.VerificaPosibilitati(3, 1, locatii);
                 if (C1.poateFaceMiscari == true)
                 {
                     orig = C1;
@@ -1479,7 +1513,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2C.BackgroundImage != null && randMutare == C2.culoare)
             {
-                C2.Verifica(3, 2, locatii);
+                C2.piesa.VerificaPosibilitati(3, 2, locatii);
                 if (C2.poateFaceMiscari == true)
                 {
                     orig = C2;
@@ -1500,7 +1534,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3C.BackgroundImage != null && randMutare == C3.culoare)
             {
-                C3.Verifica(3, 3, locatii);
+                C3.piesa.VerificaPosibilitati(3, 3, locatii);
                 if (C3.poateFaceMiscari == true)
                 {
                     orig = C3;
@@ -1521,7 +1555,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4C.BackgroundImage != null && randMutare == C4.culoare)
             {
-                C4.Verifica(3, 4, locatii);
+                C4.piesa.VerificaPosibilitati(3, 4, locatii);
                 if (C4.poateFaceMiscari == true)
                 {
                     orig = C4;
@@ -1542,7 +1576,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5C.BackgroundImage != null && randMutare == C5.culoare)
             {
-                C5.Verifica(3, 5, locatii);
+                C5.piesa.VerificaPosibilitati(3, 5, locatii);
                 if (C5.poateFaceMiscari == true)
                 {
                     orig = C5;
@@ -1563,7 +1597,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6C.BackgroundImage != null && randMutare == C6.culoare)
             {
-                C6.Verifica(3, 6, locatii);
+                C6.piesa.VerificaPosibilitati(3, 6, locatii);
                 if (C6.poateFaceMiscari == true)
                 {
                     orig = C6;
@@ -1584,7 +1618,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7C.BackgroundImage != null && randMutare == C7.culoare)
             {
-                C7.Verifica(3, 7, locatii);
+                C7.piesa.VerificaPosibilitati(3, 7, locatii);
                 if (C7.poateFaceMiscari == true)
                 {
                     orig = C7;
@@ -1605,7 +1639,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8C.BackgroundImage != null && randMutare == C8.culoare)
             {
-                C8.Verifica(3, 8, locatii);
+                C8.piesa.VerificaPosibilitati(3, 8, locatii);
                 if (C8.poateFaceMiscari == true)
                 {
                     orig = C8;
@@ -1626,7 +1660,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1D.BackgroundImage != null && randMutare == D1.culoare)
             {
-                D1.Verifica(4, 1, locatii);
+                D1.piesa.VerificaPosibilitati(4, 1, locatii);
                 if (D1.poateFaceMiscari == true)
                 {
                     orig = D1;
@@ -1647,7 +1681,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2D.BackgroundImage != null && randMutare == D2.culoare)
             {
-                D2.Verifica(4, 2, locatii);
+                D2.piesa.VerificaPosibilitati(4, 2, locatii);
                 if (D2.poateFaceMiscari == true)
                 {
                     orig = D2;
@@ -1668,7 +1702,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3D.BackgroundImage != null && randMutare == D3.culoare)
             {
-                D3.Verifica(4, 3, locatii);
+                D3.piesa.VerificaPosibilitati(4, 3, locatii);
                 if (D3.poateFaceMiscari == true)
                 {
                     orig = D3;
@@ -1689,7 +1723,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4D.BackgroundImage != null && randMutare == D4.culoare)
             {
-                D4.Verifica(4, 4, locatii);
+                D4.piesa.VerificaPosibilitati(4, 4, locatii);
                 if (D4.poateFaceMiscari == true)
                 {
                     orig = D4;
@@ -1710,7 +1744,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5D.BackgroundImage != null && randMutare == D5.culoare)
             {
-                D5.Verifica(4, 5, locatii);
+                D5.piesa.VerificaPosibilitati(4, 5, locatii);
                 if (D5.poateFaceMiscari == true)
                 {
                     orig = D5;
@@ -1731,7 +1765,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6D.BackgroundImage != null && randMutare == D6.culoare)
             {
-                D6.Verifica(4, 6, locatii);
+                D6.piesa.VerificaPosibilitati(4, 6, locatii);
                 if (D6.poateFaceMiscari == true)
                 {
                     orig = D6;
@@ -1752,7 +1786,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7D.BackgroundImage != null && randMutare == D7.culoare)
             {
-                D7.Verifica(4, 7, locatii);
+                D7.piesa.VerificaPosibilitati(4, 7, locatii);
                 if (D7.poateFaceMiscari == true)
                 {
                     orig = D7;
@@ -1773,7 +1807,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8D.BackgroundImage != null && randMutare == D8.culoare)
             {
-                D8.Verifica(4, 8, locatii);
+                D8.piesa.VerificaPosibilitati(4, 8, locatii);
                 if (D8.poateFaceMiscari == true)
                 {
                     orig = D8;
@@ -1794,7 +1828,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1E.BackgroundImage != null && randMutare == E1.culoare)
             {
-                E1.Verifica(5, 1, locatii);
+                E1.piesa.VerificaPosibilitati(5, 1, locatii);
                 if (E1.poateFaceMiscari == true)
                 {
                     orig = E1;
@@ -1815,7 +1849,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2E.BackgroundImage != null && randMutare == E2.culoare)
             {
-                E2.Verifica(5, 2, locatii);
+                E2.piesa.VerificaPosibilitati(5, 2, locatii);
                 if (E2.poateFaceMiscari == true)
                 {
                     orig = E2;
@@ -1836,7 +1870,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3E.BackgroundImage != null && randMutare == E3.culoare)
             {
-                E3.Verifica(5, 3, locatii);
+                E3.piesa.VerificaPosibilitati(5, 3, locatii);
                 if (E3.poateFaceMiscari == true)
                 {
                     orig = E3;
@@ -1857,7 +1891,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4E.BackgroundImage != null && randMutare == E4.culoare)
             {
-                E4.Verifica(5, 4, locatii);
+                E4.piesa.VerificaPosibilitati(5, 4, locatii);
                 if (E4.poateFaceMiscari == true)
                 {
                     orig = E4;
@@ -1878,7 +1912,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5E.BackgroundImage != null && randMutare == E5.culoare)
             {
-                E5.Verifica(5, 5, locatii);
+                E5.piesa.VerificaPosibilitati(5, 5, locatii);
                 if (E5.poateFaceMiscari == true)
                 {
                     orig = E5;
@@ -1899,7 +1933,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6E.BackgroundImage != null && randMutare == E6.culoare)
             {
-                E6.Verifica(5, 6, locatii);
+                E6.piesa.VerificaPosibilitati(5, 6, locatii);
                 if (E6.poateFaceMiscari == true)
                 {
                     orig = E6;
@@ -1920,7 +1954,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7E.BackgroundImage != null && randMutare == E7.culoare)
             {
-                E7.Verifica(5, 7, locatii);
+                E7.piesa.VerificaPosibilitati(5, 7, locatii);
                 if (E7.poateFaceMiscari == true)
                 {
                     orig = E7;
@@ -1941,7 +1975,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8E.BackgroundImage != null && randMutare == E8.culoare)
             {
-                E8.Verifica(5, 8, locatii);
+                E8.piesa.VerificaPosibilitati(5, 8, locatii);
                 if (E8.poateFaceMiscari == true)
                 {
                     orig = E8;
@@ -1962,7 +1996,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1F.BackgroundImage != null && randMutare == F1.culoare)
             {
-                F1.Verifica(6, 1, locatii);
+                F1.piesa.VerificaPosibilitati(6, 1, locatii);
                 if (F1.poateFaceMiscari == true)
                 {
                     orig = F1;
@@ -1983,7 +2017,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2F.BackgroundImage != null && randMutare == F2.culoare)
             {
-                F2.Verifica(6, 2, locatii);
+                F2.piesa.VerificaPosibilitati(6, 2, locatii);
                 if (F2.poateFaceMiscari == true)
                 {
                     orig = F2;
@@ -2004,7 +2038,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3F.BackgroundImage != null && randMutare == F3.culoare)
             {
-                F3.Verifica(6, 3, locatii);
+                F3.piesa.VerificaPosibilitati(6, 3, locatii);
                 if (F3.poateFaceMiscari == true)
                 {
                     orig = F3;
@@ -2025,7 +2059,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4F.BackgroundImage != null && randMutare == F4.culoare)
             {
-                F4.Verifica(6, 4, locatii);
+                F4.piesa.VerificaPosibilitati(6, 4, locatii);
                 if (F4.poateFaceMiscari == true)
                 {
                     orig = F4;
@@ -2046,7 +2080,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5F.BackgroundImage != null && randMutare == F5.culoare)
             {
-                F5.Verifica(6, 5, locatii);
+                F5.piesa.VerificaPosibilitati(6, 5, locatii);
                 if (F5.poateFaceMiscari == true)
                 {
                     orig = F5;
@@ -2067,7 +2101,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6F.BackgroundImage != null && randMutare == F6.culoare)
             {
-                F6.Verifica(6, 6, locatii);
+                F6.piesa.VerificaPosibilitati(6, 6, locatii);
                 if (F6.poateFaceMiscari == true)
                 {
                     orig = F6;
@@ -2088,7 +2122,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7F.BackgroundImage != null && randMutare == F7.culoare)
             {
-                F7.Verifica(6, 7, locatii);
+                F7.piesa.VerificaPosibilitati(6, 7, locatii);
                 if (F7.poateFaceMiscari == true)
                 {
                     orig = F7;
@@ -2109,7 +2143,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8F.BackgroundImage != null && randMutare == F8.culoare)
             {
-                F8.Verifica(6, 8, locatii);
+                F8.piesa.VerificaPosibilitati(6, 8, locatii);
                 if (F8.poateFaceMiscari == true)
                 {
                     orig = F8;
@@ -2130,7 +2164,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1G.BackgroundImage != null && randMutare == G1.culoare)
             {
-                G1.Verifica(7, 1, locatii);
+                G1.piesa.VerificaPosibilitati(7, 1, locatii);
                 if (G1.poateFaceMiscari == true)
                 {
                     orig = G1;
@@ -2151,7 +2185,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2G.BackgroundImage != null && randMutare == G2.culoare)
             {
-                G2.Verifica(7, 2, locatii);
+                G2.piesa.VerificaPosibilitati(7, 2, locatii);
                 if (G2.poateFaceMiscari == true)
                 {
                     orig = G2;
@@ -2172,7 +2206,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3G.BackgroundImage != null && randMutare == G3.culoare)
             {
-                G3.Verifica(7, 3, locatii);
+                G3.piesa.VerificaPosibilitati(7, 3, locatii);
                 if (G3.poateFaceMiscari == true)
                 {
                     orig = G3;
@@ -2193,7 +2227,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4G.BackgroundImage != null && randMutare == G4.culoare)
             {
-                G4.Verifica(7, 4, locatii);
+                G4.piesa.VerificaPosibilitati(7, 4, locatii);
                 if (G4.poateFaceMiscari == true)
                 {
                     orig = G4;
@@ -2214,7 +2248,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5G.BackgroundImage != null && randMutare == G5.culoare)
             {
-                G5.Verifica(7, 5, locatii);
+                G5.piesa.VerificaPosibilitati(7, 5, locatii);
                 if (G5.poateFaceMiscari == true)
                 {
                     orig = G5;
@@ -2235,7 +2269,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6G.BackgroundImage != null && randMutare == G6.culoare)
             {
-                G6.Verifica(7, 6, locatii);
+                G6.piesa.VerificaPosibilitati(7, 6, locatii);
                 if (G6.poateFaceMiscari == true)
                 {
                     orig = G6;
@@ -2256,7 +2290,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7G.BackgroundImage != null && randMutare == G7.culoare)
             {
-                G7.Verifica(7, 7, locatii);
+                G7.piesa.VerificaPosibilitati(7, 7, locatii);
                 if (G7.poateFaceMiscari == true)
                 {
                     orig = G7;
@@ -2277,7 +2311,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8G.BackgroundImage != null && randMutare == G8.culoare)
             {
-                G8.Verifica(7, 8, locatii);
+                G8.piesa.VerificaPosibilitati(7, 8, locatii);
                 if (G8.poateFaceMiscari == true)
                 {
                     orig = G8;
@@ -2298,7 +2332,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _1H.BackgroundImage != null && randMutare == H1.culoare)
             {
-                H1.Verifica(8, 1, locatii);
+                H1.piesa.VerificaPosibilitati(8, 1, locatii);
                 if (H1.poateFaceMiscari == true)
                 {
                     orig = H1;
@@ -2319,7 +2353,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _2H.BackgroundImage != null && randMutare == H2.culoare)
             {
-                H2.Verifica(8, 2, locatii);
+                H2.piesa.VerificaPosibilitati(8, 2, locatii);
                 if (H2.poateFaceMiscari == true)
                 {
                     orig = H2;
@@ -2340,7 +2374,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _3H.BackgroundImage != null && randMutare == H3.culoare)
             {
-                H3.Verifica(8, 3, locatii);
+                H3.piesa.VerificaPosibilitati(8, 3, locatii);
                 if (H3.poateFaceMiscari == true)
                 {
                     orig = H3;
@@ -2361,7 +2395,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _4H.BackgroundImage != null && randMutare == H4.culoare)
             {
-                H4.Verifica(8, 4, locatii);
+                H4.piesa.VerificaPosibilitati(8, 4, locatii);
                 if (H4.poateFaceMiscari == true)
                 {
                     orig = H4;
@@ -2382,7 +2416,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _5H.BackgroundImage != null && randMutare == H5.culoare)
             {
-                H5.Verifica(8, 5, locatii);
+                H5.piesa.VerificaPosibilitati(8, 5, locatii);
                 if (H5.poateFaceMiscari == true)
                 {
                     orig = H5;
@@ -2403,7 +2437,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _6H.BackgroundImage != null && randMutare == H6.culoare)
             {
-                H6.Verifica(8, 6, locatii);
+                H6.piesa.VerificaPosibilitati(8, 6, locatii);
                 if (H6.poateFaceMiscari == true)
                 {
                     orig = H6;
@@ -2424,7 +2458,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _7H.BackgroundImage != null && randMutare == H7.culoare)
             {
-                H7.Verifica(8, 7, locatii);
+                H7.piesa.VerificaPosibilitati(8, 7, locatii);
                 if (H7.poateFaceMiscari == true)
                 {
                     orig = H7;
@@ -2445,7 +2479,7 @@ namespace Chess_Application
         {
             if (clickCounter == 0 && _8H.BackgroundImage != null && randMutare == H8.culoare)
             {
-                H8.Verifica(8, 8, locatii);
+                H8.piesa.VerificaPosibilitati(8, 8, locatii);
                 if (H8.poateFaceMiscari == true)
                 {
                     orig = H8;
