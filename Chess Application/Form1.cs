@@ -13,8 +13,8 @@ namespace Chess_Application
 
     public partial class Form1 : Form
     {
-        int randMutare = 1;
-        int clickCounter = 0;
+        short randMutare = 1;
+        short clickCounter = 0;
         int pozitieCifra1;
         string pozitieLitera1;
         int pozitieCifra2;
@@ -546,356 +546,7 @@ namespace Chess_Application
                 origine.culoare = 0;
                 origine.tipPiesa = 0;
             }
-
-
-            public void Verifica(int i, int j, LocatieTabla[,] loc)//apelata la click pe piesa; edit: de folosit doar culoarea in if-uri(casute goale==culoare 0) 
-            {
-                if (tipPiesa == 1)
-                {
-                    if (culoare == 1)//pion alb
-                    {
-                        if (loc[i + 1, j] != null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
-                        {
-                            loc[i + 1, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (i < 8 && j < 8 && loc[i + 1, j + 1].culoare == 2)
-                        {
-                            loc[i + 1, j + 1].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (i < 8 && j > 1 && loc[i + 1, j - 1].culoare == 2)
-                        {
-                            loc[i + 1, j - 1].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((i == 2) && loc[i + 2, j] != null && loc[i + 2, j].imagineLocatie.BackgroundImage == null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
-                        {
-                            loc[i + 2, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-
-                    }
-                    if (culoare == 2)//pion negru
-                    {
-                        if (loc[i - 1, j] != null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
-                        {
-                            loc[i - 1, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (i > 1 && j < 8 && loc[i - 1, j + 1].culoare == 1)
-                        {
-                            loc[i - 1, j + 1].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (i > 1 && j > 1 && loc[i - 1, j - 1].culoare == 1)
-                        {
-                            loc[i - 1, j - 1].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((i == 7) && loc[i - 2, j] != null && loc[i - 2, j].imagineLocatie.BackgroundImage == null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
-                        {
-                            loc[i - 2, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                    }
-                }
-                if (tipPiesa == 2)//tura
-                {
-                    //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
-
-                    //prima linie din for: daca urmatoarea casuta exista si are o piesa de aceeasi culoare intrerupe
-                    //aditional, daca locatia curenta este diferita de locatia originala(de la apelul functiei), marcheaza casuta respectiva
-                    //a doua linie din for: daca cele doua casute contin piese de culori diferite(printre care 0==casuta goala), marcheaza casuta curenta
-                    //a treia linie din for: daca casuta curenta are o piesa diferita de cea a casutei originale, intrerupe for-ul
-                    //obs. casuta respectiva "apuca" sa fie marcata, intrucat este marcata anterior
-                    //--------------------------------------------------------------------------------------------------------------------------------------
-                    for (int k = j; k >= 1; k--)
-                    {
-                        if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[i, k].culoare != loc[i, j].culoare)
-                        {
-                            loc[i, k].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                    }
-                    for (int k = j; k <= 8; k++)
-                    {
-                        if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[i, k].culoare != loc[i, j].culoare)
-                        {
-                            loc[i, k].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                    }
-                    for (int k = i; k >= 1; k--)
-                    {
-                        if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[k, j].culoare != loc[i, j].culoare)
-                        {
-                            loc[k, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                    }
-                    for (int k = i; k <= 8; k++)
-                    {
-                        if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[k, j].culoare != loc[i, j].culoare)
-                        {
-                            loc[k, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                    }
-                }
-                if (tipPiesa == 3)//cal
-                {
-                    //self explanatory right here
-                    //=====
-                    if ((i < 8 && j < 7) && (loc[i + 1, j + 2].culoare != loc[i, j].culoare))
-                    {
-                        loc[i + 1, j + 2].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((i < 8 && j > 2) && (loc[i + 1, j - 2].culoare != loc[i, j].culoare))
-                    {
-                        loc[i + 1, j - 2].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    //=====
-                    if ((i < 7 && j < 8) && (loc[i + 2, j + 1].culoare != loc[i, j].culoare))
-                    {
-                        loc[i + 2, j + 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((i < 7 && j > 1) && (loc[i + 2, j - 1].culoare != loc[i, j].culoare))
-                    {
-                        loc[i + 2, j - 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    //=====
-                    if ((i > 1 && j < 7) && (loc[i - 1, j + 2].culoare != loc[i, j].culoare))
-                    {
-                        loc[i - 1, j + 2].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((i > 1 && j > 2) && (loc[i - 1, j - 2].culoare != loc[i, j].culoare))
-                    {
-                        loc[i - 1, j - 2].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    //=====              
-                    if ((i > 2 && j < 8) && (loc[i - 2, j + 1].culoare != loc[i, j].culoare))
-                    {
-                        loc[i - 2, j + 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((i > 2 && j > 1) && (loc[i - 2, j - 1].culoare != loc[i, j].culoare))
-                    {
-                        loc[i - 2, j - 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    //=====
-                }
-                if (tipPiesa == 4)//nebun
-                {
-                    //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
-
-                    //primul if din for: daca urmatoarea casuta exista si are o piesa de culoare diferita, o marcheaza 
-                    //al doilea if din for: daca exista urmatoarea casuta si daca contine o piesa de orice culoare, interupe for-ul (aplicabil pentru alb)
-                    //al treilea if din for: daca exista urmatoarea casuta si daca contine o piesa de orice culoare, interupe for-ul (aplicabil pentru negru)
-                    //obs. casuta respectiva "apuca" sa fie marcata, intrucat este marcata anterior
-                    //--------------------------------------------------------------------------------------------------------------------------------------
-                    for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                    for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                    for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                    for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                }
-                if (tipPiesa == 5)//miscari regina obtinute din miscarile turei si miscarile nebunului
-                {
-                    for (int k = j; k >= 1; k--)
-                    {
-                        if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[i, k].culoare != loc[i, j].culoare)
-                        {
-                            loc[i, k].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                    }
-                    for (int k = j; k <= 8; k++)
-                    {
-                        if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[i, k].culoare != loc[i, j].culoare)
-                        {
-                            loc[i, k].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                    }
-                    for (int k = i; k >= 1; k--)
-                    {
-                        if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[k, j].culoare != loc[i, j].culoare)
-                        {
-                            loc[k, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                    }
-                    for (int k = i; k <= 8; k++)
-                    {
-                        if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[k, j].culoare != loc[i, j].culoare)
-                        {
-                            loc[k, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                    }
-                    //=====
-                    for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                    for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                    for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-                    for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
-                    {
-                        if (loc[i, j].culoare != loc[l, c].culoare)
-                        {
-                            loc[l, c].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if (culoare == 1)
-                        {
-                            if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                        }
-                        if (culoare == 2)
-                        {
-                            if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                        }
-                    }
-
-                }
-                if (tipPiesa == 6)//rege, miscare obtinuta prin verificarea celor 8 casute adiacente (sau cate exista) ale acestuia
-                {
-                    if (loc[i + 1, j] != null && loc[i + 1, j].culoare != loc[i, j].culoare) { loc[i + 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                    if (loc[i + 1, j + 1] != null && loc[i + 1, j + 1].culoare != loc[i, j].culoare) { loc[i + 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                    if (loc[i, j + 1] != null && loc[i, j + 1].culoare != loc[i, j].culoare) { loc[i, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                    if (loc[i - 1, j + 1] != null && loc[i - 1, j + 1].culoare != loc[i, j].culoare) { loc[i - 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-
-                    if (loc[i - 1, j] != null && loc[i - 1, j].culoare != loc[i, j].culoare) { loc[i - 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                    if (loc[i - 1, j - 1] != null && loc[i - 1, j - 1].culoare != loc[i, j].culoare) { loc[i - 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                    if (loc[i, j - 1] != null && loc[i, j - 1].culoare != loc[i, j].culoare) { loc[i, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                    if (loc[i + 1, j - 1] != null && loc[i + 1, j - 1].culoare != loc[i, j].culoare) { loc[i + 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                }
-            }
+            
         }
 
         public void NewGame()
@@ -1149,11 +800,26 @@ namespace Chess_Application
             if (randMutare > 2) randMutare = 1;
             if (randMutare == 1) labelRandMutare.Text = "Randul pieselor albe";
             if (randMutare == 2) labelRandMutare.Text = "Randul pieselor negre";
+
         }
-
-
+        public void Rearanjare(LocatieTabla[,] loc)
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    loc[i, j].sePoate = false;
+                }
+            }
+            clickCounter = 0;
+         
+        }
         private void _1A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1A.BackgroundImage != null && randMutare == A1.culoare)
             {
                 A1.piesa.VerificaPosibilitati(1, 1, locatii);
@@ -1163,18 +829,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A1 != orig && A1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A1 != orig && A1.sePoate == true)
             {
-                A1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2A.BackgroundImage != null && randMutare == A2.culoare)
             {
                 A2.piesa.VerificaPosibilitati(1, 2, locatii);
@@ -1184,18 +851,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A2 != orig && A2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A2 != orig && A2.sePoate == true)
             {
-                A2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3A.BackgroundImage != null && randMutare == A3.culoare)
             {
                 A3.piesa.VerificaPosibilitati(1, 3, locatii);
@@ -1205,18 +873,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A3 != orig && A3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A3 != orig && A3.sePoate == true)
             {
-                A3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4A.BackgroundImage != null && randMutare == A4.culoare)
             {
                 A4.piesa.VerificaPosibilitati(1, 4, locatii);
@@ -1226,18 +895,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A4 != orig && A4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A4 != orig && A4.sePoate == true)
             {
-                A4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5A.BackgroundImage != null && randMutare == A5.culoare)
             {
                 A5.piesa.VerificaPosibilitati(1, 5, locatii);
@@ -1247,18 +917,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A5 != orig && A5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A5 != orig && A5.sePoate == true)
             {
-                A5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6A.BackgroundImage != null && randMutare == A6.culoare)
             {
                 A6.piesa.VerificaPosibilitati(1, 6, locatii);
@@ -1268,18 +939,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A6 != orig && A6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A6 != orig && A6.sePoate == true)
             {
-                A6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7A.BackgroundImage != null && randMutare == A7.culoare)
             {
                 A7.piesa.VerificaPosibilitati(1, 7, locatii);
@@ -1289,18 +961,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A7 != orig && A7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A7 != orig && A7.sePoate == true)
             {
-                A7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8A_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && A8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8A.BackgroundImage != null && randMutare == A8.culoare)
             {
                 A8.piesa.VerificaPosibilitati(1, 8, locatii);
@@ -1310,18 +983,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (A8 != orig && A8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A8 != orig && A8.sePoate == true)
             {
-                A8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                A8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1B.BackgroundImage != null && randMutare == B1.culoare)
             {
                 B1.piesa.VerificaPosibilitati(2, 1, locatii);
@@ -1331,18 +1005,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B1 != orig && B1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B1 != orig && B1.sePoate == true)
             {
-                B1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2B.BackgroundImage != null && randMutare == B2.culoare)
             {
                 B2.piesa.VerificaPosibilitati(2, 2, locatii);
@@ -1352,18 +1027,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B2 != orig && B2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B2 != orig && B2.sePoate == true)
             {
-                B2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3B.BackgroundImage != null && randMutare == B3.culoare)
             {
                 B3.piesa.VerificaPosibilitati(2, 3, locatii);
@@ -1373,18 +1049,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B3 != orig && B3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B3 != orig && B3.sePoate == true)
             {
-                B3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4B.BackgroundImage != null && randMutare == B4.culoare)
             {
                 B4.piesa.VerificaPosibilitati(2, 4, locatii);
@@ -1394,18 +1071,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B4 != orig && B4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B4 != orig && B4.sePoate == true)
             {
-                B4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5B.BackgroundImage != null && randMutare == B5.culoare)
             {
                 B5.piesa.VerificaPosibilitati(2, 5, locatii);
@@ -1415,18 +1093,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B5 != orig && B5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B5 != orig && B5.sePoate == true)
             {
-                B5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6B.BackgroundImage != null && randMutare == B6.culoare)
             {
                 B6.piesa.VerificaPosibilitati(2, 6, locatii);
@@ -1436,18 +1115,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B6 != orig && B6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B6 != orig && B6.sePoate == true)
             {
-                B6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7B.BackgroundImage != null && randMutare == B7.culoare)
             {
                 B7.piesa.VerificaPosibilitati(2, 7, locatii);
@@ -1457,18 +1137,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B7 != orig && B7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B7 != orig && B7.sePoate == true)
             {
-                B7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8B_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && B8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8B.BackgroundImage != null && randMutare == B8.culoare)
             {
                 B8.piesa.VerificaPosibilitati(2, 8, locatii);
@@ -1478,18 +1159,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (B8 != orig && B8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B8 != orig && B8.sePoate == true)
             {
-                B8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                B8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1C.BackgroundImage != null && randMutare == C1.culoare)
             {
                 C1.piesa.VerificaPosibilitati(3, 1, locatii);
@@ -1499,18 +1181,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C1 != orig && C1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C1 != orig && C1.sePoate == true)
             {
-                C1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2C.BackgroundImage != null && randMutare == C2.culoare)
             {
                 C2.piesa.VerificaPosibilitati(3, 2, locatii);
@@ -1520,18 +1203,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C2 != orig && C2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C2 != orig && C2.sePoate == true)
             {
-                C2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3C.BackgroundImage != null && randMutare == C3.culoare)
             {
                 C3.piesa.VerificaPosibilitati(3, 3, locatii);
@@ -1541,18 +1225,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C3 != orig && C3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C3 != orig && C3.sePoate == true)
             {
-                C3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4C.BackgroundImage != null && randMutare == C4.culoare)
             {
                 C4.piesa.VerificaPosibilitati(3, 4, locatii);
@@ -1562,18 +1247,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C4 != orig && C4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C4 != orig && C4.sePoate == true)
             {
-                C4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5C.BackgroundImage != null && randMutare == C5.culoare)
             {
                 C5.piesa.VerificaPosibilitati(3, 5, locatii);
@@ -1583,18 +1269,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C5 != orig && C5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C5 != orig && C5.sePoate == true)
             {
-                C5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6C.BackgroundImage != null && randMutare == C6.culoare)
             {
                 C6.piesa.VerificaPosibilitati(3, 6, locatii);
@@ -1604,18 +1291,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C6 != orig && C6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C6 != orig && C6.sePoate == true)
             {
-                C6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7C.BackgroundImage != null && randMutare == C7.culoare)
             {
                 C7.piesa.VerificaPosibilitati(3, 7, locatii);
@@ -1625,18 +1313,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C7 != orig && C7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C7 != orig && C7.sePoate == true)
             {
-                C7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8C_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && C8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8C.BackgroundImage != null && randMutare == C8.culoare)
             {
                 C8.piesa.VerificaPosibilitati(3, 8, locatii);
@@ -1646,18 +1335,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (C8 != orig && C8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C8 != orig && C8.sePoate == true)
             {
-                C8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                C8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1D.BackgroundImage != null && randMutare == D1.culoare)
             {
                 D1.piesa.VerificaPosibilitati(4, 1, locatii);
@@ -1667,18 +1357,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D1 != orig && D1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D1 != orig && D1.sePoate == true)
             {
-                D1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2D.BackgroundImage != null && randMutare == D2.culoare)
             {
                 D2.piesa.VerificaPosibilitati(4, 2, locatii);
@@ -1688,18 +1379,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D2 != orig && D2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D2 != orig && D2.sePoate == true)
             {
-                D2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3D.BackgroundImage != null && randMutare == D3.culoare)
             {
                 D3.piesa.VerificaPosibilitati(4, 3, locatii);
@@ -1709,18 +1401,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D3 != orig && D3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D3 != orig && D3.sePoate == true)
             {
-                D3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4D.BackgroundImage != null && randMutare == D4.culoare)
             {
                 D4.piesa.VerificaPosibilitati(4, 4, locatii);
@@ -1730,18 +1423,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D4 != orig && D4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D4 != orig && D4.sePoate == true)
             {
-                D4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5D.BackgroundImage != null && randMutare == D5.culoare)
             {
                 D5.piesa.VerificaPosibilitati(4, 5, locatii);
@@ -1751,18 +1445,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D5 != orig && D5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D5 != orig && D5.sePoate == true)
             {
-                D5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6D.BackgroundImage != null && randMutare == D6.culoare)
             {
                 D6.piesa.VerificaPosibilitati(4, 6, locatii);
@@ -1772,18 +1467,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D6 != orig && D6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D6 != orig && D6.sePoate == true)
             {
-                D6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7D.BackgroundImage != null && randMutare == D7.culoare)
             {
                 D7.piesa.VerificaPosibilitati(4, 7, locatii);
@@ -1793,18 +1489,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D7 != orig && D7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D7 != orig && D7.sePoate == true)
             {
-                D7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8D_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && D8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8D.BackgroundImage != null && randMutare == D8.culoare)
             {
                 D8.piesa.VerificaPosibilitati(4, 8, locatii);
@@ -1814,18 +1511,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (D8 != orig && D8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D8 != orig && D8.sePoate == true)
             {
-                D8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                D8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1E.BackgroundImage != null && randMutare == E1.culoare)
             {
                 E1.piesa.VerificaPosibilitati(5, 1, locatii);
@@ -1835,18 +1533,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E1 != orig && E1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E1 != orig && E1.sePoate == true)
             {
-                E1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2E.BackgroundImage != null && randMutare == E2.culoare)
             {
                 E2.piesa.VerificaPosibilitati(5, 2, locatii);
@@ -1856,18 +1555,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E2 != orig && E2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E2 != orig && E2.sePoate == true)
             {
-                E2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3E.BackgroundImage != null && randMutare == E3.culoare)
             {
                 E3.piesa.VerificaPosibilitati(5, 3, locatii);
@@ -1877,18 +1577,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E3 != orig && E3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E3 != orig && E3.sePoate == true)
             {
-                E3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4E.BackgroundImage != null && randMutare == E4.culoare)
             {
                 E4.piesa.VerificaPosibilitati(5, 4, locatii);
@@ -1898,18 +1599,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E4 != orig && E4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E4 != orig && E4.sePoate == true)
             {
-                E4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5E.BackgroundImage != null && randMutare == E5.culoare)
             {
                 E5.piesa.VerificaPosibilitati(5, 5, locatii);
@@ -1919,18 +1621,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E5 != orig && E5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E5 != orig && E5.sePoate == true)
             {
-                E5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6E.BackgroundImage != null && randMutare == E6.culoare)
             {
                 E6.piesa.VerificaPosibilitati(5, 6, locatii);
@@ -1940,18 +1643,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E6 != orig && E6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E6 != orig && E6.sePoate == true)
             {
-                E6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7E.BackgroundImage != null && randMutare == E7.culoare)
             {
                 E7.piesa.VerificaPosibilitati(5, 7, locatii);
@@ -1961,18 +1665,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E7 != orig && E7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E7 != orig && E7.sePoate == true)
             {
-                E7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8E_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && E8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8E.BackgroundImage != null && randMutare == E8.culoare)
             {
                 E8.piesa.VerificaPosibilitati(5, 8, locatii);
@@ -1982,18 +1687,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (E8 != orig && E8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E8 != orig && E8.sePoate == true)
             {
-                E8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                E8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1F.BackgroundImage != null && randMutare == F1.culoare)
             {
                 F1.piesa.VerificaPosibilitati(6, 1, locatii);
@@ -2003,18 +1709,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F1 != orig && F1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F1 != orig && F1.sePoate == true)
             {
-                F1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2F.BackgroundImage != null && randMutare == F2.culoare)
             {
                 F2.piesa.VerificaPosibilitati(6, 2, locatii);
@@ -2024,18 +1731,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F2 != orig && F2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F2 != orig && F2.sePoate == true)
             {
-                F2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3F.BackgroundImage != null && randMutare == F3.culoare)
             {
                 F3.piesa.VerificaPosibilitati(6, 3, locatii);
@@ -2045,18 +1753,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F3 != orig && F3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F3 != orig && F3.sePoate == true)
             {
-                F3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4F.BackgroundImage != null && randMutare == F4.culoare)
             {
                 F4.piesa.VerificaPosibilitati(6, 4, locatii);
@@ -2066,18 +1775,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F4 != orig && F4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F4 != orig && F4.sePoate == true)
             {
-                F4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5F.BackgroundImage != null && randMutare == F5.culoare)
             {
                 F5.piesa.VerificaPosibilitati(6, 5, locatii);
@@ -2087,18 +1797,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F5 != orig && F5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F5 != orig && F5.sePoate == true)
             {
-                F5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6F.BackgroundImage != null && randMutare == F6.culoare)
             {
                 F6.piesa.VerificaPosibilitati(6, 6, locatii);
@@ -2108,18 +1819,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F6 != orig && F6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F6 != orig && F6.sePoate == true)
             {
-                F6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7F.BackgroundImage != null && randMutare == F7.culoare)
             {
                 F7.piesa.VerificaPosibilitati(6, 7, locatii);
@@ -2129,18 +1841,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F7 != orig && F7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F7 != orig && F7.sePoate == true)
             {
-                F7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8F_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && F8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8F.BackgroundImage != null && randMutare == F8.culoare)
             {
                 F8.piesa.VerificaPosibilitati(6, 8, locatii);
@@ -2150,18 +1863,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (F8 != orig && F8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F8 != orig && F8.sePoate == true)
             {
-                F8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                F8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1G.BackgroundImage != null && randMutare == G1.culoare)
             {
                 G1.piesa.VerificaPosibilitati(7, 1, locatii);
@@ -2171,18 +1885,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G1 != orig && G1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G1 != orig && G1.sePoate == true)
             {
-                G1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2G.BackgroundImage != null && randMutare == G2.culoare)
             {
                 G2.piesa.VerificaPosibilitati(7, 2, locatii);
@@ -2192,18 +1907,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G2 != orig && G2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G2 != orig && G2.sePoate == true)
             {
-                G2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3G.BackgroundImage != null && randMutare == G3.culoare)
             {
                 G3.piesa.VerificaPosibilitati(7, 3, locatii);
@@ -2213,18 +1929,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G3 != orig && G3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G3 != orig && G3.sePoate == true)
             {
-                G3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4G.BackgroundImage != null && randMutare == G4.culoare)
             {
                 G4.piesa.VerificaPosibilitati(7, 4, locatii);
@@ -2234,18 +1951,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G4 != orig && G4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G4 != orig && G4.sePoate == true)
             {
-                G4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5G.BackgroundImage != null && randMutare == G5.culoare)
             {
                 G5.piesa.VerificaPosibilitati(7, 5, locatii);
@@ -2255,18 +1973,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G5 != orig && G5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G5 != orig && G5.sePoate == true)
             {
-                G5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6G.BackgroundImage != null && randMutare == G6.culoare)
             {
                 G6.piesa.VerificaPosibilitati(7, 6, locatii);
@@ -2276,18 +1995,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G6 != orig && G6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G6 != orig && G6.sePoate == true)
             {
-                G6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7G.BackgroundImage != null && randMutare == G7.culoare)
             {
                 G7.piesa.VerificaPosibilitati(7, 7, locatii);
@@ -2297,18 +2017,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G7 != orig && G7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G7 != orig && G7.sePoate == true)
             {
-                G7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8G_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && G8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8G.BackgroundImage != null && randMutare == G8.culoare)
             {
                 G8.piesa.VerificaPosibilitati(7, 8, locatii);
@@ -2318,18 +2039,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (G8 != orig && G8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G8 != orig && G8.sePoate == true)
             {
-                G8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                G8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _1H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H1 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _1H.BackgroundImage != null && randMutare == H1.culoare)
             {
                 H1.piesa.VerificaPosibilitati(8, 1, locatii);
@@ -2339,18 +2061,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H1 != orig && H1.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H1 != orig && H1.sePoate == true)
             {
-                H1.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _2H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H2 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _2H.BackgroundImage != null && randMutare == H2.culoare)
             {
                 H2.piesa.VerificaPosibilitati(8, 2, locatii);
@@ -2360,18 +2083,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H2 != orig && H2.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H2 != orig && H2.sePoate == true)
             {
-                H2.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _3H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H3 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _3H.BackgroundImage != null && randMutare == H3.culoare)
             {
                 H3.piesa.VerificaPosibilitati(8, 3, locatii);
@@ -2381,18 +2105,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H3 != orig && H3.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H3 != orig && H3.sePoate == true)
             {
-                H3.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _4H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H4 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _4H.BackgroundImage != null && randMutare == H4.culoare)
             {
                 H4.piesa.VerificaPosibilitati(8, 4, locatii);
@@ -2402,18 +2127,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H4 != orig && H4.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H4 != orig && H4.sePoate == true)
             {
-                H4.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _5H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H5 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _5H.BackgroundImage != null && randMutare == H5.culoare)
             {
                 H5.piesa.VerificaPosibilitati(8, 5, locatii);
@@ -2423,18 +2149,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H5 != orig && H5.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H5 != orig && H5.sePoate == true)
             {
-                H5.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _6H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H6 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _6H.BackgroundImage != null && randMutare == H6.culoare)
             {
                 H6.piesa.VerificaPosibilitati(8, 6, locatii);
@@ -2444,18 +2171,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H6 != orig && H6.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H6 != orig && H6.sePoate == true)
             {
-                H6.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _7H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H7 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _7H.BackgroundImage != null && randMutare == H7.culoare)
             {
                 H7.piesa.VerificaPosibilitati(8, 7, locatii);
@@ -2465,18 +2193,19 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H7 != orig && H7.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H7 != orig && H7.sePoate == true)
             {
-                H7.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
         private void _8H_Click(object sender, EventArgs e)
         {
+            if (clickCounter == 1 && H8 == orig)
+            {
+                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
+            }
             if (clickCounter == 0 && _8H.BackgroundImage != null && randMutare == H8.culoare)
             {
                 H8.piesa.VerificaPosibilitati(8, 8, locatii);
@@ -2486,13 +2215,10 @@ namespace Chess_Application
                     clickCounter++;
                 }
             }
-            else if (H8 != orig && H8.sePoate == true)
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H8 != orig && H8.sePoate == true)
             {
-                H8.Muta(orig);
-                orig.StergeLocatie();
-                RandNou(locatii);
-                clickCounter = 0;
-                RestoreCulori(locatii);
+                H8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                clickCounter = 0; RestoreCulori(locatii);
             }
         }
 
