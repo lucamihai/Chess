@@ -30,11 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.clkCounter = new System.Windows.Forms.Label();
-            this.y = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.x = new System.Windows.Forms.Label();
             this._1A = new System.Windows.Forms.PictureBox();
             this._2A = new System.Windows.Forms.PictureBox();
             this._3A = new System.Windows.Forms.PictureBox();
@@ -125,6 +120,19 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panelPiese = new System.Windows.Forms.Panel();
+            this.pbEmpty = new System.Windows.Forms.PictureBox();
+            this.pbPionNegruMic = new System.Windows.Forms.PictureBox();
+            this.pbTuraAlbMic = new System.Windows.Forms.PictureBox();
+            this.pbTuraNegruMic = new System.Windows.Forms.PictureBox();
+            this.pbCalAlbMic = new System.Windows.Forms.PictureBox();
+            this.pbCalNegruMic = new System.Windows.Forms.PictureBox();
+            this.pbNebunAlbMic = new System.Windows.Forms.PictureBox();
+            this.pbNebunNegruMic = new System.Windows.Forms.PictureBox();
+            this.pbReginaAlbMic = new System.Windows.Forms.PictureBox();
+            this.pbReginaNegruMic = new System.Windows.Forms.PictureBox();
+            this.pbRegeAlbMic = new System.Windows.Forms.PictureBox();
+            this.pbRegeNegruMic = new System.Windows.Forms.PictureBox();
+            this.pbPionAlbMic = new System.Windows.Forms.PictureBox();
             this.pbPionNegru = new System.Windows.Forms.PictureBox();
             this.pbTuraAlb = new System.Windows.Forms.PictureBox();
             this.pbTuraNegru = new System.Windows.Forms.PictureBox();
@@ -138,7 +146,12 @@
             this.pbNebunAlb = new System.Windows.Forms.PictureBox();
             this.pbPionAlb = new System.Windows.Forms.PictureBox();
             this.labelRandMutare = new System.Windows.Forms.Label();
+            this.listaMiscari = new System.Windows.Forms.DataGridView();
             this.meniu1 = new Chess_Application.Meniu();
+            this.counter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -208,6 +221,19 @@
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelPiese.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbEmpty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPionNegruMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlbMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegruMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalAlbMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalNegruMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlbMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegruMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNegruMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeAlbMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeNegruMic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPionAlbMic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionNegru)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).BeginInit();
@@ -220,15 +246,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegru)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.checkBox1);
-            this.panel2.Controls.Add(this.clkCounter);
-            this.panel2.Controls.Add(this.y);
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.x);
             this.panel2.Controls.Add(this._1A);
             this.panel2.Controls.Add(this._2A);
             this.panel2.Controls.Add(this._3A);
@@ -295,58 +317,8 @@
             this.panel2.Controls.Add(this._8H);
             this.panel2.Location = new System.Drawing.Point(236, 106);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(852, 512);
+            this.panel2.Size = new System.Drawing.Size(525, 512);
             this.panel2.TabIndex = 1;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(581, 338);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(94, 17);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Mod incepator";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // clkCounter
-            // 
-            this.clkCounter.AutoSize = true;
-            this.clkCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.clkCounter.Location = new System.Drawing.Point(518, 128);
-            this.clkCounter.Name = "clkCounter";
-            this.clkCounter.Size = new System.Drawing.Size(122, 25);
-            this.clkCounter.TabIndex = 3;
-            this.clkCounter.Text = "Incepe jocul!";
-            // 
-            // y
-            // 
-            this.y.AutoSize = true;
-            this.y.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.y.Location = new System.Drawing.Point(517, 62);
-            this.y.Name = "y";
-            this.y.Size = new System.Drawing.Size(71, 25);
-            this.y.TabIndex = 2;
-            this.y.Text = "Litera: ";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(581, 361);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // x
-            // 
-            this.x.AutoSize = true;
-            this.x.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.x.Location = new System.Drawing.Point(518, 98);
-            this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(64, 25);
-            this.x.TabIndex = 1;
-            this.x.Text = "Cifra: ";
             // 
             // _1A
             // 
@@ -1303,6 +1275,19 @@
             // 
             // panelPiese
             // 
+            this.panelPiese.Controls.Add(this.pbEmpty);
+            this.panelPiese.Controls.Add(this.pbPionNegruMic);
+            this.panelPiese.Controls.Add(this.pbTuraAlbMic);
+            this.panelPiese.Controls.Add(this.pbTuraNegruMic);
+            this.panelPiese.Controls.Add(this.pbCalAlbMic);
+            this.panelPiese.Controls.Add(this.pbCalNegruMic);
+            this.panelPiese.Controls.Add(this.pbNebunAlbMic);
+            this.panelPiese.Controls.Add(this.pbNebunNegruMic);
+            this.panelPiese.Controls.Add(this.pbReginaAlbMic);
+            this.panelPiese.Controls.Add(this.pbReginaNegruMic);
+            this.panelPiese.Controls.Add(this.pbRegeAlbMic);
+            this.panelPiese.Controls.Add(this.pbRegeNegruMic);
+            this.panelPiese.Controls.Add(this.pbPionAlbMic);
             this.panelPiese.Controls.Add(this.pbPionNegru);
             this.panelPiese.Controls.Add(this.pbTuraAlb);
             this.panelPiese.Controls.Add(this.pbTuraNegru);
@@ -1320,6 +1305,124 @@
             this.panelPiese.Size = new System.Drawing.Size(140, 606);
             this.panelPiese.TabIndex = 15;
             this.panelPiese.Visible = false;
+            // 
+            // pbEmpty
+            // 
+            this.pbEmpty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbEmpty.Image = ((System.Drawing.Image)(resources.GetObject("pbEmpty.Image")));
+            this.pbEmpty.Location = new System.Drawing.Point(49, 438);
+            this.pbEmpty.Name = "pbEmpty";
+            this.pbEmpty.Size = new System.Drawing.Size(25, 25);
+            this.pbEmpty.TabIndex = 25;
+            this.pbEmpty.TabStop = false;
+            // 
+            // pbPionNegruMic
+            // 
+            this.pbPionNegruMic.Image = ((System.Drawing.Image)(resources.GetObject("pbPionNegruMic.Image")));
+            this.pbPionNegruMic.Location = new System.Drawing.Point(33, 469);
+            this.pbPionNegruMic.Name = "pbPionNegruMic";
+            this.pbPionNegruMic.Size = new System.Drawing.Size(24, 24);
+            this.pbPionNegruMic.TabIndex = 24;
+            this.pbPionNegruMic.TabStop = false;
+            // 
+            // pbTuraAlbMic
+            // 
+            this.pbTuraAlbMic.Image = ((System.Drawing.Image)(resources.GetObject("pbTuraAlbMic.Image")));
+            this.pbTuraAlbMic.Location = new System.Drawing.Point(63, 469);
+            this.pbTuraAlbMic.Name = "pbTuraAlbMic";
+            this.pbTuraAlbMic.Size = new System.Drawing.Size(24, 24);
+            this.pbTuraAlbMic.TabIndex = 23;
+            this.pbTuraAlbMic.TabStop = false;
+            // 
+            // pbTuraNegruMic
+            // 
+            this.pbTuraNegruMic.Image = ((System.Drawing.Image)(resources.GetObject("pbTuraNegruMic.Image")));
+            this.pbTuraNegruMic.Location = new System.Drawing.Point(93, 469);
+            this.pbTuraNegruMic.Name = "pbTuraNegruMic";
+            this.pbTuraNegruMic.Size = new System.Drawing.Size(24, 24);
+            this.pbTuraNegruMic.TabIndex = 22;
+            this.pbTuraNegruMic.TabStop = false;
+            // 
+            // pbCalAlbMic
+            // 
+            this.pbCalAlbMic.Image = ((System.Drawing.Image)(resources.GetObject("pbCalAlbMic.Image")));
+            this.pbCalAlbMic.Location = new System.Drawing.Point(3, 499);
+            this.pbCalAlbMic.Name = "pbCalAlbMic";
+            this.pbCalAlbMic.Size = new System.Drawing.Size(24, 24);
+            this.pbCalAlbMic.TabIndex = 21;
+            this.pbCalAlbMic.TabStop = false;
+            // 
+            // pbCalNegruMic
+            // 
+            this.pbCalNegruMic.Image = ((System.Drawing.Image)(resources.GetObject("pbCalNegruMic.Image")));
+            this.pbCalNegruMic.Location = new System.Drawing.Point(33, 499);
+            this.pbCalNegruMic.Name = "pbCalNegruMic";
+            this.pbCalNegruMic.Size = new System.Drawing.Size(24, 24);
+            this.pbCalNegruMic.TabIndex = 20;
+            this.pbCalNegruMic.TabStop = false;
+            // 
+            // pbNebunAlbMic
+            // 
+            this.pbNebunAlbMic.Image = ((System.Drawing.Image)(resources.GetObject("pbNebunAlbMic.Image")));
+            this.pbNebunAlbMic.Location = new System.Drawing.Point(63, 499);
+            this.pbNebunAlbMic.Name = "pbNebunAlbMic";
+            this.pbNebunAlbMic.Size = new System.Drawing.Size(24, 24);
+            this.pbNebunAlbMic.TabIndex = 19;
+            this.pbNebunAlbMic.TabStop = false;
+            // 
+            // pbNebunNegruMic
+            // 
+            this.pbNebunNegruMic.Image = ((System.Drawing.Image)(resources.GetObject("pbNebunNegruMic.Image")));
+            this.pbNebunNegruMic.Location = new System.Drawing.Point(93, 499);
+            this.pbNebunNegruMic.Name = "pbNebunNegruMic";
+            this.pbNebunNegruMic.Size = new System.Drawing.Size(24, 24);
+            this.pbNebunNegruMic.TabIndex = 18;
+            this.pbNebunNegruMic.TabStop = false;
+            // 
+            // pbReginaAlbMic
+            // 
+            this.pbReginaAlbMic.Image = ((System.Drawing.Image)(resources.GetObject("pbReginaAlbMic.Image")));
+            this.pbReginaAlbMic.Location = new System.Drawing.Point(3, 529);
+            this.pbReginaAlbMic.Name = "pbReginaAlbMic";
+            this.pbReginaAlbMic.Size = new System.Drawing.Size(24, 24);
+            this.pbReginaAlbMic.TabIndex = 17;
+            this.pbReginaAlbMic.TabStop = false;
+            // 
+            // pbReginaNegruMic
+            // 
+            this.pbReginaNegruMic.Image = ((System.Drawing.Image)(resources.GetObject("pbReginaNegruMic.Image")));
+            this.pbReginaNegruMic.Location = new System.Drawing.Point(33, 529);
+            this.pbReginaNegruMic.Name = "pbReginaNegruMic";
+            this.pbReginaNegruMic.Size = new System.Drawing.Size(24, 24);
+            this.pbReginaNegruMic.TabIndex = 16;
+            this.pbReginaNegruMic.TabStop = false;
+            // 
+            // pbRegeAlbMic
+            // 
+            this.pbRegeAlbMic.Image = ((System.Drawing.Image)(resources.GetObject("pbRegeAlbMic.Image")));
+            this.pbRegeAlbMic.Location = new System.Drawing.Point(63, 529);
+            this.pbRegeAlbMic.Name = "pbRegeAlbMic";
+            this.pbRegeAlbMic.Size = new System.Drawing.Size(24, 24);
+            this.pbRegeAlbMic.TabIndex = 15;
+            this.pbRegeAlbMic.TabStop = false;
+            // 
+            // pbRegeNegruMic
+            // 
+            this.pbRegeNegruMic.Image = ((System.Drawing.Image)(resources.GetObject("pbRegeNegruMic.Image")));
+            this.pbRegeNegruMic.Location = new System.Drawing.Point(93, 529);
+            this.pbRegeNegruMic.Name = "pbRegeNegruMic";
+            this.pbRegeNegruMic.Size = new System.Drawing.Size(24, 24);
+            this.pbRegeNegruMic.TabIndex = 14;
+            this.pbRegeNegruMic.TabStop = false;
+            // 
+            // pbPionAlbMic
+            // 
+            this.pbPionAlbMic.Image = ((System.Drawing.Image)(resources.GetObject("pbPionAlbMic.Image")));
+            this.pbPionAlbMic.Location = new System.Drawing.Point(3, 469);
+            this.pbPionAlbMic.Name = "pbPionAlbMic";
+            this.pbPionAlbMic.Size = new System.Drawing.Size(24, 24);
+            this.pbPionAlbMic.TabIndex = 13;
+            this.pbPionAlbMic.TabStop = false;
             // 
             // pbPionNegru
             // 
@@ -1451,18 +1554,64 @@
             this.labelRandMutare.TabIndex = 16;
             this.labelRandMutare.Text = "Piesele albe incep!";
             // 
+            // listaMiscari
+            // 
+            this.listaMiscari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.listaMiscari.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.counter,
+            this.Mutare,
+            this.Piesa1,
+            this.Piesa2});
+            this.listaMiscari.Location = new System.Drawing.Point(799, 106);
+            this.listaMiscari.Name = "listaMiscari";
+            this.listaMiscari.Size = new System.Drawing.Size(209, 156);
+            this.listaMiscari.TabIndex = 20;
+            this.listaMiscari.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listaMiscari_CellContentClick);
+            // 
             // meniu1
             // 
             this.meniu1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuPopup;
             this.meniu1.AutoSize = true;
             this.meniu1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.meniu1.Location = new System.Drawing.Point(0, 24);
             this.meniu1.Name = "meniu1";
-            this.meniu1.Size = new System.Drawing.Size(1165, 689);
+            this.meniu1.Size = new System.Drawing.Size(603, 303);
             this.meniu1.TabIndex = 17;
             this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
+            // 
+            // counter
+            // 
+            this.counter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.counter.HeaderText = "counter";
+            this.counter.Name = "counter";
+            this.counter.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.counter.Width = 30;
+            // 
+            // Mutare
+            // 
+            this.Mutare.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Mutare.HeaderText = "mutari";
+            this.Mutare.Name = "Mutare";
+            this.Mutare.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Mutare.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Mutare.Width = 80;
+            // 
+            // Piesa1
+            // 
+            this.Piesa1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Piesa1.HeaderText = "p1";
+            this.Piesa1.Name = "Piesa1";
+            this.Piesa1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Piesa1.Width = 27;
+            // 
+            // Piesa2
+            // 
+            this.Piesa2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Piesa2.HeaderText = "p2";
+            this.Piesa2.Name = "Piesa2";
+            this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Piesa2.Width = 27;
             // 
             // Form1
             // 
@@ -1470,6 +1619,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1165, 713);
+            this.Controls.Add(this.listaMiscari);
             this.Controls.Add(this.meniu1);
             this.Controls.Add(this.labelRandMutare);
             this.Controls.Add(this.panelPiese);
@@ -1483,7 +1633,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._3A)).EndInit();
@@ -1555,6 +1704,19 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panelPiese.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbEmpty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPionNegruMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlbMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegruMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalAlbMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalNegruMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlbMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegruMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNegruMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeAlbMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRegeNegruMic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPionAlbMic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionNegru)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).EndInit();
@@ -1567,6 +1729,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegru)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1574,7 +1737,7 @@
 
         #endregion
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.PictureBox _1A;
+        public System.Windows.Forms.PictureBox _1A;
         private System.Windows.Forms.PictureBox _2A;
         private System.Windows.Forms.PictureBox _3A;
         private System.Windows.Forms.PictureBox _4A;
@@ -1645,10 +1808,6 @@
         private System.Windows.Forms.ToolStripMenuItem quitApplicationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label clkCounter;
-        private System.Windows.Forms.Label y;
-        private System.Windows.Forms.Label x;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -1667,7 +1826,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panelPiese;
         private System.Windows.Forms.PictureBox pbPionNegru;
         private System.Windows.Forms.PictureBox pbTuraAlb;
@@ -1683,6 +1841,24 @@
         private System.Windows.Forms.PictureBox pbPionAlb;
         private System.Windows.Forms.Label labelRandMutare;
         private Meniu meniu1;
+        private System.Windows.Forms.DataGridView listaMiscari;
+        private System.Windows.Forms.PictureBox pbPionNegruMic;
+        private System.Windows.Forms.PictureBox pbTuraAlbMic;
+        private System.Windows.Forms.PictureBox pbTuraNegruMic;
+        private System.Windows.Forms.PictureBox pbCalAlbMic;
+        private System.Windows.Forms.PictureBox pbCalNegruMic;
+        private System.Windows.Forms.PictureBox pbNebunAlbMic;
+        private System.Windows.Forms.PictureBox pbNebunNegruMic;
+        private System.Windows.Forms.PictureBox pbReginaAlbMic;
+        private System.Windows.Forms.PictureBox pbReginaNegruMic;
+        private System.Windows.Forms.PictureBox pbRegeAlbMic;
+        private System.Windows.Forms.PictureBox pbRegeNegruMic;
+        private System.Windows.Forms.PictureBox pbPionAlbMic;
+        private System.Windows.Forms.PictureBox pbEmpty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn counter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
+        private System.Windows.Forms.DataGridViewImageColumn Piesa1;
+        private System.Windows.Forms.DataGridViewImageColumn Piesa2;
     }
 }
 

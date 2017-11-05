@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Chess_Application
 {
-
+    
     public partial class Form1 : Form
     {
         short randMutare = 1;
@@ -19,7 +19,7 @@ namespace Chess_Application
         string pozitieLitera1;
         int pozitieCifra2;
         string pozitieLitera2;
-
+        public string origine, dest;
         public LocatieTabla[,] locatii;
 
         Pion pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
@@ -36,7 +36,7 @@ namespace Chess_Application
         Piesa cal1Negru, cal2Negru;
         Piesa reginaNegru, regeNegru;
 
-        LocatieTabla orig;
+        LocatieTabla orig, destinatie;
 
         LocatieTabla A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
         LocatieTabla H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
@@ -44,33 +44,10 @@ namespace Chess_Application
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
 
-        private void meniu1_Load(object sender, EventArgs e)
-        {
-            panel1.SendToBack();
-            panel2.SendToBack();
-            panel3.SendToBack();
-            meniu1.BringToFront();
-        }
-
-        private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewGame();
-            meniu1.Show();
-        }
-
-        private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NewGame();
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
         public class Piesa
         {
             public PictureBox imaginePiesa;
+            public PictureBox imagineMicaPiesa;
             public Piesa()
             {//constructor fara parametrii
 
@@ -93,13 +70,13 @@ namespace Chess_Application
 
             }
         }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Pion :Piesa
+        public class Pion : Piesa
         {
-            public Pion(int c, PictureBox p)
+            public Pion(int c, PictureBox p, PictureBox pm)
             {
                 culoare = c;
                 imaginePiesa = p;
+                imagineMicaPiesa = pm;
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
@@ -152,17 +129,24 @@ namespace Chess_Application
                 }
             }
         }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Tura :Piesa
+
+        private void listaMiscari_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            public Tura(int c, PictureBox p)
+
+        }
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------
+        public class Tura : Piesa
+        {
+            public Tura(int c, PictureBox p, PictureBox pm)
             {
                 culoare = c;
                 imaginePiesa = p;
+                imagineMicaPiesa = pm;
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
-               
+
                 {
                     //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
 
@@ -216,12 +200,13 @@ namespace Chess_Application
             }
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Cal :Piesa
+        public class Cal : Piesa
         {
-            public Cal(int c, PictureBox p)
+            public Cal(int c, PictureBox p, PictureBox pm)
             {
                 culoare = c;
                 imaginePiesa = p;
+                imagineMicaPiesa = pm;
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
@@ -274,12 +259,13 @@ namespace Chess_Application
             }
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Nebun :Piesa
+        public class Nebun : Piesa
         {
-            public Nebun(int c, PictureBox p)
+            public Nebun(int c, PictureBox p, PictureBox pm)
             {
                 culoare = c;
                 imaginePiesa = p;
+                imagineMicaPiesa = pm;
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
@@ -357,12 +343,13 @@ namespace Chess_Application
             }
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Regina :Piesa
+        public class Regina : Piesa
         {
-            public Regina(int c, PictureBox p)
+            public Regina(int c, PictureBox p, PictureBox pm)
             {
                 culoare = c;
                 imaginePiesa = p;
+                imagineMicaPiesa = pm;
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
@@ -474,12 +461,13 @@ namespace Chess_Application
             }
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Rege :Piesa
+        public class Rege : Piesa
         {
-            public Rege(int c, PictureBox p)
+            public Rege(int c, PictureBox p, PictureBox pm)
             {
                 culoare = c;
                 imaginePiesa = p;
+                imagineMicaPiesa = pm;
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
@@ -492,13 +480,19 @@ namespace Chess_Application
                 if (loc[i - 1, j - 1] != null && loc[i - 1, j - 1].culoare != loc[i, j].culoare) { loc[i - 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i, j - 1] != null && loc[i, j - 1].culoare != loc[i, j].culoare) { loc[i, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i + 1, j - 1] != null && loc[i + 1, j - 1].culoare != loc[i, j].culoare) { loc[i + 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
+
             }
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------------------------------------------------
+
         public class LocatieTabla
         {
+            static int count = 0;
+            public string nume = "";
             public bool poateFaceMiscari = false;
             public Piesa piesa;
+            public PictureBox emptyImage;
             int tipPiesa = 0;
             public int culoare = 0;
             public bool sePoate = false;
@@ -510,6 +504,11 @@ namespace Chess_Application
                 tipPiesa = p.tipPiesa;
                 imagineLocatie = b;
                 b.BackgroundImage = p.imaginePiesa.BackgroundImage;
+            }
+
+            public LocatieTabla()
+            {
+
             }
             public LocatieTabla(PictureBox b)
             {
@@ -530,29 +529,69 @@ namespace Chess_Application
                 {
                     sePoate = true;
                     imagineLocatie.BackColor = Color.Green;
+
                 }
             }
-
+            
             public void StergeLocatie()
             {
                 imagineLocatie.BackgroundImage = null;
             }
-            public void Muta(LocatieTabla origine)
+            public void Muta(LocatieTabla origine, DataGridView miscari)
             {
+                
+                if (piesa!=null)
+                {
+                    miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, piesa.imagineMicaPiesa.Image);
+                }
+                if (piesa == null) 
+                {
+                    Bitmap img = new Bitmap(25, 25);
+                    miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, img);
+                }
                 piesa = origine.piesa;
                 imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
                 tipPiesa = origine.tipPiesa;
                 culoare = origine.culoare;
                 origine.culoare = 0;
                 origine.tipPiesa = 0;
+
+                //if (destinatie.imagineLocatie != null) { listaMiscari.Rows.Add(orig.GetType().Name + destinatie.GetType().Name, pbRegeAlb, destinatie.imagineLocatie.BackgroundImage); }
+                //if (destinatie.imagineLocatie == null) { listaMiscari.Rows.Add(orig.GetType().Name + destinatie.GetType().Name, pbRegeAlb.BackgroundImage); }
             }
-            
+
         }
+
+        private void meniu1_Load(object sender, EventArgs e)
+        {
+            panel1.SendToBack();
+            panel2.SendToBack();
+            panel3.SendToBack();
+            meniu1.BringToFront();
+        }
+
+        private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewGame();
+            meniu1.Show();
+        }
+
+        private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------
+        
+       
 
         public void NewGame()
         {
-
-            
             A1 = new LocatieTabla(tura1Alb, _1A);
             A2 = new LocatieTabla(cal1Alb, _2A);
             A3 = new LocatieTabla(nebun1Alb, _3A);
@@ -605,73 +644,26 @@ namespace Chess_Application
             E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
             //=====
-            locatii = new LocatieTabla[100, 100];
-            locatii[1, 1] = A1;
-            locatii[1, 2] = A2;
-            locatii[1, 3] = A3;
-            locatii[1, 4] = A4;
-            locatii[1, 5] = A5;
-            locatii[1, 6] = A6;
-            locatii[1, 7] = A7;
-            locatii[1, 8] = A8;
-            locatii[2, 1] = B1;
-            locatii[2, 2] = B2;
-            locatii[2, 3] = B3;
-            locatii[2, 4] = B4;
-            locatii[2, 5] = B5;
-            locatii[2, 6] = B6;
-            locatii[2, 7] = B7;
-            locatii[2, 8] = B8;
-            locatii[3, 1] = C1;
-            locatii[3, 2] = C2;
-            locatii[3, 3] = C3;
-            locatii[3, 4] = C4;
-            locatii[3, 5] = C5;
-            locatii[3, 6] = C6;
-            locatii[3, 7] = C7;
-            locatii[3, 8] = C8;
-            locatii[4, 1] = D1;
-            locatii[4, 2] = D2;
-            locatii[4, 3] = D3;
-            locatii[4, 4] = D4;
-            locatii[4, 5] = D5;
-            locatii[4, 6] = D6;
-            locatii[4, 7] = D7;
-            locatii[4, 8] = D8;
-            locatii[5, 1] = E1;
-            locatii[5, 2] = E2;
-            locatii[5, 3] = E3;
-            locatii[5, 4] = E4;
-            locatii[5, 5] = E5;
-            locatii[5, 6] = E6;
-            locatii[5, 7] = E7;
-            locatii[5, 8] = E8;
-            locatii[6, 1] = F1;
-            locatii[6, 2] = F2;
-            locatii[6, 3] = F3;
-            locatii[6, 4] = F4;
-            locatii[6, 5] = F5;
-            locatii[6, 6] = F6;
-            locatii[6, 7] = F7;
-            locatii[6, 8] = F8;
-            locatii[7, 1] = G1;
-            locatii[7, 2] = G2;
-            locatii[7, 3] = G3;
-            locatii[7, 4] = G4;
-            locatii[7, 5] = G5;
-            locatii[7, 6] = G6;
-            locatii[7, 7] = G7;
-            locatii[7, 8] = G8;
-            locatii[8, 1] = H1;
-            locatii[8, 2] = H2;
-            locatii[8, 3] = H3;
-            locatii[8, 4] = H4;
-            locatii[8, 5] = H5;
-            locatii[8, 6] = H6;
-            locatii[8, 7] = H7;
-            locatii[8, 8] = H8;
-            RestoreCulori(locatii);
-            // C1.StergeLocatie();de revenit(for some reason C1 nu functioneaza properly fara linia asta)
+            A1.nume = "A1"; A2.nume = "A2"; A3.nume = "A3"; A4.nume = "A4"; A5.nume = "A5"; A6.nume = "A6"; A7.nume = "A7"; A8.nume = "A8";
+            B1.nume = "B1"; B2.nume = "B2"; B3.nume = "B3"; B4.nume = "B4"; B5.nume = "B5"; B6.nume = "B6"; B7.nume = "B7"; B8.nume = "B8";
+            C1.nume = "C1"; C2.nume = "C2"; C3.nume = "C3"; C4.nume = "C4"; C5.nume = "C5"; C6.nume = "C6"; C7.nume = "C7"; C8.nume = "C8";
+            D1.nume = "D1"; D2.nume = "D2"; D3.nume = "D3"; D4.nume = "D4"; D5.nume = "D5"; D6.nume = "D6"; D7.nume = "D7"; D8.nume = "D8";
+            E1.nume = "E1"; E2.nume = "E2"; E3.nume = "E3"; E4.nume = "E4"; E5.nume = "E5"; E6.nume = "E6"; E7.nume = "E7"; E8.nume = "E8";
+            F1.nume = "F1"; F2.nume = "F2"; F3.nume = "F3"; F4.nume = "F4"; F5.nume = "F5"; F6.nume = "F6"; F7.nume = "F7"; F8.nume = "F8";
+            G1.nume = "G1"; G2.nume = "G2"; G3.nume = "G3"; G4.nume = "G4"; G5.nume = "G5"; G6.nume = "G6"; G7.nume = "G7"; G8.nume = "G8";
+            H1.nume = "H1"; H2.nume = "H2"; H3.nume = "H3"; H4.nume = "H4"; H5.nume = "H5"; H6.nume = "H6"; H7.nume = "H7"; H8.nume = "H8";
+            //=====
+            locatii = new LocatieTabla[10, 10];
+            locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
+            locatii[2, 1] = B1; locatii[2, 2] = B2; locatii[2, 3] = B3; locatii[2, 4] = B4; locatii[2, 5] = B5; locatii[2, 6] = B6; locatii[2, 7] = B7; locatii[2, 8] = B8;
+            locatii[3, 1] = C1; locatii[3, 2] = C2; locatii[3, 3] = C3; locatii[3, 4] = C4; locatii[3, 5] = C5; locatii[3, 6] = C6; locatii[3, 7] = C7; locatii[3, 8] = C8;
+            locatii[4, 1] = D1; locatii[4, 2] = D2; locatii[4, 3] = D3; locatii[4, 4] = D4; locatii[4, 5] = D5; locatii[4, 6] = D6; locatii[4, 7] = D7; locatii[4, 8] = D8;
+            locatii[5, 1] = E1; locatii[5, 2] = E2; locatii[5, 3] = E3; locatii[5, 4] = E4; locatii[5, 5] = E5; locatii[5, 6] = E6; locatii[5, 7] = E7; locatii[5, 8] = E8;
+            locatii[6, 1] = F1; locatii[6, 2] = F2; locatii[6, 3] = F3; locatii[6, 4] = F4; locatii[6, 5] = F5; locatii[6, 6] = F6; locatii[6, 7] = F7; locatii[6, 8] = F8;
+            locatii[7, 1] = G1; locatii[7, 2] = G2; locatii[7, 3] = G3; locatii[7, 4] = G4; locatii[7, 5] = G5; locatii[7, 6] = G6; locatii[7, 7] = G7; locatii[7, 8] = G8;
+            locatii[8, 1] = H1; locatii[8, 2] = H2; locatii[8, 3] = H3; locatii[8, 4] = H4; locatii[8, 5] = H5; locatii[8, 6] = H6; locatii[8, 7] = H7; locatii[8, 8] = H8;
+            //=====
+            RestoreCulori(locatii);            
             clickCounter = 0;
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
@@ -685,25 +677,26 @@ namespace Chess_Application
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            tura1Alb = new Tura(1, pbTuraAlb); tura2Alb = new Tura(1, pbTuraAlb);
-            cal1Alb = new Cal(1, pbCalAlb); cal2Alb = new Cal(1, pbCalAlb);
-            nebun1Alb = new Nebun(1, pbNebunAlb); nebun2Alb = new Nebun(1, pbNebunAlb);
-            reginaAlb = new Regina(1, pbReginaAlb); regeAlb = new Rege(1, pbRegeAlb);
-            pion1Alb = new Pion(1, pbPionAlb); pion2Alb = new Pion(1, pbPionAlb);
-            pion3Alb = new Pion(1, pbPionAlb); pion4Alb = new Pion(1, pbPionAlb);
-            pion5Alb = new Pion(1, pbPionAlb); pion6Alb = new Pion(1, pbPionAlb);
-            pion7Alb = new Pion(1, pbPionAlb); pion8Alb = new Pion(1, pbPionAlb);
+            tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
+            cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
+            nebun1Alb = new Nebun(1, pbNebunAlb,pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
+            reginaAlb = new Regina(1, pbReginaAlb,pbReginaAlbMic); regeAlb = new Rege(1, pbRegeAlb, pbRegeAlbMic);
+            pion1Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion2Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion3Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion5Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion7Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
 
-            tura1Negru = new Tura(2, pbTuraNegru); tura2Negru = new Tura(2, pbTuraNegru);
-            cal1Negru = new Cal(2, pbCalNegru); cal2Negru = new Cal(2, pbCalNegru);
-            nebun1Negru = new Nebun(2, pbNebunNegru); nebun2Negru = new Nebun(2, pbNebunNegru);
-            reginaNegru = new Regina(2, pbReginaNegru); regeNegru = new Rege(2, pbRegeNegru);
-            pion1Negru = new Pion(2, pbPionNegru); pion2Negru = new Pion(2, pbPionNegru);
-            pion3Negru = new Pion(2, pbPionNegru); pion4Negru = new Pion(2, pbPionNegru);
-            pion5Negru = new Pion(2, pbPionNegru); pion6Negru = new Pion(2, pbPionNegru);
-            pion7Negru = new Pion(2, pbPionNegru); pion8Negru = new Pion(2, pbPionNegru);
+            tura1Negru = new Tura(2, pbTuraNegru,pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
+            cal1Negru = new Cal(2, pbCalNegru,pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
+            nebun1Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic);
+            reginaNegru = new Regina(2, pbReginaNegru,pbReginaNegruMic); regeNegru = new Rege(2, pbRegeNegru, pbRegeNegruMic);
+            pion1Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion2Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion3Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion5Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion7Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
 
             NewGame();
+            destinatie = new LocatieTabla();
 
         }
         public void RestoreCulori(LocatieTabla[,] loc)
@@ -772,6 +765,8 @@ namespace Chess_Application
             H6.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
             H7.imagineLocatie.BackColor = System.Drawing.Color.Silver;
             H8.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+
+            
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -783,12 +778,13 @@ namespace Chess_Application
         {
 
             LocatieTabla h = new LocatieTabla(pion1Alb, _1A);
-            h.MarcheazaVerde(checkBox1);
+            //h.MarcheazaVerde(checkBox1);
 
         }
 
         public void RandNou(LocatieTabla[,] loc)
         {
+
             for (int i = 1; i <= 8; i++)
             {
                 for (int j = 1; j <= 8; j++)
@@ -796,6 +792,7 @@ namespace Chess_Application
                     loc[i, j].sePoate = false;
                 }
             }
+           
             randMutare++;
             if (randMutare > 2) randMutare = 1;
             if (randMutare == 1) labelRandMutare.Text = "Randul pieselor albe";
@@ -812,7 +809,11 @@ namespace Chess_Application
                 }
             }
             clickCounter = 0;
-         
+
+        }
+        public void Deselectare(LocatieTabla[,] loc)
+        {
+            Rearanjare(loc); clickCounter = 100; RestoreCulori(loc);
         }
         private void _1A_Click(object sender, EventArgs e)
         {
@@ -831,7 +832,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A1 != orig && A1.sePoate == true)
             {
-                A1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -853,7 +854,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A2 != orig && A2.sePoate == true)
             {
-                A2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -875,7 +876,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A3 != orig && A3.sePoate == true)
             {
-                A3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -897,7 +898,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A4 != orig && A4.sePoate == true)
             {
-                A4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -919,7 +920,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A5 != orig && A5.sePoate == true)
             {
-                A5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -941,7 +942,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A6 != orig && A6.sePoate == true)
             {
-                A6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -963,7 +964,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A7 != orig && A7.sePoate == true)
             {
-                A7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -985,7 +986,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A8 != orig && A8.sePoate == true)
             {
-                A8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                A8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1007,7 +1008,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B1 != orig && B1.sePoate == true)
             {
-                B1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1029,7 +1030,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B2 != orig && B2.sePoate == true)
             {
-                B2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1051,7 +1052,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B3 != orig && B3.sePoate == true)
             {
-                B3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1073,7 +1074,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B4 != orig && B4.sePoate == true)
             {
-                B4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1095,7 +1096,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B5 != orig && B5.sePoate == true)
             {
-                B5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1117,7 +1118,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B6 != orig && B6.sePoate == true)
             {
-                B6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1139,7 +1140,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B7 != orig && B7.sePoate == true)
             {
-                B7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1161,7 +1162,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B8 != orig && B8.sePoate == true)
             {
-                B8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                B8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1183,7 +1184,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C1 != orig && C1.sePoate == true)
             {
-                C1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1205,7 +1206,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C2 != orig && C2.sePoate == true)
             {
-                C2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1227,7 +1228,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C3 != orig && C3.sePoate == true)
             {
-                C3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1249,7 +1250,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C4 != orig && C4.sePoate == true)
             {
-                C4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1271,7 +1272,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C5 != orig && C5.sePoate == true)
             {
-                C5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1293,7 +1294,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C6 != orig && C6.sePoate == true)
             {
-                C6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1315,7 +1316,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C7 != orig && C7.sePoate == true)
             {
-                C7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1337,7 +1338,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C8 != orig && C8.sePoate == true)
             {
-                C8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                C8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1359,7 +1360,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D1 != orig && D1.sePoate == true)
             {
-                D1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1381,7 +1382,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D2 != orig && D2.sePoate == true)
             {
-                D2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1403,7 +1404,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D3 != orig && D3.sePoate == true)
             {
-                D3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1425,7 +1426,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D4 != orig && D4.sePoate == true)
             {
-                D4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1447,7 +1448,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D5 != orig && D5.sePoate == true)
             {
-                D5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1469,7 +1470,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D6 != orig && D6.sePoate == true)
             {
-                D6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1491,7 +1492,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D7 != orig && D7.sePoate == true)
             {
-                D7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1513,7 +1514,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D8 != orig && D8.sePoate == true)
             {
-                D8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                D8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1535,7 +1536,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E1 != orig && E1.sePoate == true)
             {
-                E1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1557,7 +1558,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E2 != orig && E2.sePoate == true)
             {
-                E2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1579,7 +1580,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E3 != orig && E3.sePoate == true)
             {
-                E3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1601,7 +1602,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E4 != orig && E4.sePoate == true)
             {
-                E4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1623,7 +1624,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E5 != orig && E5.sePoate == true)
             {
-                E5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1645,7 +1646,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E6 != orig && E6.sePoate == true)
             {
-                E6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1667,7 +1668,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E7 != orig && E7.sePoate == true)
             {
-                E7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1689,7 +1690,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E8 != orig && E8.sePoate == true)
             {
-                E8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                E8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1711,7 +1712,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F1 != orig && F1.sePoate == true)
             {
-                F1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1733,7 +1734,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F2 != orig && F2.sePoate == true)
             {
-                F2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1755,7 +1756,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F3 != orig && F3.sePoate == true)
             {
-                F3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1777,7 +1778,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F4 != orig && F4.sePoate == true)
             {
-                F4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1799,7 +1800,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F5 != orig && F5.sePoate == true)
             {
-                F5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1821,7 +1822,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F6 != orig && F6.sePoate == true)
             {
-                F6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1843,7 +1844,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F7 != orig && F7.sePoate == true)
             {
-                F7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1865,7 +1866,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F8 != orig && F8.sePoate == true)
             {
-                F8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                F8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1887,7 +1888,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G1 != orig && G1.sePoate == true)
             {
-                G1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1909,7 +1910,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G2 != orig && G2.sePoate == true)
             {
-                G2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1931,7 +1932,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G3 != orig && G3.sePoate == true)
             {
-                G3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1953,7 +1954,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G4 != orig && G4.sePoate == true)
             {
-                G4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1975,7 +1976,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G5 != orig && G5.sePoate == true)
             {
-                G5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -1997,7 +1998,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G6 != orig && G6.sePoate == true)
             {
-                G6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2019,7 +2020,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G7 != orig && G7.sePoate == true)
             {
-                G7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2041,7 +2042,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G8 != orig && G8.sePoate == true)
             {
-                G8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                G8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2063,7 +2064,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H1 != orig && H1.sePoate == true)
             {
-                H1.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2085,7 +2086,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H2 != orig && H2.sePoate == true)
             {
-                H2.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2107,7 +2108,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H3 != orig && H3.sePoate == true)
             {
-                H3.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2129,7 +2130,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H4 != orig && H4.sePoate == true)
             {
-                H4.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2151,7 +2152,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H5 != orig && H5.sePoate == true)
             {
-                H5.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2173,7 +2174,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H6 != orig && H6.sePoate == true)
             {
-                H6.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2195,7 +2196,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H7 != orig && H7.sePoate == true)
             {
-                H7.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
@@ -2217,7 +2218,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H8 != orig && H8.sePoate == true)
             {
-                H8.Muta(orig); orig.StergeLocatie(); RandNou(locatii);
+                H8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
