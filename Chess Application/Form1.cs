@@ -15,23 +15,17 @@ namespace Chess_Application
     {
         short randMutare = 1;
         short clickCounter = 0;
-        int pozitieCifra1;
-        string pozitieLitera1;
-        int pozitieCifra2;
-        string pozitieLitera2;
-        public string origine, dest;
         public LocatieTabla[,] locatii;
+        bool modInceptator = true;
 
         Pion pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
-        Pion pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
-
         Piesa tura1Alb, tura2Alb;
         Piesa nebun1Alb, nebun2Alb;
         Piesa cal1Alb, cal2Alb;
-        Piesa reginaAlb; Piesa regeAlb;
+        Piesa reginaAlb, regeAlb;
 
+        Pion pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
         Piesa tura1Negru, tura2Negru;
-
         Piesa nebun1Negru, nebun2Negru;
         Piesa cal1Negru, cal2Negru;
         Piesa reginaNegru, regeNegru;
@@ -128,6 +122,11 @@ namespace Chess_Application
                     }
                 }
             }
+        }
+
+        private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void listaMiscari_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -526,10 +525,11 @@ namespace Chess_Application
             }
             public void Marcheaza()//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
             {
+                
                 {
                     sePoate = true;
+                    
                     imagineLocatie.BackColor = Color.Green;
-
                 }
             }
             
@@ -540,11 +540,9 @@ namespace Chess_Application
             public void Muta(LocatieTabla origine, DataGridView miscari)
             {
                 
-                if (piesa!=null)
-                {
-                    miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, piesa.imagineMicaPiesa.Image);
-                }
-                if (piesa == null) 
+                if (piesa!=null) miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, piesa.imagineMicaPiesa.Image);
+
+                if (piesa == null)
                 {
                     Bitmap img = new Bitmap(25, 25);
                     miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, img);
@@ -555,12 +553,10 @@ namespace Chess_Application
                 culoare = origine.culoare;
                 origine.culoare = 0;
                 origine.tipPiesa = 0;
-
-                //if (destinatie.imagineLocatie != null) { listaMiscari.Rows.Add(orig.GetType().Name + destinatie.GetType().Name, pbRegeAlb, destinatie.imagineLocatie.BackgroundImage); }
-                //if (destinatie.imagineLocatie == null) { listaMiscari.Rows.Add(orig.GetType().Name + destinatie.GetType().Name, pbRegeAlb.BackgroundImage); }
             }
-
         }
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------
 
         private void meniu1_Load(object sender, EventArgs e)
         {
@@ -587,62 +583,34 @@ namespace Chess_Application
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
-        
-       
 
         public void NewGame()
         {
-            A1 = new LocatieTabla(tura1Alb, _1A);
-            A2 = new LocatieTabla(cal1Alb, _2A);
-            A3 = new LocatieTabla(nebun1Alb, _3A);
-            A4 = new LocatieTabla(reginaAlb, _4A);
-            A5 = new LocatieTabla(regeAlb, _5A);
-            A6 = new LocatieTabla(nebun2Alb, _6A);
-            A7 = new LocatieTabla(cal2Alb, _7A);
-            A8 = new LocatieTabla(tura2Alb, _8A);
-            B1 = new LocatieTabla(pion1Alb, _1B);
-            B2 = new LocatieTabla(pion2Alb, _2B);
-            B3 = new LocatieTabla(pion3Alb, _3B);
-            B4 = new LocatieTabla(pion4Alb, _4B);
-            B5 = new LocatieTabla(pion5Alb, _5B);
-            B6 = new LocatieTabla(pion6Alb, _6B);
-            B7 = new LocatieTabla(pion7Alb, _7B);
-            B8 = new LocatieTabla(pion8Alb, _8B);
+            A1 = new LocatieTabla(tura1Alb, _1A);   H1 = new LocatieTabla(tura1Negru, _1H);
+            A2 = new LocatieTabla(cal1Alb, _2A);    H2 = new LocatieTabla(cal1Negru, _2H);
+            A3 = new LocatieTabla(nebun1Alb, _3A);  H3 = new LocatieTabla(nebun1Negru, _3H);
+            A4 = new LocatieTabla(reginaAlb, _4A);  H4 = new LocatieTabla(regeNegru, _4H);
+            A5 = new LocatieTabla(regeAlb, _5A);    H5 = new LocatieTabla(reginaNegru, _5H);
+            A6 = new LocatieTabla(nebun2Alb, _6A);  H6 = new LocatieTabla(nebun2Negru, _6H);
+            A7 = new LocatieTabla(cal2Alb, _7A);    H7 = new LocatieTabla(cal2Negru, _7H);
+            A8 = new LocatieTabla(tura2Alb, _8A);   H8 = new LocatieTabla(tura2Negru, _8H);
+            B1 = new LocatieTabla(pion1Alb, _1B);   G1 = new LocatieTabla(pion1Negru, _1G);
+            B2 = new LocatieTabla(pion2Alb, _2B);   G2 = new LocatieTabla(pion2Negru, _2G);
+            B3 = new LocatieTabla(pion3Alb, _3B);   G3 = new LocatieTabla(pion3Negru, _3G);
+            B4 = new LocatieTabla(pion4Alb, _4B);   G4 = new LocatieTabla(pion4Negru, _4G);
+            B5 = new LocatieTabla(pion5Alb, _5B);   G5 = new LocatieTabla(pion5Negru, _5G);
+            B6 = new LocatieTabla(pion6Alb, _6B);   G6 = new LocatieTabla(pion6Negru, _6G);
+            B7 = new LocatieTabla(pion7Alb, _7B);   G7 = new LocatieTabla(pion7Negru, _7G);
+            B8 = new LocatieTabla(pion8Alb, _8B);   G8 = new LocatieTabla(pion8Negru, _8G); 
             //=====
-            H1 = new LocatieTabla(tura1Negru, _1H);
-            H2 = new LocatieTabla(cal1Negru, _2H);
-            H3 = new LocatieTabla(nebun1Negru, _3H);
-            H4 = new LocatieTabla(regeNegru, _4H);
-            H5 = new LocatieTabla(reginaNegru, _5H);
-            H6 = new LocatieTabla(nebun2Negru, _6H);
-            H7 = new LocatieTabla(cal2Negru, _7H);
-            H8 = new LocatieTabla(tura2Negru, _8H);
-            G1 = new LocatieTabla(pion1Negru, _1G);
-            G2 = new LocatieTabla(pion2Negru, _2G);
-            G3 = new LocatieTabla(pion3Negru, _3G);
-            G4 = new LocatieTabla(pion4Negru, _4G);
-            G5 = new LocatieTabla(pion5Negru, _5G);
-            G6 = new LocatieTabla(pion6Negru, _6G);
-            G7 = new LocatieTabla(pion7Negru, _7G);
-            G8 = new LocatieTabla(pion8Negru, _8G);
-            //=====
-            C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D);
-            C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D);
-            C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D);
-            C4 = new LocatieTabla(_4C); D4 = new LocatieTabla(_4D);
-            C5 = new LocatieTabla(_5C); D5 = new LocatieTabla(_5D);
-            C6 = new LocatieTabla(_6C); D6 = new LocatieTabla(_6D);
-            C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D);
-            C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D);
-            //=====
-            E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
-            E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
-            E3 = new LocatieTabla(_3E); F3 = new LocatieTabla(_3F);
-            E4 = new LocatieTabla(_4E); F4 = new LocatieTabla(_4F);
-            E5 = new LocatieTabla(_5E); F5 = new LocatieTabla(_5F);
-            E6 = new LocatieTabla(_6E); F6 = new LocatieTabla(_6F);
-            E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
-            E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
+            C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D); E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
+            C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D); E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
+            C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D); E3 = new LocatieTabla(_3E); F3 = new LocatieTabla(_3F);
+            C4 = new LocatieTabla(_4C); D4 = new LocatieTabla(_4D); E4 = new LocatieTabla(_4E); F4 = new LocatieTabla(_4F);
+            C5 = new LocatieTabla(_5C); D5 = new LocatieTabla(_5D); E5 = new LocatieTabla(_5E); F5 = new LocatieTabla(_5F);
+            C6 = new LocatieTabla(_6C); D6 = new LocatieTabla(_6D); E6 = new LocatieTabla(_6E); F6 = new LocatieTabla(_6F);
+            C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
+            C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
             //=====
             A1.nume = "A1"; A2.nume = "A2"; A3.nume = "A3"; A4.nume = "A4"; A5.nume = "A5"; A6.nume = "A6"; A7.nume = "A7"; A8.nume = "A8";
             B1.nume = "B1"; B2.nume = "B2"; B3.nume = "B3"; B4.nume = "B4"; B5.nume = "B5"; B6.nume = "B6"; B7.nume = "B7"; B8.nume = "B8";
@@ -663,6 +631,7 @@ namespace Chess_Application
             locatii[7, 1] = G1; locatii[7, 2] = G2; locatii[7, 3] = G3; locatii[7, 4] = G4; locatii[7, 5] = G5; locatii[7, 6] = G6; locatii[7, 7] = G7; locatii[7, 8] = G8;
             locatii[8, 1] = H1; locatii[8, 2] = H2; locatii[8, 3] = H3; locatii[8, 4] = H4; locatii[8, 5] = H5; locatii[8, 6] = H6; locatii[8, 7] = H7; locatii[8, 8] = H8;
             //=====
+            listaMiscari.Rows.Clear();
             RestoreCulori(locatii);            
             clickCounter = 0;
             randMutare = 1;
@@ -685,7 +654,7 @@ namespace Chess_Application
             pion3Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             pion5Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             pion7Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-
+            //=====
             tura1Negru = new Tura(2, pbTuraNegru,pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
             cal1Negru = new Cal(2, pbCalNegru,pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
             nebun1Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic);
@@ -694,94 +663,56 @@ namespace Chess_Application
             pion3Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
             pion5Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
             pion7Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-
+            //=====
             NewGame();
             destinatie = new LocatieTabla();
-
         }
         public void RestoreCulori(LocatieTabla[,] loc)
         {
-            A1.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            A2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            A3.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            A4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            A5.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            A6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            A7.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            A8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            B1.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            B2.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            B3.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            B4.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            B5.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            B6.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            B7.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            B8.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            C1.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            C2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            C3.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            C4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            C5.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            C6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            C7.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            C8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            D1.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            D2.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            D3.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            D4.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            D5.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            D6.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            D7.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            D8.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            E1.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            E2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            E3.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            E4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            E5.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            E6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            E7.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            E8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            F1.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            F2.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            F3.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            F4.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            F5.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            F6.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            F7.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            F8.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            G1.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            G2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            G3.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            G4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            G5.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            G6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            G7.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            G8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            H1.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            H2.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            H3.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            H4.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            H5.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            H6.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
-            H7.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            H8.imagineLocatie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(107)))), ((int)(((byte)(86)))));
+            A1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            A3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            A5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            A7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
 
-            
+            B1.imagineLocatie.BackColor = System.Drawing.Color.Silver; B2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            B3.imagineLocatie.BackColor = System.Drawing.Color.Silver; B4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            B5.imagineLocatie.BackColor = System.Drawing.Color.Silver; B6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            B7.imagineLocatie.BackColor = System.Drawing.Color.Silver; B8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+
+            C1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            C3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            C5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            C7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+
+            D1.imagineLocatie.BackColor = System.Drawing.Color.Silver; D2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            D3.imagineLocatie.BackColor = System.Drawing.Color.Silver; D4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            D5.imagineLocatie.BackColor = System.Drawing.Color.Silver; D6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            D7.imagineLocatie.BackColor = System.Drawing.Color.Silver; D8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+
+            E1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            E3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            E5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            E7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+
+            F1.imagineLocatie.BackColor = System.Drawing.Color.Silver; F2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            F3.imagineLocatie.BackColor = System.Drawing.Color.Silver; F4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            F5.imagineLocatie.BackColor = System.Drawing.Color.Silver; F6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            F7.imagineLocatie.BackColor = System.Drawing.Color.Silver; F8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+
+            G1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            G3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            G5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+            G7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
+
+            H1.imagineLocatie.BackColor = System.Drawing.Color.Silver; H2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            H3.imagineLocatie.BackColor = System.Drawing.Color.Silver; H4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            H5.imagineLocatie.BackColor = System.Drawing.Color.Silver; H6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
+            H7.imagineLocatie.BackColor = System.Drawing.Color.Silver; H8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
         }
-
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            LocatieTabla h = new LocatieTabla(pion1Alb, _1A);
-            //h.MarcheazaVerde(checkBox1);
-
-        }
-
         public void RandNou(LocatieTabla[,] loc)
         {
 
@@ -791,8 +722,7 @@ namespace Chess_Application
                 {
                     loc[i, j].sePoate = false;
                 }
-            }
-           
+            }         
             randMutare++;
             if (randMutare > 2) randMutare = 1;
             if (randMutare == 1) labelRandMutare.Text = "Randul pieselor albe";
@@ -2222,8 +2152,5 @@ namespace Chess_Application
                 clickCounter = 0; RestoreCulori(locatii);
             }
         }
-
-
-
     }
 }

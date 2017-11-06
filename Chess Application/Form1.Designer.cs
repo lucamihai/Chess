@@ -147,11 +147,14 @@
             this.pbPionAlb = new System.Windows.Forms.PictureBox();
             this.labelRandMutare = new System.Windows.Forms.Label();
             this.listaMiscari = new System.Windows.Forms.DataGridView();
-            this.meniu1 = new Chess_Application.Meniu();
             this.counter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.meniu1 = new Chess_Application.Meniu();
+            this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activeazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dezactiveazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -1070,6 +1073,8 @@
             // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.modIncepatorToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -1556,6 +1561,9 @@
             // 
             // listaMiscari
             // 
+            this.listaMiscari.AllowUserToAddRows = false;
+            this.listaMiscari.AllowUserToDeleteRows = false;
+            this.listaMiscari.BackgroundColor = System.Drawing.Color.CadetBlue;
             this.listaMiscari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.listaMiscari.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.counter,
@@ -1564,9 +1572,49 @@
             this.Piesa2});
             this.listaMiscari.Location = new System.Drawing.Point(799, 106);
             this.listaMiscari.Name = "listaMiscari";
-            this.listaMiscari.Size = new System.Drawing.Size(209, 156);
+            this.listaMiscari.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.listaMiscari.Size = new System.Drawing.Size(240, 156);
             this.listaMiscari.TabIndex = 20;
             this.listaMiscari.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listaMiscari_CellContentClick);
+            // 
+            // counter
+            // 
+            this.counter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.counter.HeaderText = "counter";
+            this.counter.Name = "counter";
+            this.counter.ReadOnly = true;
+            this.counter.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.counter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.counter.Width = 30;
+            // 
+            // Mutare
+            // 
+            this.Mutare.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Mutare.HeaderText = "mutari";
+            this.Mutare.Name = "Mutare";
+            this.Mutare.ReadOnly = true;
+            this.Mutare.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Mutare.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Mutare.Width = 80;
+            // 
+            // Piesa1
+            // 
+            this.Piesa1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Piesa1.HeaderText = "p1";
+            this.Piesa1.Name = "Piesa1";
+            this.Piesa1.ReadOnly = true;
+            this.Piesa1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Piesa1.Width = 35;
+            // 
+            // Piesa2
+            // 
+            this.Piesa2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Piesa2.HeaderText = "p2";
+            this.Piesa2.Name = "Piesa2";
+            this.Piesa2.ReadOnly = true;
+            this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Piesa2.Width = 35;
             // 
             // meniu1
             // 
@@ -1580,38 +1628,27 @@
             this.meniu1.TabIndex = 17;
             this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
             // 
-            // counter
+            // modIncepatorToolStripMenuItem
             // 
-            this.counter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.counter.HeaderText = "counter";
-            this.counter.Name = "counter";
-            this.counter.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.counter.Width = 30;
+            this.modIncepatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.activeazaToolStripMenuItem,
+            this.dezactiveazaToolStripMenuItem});
+            this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
+            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
             // 
-            // Mutare
+            // activeazaToolStripMenuItem
             // 
-            this.Mutare.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Mutare.HeaderText = "mutari";
-            this.Mutare.Name = "Mutare";
-            this.Mutare.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mutare.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Mutare.Width = 80;
+            this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
+            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.activeazaToolStripMenuItem.Text = "Activeaza";
+            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.activeazaToolStripMenuItem_Click);
             // 
-            // Piesa1
+            // dezactiveazaToolStripMenuItem
             // 
-            this.Piesa1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Piesa1.HeaderText = "p1";
-            this.Piesa1.Name = "Piesa1";
-            this.Piesa1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Piesa1.Width = 27;
-            // 
-            // Piesa2
-            // 
-            this.Piesa2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Piesa2.HeaderText = "p2";
-            this.Piesa2.Name = "Piesa2";
-            this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Piesa2.Width = 27;
+            this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
+            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza";
             // 
             // Form1
             // 
@@ -1859,6 +1896,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
         private System.Windows.Forms.DataGridViewImageColumn Piesa1;
         private System.Windows.Forms.DataGridViewImageColumn Piesa2;
+        private System.Windows.Forms.ToolStripMenuItem modIncepatorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activeazaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dezactiveazaToolStripMenuItem;
     }
 }
 
