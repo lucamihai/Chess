@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Chess_Application
 {
@@ -16,13 +18,13 @@ namespace Chess_Application
         short randMutare = 1;
         short clickCounter = 0;
         public LocatieTabla[,] locatii;
-        bool modInceptator = true;
+        public static bool modInceptator = true;
 
         Pion pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
-        Piesa tura1Alb, tura2Alb;
-        Piesa nebun1Alb, nebun2Alb;
-        Piesa cal1Alb, cal2Alb;
-        Piesa reginaAlb, regeAlb;
+        Tura tura1Alb, tura2Alb;
+        Nebun nebun1Alb, nebun2Alb;
+        Cal cal1Alb, cal2Alb;
+        Regina reginaAlb; Rege regeAlb;
 
         Pion pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
         Piesa tura1Negru, tura2Negru;
@@ -126,7 +128,12 @@ namespace Chess_Application
 
         private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            modInceptator = true;
+        }
 
+        private void dezactiveazaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modInceptator = false;
         }
 
         private void listaMiscari_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -145,7 +152,6 @@ namespace Chess_Application
             }
             public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
             {
-
                 {
                     //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
 
@@ -474,15 +480,13 @@ namespace Chess_Application
                 if (loc[i + 1, j + 1] != null && loc[i + 1, j + 1].culoare != loc[i, j].culoare) { loc[i + 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i, j + 1] != null && loc[i, j + 1].culoare != loc[i, j].culoare) { loc[i, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i - 1, j + 1] != null && loc[i - 1, j + 1].culoare != loc[i, j].culoare) { loc[i - 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-
+                //=====
                 if (loc[i - 1, j] != null && loc[i - 1, j].culoare != loc[i, j].culoare) { loc[i - 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i - 1, j - 1] != null && loc[i - 1, j - 1].culoare != loc[i, j].culoare) { loc[i - 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i, j - 1] != null && loc[i, j - 1].culoare != loc[i, j].culoare) { loc[i, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                 if (loc[i + 1, j - 1] != null && loc[i + 1, j - 1].culoare != loc[i, j].culoare) { loc[i + 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-
             }
         }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------------------------------------------------
 
         public class LocatieTabla
@@ -515,20 +519,15 @@ namespace Chess_Application
                 imagineLocatie.BackgroundImage = null;
             }
 
-            public void MarcheazaVerde(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
+            public void MarcheazaSimplu(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
             {
-
-                if (c.Checked == true)
-                {
-                    imagineLocatie.BackColor = Color.Green;
-                }
+                sePoate = true;
             }
             public void Marcheaza()//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
             {
-                
+                sePoate = true;
+                if (Form1.modInceptator)
                 {
-                    sePoate = true;
-                    
                     imagineLocatie.BackColor = Color.Green;
                 }
             }
@@ -539,20 +538,31 @@ namespace Chess_Application
             }
             public void Muta(LocatieTabla origine, DataGridView miscari)
             {
-                
-                if (piesa!=null) miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, piesa.imagineMicaPiesa.Image);
-
+                if (piesa != null)
+                {
+                    miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, piesa.imagineMicaPiesa.Image);
+                    if (count == 7)
+                    {
+                        miscari.Width = miscari.Width + 17;
+                    }
+                }
                 if (piesa == null)
                 {
                     Bitmap img = new Bitmap(25, 25);
                     miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, img);
+                    if (count == 7)
+                    {
+                        miscari.Width = miscari.Width + 17;
+                    }                   
                 }
+                miscari.FirstDisplayedScrollingRowIndex = miscari.RowCount - 1;
                 piesa = origine.piesa;
                 imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
                 tipPiesa = origine.tipPiesa;
                 culoare = origine.culoare;
                 origine.culoare = 0;
                 origine.tipPiesa = 0;
+                origine.piesa = null;
             }
         }
 
@@ -621,6 +631,7 @@ namespace Chess_Application
             G1.nume = "G1"; G2.nume = "G2"; G3.nume = "G3"; G4.nume = "G4"; G5.nume = "G5"; G6.nume = "G6"; G7.nume = "G7"; G8.nume = "G8";
             H1.nume = "H1"; H2.nume = "H2"; H3.nume = "H3"; H4.nume = "H4"; H5.nume = "H5"; H6.nume = "H6"; H7.nume = "H7"; H8.nume = "H8";
             //=====
+            
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
             locatii[2, 1] = B1; locatii[2, 2] = B2; locatii[2, 3] = B3; locatii[2, 4] = B4; locatii[2, 5] = B5; locatii[2, 6] = B6; locatii[2, 7] = B7; locatii[2, 8] = B8;
@@ -642,10 +653,13 @@ namespace Chess_Application
         public Form1()
         {
             InitializeComponent();
+            
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            listaMiscari.ScrollBars = ScrollBars.Vertical;
             tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
             cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
             nebun1Alb = new Nebun(1, pbNebunAlb,pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
@@ -666,6 +680,7 @@ namespace Chess_Application
             //=====
             NewGame();
             destinatie = new LocatieTabla();
+
         }
         public void RestoreCulori(LocatieTabla[,] loc)
         {
@@ -715,6 +730,7 @@ namespace Chess_Application
         }
         public void RandNou(LocatieTabla[,] loc)
         {
+            
 
             for (int i = 1; i <= 8; i++)
             {

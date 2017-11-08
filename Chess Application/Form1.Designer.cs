@@ -19,7 +19,7 @@
             }
             base.Dispose(disposing);
         }
-
+        
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -100,6 +100,9 @@
             this.quitGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activeazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dezactiveazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -152,9 +155,6 @@
             this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.meniu1 = new Chess_Application.Meniu();
-            this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.activeazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dezactiveazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -1079,6 +1079,29 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
+            // modIncepatorToolStripMenuItem
+            // 
+            this.modIncepatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.activeazaToolStripMenuItem,
+            this.dezactiveazaToolStripMenuItem});
+            this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
+            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
+            // 
+            // activeazaToolStripMenuItem
+            // 
+            this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
+            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.activeazaToolStripMenuItem.Text = "Activeaza-l";
+            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.activeazaToolStripMenuItem_Click);
+            // 
+            // dezactiveazaToolStripMenuItem
+            // 
+            this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
+            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza-l";
+            this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazaToolStripMenuItem_Click);
+            // 
             // menuStrip2
             // 
             this.menuStrip2.Dock = System.Windows.Forms.DockStyle.None;
@@ -1574,7 +1597,7 @@
             this.listaMiscari.Name = "listaMiscari";
             this.listaMiscari.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listaMiscari.Size = new System.Drawing.Size(240, 156);
+            this.listaMiscari.Size = new System.Drawing.Size(223, 156);
             this.listaMiscari.TabIndex = 20;
             this.listaMiscari.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listaMiscari_CellContentClick);
             // 
@@ -1628,34 +1651,12 @@
             this.meniu1.TabIndex = 17;
             this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
             // 
-            // modIncepatorToolStripMenuItem
-            // 
-            this.modIncepatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.activeazaToolStripMenuItem,
-            this.dezactiveazaToolStripMenuItem});
-            this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
-            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
-            // 
-            // activeazaToolStripMenuItem
-            // 
-            this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
-            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.activeazaToolStripMenuItem.Text = "Activeaza";
-            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.activeazaToolStripMenuItem_Click);
-            // 
-            // dezactiveazaToolStripMenuItem
-            // 
-            this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
-            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1165, 713);
+            this.ClientSize = new System.Drawing.Size(1165, 693);
             this.Controls.Add(this.listaMiscari);
             this.Controls.Add(this.meniu1);
             this.Controls.Add(this.labelRandMutare);
