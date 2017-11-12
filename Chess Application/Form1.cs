@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
 
+
 namespace Chess_Application
 {
     
@@ -39,534 +40,20 @@ namespace Chess_Application
 
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
-
-        public class Piesa
-        {
-            public PictureBox imaginePiesa;
-            public PictureBox imagineMicaPiesa;
-            public Piesa()
-            {//constructor fara parametrii
-
-            }
-            public Piesa(int c, int t, PictureBox pct)//constructor cu initializare tip si culoare piesa
-            {
-                culoare = c;
-                tipPiesa = t;
-                imaginePiesa = pct;
-            }
-            public Piesa(int t, PictureBox pct)//constructor cu initializare tip piesa(in cazul in care piesele sunt albe, nefiind necesara initializarii valorii culoare)
-            {
-                this.tipPiesa = t;
-                imaginePiesa = pct;
-            }
-            public int culoare = 1;//1-alb, 2-negru;
-            public int tipPiesa = 0;//0-nici una, 1-pion, 2-tura, 3-cal, 4-nebun, 5-regina, 6-rege;
-            public virtual void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)//self-explanatory -  verifica posibilitatile de miscare a piesei: tipul ofera comportamentul miscarii, iar culoarea directia...
-            {
-
-            }
-        }
-        public class Pion : Piesa
-        {
-            public Pion(int c, PictureBox p, PictureBox pm)
-            {
-                culoare = c;
-                imaginePiesa = p;
-                imagineMicaPiesa = pm;
-            }
-            public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
-            {
-                if (culoare == 1)//pion alb
-                {
-                    if (loc[i + 1, j] != null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
-                    {
-                        loc[i + 1, j].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (i < 8 && j < 8 && loc[i + 1, j + 1].culoare == 2)
-                    {
-                        loc[i + 1, j + 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (i < 8 && j > 1 && loc[i + 1, j - 1].culoare == 2)
-                    {
-                        loc[i + 1, j - 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((i == 2) && loc[i + 2, j] != null && loc[i + 2, j].imagineLocatie.BackgroundImage == null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
-                    {
-                        loc[i + 2, j].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-
-                }
-                if (culoare == 2)//pion negru
-                {
-                    if (loc[i - 1, j] != null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
-                    {
-                        loc[i - 1, j].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (i > 1 && j < 8 && loc[i - 1, j + 1].culoare == 1)
-                    {
-                        loc[i - 1, j + 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (i > 1 && j > 1 && loc[i - 1, j - 1].culoare == 1)
-                    {
-                        loc[i - 1, j - 1].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((i == 7) && loc[i - 2, j] != null && loc[i - 2, j].imagineLocatie.BackgroundImage == null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
-                    {
-                        loc[i - 2, j].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                }
-            }
-        }
-
+        //----------------------------------------------------------------------------------------------------------------------
         private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             modInceptator = true;
+            activeazaToolStripMenuItem.Available = false;
+            dezactiveazaToolStripMenuItem.Available = true;
         }
 
         private void dezactiveazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             modInceptator = false;
+            activeazaToolStripMenuItem.Available = true;
+            dezactiveazaToolStripMenuItem.Available = false;
         }
-
-        private void listaMiscari_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Tura : Piesa
-        {
-            public Tura(int c, PictureBox p, PictureBox pm)
-            {
-                culoare = c;
-                imaginePiesa = p;
-                imagineMicaPiesa = pm;
-            }
-            public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
-            {
-                {
-                    //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
-
-                    //prima linie din for: daca urmatoarea casuta exista si are o piesa de aceeasi culoare intrerupe
-                    //aditional, daca locatia curenta este diferita de locatia originala(de la apelul functiei), marcheaza casuta respectiva
-                    //a doua linie din for: daca cele doua casute contin piese de culori diferite(printre care 0==casuta goala), marcheaza casuta curenta
-                    //a treia linie din for: daca casuta curenta are o piesa diferita de cea a casutei originale, intrerupe for-ul
-                    //obs. casuta respectiva "apuca" sa fie marcata, intrucat este marcata anterior
-                    //--------------------------------------------------------------------------------------------------------------------------------------
-                    for (int k = j; k >= 1; k--)
-                    {
-                        if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[i, k].culoare != loc[i, j].culoare)
-                        {
-                            loc[i, k].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                    }
-                    for (int k = j; k <= 8; k++)
-                    {
-                        if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[i, k].culoare != loc[i, j].culoare)
-                        {
-                            loc[i, k].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                    }
-                    for (int k = i; k >= 1; k--)
-                    {
-                        if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[k, j].culoare != loc[i, j].culoare)
-                        {
-                            loc[k, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                    }
-                    for (int k = i; k <= 8; k++)
-                    {
-                        if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                        if (loc[k, j].culoare != loc[i, j].culoare)
-                        {
-                            loc[k, j].Marcheaza();
-                            loc[i, j].poateFaceMiscari = true;
-                        }
-                        if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                    }
-                }
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Cal : Piesa
-        {
-            public Cal(int c, PictureBox p, PictureBox pm)
-            {
-                culoare = c;
-                imaginePiesa = p;
-                imagineMicaPiesa = pm;
-            }
-            public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
-            {
-                //self explanatory right here
-                //=====
-                if ((i < 8 && j < 7) && (loc[i + 1, j + 2].culoare != loc[i, j].culoare))
-                {
-                    loc[i + 1, j + 2].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                if ((i < 8 && j > 2) && (loc[i + 1, j - 2].culoare != loc[i, j].culoare))
-                {
-                    loc[i + 1, j - 2].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                //=====
-                if ((i < 7 && j < 8) && (loc[i + 2, j + 1].culoare != loc[i, j].culoare))
-                {
-                    loc[i + 2, j + 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                if ((i < 7 && j > 1) && (loc[i + 2, j - 1].culoare != loc[i, j].culoare))
-                {
-                    loc[i + 2, j - 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                //=====
-                if ((i > 1 && j < 7) && (loc[i - 1, j + 2].culoare != loc[i, j].culoare))
-                {
-                    loc[i - 1, j + 2].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                if ((i > 1 && j > 2) && (loc[i - 1, j - 2].culoare != loc[i, j].culoare))
-                {
-                    loc[i - 1, j - 2].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                //=====              
-                if ((i > 2 && j < 8) && (loc[i - 2, j + 1].culoare != loc[i, j].culoare))
-                {
-                    loc[i - 2, j + 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                if ((i > 2 && j > 1) && (loc[i - 2, j - 1].culoare != loc[i, j].culoare))
-                {
-                    loc[i - 2, j - 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
-                }
-                //=====
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Nebun : Piesa
-        {
-            public Nebun(int c, PictureBox p, PictureBox pm)
-            {
-                culoare = c;
-                imaginePiesa = p;
-                imagineMicaPiesa = pm;
-            }
-            public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
-            {
-                //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
-
-                //primul if din for: daca urmatoarea casuta exista si are o piesa de culoare diferita, o marcheaza 
-                //al doilea if din for: daca exista urmatoarea casuta si daca contine o piesa de orice culoare, interupe for-ul (aplicabil pentru alb)
-                //al treilea if din for: daca exista urmatoarea casuta si daca contine o piesa de orice culoare, interupe for-ul (aplicabil pentru negru)
-                //obs. casuta respectiva "apuca" sa fie marcata, intrucat este marcata anterior
-                //--------------------------------------------------------------------------------------------------------------------------------------
-                for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-                for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-                for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-                for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Regina : Piesa
-        {
-            public Regina(int c, PictureBox p, PictureBox pm)
-            {
-                culoare = c;
-                imaginePiesa = p;
-                imagineMicaPiesa = pm;
-            }
-            public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
-            {
-                for (int k = j; k >= 1; k--)
-                {
-                    if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                    if (loc[i, k].culoare != loc[i, j].culoare)
-                    {
-                        loc[i, k].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                }
-                for (int k = j; k <= 8; k++)
-                {
-                    if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                    if (loc[i, k].culoare != loc[i, j].culoare)
-                    {
-                        loc[i, k].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
-                }
-                for (int k = i; k >= 1; k--)
-                {
-                    if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                    if (loc[k, j].culoare != loc[i, j].culoare)
-                    {
-                        loc[k, j].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                }
-                for (int k = i; k <= 8; k++)
-                {
-                    if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                    if (loc[k, j].culoare != loc[i, j].culoare)
-                    {
-                        loc[k, j].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
-                }
-                //=====
-                for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-                for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-                for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-                for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
-                {
-                    if (loc[i, j].culoare != loc[l, c].culoare)
-                    {
-                        loc[l, c].Marcheaza();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if (culoare == 1)
-                    {
-                        if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                    }
-                    if (culoare == 2)
-                    {
-                        if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
-                    }
-                }
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public class Rege : Piesa
-        {
-            public Rege(int c, PictureBox p, PictureBox pm)
-            {
-                culoare = c;
-                imaginePiesa = p;
-                imagineMicaPiesa = pm;
-            }
-            public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
-            {
-                if (loc[i + 1, j] != null && loc[i + 1, j].culoare != loc[i, j].culoare) { loc[i + 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                if (loc[i + 1, j + 1] != null && loc[i + 1, j + 1].culoare != loc[i, j].culoare) { loc[i + 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                if (loc[i, j + 1] != null && loc[i, j + 1].culoare != loc[i, j].culoare) { loc[i, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                if (loc[i - 1, j + 1] != null && loc[i - 1, j + 1].culoare != loc[i, j].culoare) { loc[i - 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                //=====
-                if (loc[i - 1, j] != null && loc[i - 1, j].culoare != loc[i, j].culoare) { loc[i - 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                if (loc[i - 1, j - 1] != null && loc[i - 1, j - 1].culoare != loc[i, j].culoare) { loc[i - 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                if (loc[i, j - 1] != null && loc[i, j - 1].culoare != loc[i, j].culoare) { loc[i, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-                if (loc[i + 1, j - 1] != null && loc[i + 1, j - 1].culoare != loc[i, j].culoare) { loc[i + 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-
-        public class LocatieTabla
-        {
-            static int count = 0;
-            public string nume = "";
-            public bool poateFaceMiscari = false;
-            public Piesa piesa;
-            public PictureBox emptyImage;
-            int tipPiesa = 0;
-            public int culoare = 0;
-            public bool sePoate = false;
-            public PictureBox imagineLocatie;
-            public LocatieTabla(Piesa p, PictureBox b)
-            {
-                piesa = p;
-                culoare = p.culoare;
-                tipPiesa = p.tipPiesa;
-                imagineLocatie = b;
-                b.BackgroundImage = p.imaginePiesa.BackgroundImage;
-            }
-
-            public LocatieTabla()
-            {
-
-            }
-            public LocatieTabla(PictureBox b)
-            {
-                imagineLocatie = b;
-                imagineLocatie.BackgroundImage = null;
-            }
-
-            public void MarcheazaSimplu(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
-            {
-                sePoate = true;
-            }
-            public void Marcheaza()//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
-            {
-                sePoate = true;
-                if (Form1.modInceptator)
-                {
-                    imagineLocatie.BackColor = Color.Green;
-                }
-            }
-            
-            public void StergeLocatie()
-            {
-                imagineLocatie.BackgroundImage = null;
-            }
-            public void Muta(LocatieTabla origine, DataGridView miscari)
-            {
-                if (piesa != null)
-                {
-                    miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, piesa.imagineMicaPiesa.Image);
-                    if (count == 7)
-                    {
-                        miscari.Width = miscari.Width + 17;
-                    }
-                }
-                if (piesa == null)
-                {
-                    Bitmap img = new Bitmap(25, 25);
-                    miscari.Rows.Add(++count, nume + " -> " + origine.nume, origine.piesa.imagineMicaPiesa.Image, img);
-                    if (count == 7)
-                    {
-                        miscari.Width = miscari.Width + 17;
-                    }                   
-                }
-                miscari.FirstDisplayedScrollingRowIndex = miscari.RowCount - 1;
-                piesa = origine.piesa;
-                imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
-                tipPiesa = origine.tipPiesa;
-                culoare = origine.culoare;
-                origine.culoare = 0;
-                origine.tipPiesa = 0;
-                origine.piesa = null;
-            }
-        }
-
-        //---------------------------------------------------------------------------------------------------------------------------------------------
 
         private void meniu1_Load(object sender, EventArgs e)
         {
@@ -630,8 +117,7 @@ namespace Chess_Application
             F1.nume = "F1"; F2.nume = "F2"; F3.nume = "F3"; F4.nume = "F4"; F5.nume = "F5"; F6.nume = "F6"; F7.nume = "F7"; F8.nume = "F8";
             G1.nume = "G1"; G2.nume = "G2"; G3.nume = "G3"; G4.nume = "G4"; G5.nume = "G5"; G6.nume = "G6"; G7.nume = "G7"; G8.nume = "G8";
             H1.nume = "H1"; H2.nume = "H2"; H3.nume = "H3"; H4.nume = "H4"; H5.nume = "H5"; H6.nume = "H6"; H7.nume = "H7"; H8.nume = "H8";
-            //=====
-            
+            //=====           
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
             locatii[2, 1] = B1; locatii[2, 2] = B2; locatii[2, 3] = B3; locatii[2, 4] = B4; locatii[2, 5] = B5; locatii[2, 6] = B6; locatii[2, 7] = B7; locatii[2, 8] = B8;
@@ -647,14 +133,13 @@ namespace Chess_Application
             clickCounter = 0;
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
+            LocatieTabla.count = 0;
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public Form1()
         {
-            InitializeComponent();
-            
-            
+            InitializeComponent();        
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -680,7 +165,7 @@ namespace Chess_Application
             //=====
             NewGame();
             destinatie = new LocatieTabla();
-
+            activeazaToolStripMenuItem.Available = false;
         }
         public void RestoreCulori(LocatieTabla[,] loc)
         {
@@ -730,8 +215,6 @@ namespace Chess_Application
         }
         public void RandNou(LocatieTabla[,] loc)
         {
-            
-
             for (int i = 1; i <= 8; i++)
             {
                 for (int j = 1; j <= 8; j++)
@@ -755,7 +238,6 @@ namespace Chess_Application
                 }
             }
             clickCounter = 0;
-
         }
         public void Deselectare(LocatieTabla[,] loc)
         {

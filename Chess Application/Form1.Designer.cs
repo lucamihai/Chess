@@ -1599,7 +1599,6 @@
             this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.listaMiscari.Size = new System.Drawing.Size(223, 156);
             this.listaMiscari.TabIndex = 20;
-            this.listaMiscari.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listaMiscari_CellContentClick);
             // 
             // counter
             // 
