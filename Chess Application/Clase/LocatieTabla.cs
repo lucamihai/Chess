@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
+using System.IO;
+using System.Threading;
 
 namespace Chess_Application
 {
@@ -18,7 +20,7 @@ namespace Chess_Application
         public string nume = "";
         public bool poateFaceMiscari = false;
         public Piesa piesa;
-        int tipPiesa = 0;
+        public int tipPiesa = 0;
         public int culoare = 0;
         public bool sePoate = false;
         public PictureBox imagineLocatie;
@@ -82,6 +84,8 @@ namespace Chess_Application
             imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
             tipPiesa = origine.tipPiesa;
             culoare = origine.culoare;
+            
+            
             origine.culoare = 0;
             origine.tipPiesa = 0;
             origine.piesa = null;

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
+using System.IO;
+using System.Threading;
+
 
 
 namespace Chess_Application
@@ -40,6 +43,68 @@ namespace Chess_Application
 
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
+        //=============================================================================================================================================
+        public TcpListener server;
+        public String dateServer;
+        private static Form1 serverForm;
+        Thread t;
+        bool workThread;
+        NetworkStream streamServer;
+        //----------------------------------------------------------------------------------------------------------------------
+        public void Asculta_Server()
+        {
+
+            while (workThread)
+            {               
+                Socket socketServer = server.AcceptSocket();
+                try
+                {
+                    streamServer = new NetworkStream(socketServer);
+                    StreamReader citireServer = new StreamReader(streamServer);
+
+                    while (workThread)
+                    {
+                        string dateServer = citireServer.ReadLine();
+                        if (dateServer == null) break;//primesc nimic - clientul a plecat
+                        if (dateServer == "#Gata") //ca sa pot sa inchid serverul
+                            workThread = false;
+                        MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += (socketServer.LocalEndPoint + ": " + dateServer + Environment.NewLine));
+                        serverForm.textBox1.Invoke(m);
+                    }
+                    streamServer.Close();
+                }
+                catch (Exception e)
+                {
+#if LOG
+                    Console.WriteLine(e.Message);
+#endif
+                }
+                socketServer.Close();
+            }
+
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                StreamWriter scriere = new StreamWriter(streamServer);
+                scriere.AutoFlush = true; // enable automatic flushing
+                scriere.WriteLine(tbServerDate.Text);
+                textBox1.Text += "Server: " + tbServerDate.Text + Environment.NewLine;
+                tbServerDate.Clear();
+                // s_text.Close();
+            }
+            finally
+            {
+                // code in finally block is guranteed 
+                // to execute irrespective of 
+                // whether any exception occurs or does 
+                // not occur in the try block
+                //  client.Close();
+            }
+        }
         //----------------------------------------------------------------------------------------------------------------------
         private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -139,7 +204,19 @@ namespace Chess_Application
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public Form1()
         {
-            InitializeComponent();        
+            InitializeComponent();
+            server = new TcpListener(System.Net.IPAddress.Any, 3000);
+            server.Start();
+            t = new Thread(new ThreadStart(Asculta_Server));
+            workThread = true;
+
+            t.Start();
+            serverForm = this;
+        }
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            workThread = false;
+            streamServer.Close();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -212,6 +289,36 @@ namespace Chess_Application
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+        public void Muta()
+        {
+            if (destinatie.piesa != null)
+            {
+                listaMiscari.Rows.Add(++LocatieTabla.count, orig.nume + " -> " + destinatie.nume, orig.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
+                if (LocatieTabla.count == 7)
+                {
+                    listaMiscari.Width = listaMiscari.Width + 17;
+                }
+            }
+            if (destinatie.piesa == null)
+            {
+                Bitmap img = new Bitmap(25, 25);
+                listaMiscari.Rows.Add(++LocatieTabla.count, orig.nume + " -> " + destinatie.nume, orig.piesa.imagineMicaPiesa.Image, img);
+                if (LocatieTabla.count == 7)
+                {
+                    listaMiscari.Width = listaMiscari.Width + 17;
+                }
+            }
+            listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
+            destinatie.piesa = orig.piesa;
+            destinatie.imagineLocatie.BackgroundImage = orig.imagineLocatie.BackgroundImage;
+            destinatie.tipPiesa = orig.tipPiesa;
+            destinatie.culoare = orig.culoare;
+
+
+            orig.culoare = 0;
+            orig.tipPiesa = 0;
+            orig.piesa = null;
         }
         public void RandNou(LocatieTabla[,] loc)
         {

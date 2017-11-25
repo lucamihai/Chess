@@ -154,7 +154,10 @@
             this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbServerDate = new System.Windows.Forms.TextBox();
             this.meniu1 = new Chess_Application.Meniu();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -1091,14 +1094,14 @@
             // activeazaToolStripMenuItem
             // 
             this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
-            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.activeazaToolStripMenuItem.Text = "Activeaza-l";
             this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.activeazaToolStripMenuItem_Click);
             // 
             // dezactiveazaToolStripMenuItem
             // 
             this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
-            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza-l";
             this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazaToolStripMenuItem_Click);
             // 
@@ -1638,6 +1641,21 @@
             this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Piesa2.Width = 35;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(812, 383);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(259, 156);
+            this.textBox1.TabIndex = 21;
+            // 
+            // tbServerDate
+            // 
+            this.tbServerDate.Location = new System.Drawing.Point(881, 326);
+            this.tbServerDate.Name = "tbServerDate";
+            this.tbServerDate.Size = new System.Drawing.Size(100, 20);
+            this.tbServerDate.TabIndex = 22;
+            // 
             // meniu1
             // 
             this.meniu1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuPopup;
@@ -1650,12 +1668,25 @@
             this.meniu1.TabIndex = 17;
             this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(881, 554);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "btnSend";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnSend_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1165, 693);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tbServerDate);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listaMiscari);
             this.Controls.Add(this.meniu1);
             this.Controls.Add(this.labelRandMutare);
@@ -1899,6 +1930,9 @@
         private System.Windows.Forms.ToolStripMenuItem modIncepatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazaToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbServerDate;
+        private System.Windows.Forms.Button button1;
     }
 }
 
