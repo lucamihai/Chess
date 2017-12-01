@@ -21,6 +21,8 @@ namespace Chess_Application
     {
         short randMutare = 1;
         short clickCounter = 0;
+        public static string mesajDeTransmis;
+        public static string mesajPrimit;
         public LocatieTabla[,] locatii;
         public static bool modInceptator = true;
 
@@ -68,8 +70,25 @@ namespace Chess_Application
                         if (dateServer == null) break;//primesc nimic - clientul a plecat
                         if (dateServer == "#Gata") //ca sa pot sa inchid serverul
                             workThread = false;
-                        MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += (socketServer.LocalEndPoint + ": " + dateServer + Environment.NewLine));
-                        serverForm.textBox1.Invoke(m);
+                        if (dateServer.StartsWith("#"))
+                        {
+                            dateServer = dateServer.Substring(1);
+                            string[] coordonate = new string[2];
+                            coordonate = dateServer.Split();
+                            int o1 = System.Convert.ToInt32(coordonate[0][0]) - 64;
+                            int o2 = System.Convert.ToInt32(coordonate[0][1]) - 48;
+                            int d1 = System.Convert.ToInt32(coordonate[1][0]) - 64;
+                            int d2 = System.Convert.ToInt32(coordonate[1][1]) - 48;
+                            MethodInvoker mutare = new MethodInvoker(() => Muta(locatii[o1, o2], locatii[d1, d2]));
+                            serverForm.Invoke(mutare);
+
+                        }
+                        else
+                        {
+                            MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += ("Server: " + dateServer + Environment.NewLine));
+                            serverForm.textBox1.Invoke(m);
+                        }
+
                     }
                     streamServer.Close();
                 }
@@ -81,14 +100,74 @@ namespace Chess_Application
                 }
                 socketServer.Close();
             }
+        }
+        void transmiteMesaj()
+        {
+            StreamWriter scriere = new StreamWriter(streamServer);
+            scriere.AutoFlush = true; // enable automatic flushing                     
+            textBox1.Text += "Server:    " + mesajDeTransmis + Environment.NewLine;
+            scriere.WriteLine(mesajDeTransmis);
+        }
 
+        void Muta(LocatieTabla origine, LocatieTabla destinatie)
+        {
+            if (destinatie.piesa != null)
+            {
+                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
+                if (LocatieTabla.count == 7)
+                {
+                    listaMiscari.Width = listaMiscari.Width + 17;
+                }
+            }
+            if (destinatie.piesa == null)
+            {
+                Bitmap img = new Bitmap(25, 25);
+                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, img);
+                if (LocatieTabla.count == 7)
+                {
+                    listaMiscari.Width = listaMiscari.Width + 17;
+                }
+            }
+            listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
+            destinatie.piesa = origine.piesa;
+            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
+            destinatie.tipPiesa = origine.tipPiesa;
+            destinatie.culoare = origine.culoare;
+            origine.culoare = 0;
+            origine.tipPiesa = 0;
+            origine.piesa = null;
+            origine.StergeLocatie();
+        }
+        void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
+        {
+            if (destinatie.piesa != null)
+            {
+                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
+                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;              
+            }
+            if (destinatie.piesa == null)
+            {
+                Bitmap img = new Bitmap(25, 25);
+                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, img);
+                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;               
+            }
+            mesajDeTransmis = "#" + origine.nume + " " + destinatie.nume;
+            listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
+            destinatie.piesa = origine.piesa;
+            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
+            destinatie.tipPiesa = origine.tipPiesa;
+            destinatie.culoare = origine.culoare;
+            origine.culoare = 0;
+            origine.tipPiesa = 0;
+            origine.piesa = null;
+            orig.StergeLocatie(); RandNou(locatii);
+            clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
             try
-            {
-
+            {               
                 StreamWriter scriere = new StreamWriter(streamServer);
                 scriere.AutoFlush = true; // enable automatic flushing
                 scriere.WriteLine(tbServerDate.Text);
@@ -174,14 +253,7 @@ namespace Chess_Application
             C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
             //=====
-            A1.nume = "A1"; A2.nume = "A2"; A3.nume = "A3"; A4.nume = "A4"; A5.nume = "A5"; A6.nume = "A6"; A7.nume = "A7"; A8.nume = "A8";
-            B1.nume = "B1"; B2.nume = "B2"; B3.nume = "B3"; B4.nume = "B4"; B5.nume = "B5"; B6.nume = "B6"; B7.nume = "B7"; B8.nume = "B8";
-            C1.nume = "C1"; C2.nume = "C2"; C3.nume = "C3"; C4.nume = "C4"; C5.nume = "C5"; C6.nume = "C6"; C7.nume = "C7"; C8.nume = "C8";
-            D1.nume = "D1"; D2.nume = "D2"; D3.nume = "D3"; D4.nume = "D4"; D5.nume = "D5"; D6.nume = "D6"; D7.nume = "D7"; D8.nume = "D8";
-            E1.nume = "E1"; E2.nume = "E2"; E3.nume = "E3"; E4.nume = "E4"; E5.nume = "E5"; E6.nume = "E6"; E7.nume = "E7"; E8.nume = "E8";
-            F1.nume = "F1"; F2.nume = "F2"; F3.nume = "F3"; F4.nume = "F4"; F5.nume = "F5"; F6.nume = "F6"; F7.nume = "F7"; F8.nume = "F8";
-            G1.nume = "G1"; G2.nume = "G2"; G3.nume = "G3"; G4.nume = "G4"; G5.nume = "G5"; G6.nume = "G6"; G7.nume = "G7"; G8.nume = "G8";
-            H1.nume = "H1"; H2.nume = "H2"; H3.nume = "H3"; H4.nume = "H4"; H5.nume = "H5"; H6.nume = "H6"; H7.nume = "H7"; H8.nume = "H8";
+            
             //=====           
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
@@ -290,36 +362,7 @@ namespace Chess_Application
         {
 
         }
-        public void Muta()
-        {
-            if (destinatie.piesa != null)
-            {
-                listaMiscari.Rows.Add(++LocatieTabla.count, orig.nume + " -> " + destinatie.nume, orig.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
-                if (LocatieTabla.count == 7)
-                {
-                    listaMiscari.Width = listaMiscari.Width + 17;
-                }
-            }
-            if (destinatie.piesa == null)
-            {
-                Bitmap img = new Bitmap(25, 25);
-                listaMiscari.Rows.Add(++LocatieTabla.count, orig.nume + " -> " + destinatie.nume, orig.piesa.imagineMicaPiesa.Image, img);
-                if (LocatieTabla.count == 7)
-                {
-                    listaMiscari.Width = listaMiscari.Width + 17;
-                }
-            }
-            listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
-            destinatie.piesa = orig.piesa;
-            destinatie.imagineLocatie.BackgroundImage = orig.imagineLocatie.BackgroundImage;
-            destinatie.tipPiesa = orig.tipPiesa;
-            destinatie.culoare = orig.culoare;
-
-
-            orig.culoare = 0;
-            orig.tipPiesa = 0;
-            orig.piesa = null;
-        }
+        
         public void RandNou(LocatieTabla[,] loc)
         {
             for (int i = 1; i <= 8; i++)
@@ -350,6 +393,7 @@ namespace Chess_Application
         {
             Rearanjare(loc); clickCounter = 100; RestoreCulori(loc);
         }
+
         private void _1A_Click(object sender, EventArgs e)
         {
             if (clickCounter == 1 && A1 == orig)
@@ -367,8 +411,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A1 != orig && A1.sePoate == true)
             {
-                A1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A1, mesajDeTransmis);
             }
         }
 
@@ -389,8 +432,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A2 != orig && A2.sePoate == true)
             {
-                A2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A2, mesajDeTransmis);
             }
         }
 
@@ -411,8 +453,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A3 != orig && A3.sePoate == true)
             {
-                A3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A3, mesajDeTransmis);
             }
         }
 
@@ -433,8 +474,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A4 != orig && A4.sePoate == true)
             {
-                A4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A4, mesajDeTransmis);
             }
         }
 
@@ -455,8 +495,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A5 != orig && A5.sePoate == true)
             {
-                A5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A5, mesajDeTransmis);
             }
         }
 
@@ -477,8 +516,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A6 != orig && A6.sePoate == true)
             {
-                A6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A6, mesajDeTransmis);
             }
         }
 
@@ -499,8 +537,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A7 != orig && A7.sePoate == true)
             {
-                A7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A7, mesajDeTransmis);
             }
         }
 
@@ -521,8 +558,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A8 != orig && A8.sePoate == true)
             {
-                A8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, A8, mesajDeTransmis);
             }
         }
 
@@ -543,8 +579,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B1 != orig && B1.sePoate == true)
             {
-                B1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B1, mesajDeTransmis);
             }
         }
 
@@ -565,8 +600,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B2 != orig && B2.sePoate == true)
             {
-                B2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B2, mesajDeTransmis);
             }
         }
 
@@ -587,8 +621,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B3 != orig && B3.sePoate == true)
             {
-                B3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B3, mesajDeTransmis);
             }
         }
 
@@ -609,8 +642,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B4 != orig && B4.sePoate == true)
             {
-                B4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B4, mesajDeTransmis);
             }
         }
 
@@ -631,8 +663,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B5 != orig && B5.sePoate == true)
             {
-                B5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B5, mesajDeTransmis);
             }
         }
 
@@ -653,8 +684,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B6 != orig && B6.sePoate == true)
             {
-                B6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B6, mesajDeTransmis);
             }
         }
 
@@ -675,8 +705,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B7 != orig && B7.sePoate == true)
             {
-                B7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B7, mesajDeTransmis);
             }
         }
 
@@ -697,8 +726,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B8 != orig && B8.sePoate == true)
             {
-                B8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, B8, mesajDeTransmis);
             }
         }
 
@@ -719,8 +747,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C1 != orig && C1.sePoate == true)
             {
-                C1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C1, mesajDeTransmis);
             }
         }
 
@@ -741,8 +768,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C2 != orig && C2.sePoate == true)
             {
-                C2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C2, mesajDeTransmis);
             }
         }
 
@@ -763,8 +789,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C3 != orig && C3.sePoate == true)
             {
-                C3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C3, mesajDeTransmis);
             }
         }
 
@@ -785,8 +810,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C4 != orig && C4.sePoate == true)
             {
-                C4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C4, mesajDeTransmis);
             }
         }
 
@@ -807,8 +831,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C5 != orig && C5.sePoate == true)
             {
-                C5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C5, mesajDeTransmis);
             }
         }
 
@@ -829,8 +852,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C6 != orig && C6.sePoate == true)
             {
-                C6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C6, mesajDeTransmis);
             }
         }
 
@@ -851,8 +873,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C7 != orig && C7.sePoate == true)
             {
-                C7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C7, mesajDeTransmis);
             }
         }
 
@@ -873,8 +894,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C8 != orig && C8.sePoate == true)
             {
-                C8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, C8, mesajDeTransmis);
             }
         }
 
@@ -895,8 +915,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D1 != orig && D1.sePoate == true)
             {
-                D1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D1, mesajDeTransmis);
             }
         }
 
@@ -917,8 +936,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D2 != orig && D2.sePoate == true)
             {
-                D2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D2, mesajDeTransmis);
             }
         }
 
@@ -939,8 +957,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D3 != orig && D3.sePoate == true)
             {
-                D3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D3, mesajDeTransmis);
             }
         }
 
@@ -961,8 +978,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D4 != orig && D4.sePoate == true)
             {
-                D4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D4, mesajDeTransmis);
             }
         }
 
@@ -983,8 +999,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D5 != orig && D5.sePoate == true)
             {
-                D5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D5, mesajDeTransmis);
             }
         }
 
@@ -1005,8 +1020,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D6 != orig && D6.sePoate == true)
             {
-                D6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D6, mesajDeTransmis);
             }
         }
 
@@ -1027,8 +1041,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D7 != orig && D7.sePoate == true)
             {
-                D7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D7, mesajDeTransmis);
             }
         }
 
@@ -1049,8 +1062,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D8 != orig && D8.sePoate == true)
             {
-                D8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, D8, mesajDeTransmis);
             }
         }
 
@@ -1071,8 +1083,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E1 != orig && E1.sePoate == true)
             {
-                E1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E1, mesajDeTransmis);
             }
         }
 
@@ -1093,8 +1104,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E2 != orig && E2.sePoate == true)
             {
-                E2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E2, mesajDeTransmis);
             }
         }
 
@@ -1115,8 +1125,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E3 != orig && E3.sePoate == true)
             {
-                E3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E3, mesajDeTransmis);
             }
         }
 
@@ -1137,8 +1146,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E4 != orig && E4.sePoate == true)
             {
-                E4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E4, mesajDeTransmis);
             }
         }
 
@@ -1159,8 +1167,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E5 != orig && E5.sePoate == true)
             {
-                E5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E5, mesajDeTransmis);
             }
         }
 
@@ -1181,8 +1188,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E6 != orig && E6.sePoate == true)
             {
-                E6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E6, mesajDeTransmis);
             }
         }
 
@@ -1203,8 +1209,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E7 != orig && E7.sePoate == true)
             {
-                E7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E7, mesajDeTransmis);
             }
         }
 
@@ -1225,8 +1230,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E8 != orig && E8.sePoate == true)
             {
-                E8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, E8, mesajDeTransmis);
             }
         }
 
@@ -1247,8 +1251,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F1 != orig && F1.sePoate == true)
             {
-                F1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F1, mesajDeTransmis);
             }
         }
 
@@ -1269,8 +1272,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F2 != orig && F2.sePoate == true)
             {
-                F2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F2, mesajDeTransmis);
             }
         }
 
@@ -1291,8 +1293,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F3 != orig && F3.sePoate == true)
             {
-                F3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F3, mesajDeTransmis);
             }
         }
 
@@ -1313,8 +1314,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F4 != orig && F4.sePoate == true)
             {
-                F4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F4, mesajDeTransmis);
             }
         }
 
@@ -1335,8 +1335,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F5 != orig && F5.sePoate == true)
             {
-                F5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F5, mesajDeTransmis);
             }
         }
 
@@ -1357,8 +1356,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F6 != orig && F6.sePoate == true)
             {
-                F6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F6, mesajDeTransmis);
             }
         }
 
@@ -1379,8 +1377,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F7 != orig && F7.sePoate == true)
             {
-                F7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F7, mesajDeTransmis);
             }
         }
 
@@ -1401,8 +1398,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F8 != orig && F8.sePoate == true)
             {
-                F8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, F8, mesajDeTransmis);
             }
         }
 
@@ -1423,8 +1419,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G1 != orig && G1.sePoate == true)
             {
-                G1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G1, mesajDeTransmis);
             }
         }
 
@@ -1445,8 +1440,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G2 != orig && G2.sePoate == true)
             {
-                G2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G2, mesajDeTransmis);
             }
         }
 
@@ -1467,8 +1461,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G3 != orig && G3.sePoate == true)
             {
-                G3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G3, mesajDeTransmis);
             }
         }
 
@@ -1489,8 +1482,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G4 != orig && G4.sePoate == true)
             {
-                G4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G4, mesajDeTransmis);
             }
         }
 
@@ -1511,8 +1503,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G5 != orig && G5.sePoate == true)
             {
-                G5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G5, mesajDeTransmis);
             }
         }
 
@@ -1533,8 +1524,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G6 != orig && G6.sePoate == true)
             {
-                G6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G6, mesajDeTransmis);
             }
         }
 
@@ -1555,8 +1545,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G7 != orig && G7.sePoate == true)
             {
-                G7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G7, mesajDeTransmis);
             }
         }
 
@@ -1577,8 +1566,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G8 != orig && G8.sePoate == true)
             {
-                G8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, G8, mesajDeTransmis);
             }
         }
 
@@ -1599,8 +1587,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H1 != orig && H1.sePoate == true)
             {
-                H1.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H1, mesajDeTransmis);
             }
         }
 
@@ -1621,8 +1608,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H2 != orig && H2.sePoate == true)
             {
-                H2.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H2, mesajDeTransmis);
             }
         }
 
@@ -1643,8 +1629,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H3 != orig && H3.sePoate == true)
             {
-                H3.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H3, mesajDeTransmis);
             }
         }
 
@@ -1665,8 +1650,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H4 != orig && H4.sePoate == true)
             {
-                H4.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H4, mesajDeTransmis);
             }
         }
 
@@ -1687,8 +1671,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H5 != orig && H5.sePoate == true)
             {
-                H5.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H5, mesajDeTransmis);
             }
         }
 
@@ -1709,8 +1692,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H6 != orig && H6.sePoate == true)
             {
-                H6.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H6, mesajDeTransmis);
             }
         }
 
@@ -1731,8 +1713,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H7 != orig && H7.sePoate == true)
             {
-                H7.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H7, mesajDeTransmis);
             }
         }
 
@@ -1753,8 +1734,7 @@ namespace Chess_Application
             }
             if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H8 != orig && H8.sePoate == true)
             {
-                H8.Muta(orig, listaMiscari); orig.StergeLocatie(); RandNou(locatii);
-                clickCounter = 0; RestoreCulori(locatii);
+                Muta(orig, H8, mesajDeTransmis);
             }
         }
     }
