@@ -19,6 +19,8 @@ namespace Chess_Application
     
     public partial class Form1 : Form
     {
+        static bool rand = true;
+        static int coloareMutare = 1;
         short randMutare = 1;
         short clickCounter = 0;
         public static string mesajDeTransmis;
@@ -55,7 +57,6 @@ namespace Chess_Application
         //----------------------------------------------------------------------------------------------------------------------
         public void Asculta_Server()
         {
-
             while (workThread)
             {               
                 Socket socketServer = server.AcceptSocket();
@@ -63,7 +64,6 @@ namespace Chess_Application
                 {
                     streamServer = new NetworkStream(socketServer);
                     StreamReader citireServer = new StreamReader(streamServer);
-
                     while (workThread)
                     {
                         string dateServer = citireServer.ReadLine();
@@ -81,7 +81,6 @@ namespace Chess_Application
                             int d2 = System.Convert.ToInt32(coordonate[1][1]) - 48;
                             MethodInvoker mutare = new MethodInvoker(() => Muta(locatii[o1, o2], locatii[d1, d2]));
                             serverForm.Invoke(mutare);
-
                         }
                         else
                         {
@@ -137,6 +136,8 @@ namespace Chess_Application
             origine.tipPiesa = 0;
             origine.piesa = null;
             origine.StergeLocatie();
+            rand = true;
+            randMutare = 1;
         }
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
         {
@@ -162,6 +163,8 @@ namespace Chess_Application
             origine.piesa = null;
             orig.StergeLocatie(); RandNou(locatii);
             clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
+            rand = false;
+            randMutare = 2;
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -400,7 +403,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1A.BackgroundImage != null && randMutare == A1.culoare)
+            if (clickCounter == 0 && _1A.BackgroundImage != null && randMutare == A1.culoare && rand)
             {
                 A1.piesa.VerificaPosibilitati(1, 1, locatii);
                 if (A1.poateFaceMiscari == true)
@@ -421,7 +424,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2A.BackgroundImage != null && randMutare == A2.culoare)
+            if (clickCounter == 0 && _2A.BackgroundImage != null && randMutare == A2.culoare && rand)
             {
                 A2.piesa.VerificaPosibilitati(1, 2, locatii);
                 if (A2.poateFaceMiscari == true)
@@ -442,7 +445,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3A.BackgroundImage != null && randMutare == A3.culoare)
+            if (clickCounter == 0 && _3A.BackgroundImage != null && randMutare == A3.culoare && rand)
             {
                 A3.piesa.VerificaPosibilitati(1, 3, locatii);
                 if (A3.poateFaceMiscari == true)
@@ -463,7 +466,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4A.BackgroundImage != null && randMutare == A4.culoare)
+            if (clickCounter == 0 && _4A.BackgroundImage != null && randMutare == A4.culoare && rand)
             {
                 A4.piesa.VerificaPosibilitati(1, 4, locatii);
                 if (A4.poateFaceMiscari == true)
@@ -484,7 +487,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5A.BackgroundImage != null && randMutare == A5.culoare)
+            if (clickCounter == 0 && _5A.BackgroundImage != null && randMutare == A5.culoare && rand)
             {
                 A5.piesa.VerificaPosibilitati(1, 5, locatii);
                 if (A5.poateFaceMiscari == true)
@@ -505,7 +508,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6A.BackgroundImage != null && randMutare == A6.culoare)
+            if (clickCounter == 0 && _6A.BackgroundImage != null && randMutare == A6.culoare && rand)
             {
                 A6.piesa.VerificaPosibilitati(1, 6, locatii);
                 if (A6.poateFaceMiscari == true)
@@ -526,7 +529,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7A.BackgroundImage != null && randMutare == A7.culoare)
+            if (clickCounter == 0 && _7A.BackgroundImage != null && randMutare == A7.culoare && rand)
             {
                 A7.piesa.VerificaPosibilitati(1, 7, locatii);
                 if (A7.poateFaceMiscari == true)
@@ -547,7 +550,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8A.BackgroundImage != null && randMutare == A8.culoare)
+            if (clickCounter == 0 && _8A.BackgroundImage != null && randMutare == A8.culoare && rand)
             {
                 A8.piesa.VerificaPosibilitati(1, 8, locatii);
                 if (A8.poateFaceMiscari == true)
@@ -568,7 +571,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1B.BackgroundImage != null && randMutare == B1.culoare)
+            if (clickCounter == 0 && _1B.BackgroundImage != null && randMutare == B1.culoare && rand)
             {
                 B1.piesa.VerificaPosibilitati(2, 1, locatii);
                 if (B1.poateFaceMiscari == true)
@@ -589,7 +592,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2B.BackgroundImage != null && randMutare == B2.culoare)
+            if (clickCounter == 0 && _2B.BackgroundImage != null && randMutare == B2.culoare && rand)
             {
                 B2.piesa.VerificaPosibilitati(2, 2, locatii);
                 if (B2.poateFaceMiscari == true)
@@ -610,7 +613,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3B.BackgroundImage != null && randMutare == B3.culoare)
+            if (clickCounter == 0 && _3B.BackgroundImage != null && randMutare == B3.culoare && rand)
             {
                 B3.piesa.VerificaPosibilitati(2, 3, locatii);
                 if (B3.poateFaceMiscari == true)
@@ -631,7 +634,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4B.BackgroundImage != null && randMutare == B4.culoare)
+            if (clickCounter == 0 && _4B.BackgroundImage != null && randMutare == B4.culoare && rand)
             {
                 B4.piesa.VerificaPosibilitati(2, 4, locatii);
                 if (B4.poateFaceMiscari == true)
@@ -652,7 +655,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5B.BackgroundImage != null && randMutare == B5.culoare)
+            if (clickCounter == 0 && _5B.BackgroundImage != null && randMutare == B5.culoare && rand)
             {
                 B5.piesa.VerificaPosibilitati(2, 5, locatii);
                 if (B5.poateFaceMiscari == true)
@@ -673,7 +676,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6B.BackgroundImage != null && randMutare == B6.culoare)
+            if (clickCounter == 0 && _6B.BackgroundImage != null && randMutare == B6.culoare && rand)
             {
                 B6.piesa.VerificaPosibilitati(2, 6, locatii);
                 if (B6.poateFaceMiscari == true)
@@ -694,7 +697,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7B.BackgroundImage != null && randMutare == B7.culoare)
+            if (clickCounter == 0 && _7B.BackgroundImage != null && randMutare == B7.culoare && rand)
             {
                 B7.piesa.VerificaPosibilitati(2, 7, locatii);
                 if (B7.poateFaceMiscari == true)
@@ -715,7 +718,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8B.BackgroundImage != null && randMutare == B8.culoare)
+            if (clickCounter == 0 && _8B.BackgroundImage != null && randMutare == B8.culoare && rand)
             {
                 B8.piesa.VerificaPosibilitati(2, 8, locatii);
                 if (B8.poateFaceMiscari == true)
@@ -736,7 +739,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1C.BackgroundImage != null && randMutare == C1.culoare)
+            if (clickCounter == 0 && _1C.BackgroundImage != null && randMutare == C1.culoare && rand)
             {
                 C1.piesa.VerificaPosibilitati(3, 1, locatii);
                 if (C1.poateFaceMiscari == true)
@@ -757,7 +760,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2C.BackgroundImage != null && randMutare == C2.culoare)
+            if (clickCounter == 0 && _2C.BackgroundImage != null && randMutare == C2.culoare && rand)
             {
                 C2.piesa.VerificaPosibilitati(3, 2, locatii);
                 if (C2.poateFaceMiscari == true)
@@ -778,7 +781,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3C.BackgroundImage != null && randMutare == C3.culoare)
+            if (clickCounter == 0 && _3C.BackgroundImage != null && randMutare == C3.culoare && rand)
             {
                 C3.piesa.VerificaPosibilitati(3, 3, locatii);
                 if (C3.poateFaceMiscari == true)
@@ -799,7 +802,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4C.BackgroundImage != null && randMutare == C4.culoare)
+            if (clickCounter == 0 && _4C.BackgroundImage != null && randMutare == C4.culoare && rand)
             {
                 C4.piesa.VerificaPosibilitati(3, 4, locatii);
                 if (C4.poateFaceMiscari == true)
@@ -820,7 +823,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5C.BackgroundImage != null && randMutare == C5.culoare)
+            if (clickCounter == 0 && _5C.BackgroundImage != null && randMutare == C5.culoare && rand)
             {
                 C5.piesa.VerificaPosibilitati(3, 5, locatii);
                 if (C5.poateFaceMiscari == true)
@@ -841,7 +844,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6C.BackgroundImage != null && randMutare == C6.culoare)
+            if (clickCounter == 0 && _6C.BackgroundImage != null && randMutare == C6.culoare && rand)
             {
                 C6.piesa.VerificaPosibilitati(3, 6, locatii);
                 if (C6.poateFaceMiscari == true)
@@ -862,7 +865,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7C.BackgroundImage != null && randMutare == C7.culoare)
+            if (clickCounter == 0 && _7C.BackgroundImage != null && randMutare == C7.culoare && rand)
             {
                 C7.piesa.VerificaPosibilitati(3, 7, locatii);
                 if (C7.poateFaceMiscari == true)
@@ -883,7 +886,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8C.BackgroundImage != null && randMutare == C8.culoare)
+            if (clickCounter == 0 && _8C.BackgroundImage != null && randMutare == C8.culoare && rand)
             {
                 C8.piesa.VerificaPosibilitati(3, 8, locatii);
                 if (C8.poateFaceMiscari == true)
@@ -904,7 +907,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1D.BackgroundImage != null && randMutare == D1.culoare)
+            if (clickCounter == 0 && _1D.BackgroundImage != null && randMutare == D1.culoare && rand)
             {
                 D1.piesa.VerificaPosibilitati(4, 1, locatii);
                 if (D1.poateFaceMiscari == true)
@@ -925,7 +928,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2D.BackgroundImage != null && randMutare == D2.culoare)
+            if (clickCounter == 0 && _2D.BackgroundImage != null && randMutare == D2.culoare && rand)
             {
                 D2.piesa.VerificaPosibilitati(4, 2, locatii);
                 if (D2.poateFaceMiscari == true)
@@ -946,7 +949,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3D.BackgroundImage != null && randMutare == D3.culoare)
+            if (clickCounter == 0 && _3D.BackgroundImage != null && randMutare == D3.culoare && rand)
             {
                 D3.piesa.VerificaPosibilitati(4, 3, locatii);
                 if (D3.poateFaceMiscari == true)
@@ -967,7 +970,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4D.BackgroundImage != null && randMutare == D4.culoare)
+            if (clickCounter == 0 && _4D.BackgroundImage != null && randMutare == D4.culoare && rand)
             {
                 D4.piesa.VerificaPosibilitati(4, 4, locatii);
                 if (D4.poateFaceMiscari == true)
@@ -988,7 +991,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5D.BackgroundImage != null && randMutare == D5.culoare)
+            if (clickCounter == 0 && _5D.BackgroundImage != null && randMutare == D5.culoare && rand)
             {
                 D5.piesa.VerificaPosibilitati(4, 5, locatii);
                 if (D5.poateFaceMiscari == true)
@@ -1009,7 +1012,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6D.BackgroundImage != null && randMutare == D6.culoare)
+            if (clickCounter == 0 && _6D.BackgroundImage != null && randMutare == D6.culoare && rand)
             {
                 D6.piesa.VerificaPosibilitati(4, 6, locatii);
                 if (D6.poateFaceMiscari == true)
@@ -1030,7 +1033,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7D.BackgroundImage != null && randMutare == D7.culoare)
+            if (clickCounter == 0 && _7D.BackgroundImage != null && randMutare == D7.culoare && rand)
             {
                 D7.piesa.VerificaPosibilitati(4, 7, locatii);
                 if (D7.poateFaceMiscari == true)
@@ -1051,7 +1054,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8D.BackgroundImage != null && randMutare == D8.culoare)
+            if (clickCounter == 0 && _8D.BackgroundImage != null && randMutare == D8.culoare && rand)
             {
                 D8.piesa.VerificaPosibilitati(4, 8, locatii);
                 if (D8.poateFaceMiscari == true)
@@ -1072,7 +1075,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1E.BackgroundImage != null && randMutare == E1.culoare)
+            if (clickCounter == 0 && _1E.BackgroundImage != null && randMutare == E1.culoare && rand)
             {
                 E1.piesa.VerificaPosibilitati(5, 1, locatii);
                 if (E1.poateFaceMiscari == true)
@@ -1093,7 +1096,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2E.BackgroundImage != null && randMutare == E2.culoare)
+            if (clickCounter == 0 && _2E.BackgroundImage != null && randMutare == E2.culoare && rand)
             {
                 E2.piesa.VerificaPosibilitati(5, 2, locatii);
                 if (E2.poateFaceMiscari == true)
@@ -1114,7 +1117,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3E.BackgroundImage != null && randMutare == E3.culoare)
+            if (clickCounter == 0 && _3E.BackgroundImage != null && randMutare == E3.culoare && rand)
             {
                 E3.piesa.VerificaPosibilitati(5, 3, locatii);
                 if (E3.poateFaceMiscari == true)
@@ -1135,7 +1138,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4E.BackgroundImage != null && randMutare == E4.culoare)
+            if (clickCounter == 0 && _4E.BackgroundImage != null && randMutare == E4.culoare && rand)
             {
                 E4.piesa.VerificaPosibilitati(5, 4, locatii);
                 if (E4.poateFaceMiscari == true)
@@ -1156,7 +1159,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5E.BackgroundImage != null && randMutare == E5.culoare)
+            if (clickCounter == 0 && _5E.BackgroundImage != null && randMutare == E5.culoare && rand)
             {
                 E5.piesa.VerificaPosibilitati(5, 5, locatii);
                 if (E5.poateFaceMiscari == true)
@@ -1177,7 +1180,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6E.BackgroundImage != null && randMutare == E6.culoare)
+            if (clickCounter == 0 && _6E.BackgroundImage != null && randMutare == E6.culoare && rand)
             {
                 E6.piesa.VerificaPosibilitati(5, 6, locatii);
                 if (E6.poateFaceMiscari == true)
@@ -1198,7 +1201,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7E.BackgroundImage != null && randMutare == E7.culoare)
+            if (clickCounter == 0 && _7E.BackgroundImage != null && randMutare == E7.culoare && rand)
             {
                 E7.piesa.VerificaPosibilitati(5, 7, locatii);
                 if (E7.poateFaceMiscari == true)
@@ -1219,7 +1222,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8E.BackgroundImage != null && randMutare == E8.culoare)
+            if (clickCounter == 0 && _8E.BackgroundImage != null && randMutare == E8.culoare && rand)
             {
                 E8.piesa.VerificaPosibilitati(5, 8, locatii);
                 if (E8.poateFaceMiscari == true)
@@ -1240,7 +1243,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1F.BackgroundImage != null && randMutare == F1.culoare)
+            if (clickCounter == 0 && _1F.BackgroundImage != null && randMutare == F1.culoare && rand)
             {
                 F1.piesa.VerificaPosibilitati(6, 1, locatii);
                 if (F1.poateFaceMiscari == true)
@@ -1261,7 +1264,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2F.BackgroundImage != null && randMutare == F2.culoare)
+            if (clickCounter == 0 && _2F.BackgroundImage != null && randMutare == F2.culoare && rand)
             {
                 F2.piesa.VerificaPosibilitati(6, 2, locatii);
                 if (F2.poateFaceMiscari == true)
@@ -1282,7 +1285,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3F.BackgroundImage != null && randMutare == F3.culoare)
+            if (clickCounter == 0 && _3F.BackgroundImage != null && randMutare == F3.culoare && rand)
             {
                 F3.piesa.VerificaPosibilitati(6, 3, locatii);
                 if (F3.poateFaceMiscari == true)
@@ -1303,7 +1306,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4F.BackgroundImage != null && randMutare == F4.culoare)
+            if (clickCounter == 0 && _4F.BackgroundImage != null && randMutare == F4.culoare && rand)
             {
                 F4.piesa.VerificaPosibilitati(6, 4, locatii);
                 if (F4.poateFaceMiscari == true)
@@ -1324,7 +1327,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5F.BackgroundImage != null && randMutare == F5.culoare)
+            if (clickCounter == 0 && _5F.BackgroundImage != null && randMutare == F5.culoare && rand)
             {
                 F5.piesa.VerificaPosibilitati(6, 5, locatii);
                 if (F5.poateFaceMiscari == true)
@@ -1345,7 +1348,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6F.BackgroundImage != null && randMutare == F6.culoare)
+            if (clickCounter == 0 && _6F.BackgroundImage != null && randMutare == F6.culoare && rand)
             {
                 F6.piesa.VerificaPosibilitati(6, 6, locatii);
                 if (F6.poateFaceMiscari == true)
@@ -1366,7 +1369,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7F.BackgroundImage != null && randMutare == F7.culoare)
+            if (clickCounter == 0 && _7F.BackgroundImage != null && randMutare == F7.culoare && rand)
             {
                 F7.piesa.VerificaPosibilitati(6, 7, locatii);
                 if (F7.poateFaceMiscari == true)
@@ -1387,7 +1390,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8F.BackgroundImage != null && randMutare == F8.culoare)
+            if (clickCounter == 0 && _8F.BackgroundImage != null && randMutare == F8.culoare && rand)
             {
                 F8.piesa.VerificaPosibilitati(6, 8, locatii);
                 if (F8.poateFaceMiscari == true)
@@ -1408,7 +1411,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1G.BackgroundImage != null && randMutare == G1.culoare)
+            if (clickCounter == 0 && _1G.BackgroundImage != null && randMutare == G1.culoare && rand)
             {
                 G1.piesa.VerificaPosibilitati(7, 1, locatii);
                 if (G1.poateFaceMiscari == true)
@@ -1429,7 +1432,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2G.BackgroundImage != null && randMutare == G2.culoare)
+            if (clickCounter == 0 && _2G.BackgroundImage != null && randMutare == G2.culoare && rand)
             {
                 G2.piesa.VerificaPosibilitati(7, 2, locatii);
                 if (G2.poateFaceMiscari == true)
@@ -1450,7 +1453,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3G.BackgroundImage != null && randMutare == G3.culoare)
+            if (clickCounter == 0 && _3G.BackgroundImage != null && randMutare == G3.culoare && rand)
             {
                 G3.piesa.VerificaPosibilitati(7, 3, locatii);
                 if (G3.poateFaceMiscari == true)
@@ -1471,7 +1474,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4G.BackgroundImage != null && randMutare == G4.culoare)
+            if (clickCounter == 0 && _4G.BackgroundImage != null && randMutare == G4.culoare && rand)
             {
                 G4.piesa.VerificaPosibilitati(7, 4, locatii);
                 if (G4.poateFaceMiscari == true)
@@ -1492,7 +1495,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5G.BackgroundImage != null && randMutare == G5.culoare)
+            if (clickCounter == 0 && _5G.BackgroundImage != null && randMutare == G5.culoare && rand)
             {
                 G5.piesa.VerificaPosibilitati(7, 5, locatii);
                 if (G5.poateFaceMiscari == true)
@@ -1513,7 +1516,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6G.BackgroundImage != null && randMutare == G6.culoare)
+            if (clickCounter == 0 && _6G.BackgroundImage != null && randMutare == G6.culoare && rand)
             {
                 G6.piesa.VerificaPosibilitati(7, 6, locatii);
                 if (G6.poateFaceMiscari == true)
@@ -1534,7 +1537,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7G.BackgroundImage != null && randMutare == G7.culoare)
+            if (clickCounter == 0 && _7G.BackgroundImage != null && randMutare == G7.culoare && rand)
             {
                 G7.piesa.VerificaPosibilitati(7, 7, locatii);
                 if (G7.poateFaceMiscari == true)
@@ -1555,7 +1558,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8G.BackgroundImage != null && randMutare == G8.culoare)
+            if (clickCounter == 0 && _8G.BackgroundImage != null && randMutare == G8.culoare && rand)
             {
                 G8.piesa.VerificaPosibilitati(7, 8, locatii);
                 if (G8.poateFaceMiscari == true)
@@ -1576,7 +1579,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1H.BackgroundImage != null && randMutare == H1.culoare)
+            if (clickCounter == 0 && _1H.BackgroundImage != null && randMutare == H1.culoare && rand)
             {
                 H1.piesa.VerificaPosibilitati(8, 1, locatii);
                 if (H1.poateFaceMiscari == true)
@@ -1597,7 +1600,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _2H.BackgroundImage != null && randMutare == H2.culoare)
+            if (clickCounter == 0 && _2H.BackgroundImage != null && randMutare == H2.culoare && rand)
             {
                 H2.piesa.VerificaPosibilitati(8, 2, locatii);
                 if (H2.poateFaceMiscari == true)
@@ -1618,7 +1621,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _3H.BackgroundImage != null && randMutare == H3.culoare)
+            if (clickCounter == 0 && _3H.BackgroundImage != null && randMutare == H3.culoare && rand)
             {
                 H3.piesa.VerificaPosibilitati(8, 3, locatii);
                 if (H3.poateFaceMiscari == true)
@@ -1639,7 +1642,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _4H.BackgroundImage != null && randMutare == H4.culoare)
+            if (clickCounter == 0 && _4H.BackgroundImage != null && randMutare == H4.culoare && rand)
             {
                 H4.piesa.VerificaPosibilitati(8, 4, locatii);
                 if (H4.poateFaceMiscari == true)
@@ -1660,7 +1663,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _5H.BackgroundImage != null && randMutare == H5.culoare)
+            if (clickCounter == 0 && _5H.BackgroundImage != null && randMutare == H5.culoare && rand)
             {
                 H5.piesa.VerificaPosibilitati(8, 5, locatii);
                 if (H5.poateFaceMiscari == true)
@@ -1681,7 +1684,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _6H.BackgroundImage != null && randMutare == H6.culoare)
+            if (clickCounter == 0 && _6H.BackgroundImage != null && randMutare == H6.culoare && rand)
             {
                 H6.piesa.VerificaPosibilitati(8, 6, locatii);
                 if (H6.poateFaceMiscari == true)
@@ -1702,7 +1705,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _7H.BackgroundImage != null && randMutare == H7.culoare)
+            if (clickCounter == 0 && _7H.BackgroundImage != null && randMutare == H7.culoare && rand)
             {
                 H7.piesa.VerificaPosibilitati(8, 7, locatii);
                 if (H7.poateFaceMiscari == true)
@@ -1723,7 +1726,7 @@ namespace Chess_Application
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _8H.BackgroundImage != null && randMutare == H8.culoare)
+            if (clickCounter == 0 && _8H.BackgroundImage != null && randMutare == H8.culoare && rand)
             {
                 H8.piesa.VerificaPosibilitati(8, 8, locatii);
                 if (H8.poateFaceMiscari == true)
