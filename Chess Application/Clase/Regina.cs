@@ -12,6 +12,7 @@ namespace Chess_Application
 {
     public class Regina : Piesa
     {
+       
         public Regina(int c, PictureBox p, PictureBox pm)
         {
             culoare = c;
@@ -20,11 +21,14 @@ namespace Chess_Application
         }
         public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
         {
+            int p1 = Form1.pozitieRegeAlb[0];
+            int p2 = Form1.pozitieRegeAlb[1];
             //miscarea reginei este obtinuta din miscarea nebunului combinata cu miscarea turei
             for (int k = j; k >= 1; k--)
             {
-                if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                if (loc[i, k].culoare != loc[i, j].culoare)
+                
+                if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j] && !SahAlb(loc, i, j)) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
+                if (loc[i, k].culoare != loc[i, j].culoare && !SahAlb(loc, i, j)) 
                 {
                     loc[i, k].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;
@@ -33,8 +37,8 @@ namespace Chess_Application
             }
             for (int k = j; k <= 8; k++)
             {
-                if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j]) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                if (loc[i, k].culoare != loc[i, j].culoare)
+                if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j] && !SahAlb(loc, i, j)) { loc[i, k].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
+                if (loc[i, k].culoare != loc[i, j].culoare && !SahAlb(loc, i, j))
                 {
                     loc[i, k].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;
@@ -43,8 +47,8 @@ namespace Chess_Application
             }
             for (int k = i; k >= 1; k--)
             {
-                if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                if (loc[k, j].culoare != loc[i, j].culoare)
+                if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j] && !SahAlb(loc, i, j)) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
+                if (loc[k, j].culoare != loc[i, j].culoare && !SahAlb(loc, i, j))
                 {
                     loc[k, j].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;
@@ -53,8 +57,8 @@ namespace Chess_Application
             }
             for (int k = i; k <= 8; k++)
             {
-                if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j]) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
-                if (loc[k, j].culoare != loc[i, j].culoare)
+                if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j] && !SahAlb(loc, i, j)) { loc[k, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; } break; }
+                if (loc[k, j].culoare != loc[i, j].culoare && !SahAlb(loc, i, j))
                 {
                     loc[k, j].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,20 +14,24 @@ using System.IO;
 using System.Threading;
 
 
-
 namespace Chess_Application
 {
     
     public partial class Form1 : Form
     {
+        public static int[] pozitieRegeAlb=new int[2];
+        public static int[] pozitieRegeNegru=new int[2];
         static bool rand = true;
         static int coloareMutare = 1;
         short randMutare = 1;
         short clickCounter = 0;
         public static string mesajDeTransmis;
         public static string mesajPrimit;
-        public LocatieTabla[,] locatii;
         public static bool modInceptator = true;
+        public static bool sunet = true;
+
+        SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
+        SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
 
         Pion pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
         Tura tura1Alb, tura2Alb;
@@ -47,6 +52,9 @@ namespace Chess_Application
 
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
+
+
+        LocatieTabla[,] locatii;
         //=============================================================================================================================================
         public TcpListener server;
         public String dateServer;
@@ -108,6 +116,21 @@ namespace Chess_Application
             scriere.WriteLine(mesajDeTransmis);
         }
 
+        private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sunet = true;
+            activeazalToolStripMenuItem.Visible = false;
+            dezactiveazalToolStripMenuItem.Visible = true;
+           
+        }
+
+        private void dezactiveazalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sunet = false;
+            activeazalToolStripMenuItem.Visible = true;
+            dezactiveazalToolStripMenuItem.Visible = false;
+        }
+
         void Muta(LocatieTabla origine, LocatieTabla destinatie)
         {
             if (destinatie.piesa != null)
@@ -138,6 +161,7 @@ namespace Chess_Application
             origine.StergeLocatie();
             rand = true;
             randMutare = 1;
+            if (sunet) sunetMutare2.Play();
         }
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
         {
@@ -165,7 +189,10 @@ namespace Chess_Application
             clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
             rand = false;
             randMutare = 2;
+            if (sunet) sunetMutare1.Play();
         }
+
+       
 
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -274,6 +301,8 @@ namespace Chess_Application
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
             LocatieTabla.count = 0;
+            pozitieRegeAlb[0] = 8;
+            pozitieRegeAlb[1] = 4;
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -290,8 +319,16 @@ namespace Chess_Application
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            workThread = false;
-            streamServer.Close();
+            try
+            {
+                workThread = false;
+                streamServer.Close();
+            }
+
+            catch (Exception a)
+            {
+
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
