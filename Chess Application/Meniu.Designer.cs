@@ -51,6 +51,7 @@
             this.btnOptionsMenu.TabIndex = 4;
             this.btnOptionsMenu.Text = "Options";
             this.btnOptionsMenu.UseVisualStyleBackColor = true;
+            this.btnOptionsMenu.Click += new System.EventHandler(this.btnOptionsMenu_Click);
             // 
             // btnStartGame
             // 

@@ -156,7 +156,9 @@
             this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
-            this.meniu1 = new Chess_Application.Meniu();
+
+            //this.meniu1 = new Chess_Application.Meniu();
+
             this.button1 = new System.Windows.Forms.Button();
             this.sunetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activeazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1662,15 +1664,15 @@
             // 
             // meniu1
             // 
-            this.meniu1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuPopup;
-            this.meniu1.AutoSize = true;
-            this.meniu1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(0, 24);
-            this.meniu1.Name = "meniu1";
-            this.meniu1.Size = new System.Drawing.Size(603, 303);
-            this.meniu1.TabIndex = 17;
-            this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
+            //this.meniu1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuPopup;
+            //this.meniu1.AutoSize = true;
+            //this.meniu1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            //this.meniu1.BackColor = System.Drawing.Color.Black;
+            //this.meniu1.Location = new System.Drawing.Point(0, 24);
+            //this.meniu1.Name = "meniu1";
+            //this.meniu1.Size = new System.Drawing.Size(603, 303);
+            //this.meniu1.TabIndex = 17;
+            //this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
             // 
             // button1
             // 
@@ -1715,7 +1717,7 @@
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listaMiscari);
-            this.Controls.Add(this.meniu1);
+            //this.Controls.Add(this.meniu1);
             this.Controls.Add(this.labelRandMutare);
             this.Controls.Add(this.panelPiese);
             this.Controls.Add(this.panel3);
@@ -1936,7 +1938,8 @@
         private System.Windows.Forms.PictureBox pbNebunAlb;
         private System.Windows.Forms.PictureBox pbPionAlb;
         private System.Windows.Forms.Label labelRandMutare;
-        private Meniu meniu1;
+        //private Meniu meniu1;
+        //private Optiuni optiuni;
         private System.Windows.Forms.DataGridView listaMiscari;
         private System.Windows.Forms.PictureBox pbPionNegruMic;
         private System.Windows.Forms.PictureBox pbTuraAlbMic;
