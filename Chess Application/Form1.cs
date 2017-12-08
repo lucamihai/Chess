@@ -16,19 +16,21 @@ using System.Threading;
 
 namespace Chess_Application
 {
-    
+
     public partial class Form1 : Form
     {
-        public static int[] pozitieRegeAlb=new int[2];
-        public static int[] pozitieRegeNegru=new int[2];
+        public static int[] pozitieRegeAlb = new int[2];
+        public static int[] pozitieRegeNegru = new int[2];
         static bool rand = true;
-        static int coloareMutare = 1;
         short randMutare = 1;
+        short randMutareClient = 2;
         short clickCounter = 0;
         public static string mesajDeTransmis;
         public static string mesajPrimit;
         public static bool modInceptator = true;
         public static bool sunet = true;
+        public string username = "Server user";
+        public string usernameClient = "Client";
 
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
@@ -66,7 +68,7 @@ namespace Chess_Application
         public void Asculta_Server()
         {
             while (workThread)
-            {               
+            {
                 Socket socketServer = server.AcceptSocket();
                 try
                 {
@@ -78,11 +80,11 @@ namespace Chess_Application
                         if (dateServer == null) break;//primesc nimic - clientul a plecat
                         if (dateServer == "#Gata") //ca sa pot sa inchid serverul
                             workThread = false;
-                        if (dateServer.StartsWith("#"))
+                        if (dateServer.StartsWith("#") && dateServer.Length == 6)
                         {
-                            dateServer = dateServer.Substring(1);
+                            //dateServer = dateServer.Substring(1);
                             string[] coordonate = new string[2];
-                            coordonate = dateServer.Split();
+                            coordonate = dateServer.Substring(1).Split();
                             int o1 = System.Convert.ToInt32(coordonate[0][0]) - 64;
                             int o2 = System.Convert.ToInt32(coordonate[0][1]) - 48;
                             int d1 = System.Convert.ToInt32(coordonate[1][0]) - 64;
@@ -90,9 +92,15 @@ namespace Chess_Application
                             MethodInvoker mutare = new MethodInvoker(() => Muta(locatii[o1, o2], locatii[d1, d2]));
                             serverForm.Invoke(mutare);
                         }
+                        if (dateServer.StartsWith("#username"))
+                        {
+                            // dateServer = dateServer.Substring(1);
+                            string[] aux = dateServer.Substring(1).Split();
+                            usernameClient = aux[1];
+                        }
                         else
                         {
-                            MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += ("Server: " + dateServer + Environment.NewLine));
+                            MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += (usernameClient + ": " + dateServer + Environment.NewLine));
                             serverForm.textBox1.Invoke(m);
                         }
 
@@ -111,9 +119,17 @@ namespace Chess_Application
         void transmiteMesaj()
         {
             StreamWriter scriere = new StreamWriter(streamServer);
-            scriere.AutoFlush = true; // enable automatic flushing                     
-            textBox1.Text += "Server:    " + mesajDeTransmis + Environment.NewLine;
+            scriere.AutoFlush = true; // enable automatic flushing
+            if (!mesajDeTransmis.StartsWith("#"))
+                textBox1.Text += username + ":    " + mesajDeTransmis + Environment.NewLine;
             scriere.WriteLine(mesajDeTransmis);
+        }
+        void SetareUsername(string u)
+        {
+            username = u;
+            StreamWriter scriere = new StreamWriter(streamServer);
+            scriere.AutoFlush = true; // enable automatic flushing
+            scriere.WriteLine("#username" + u);
         }
 
         private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -121,7 +137,7 @@ namespace Chess_Application
             sunet = true;
             activeazalToolStripMenuItem.Visible = false;
             dezactiveazalToolStripMenuItem.Visible = true;
-           
+
         }
 
         private void dezactiveazalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,7 +176,8 @@ namespace Chess_Application
             origine.piesa = null;
             origine.StergeLocatie();
             rand = true;
-            randMutare = 1;
+            if (randMutareClient == 2) randMutare = 1;
+            else randMutare = 2;
             if (sunet) sunetMutare2.Play();
         }
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
@@ -168,13 +185,13 @@ namespace Chess_Application
             if (destinatie.piesa != null)
             {
                 listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
-                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;              
+                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;
             }
             if (destinatie.piesa == null)
             {
                 Bitmap img = new Bitmap(25, 25);
                 listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, img);
-                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;               
+                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;
             }
             mesajDeTransmis = "#" + origine.nume + " " + destinatie.nume;
             listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
@@ -188,20 +205,34 @@ namespace Chess_Application
             orig.StergeLocatie(); RandNou(locatii);
             clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
             rand = false;
-            randMutare = 2;
+            randMutare = randMutareClient;
             if (sunet) sunetMutare1.Play();
         }
 
-       
+        public bool SahAlb(int orig1, int orig2, int curent1, int curent2)
+        {
+            int culTempOrig = locatii[orig1, orig2].culoare;
+            int culTempCurent = locatii[curent1, curent2].culoare;
+            if (orig1 != curent1 && orig2 != curent2)
+            {
+                locatii[orig1, orig2].culoare = 0;
+            }
+            locatii[curent1, curent2].culoare = 1;
+            //pornire din rege toate traiectoriile posibile
+            //regina (tura + nebun)
+            //pion
+            //cal
+            return false;
+        }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
             try
-            {               
+            {
                 StreamWriter scriere = new StreamWriter(streamServer);
                 scriere.AutoFlush = true; // enable automatic flushing
                 scriere.WriteLine(tbServerDate.Text);
-                textBox1.Text += "Server: " + tbServerDate.Text + Environment.NewLine;
+                textBox1.Text += username + ": " + tbServerDate.Text + Environment.NewLine;
                 tbServerDate.Clear();
                 // s_text.Close();
             }
@@ -234,13 +265,19 @@ namespace Chess_Application
             panel1.SendToBack();
             panel2.SendToBack();
             panel3.SendToBack();
-            meniu1.BringToFront();
+            //meniu1.BringToFront();
+        }
+        private void optiuni1_Load(object sender, EventArgs e)
+        {
+            //optiuni1.BringToFront();
+            //optiuni1.Show();
         }
 
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewGame();
-            meniu1.Show();
+            //meniu1.Show();
+            //optiuni1.Show();
         }
 
         private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,22 +294,22 @@ namespace Chess_Application
 
         public void NewGame()
         {
-            A1 = new LocatieTabla(tura1Alb, _1A);   H1 = new LocatieTabla(tura1Negru, _1H);
-            A2 = new LocatieTabla(cal1Alb, _2A);    H2 = new LocatieTabla(cal1Negru, _2H);
-            A3 = new LocatieTabla(nebun1Alb, _3A);  H3 = new LocatieTabla(nebun1Negru, _3H);
-            A4 = new LocatieTabla(reginaAlb, _4A);  H4 = new LocatieTabla(regeNegru, _4H);
-            A5 = new LocatieTabla(regeAlb, _5A);    H5 = new LocatieTabla(reginaNegru, _5H);
-            A6 = new LocatieTabla(nebun2Alb, _6A);  H6 = new LocatieTabla(nebun2Negru, _6H);
-            A7 = new LocatieTabla(cal2Alb, _7A);    H7 = new LocatieTabla(cal2Negru, _7H);
-            A8 = new LocatieTabla(tura2Alb, _8A);   H8 = new LocatieTabla(tura2Negru, _8H);
-            B1 = new LocatieTabla(pion1Alb, _1B);   G1 = new LocatieTabla(pion1Negru, _1G);
-            B2 = new LocatieTabla(pion2Alb, _2B);   G2 = new LocatieTabla(pion2Negru, _2G);
-            B3 = new LocatieTabla(pion3Alb, _3B);   G3 = new LocatieTabla(pion3Negru, _3G);
-            B4 = new LocatieTabla(pion4Alb, _4B);   G4 = new LocatieTabla(pion4Negru, _4G);
-            B5 = new LocatieTabla(pion5Alb, _5B);   G5 = new LocatieTabla(pion5Negru, _5G);
-            B6 = new LocatieTabla(pion6Alb, _6B);   G6 = new LocatieTabla(pion6Negru, _6G);
-            B7 = new LocatieTabla(pion7Alb, _7B);   G7 = new LocatieTabla(pion7Negru, _7G);
-            B8 = new LocatieTabla(pion8Alb, _8B);   G8 = new LocatieTabla(pion8Negru, _8G); 
+            A1 = new LocatieTabla(tura1Alb, _1A); H1 = new LocatieTabla(tura1Negru, _1H);
+            A2 = new LocatieTabla(cal1Alb, _2A); H2 = new LocatieTabla(cal1Negru, _2H);
+            A3 = new LocatieTabla(nebun1Alb, _3A); H3 = new LocatieTabla(nebun1Negru, _3H);
+            A4 = new LocatieTabla(reginaAlb, _4A); H4 = new LocatieTabla(regeNegru, _4H);
+            A5 = new LocatieTabla(regeAlb, _5A); H5 = new LocatieTabla(reginaNegru, _5H);
+            A6 = new LocatieTabla(nebun2Alb, _6A); H6 = new LocatieTabla(nebun2Negru, _6H);
+            A7 = new LocatieTabla(cal2Alb, _7A); H7 = new LocatieTabla(cal2Negru, _7H);
+            A8 = new LocatieTabla(tura2Alb, _8A); H8 = new LocatieTabla(tura2Negru, _8H);
+            B1 = new LocatieTabla(pion1Alb, _1B); G1 = new LocatieTabla(pion1Negru, _1G);
+            B2 = new LocatieTabla(pion2Alb, _2B); G2 = new LocatieTabla(pion2Negru, _2G);
+            B3 = new LocatieTabla(pion3Alb, _3B); G3 = new LocatieTabla(pion3Negru, _3G);
+            B4 = new LocatieTabla(pion4Alb, _4B); G4 = new LocatieTabla(pion4Negru, _4G);
+            B5 = new LocatieTabla(pion5Alb, _5B); G5 = new LocatieTabla(pion5Negru, _5G);
+            B6 = new LocatieTabla(pion6Alb, _6B); G6 = new LocatieTabla(pion6Negru, _6G);
+            B7 = new LocatieTabla(pion7Alb, _7B); G7 = new LocatieTabla(pion7Negru, _7G);
+            B8 = new LocatieTabla(pion8Alb, _8B); G8 = new LocatieTabla(pion8Negru, _8G);
             //=====
             C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D); E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
             C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D); E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
@@ -283,7 +320,7 @@ namespace Chess_Application
             C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
             //=====
-            
+
             //=====           
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
@@ -296,7 +333,7 @@ namespace Chess_Application
             locatii[8, 1] = H1; locatii[8, 2] = H2; locatii[8, 3] = H3; locatii[8, 4] = H4; locatii[8, 5] = H5; locatii[8, 6] = H6; locatii[8, 7] = H7; locatii[8, 8] = H8;
             //=====
             listaMiscari.Rows.Clear();
-            RestoreCulori(locatii);            
+            RestoreCulori(locatii);
             clickCounter = 0;
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
@@ -336,21 +373,21 @@ namespace Chess_Application
             listaMiscari.ScrollBars = ScrollBars.Vertical;
             tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
             cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
-            nebun1Alb = new Nebun(1, pbNebunAlb,pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
-            reginaAlb = new Regina(1, pbReginaAlb,pbReginaAlbMic); regeAlb = new Rege(1, pbRegeAlb, pbRegeAlbMic);
-            pion1Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion2Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion3Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion5Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion7Alb = new Pion(1, pbPionAlb,pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            nebun1Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
+            reginaAlb = new Regina(1, pbReginaAlb, pbReginaAlbMic); regeAlb = new Rege(1, pbRegeAlb, pbRegeAlbMic);
+            pion1Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion2Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion3Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion5Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion7Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             //=====
-            tura1Negru = new Tura(2, pbTuraNegru,pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
-            cal1Negru = new Cal(2, pbCalNegru,pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
+            tura1Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
+            cal1Negru = new Cal(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
             nebun1Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic);
-            reginaNegru = new Regina(2, pbReginaNegru,pbReginaNegruMic); regeNegru = new Rege(2, pbRegeNegru, pbRegeNegruMic);
-            pion1Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion2Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion3Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion5Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion7Negru = new Pion(2, pbPionNegru,pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            reginaNegru = new Regina(2, pbReginaNegru, pbReginaNegruMic); regeNegru = new Rege(2, pbRegeNegru, pbRegeNegruMic);
+            pion1Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion2Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion3Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion5Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion7Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
             //=====
             NewGame();
             destinatie = new LocatieTabla();
@@ -402,7 +439,7 @@ namespace Chess_Application
         {
 
         }
-        
+
         public void RandNou(LocatieTabla[,] loc)
         {
             for (int i = 1; i <= 8; i++)
@@ -411,7 +448,7 @@ namespace Chess_Application
                 {
                     loc[i, j].sePoate = false;
                 }
-            }         
+            }
             randMutare++;
             if (randMutare > 2) randMutare = 1;
             if (randMutare == 1) labelRandMutare.Text = "Randul pieselor albe";

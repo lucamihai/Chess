@@ -28,5 +28,10 @@ namespace Chess_Application
         {
             Application.Exit();
         }
+
+        private void btnOptionsMenu_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
