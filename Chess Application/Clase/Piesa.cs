@@ -38,60 +38,131 @@ namespace Chess_Application
         {
 
         }
-        public bool SahAlb(LocatieTabla[,] loc, int pozitie1piesa, int pozitie2piesa)
+
+        public bool SahAlb()
+        {
+            return true;
+        }
+        public bool SahAlb(LocatieTabla[,] loc, int orig1, int orig2, int curent1, int curent2)
         {
             int i = Form1.pozitieRegeAlb[0];
             int j = Form1.pozitieRegeAlb[1];
 
-            int tempCuloare = loc[pozitie1piesa, pozitie2piesa].culoare;
-            loc[pozitie1piesa, pozitie2piesa].culoare = 0;
+            int tempCuloareOrig = loc[orig1, orig2].culoare;
+            loc[orig1, orig2].culoare = 0;
+            int tempCuloareCurent = loc[curent1, curent2].culoare;
+            loc[curent1, curent2].culoare = 1;
             for (int k = j; k >= 1; k--)
             {
-                if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j] && (loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5)) { loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare; return true; } }
-                if (loc[i, k].culoare != loc[i, j].culoare && (loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5)) 
+                if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    if (loc[i, k] != loc[i, j])
+                    {
+                        if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
+                        {
+                            loc[orig1, orig2].culoare = tempCuloareOrig;
+                            loc[curent1, curent2].culoare = tempCuloareCurent;
+                            return true;
+                        }
+                    }
+                    break;
+                }
+                if (loc[i, k].culoare != loc[i, j].culoare)
+                {
+                    if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
+                    {
+                        loc[orig1, orig2].culoare = tempCuloareOrig;
+                        loc[curent1, curent2].culoare = tempCuloareCurent;
+                        return true;
+                    }
                 }
                 if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
             }
             for (int k = j; k <= 8; k++)
             {
-                if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare) { if (loc[i, k] != loc[i, j] && (loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5)) { loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare; return true; }  }
-                if (loc[i, k].culoare != loc[i, j].culoare && (loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5))
+                if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    if (loc[i, k] != loc[i, j])
+                    {
+                        if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
+                        {
+                            loc[orig1, orig2].culoare = tempCuloareOrig;
+                            loc[curent1, curent2].culoare = tempCuloareCurent;
+                            return true;
+                        }
+                    }
+                    break;
+                }
+                if (loc[i, k].culoare != loc[i, j].culoare)
+                {
+                    if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
+                    {
+                        loc[orig1, orig2].culoare = tempCuloareOrig;
+                        loc[curent1, curent2].culoare = tempCuloareCurent;
+                        return true;
+                    }
                 }
                 if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
             }
             for (int k = i; k >= 1; k--)
             {
-                if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j] && (loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5)) { loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare; return true; }  }
-                if (loc[k, j].culoare != loc[i, j].culoare && (loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5))
+                if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    if (loc[k, j] != loc[i, j])
+                    {
+                        if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
+                        {
+                            loc[orig1, orig2].culoare = tempCuloareOrig;
+                            loc[curent1, curent2].culoare = tempCuloareCurent;
+                            return true;
+                        }
+                    }
+                    break;
+                }
+                if (loc[k, j].culoare != loc[i, j].culoare)
+                {
+                    if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
+                    {
+                        loc[orig1, orig2].culoare = tempCuloareOrig;
+                        loc[curent1, curent2].culoare = tempCuloareCurent;
+                        return true;
+                    }
                 }
                 if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
             }
             for (int k = i; k <= 8; k++)
             {
-                if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare) { if (loc[k, j] != loc[i, j] && (loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5)) { loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare; return true; }  }
-                if (loc[k, j].culoare != loc[i, j].culoare && (loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5))
+                if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    if (loc[k, j] != loc[i, j])
+                    {
+                        if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
+                        {
+                            loc[orig1, orig2].culoare = tempCuloareOrig;
+                            loc[curent1, curent2].culoare = tempCuloareCurent;
+                            return true;
+                        }
+                    }
+                    break;
+                }
+                if (loc[k, j].culoare != loc[i, j].culoare)
+                {
+                    if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
+                    {
+                        loc[orig1, orig2].culoare = tempCuloareOrig;
+                        loc[curent1, curent2].culoare = tempCuloareCurent;
+                        return true;
+                    }
                 }
                 if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
             }
             //=====
-            for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
+            /*for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
             {
                 if (loc[i, j].culoare != loc[l, c].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    loc[l, c].Marcheaza();
+                    loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
                 {
@@ -106,8 +177,8 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    loc[l, c].Marcheaza();
+                    loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
                 {
@@ -122,8 +193,8 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    loc[l, c].Marcheaza();
+                    loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
                 {
@@ -138,8 +209,8 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare)
                 {
-                    loc[pozitie1piesa, pozitie2piesa].culoare = tempCuloare;
-                    return true;
+                    loc[l, c].Marcheaza();
+                    loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
                 {
@@ -149,9 +220,11 @@ namespace Chess_Application
                 {
                     if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
                 }
-            }
-            
+            }*/
+            loc[orig1, orig2].culoare = tempCuloareOrig;
+            loc[curent1, curent2].culoare = tempCuloareCurent;
             return false;
         }
     }
 }
+
