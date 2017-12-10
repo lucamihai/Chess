@@ -47,116 +47,75 @@ namespace Chess_Application
         {
             int i = Form1.pozitieRegeAlb[0];
             int j = Form1.pozitieRegeAlb[1];
-
+            Console.WriteLine("Pozititie rege: " + i + " " + j);
             int tempCuloareOrig = loc[orig1, orig2].culoare;
             loc[orig1, orig2].culoare = 0;
             int tempCuloareCurent = loc[curent1, curent2].culoare;
             loc[curent1, curent2].culoare = 1;
             for (int k = j; k >= 1; k--)
             {
-                if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare)
-                {
-                    if (loc[i, k] != loc[i, j])
-                    {
-                        if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
-                        {
-                            loc[orig1, orig2].culoare = tempCuloareOrig;
-                            loc[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        } break;
-                    }                   
-                }
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
                     if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
                     {
                         loc[orig1, orig2].culoare = tempCuloareOrig;
                         loc[curent1, curent2].culoare = tempCuloareCurent;
+                        Console.WriteLine("sah la verificare in dreapta");
                         return true;
                     }
                 }
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+                if (loc[i, k].culoare == loc[i, j].culoare) break;
+                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) break;
             }
             for (int k = j; k <= 8; k++)
             {
-                if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare)
-                {
-                    if (loc[i, k] != loc[i, j])
-                    {
-                        if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
-                        {
-                            loc[orig1, orig2].culoare = tempCuloareOrig;
-                            loc[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                        break;
-                    }
-                    
-                }
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
                     if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
                     {
                         loc[orig1, orig2].culoare = tempCuloareOrig;
                         loc[curent1, curent2].culoare = tempCuloareCurent;
+                        Console.WriteLine("sah la verificare in stanga");
                         return true;
                     }
                 }
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+                if (loc[i, k].culoare == loc[i, j].culoare) break;
+                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) break;
+
             }
             for (int k = i; k >= 1; k--)
             {
-                if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare)
-                {
-                    if (loc[k, j] != loc[i, j])
-                    {
-                        if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
-                        {
-                            loc[orig1, orig2].culoare = tempCuloareOrig;
-                            loc[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                        break;
-                    }
-                    
-                }
+                
+                
                 if (loc[k, j].culoare != loc[i, j].culoare)
                 {
                     if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
                     {
                         loc[orig1, orig2].culoare = tempCuloareOrig;
                         loc[curent1, curent2].culoare = tempCuloareCurent;
+                        Console.WriteLine("sah la verificare in jos");
                         return true;
                     }
                 }
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+                if (loc[k, j].culoare != loc[i, j].culoare) break;
+                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) break;
             }
             for (int k = i; k <= 8; k++)
             {
-                if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare)
-                {
-                    if (loc[k, j] != loc[i, j])
-                    {
-                        if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
-                        {
-                            loc[orig1, orig2].culoare = tempCuloareOrig;
-                            loc[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                        break;
-                    }
-                    
-                }
+               
+                
                 if (loc[k, j].culoare != loc[i, j].culoare)
                 {
                     if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
                     {
                         loc[orig1, orig2].culoare = tempCuloareOrig;
                         loc[curent1, curent2].culoare = tempCuloareCurent;
+                        Console.WriteLine("sah la verificare in sus");
                         return true;
                     }
                 }
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+                if (loc[k, j].culoare != loc[i, j].culoare) break;
+                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) break;
             }
             //=====
             /*for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
@@ -223,9 +182,10 @@ namespace Chess_Application
                     if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
                 }
             }*/
+            Console.WriteLine("pe pozitia 3,5 se exista: " + loc[3, 5].tipPiesa + " de culoarea: " + loc[3, 5].culoare);
             loc[orig1, orig2].culoare = tempCuloareOrig;
             loc[curent1, curent2].culoare = tempCuloareCurent;
-            return true;
+            return false;
         }
     }
 }

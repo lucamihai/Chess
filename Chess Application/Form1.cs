@@ -180,6 +180,7 @@ namespace Chess_Application
             if (randMutareClient == 2) randMutare = 1;
             else randMutare = 2;
             if (sunet) sunetMutare2.Play();
+            Console.WriteLine("tip piesa: " + destinatie.tipPiesa);
         }
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
         {
@@ -339,9 +340,9 @@ namespace Chess_Application
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
             LocatieTabla.count = 0;
-            pozitieRegeAlb[0] = 8;
+            pozitieRegeAlb[0] = 1;
             pozitieRegeAlb[1] = 5;
-            pozitieReginaAlba[0] = 8;
+            pozitieReginaAlba[0] = 1;
             pozitieReginaAlba[1]= 4;
         }
 
