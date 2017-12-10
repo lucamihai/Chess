@@ -21,6 +21,7 @@ namespace Chess_Application
     {
         public static int[] pozitieRegeAlb = new int[2];
         public static int[] pozitieRegeNegru = new int[2];
+        public static int[] pozitieReginaAlba = new int[2];
         static bool rand = true;
         short randMutare = 1;
         short randMutareClient = 2;
@@ -45,7 +46,7 @@ namespace Chess_Application
         Piesa tura1Negru, tura2Negru;
         Piesa nebun1Negru, nebun2Negru;
         Piesa cal1Negru, cal2Negru;
-        Piesa reginaNegru, regeNegru;
+        Regina reginaNegru; Rege regeNegru;
 
         LocatieTabla orig, destinatie;
 
@@ -339,7 +340,9 @@ namespace Chess_Application
             labelRandMutare.Text = "Piesele albe incep!";
             LocatieTabla.count = 0;
             pozitieRegeAlb[0] = 8;
-            pozitieRegeAlb[1] = 4;
+            pozitieRegeAlb[1] = 5;
+            pozitieReginaAlba[0] = 8;
+            pozitieReginaAlba[1]= 4;
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -392,6 +395,7 @@ namespace Chess_Application
             NewGame();
             destinatie = new LocatieTabla();
             activeazaToolStripMenuItem.Available = false;
+            activeazalToolStripMenuItem.Available = false;
         }
         public void RestoreCulori(LocatieTabla[,] loc)
         {

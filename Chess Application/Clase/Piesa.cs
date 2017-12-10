@@ -63,9 +63,8 @@ namespace Chess_Application
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
                             return true;
-                        }
-                    }
-                    break;
+                        } break;
+                    }                   
                 }
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
@@ -90,8 +89,9 @@ namespace Chess_Application
                             loc[curent1, curent2].culoare = tempCuloareCurent;
                             return true;
                         }
+                        break;
                     }
-                    break;
+                    
                 }
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
@@ -116,8 +116,9 @@ namespace Chess_Application
                             loc[curent1, curent2].culoare = tempCuloareCurent;
                             return true;
                         }
+                        break;
                     }
-                    break;
+                    
                 }
                 if (loc[k, j].culoare != loc[i, j].culoare)
                 {
@@ -142,8 +143,9 @@ namespace Chess_Application
                             loc[curent1, curent2].culoare = tempCuloareCurent;
                             return true;
                         }
+                        break;
                     }
-                    break;
+                    
                 }
                 if (loc[k, j].culoare != loc[i, j].culoare)
                 {
@@ -223,7 +225,7 @@ namespace Chess_Application
             }*/
             loc[orig1, orig2].culoare = tempCuloareOrig;
             loc[curent1, curent2].culoare = tempCuloareCurent;
-            return false;
+            return true;
         }
     }
 }

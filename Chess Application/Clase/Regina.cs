@@ -18,6 +18,7 @@ namespace Chess_Application
             culoare = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
+            tipPiesa = 5;
         }
         public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
         {
