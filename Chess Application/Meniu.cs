@@ -12,6 +12,7 @@ namespace Chess_Application
 {
     public partial class Meniu : UserControl
     {
+
         public Meniu()
         {
             InitializeComponent();
@@ -20,8 +21,7 @@ namespace Chess_Application
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
+            this.Hide();            
         }
 
         private void btnExitApp_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace Chess_Application
 
         private void btnOptionsMenu_Click(object sender, EventArgs e)
         {
-            
+            optiuni1.Show();
         }
     }
 }

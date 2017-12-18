@@ -23,15 +23,27 @@ namespace Chess_Application
         public static int[] pozitieRegeNegru = new int[2];
         public static int[] pozitieReginaAlba = new int[2];
         static bool rand = true;
-        short randMutare = 1;
-        short randMutareClient = 2;
+        static short randMutare = 1;
+        static short randMutareClient = 2;
         short clickCounter = 0;
         public static string mesajDeTransmis;
         public static string mesajPrimit;
         public static bool modInceptator = true;
         public static bool sunet = true;
-        public string username = "Server user";
-        public string usernameClient = "Client";
+
+        public static string username;
+        public static string _username
+        {
+            get { return username; }
+            set { SetareUsername(value); }
+        }
+
+        public static string culoriUseri;
+        public static string _culoriUseri
+        {
+            get { return culoriUseri; }
+            set { SetareCulori(value); }
+        }
 
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
@@ -56,7 +68,6 @@ namespace Chess_Application
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
 
-
         LocatieTabla[,] locatii;
         //=============================================================================================================================================
         public TcpListener server;
@@ -64,7 +75,8 @@ namespace Chess_Application
         private static Form1 serverForm;
         Thread t;
         bool workThread;
-        NetworkStream streamServer;
+        public static NetworkStream streamServer;
+        public static string usernameClient = "Client";
         //----------------------------------------------------------------------------------------------------------------------
         public void Asculta_Server()
         {
@@ -72,7 +84,7 @@ namespace Chess_Application
             {
                 Socket socketServer = server.AcceptSocket();
                 try
-                {
+                {                   
                     streamServer = new NetworkStream(socketServer);
                     StreamReader citireServer = new StreamReader(streamServer);
                     while (workThread)
@@ -104,11 +116,10 @@ namespace Chess_Application
                             MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += (usernameClient + ": " + dateServer + Environment.NewLine));
                             serverForm.textBox1.Invoke(m);
                         }
-
                     }
                     streamServer.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 #if LOG
                     Console.WriteLine(e.Message);
@@ -125,7 +136,7 @@ namespace Chess_Application
                 textBox1.Text += username + ":    " + mesajDeTransmis + Environment.NewLine;
             scriere.WriteLine(mesajDeTransmis);
         }
-        void SetareUsername(string u)
+        public static void SetareUsername(string u)
         {
             username = u;
             StreamWriter scriere = new StreamWriter(streamServer);
@@ -133,12 +144,33 @@ namespace Chess_Application
             scriere.WriteLine("#username" + u);
         }
 
+        public static void SetareCulori(string u)
+        {
+            //u = u.Substring(1);
+            StreamWriter scriere = new StreamWriter(streamServer);
+            scriere.AutoFlush = true;
+            string[] culori = u.Split(' ');
+            int a = Convert.ToInt32(culori[0]);
+            if (a == 1)
+            {
+                randMutare = 1;
+                randMutareClient = 2;
+                rand = true;
+            }
+            else
+            {
+                randMutare = 2;
+                randMutareClient = 1;
+                rand = false;
+            }
+            scriere.WriteLine("#culori " + u);
+        }
+
         private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sunet = true;
             activeazalToolStripMenuItem.Visible = false;
             dezactiveazalToolStripMenuItem.Visible = true;
-
         }
 
         private void dezactiveazalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -225,6 +257,11 @@ namespace Chess_Application
             //pion
             //cal
             return false;
+        }
+
+        private void meniu1_Load_1(object sender, EventArgs e)
+        {
+
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -354,7 +391,7 @@ namespace Chess_Application
             server.Start();
             t = new Thread(new ThreadStart(Asculta_Server));
             workThread = true;
-
+            username = "Server";
             t.Start();
             serverForm = this;
         }
@@ -366,7 +403,7 @@ namespace Chess_Application
                 streamServer.Close();
             }
 
-            catch (Exception a)
+            catch (Exception)
             {
 
             }

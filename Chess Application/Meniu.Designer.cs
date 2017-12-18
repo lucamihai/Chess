@@ -31,6 +31,7 @@
             this.btnExitApp = new System.Windows.Forms.Button();
             this.btnOptionsMenu = new System.Windows.Forms.Button();
             this.btnStartGame = new System.Windows.Forms.Button();
+            this.optiuni1 = new Chess_Application.Optiuni();
             this.SuspendLayout();
             // 
             // btnExitApp
@@ -63,11 +64,21 @@
             this.btnStartGame.UseVisualStyleBackColor = true;
             this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
             // 
+            // optiuni1
+            // 
+            this.optiuni1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.optiuni1.Location = new System.Drawing.Point(3, 3);
+            this.optiuni1.Name = "optiuni1";
+            this.optiuni1.Size = new System.Drawing.Size(1097, 616);
+            this.optiuni1.TabIndex = 6;
+            this.optiuni1.Visible = false;
+            // 
             // Meniu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.optiuni1);
             this.Controls.Add(this.btnExitApp);
             this.Controls.Add(this.btnOptionsMenu);
             this.Controls.Add(this.btnStartGame);
@@ -82,5 +93,6 @@
         private System.Windows.Forms.Button btnExitApp;
         private System.Windows.Forms.Button btnOptionsMenu;
         private System.Windows.Forms.Button btnStartGame;
+        private Optiuni optiuni1;
     }
 }

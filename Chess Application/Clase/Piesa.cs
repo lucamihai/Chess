@@ -45,29 +45,14 @@ namespace Chess_Application
         }
         public bool SahAlb(LocatieTabla[,] loc, int orig1, int orig2, int curent1, int curent2)
         {
-            int i = Form1.pozitieRegeAlb[0];
-            int j = Form1.pozitieRegeAlb[1];
+            int i = Form1.pozitieRegeAlb[0];//linia rege
+            int j = Form1.pozitieRegeAlb[1];//coloana rege
             Console.WriteLine("Pozititie rege: " + i + " " + j);
             int tempCuloareOrig = loc[orig1, orig2].culoare;
-            loc[orig1, orig2].culoare = 0;
             int tempCuloareCurent = loc[curent1, curent2].culoare;
+            loc[orig1, orig2].culoare = 0;
             loc[curent1, curent2].culoare = 1;
             for (int k = j; k >= 1; k--)
-            {
-                if (loc[i, k].culoare != loc[i, j].culoare)
-                {
-                    if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
-                    {
-                        loc[orig1, orig2].culoare = tempCuloareOrig;
-                        loc[curent1, curent2].culoare = tempCuloareCurent;
-                        Console.WriteLine("sah la verificare in dreapta");
-                        return true;
-                    }
-                }
-                if (loc[i, k].culoare == loc[i, j].culoare) break;
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) break;
-            }
-            for (int k = j; k <= 8; k++)
             {
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
@@ -79,8 +64,23 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[i, k].culoare == loc[i, j].culoare) break;
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) break;
+                if (loc[i, k].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
+                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) Console.WriteLine("protejat");
+            }
+            for (int k = j; k <= 8; k++)
+            {
+                if (loc[i, k].culoare != loc[i, j].culoare)
+                {
+                    if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
+                    {
+                        loc[orig1, orig2].culoare = tempCuloareOrig;
+                        loc[curent1, curent2].culoare = tempCuloareCurent;
+                        Console.WriteLine("sah la verificare in dreapta");
+                        return true;
+                    }
+                }
+                if (loc[i, k].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
+                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) Console.WriteLine("protejat");
 
             }
             for (int k = i; k >= 1; k--)
@@ -97,8 +97,8 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[k, j].culoare != loc[i, j].culoare) break;
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) break;
+                if (loc[k, j].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
+                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) Console.WriteLine("protejat");
             }
             for (int k = i; k <= 8; k++)
             {
@@ -114,8 +114,8 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[k, j].culoare != loc[i, j].culoare) break;
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) break;
+                if (loc[k, j].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
+                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) Console.WriteLine("protejat");
             }
             //=====
             /*for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)

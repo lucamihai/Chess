@@ -103,6 +103,9 @@
             this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activeazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dezactiveazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sunetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activeazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dezactiveazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -156,13 +159,8 @@
             this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
-
-            //this.meniu1 = new Chess_Application.Meniu();
-
             this.button1 = new System.Windows.Forms.Button();
-            this.sunetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.activeazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dezactiveazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.meniu1 = new Chess_Application.Meniu();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -1100,16 +1098,39 @@
             // activeazaToolStripMenuItem
             // 
             this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
-            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.activeazaToolStripMenuItem.Text = "Activeaza-l";
             this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.activeazaToolStripMenuItem_Click);
             // 
             // dezactiveazaToolStripMenuItem
             // 
             this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
-            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza-l";
             this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazaToolStripMenuItem_Click);
+            // 
+            // sunetToolStripMenuItem
+            // 
+            this.sunetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.activeazalToolStripMenuItem,
+            this.dezactiveazalToolStripMenuItem});
+            this.sunetToolStripMenuItem.Name = "sunetToolStripMenuItem";
+            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sunetToolStripMenuItem.Text = "Sunet";
+            // 
+            // activeazalToolStripMenuItem
+            // 
+            this.activeazalToolStripMenuItem.Name = "activeazalToolStripMenuItem";
+            this.activeazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.activeazalToolStripMenuItem.Text = "Activeaza-l";
+            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.activeazalToolStripMenuItem_Click);
+            // 
+            // dezactiveazalToolStripMenuItem
+            // 
+            this.dezactiveazalToolStripMenuItem.Name = "dezactiveazalToolStripMenuItem";
+            this.dezactiveazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.dezactiveazalToolStripMenuItem.Text = "Dezactiveaza-l";
+            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazalToolStripMenuItem_Click);
             // 
             // menuStrip2
             // 
@@ -1662,18 +1683,6 @@
             this.tbServerDate.Size = new System.Drawing.Size(100, 20);
             this.tbServerDate.TabIndex = 22;
             // 
-            // meniu1
-            // 
-            //this.meniu1.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuPopup;
-            //this.meniu1.AutoSize = true;
-            //this.meniu1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            //this.meniu1.BackColor = System.Drawing.Color.Black;
-            //this.meniu1.Location = new System.Drawing.Point(0, 24);
-            //this.meniu1.Name = "meniu1";
-            //this.meniu1.Size = new System.Drawing.Size(603, 303);
-            //this.meniu1.TabIndex = 17;
-            //this.meniu1.Load += new System.EventHandler(this.meniu1_Load);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(881, 554);
@@ -1684,28 +1693,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // sunetToolStripMenuItem
+            // meniu1
             // 
-            this.sunetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.activeazalToolStripMenuItem,
-            this.dezactiveazalToolStripMenuItem});
-            this.sunetToolStripMenuItem.Name = "sunetToolStripMenuItem";
-            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sunetToolStripMenuItem.Text = "Sunet";
-            // 
-            // activeazalToolStripMenuItem
-            // 
-            this.activeazalToolStripMenuItem.Name = "activeazalToolStripMenuItem";
-            this.activeazalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.activeazalToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.activeazalToolStripMenuItem_Click);
-            // 
-            // dezactiveazalToolStripMenuItem
-            // 
-            this.dezactiveazalToolStripMenuItem.Name = "dezactiveazalToolStripMenuItem";
-            this.dezactiveazalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dezactiveazalToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazalToolStripMenuItem_Click);
+            this.meniu1.BackColor = System.Drawing.Color.Black;
+            this.meniu1.Location = new System.Drawing.Point(0, 26);
+            this.meniu1.Name = "meniu1";
+            this.meniu1.Size = new System.Drawing.Size(1165, 616);
+            this.meniu1.TabIndex = 24;
+            this.meniu1.Load += new System.EventHandler(this.meniu1_Load_1);
             // 
             // Form1
             // 
@@ -1713,11 +1708,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1165, 693);
+            this.Controls.Add(this.meniu1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listaMiscari);
-            //this.Controls.Add(this.meniu1);
             this.Controls.Add(this.labelRandMutare);
             this.Controls.Add(this.panelPiese);
             this.Controls.Add(this.panel3);
@@ -1967,6 +1962,7 @@
         private System.Windows.Forms.ToolStripMenuItem sunetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
+        public Meniu meniu1;
     }
 }
 

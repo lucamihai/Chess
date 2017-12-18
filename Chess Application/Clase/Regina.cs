@@ -22,8 +22,6 @@ namespace Chess_Application
         }
         public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
         {
-            int p1 = Form1.pozitieRegeAlb[0];
-            int p2 = Form1.pozitieRegeAlb[1];
             //miscarea reginei este obtinuta din miscarea nebunului combinata cu miscarea turei
             for (int k = j; k >= 1; k--)
             {

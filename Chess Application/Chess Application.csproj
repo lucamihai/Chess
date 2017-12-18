@@ -50,12 +50,6 @@
     <Compile Include="Clase\Cal.cs" />
     <Compile Include="Clase\LocatieTabla.cs" />
     <Compile Include="Clase\Nebun.cs" />
-    <Compile Include="Optiuni.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Optiuni.Designer.cs">
-      <DependentUpon>Optiuni.cs</DependentUpon>
-    </Compile>
     <Compile Include="Clase\Piesa.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -70,6 +64,12 @@
       <DependentUpon>Meniu.cs</DependentUpon>
     </Compile>
     <Compile Include="Clase\Pion.cs" />
+    <Compile Include="Optiuni.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Optiuni.Designer.cs">
+      <DependentUpon>Optiuni.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clase\Rege.cs" />
