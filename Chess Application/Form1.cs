@@ -30,6 +30,7 @@ namespace Chess_Application
         public static string mesajPrimit;
         public static bool modInceptator = true;
         public static bool sunet = true;
+        public bool incepeJocNou = false;
 
         public static string username;
         public static string _username
@@ -111,6 +112,14 @@ namespace Chess_Application
                             string[] aux = dateServer.Substring(1).Split();
                             usernameClient = aux[1];
                         }
+                        if (dateServer.StartsWith("#request new game"))
+                        {
+                            incepeJocNou = true;
+                        }
+                        if (dateServer.StartsWith("#new game"))
+                        {
+                            NewGame();                           
+                        }
                         else
                         {
                             MethodInvoker m = new MethodInvoker(() => serverForm.textBox1.Text += (usernameClient + ": " + dateServer + Environment.NewLine));
@@ -135,6 +144,14 @@ namespace Chess_Application
             if (!mesajDeTransmis.StartsWith("#"))
                 textBox1.Text += username + ":    " + mesajDeTransmis + Environment.NewLine;
             scriere.WriteLine(mesajDeTransmis);
+        }
+        void transmiteMesaj(string a)
+        {
+            StreamWriter scriere = new StreamWriter(streamServer);
+            scriere.AutoFlush = true; // enable automatic flushing
+            if (!a.StartsWith("#"))
+                textBox1.Text += username + ":    " + a + Environment.NewLine;
+            scriere.WriteLine(a);
         }
         public static void SetareUsername(string u)
         {
@@ -326,7 +343,21 @@ namespace Chess_Application
 
         private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            NewGame();
+            if (!incepeJocNou)
+            {
+                mesajDeTransmis = "#request new game";
+                transmiteMesaj();
+                mesajDeTransmis = username + " doreste sa inceapa un joc nou. Daca esti de acord, File->New Game.";
+                transmiteMesaj();
+            }
+            else
+            {
+                NewGame();
+                incepeJocNou = false;
+                mesajDeTransmis = "#new game";
+                transmiteMesaj();
+            } 
+
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -379,8 +410,6 @@ namespace Chess_Application
             LocatieTabla.count = 0;
             pozitieRegeAlb[0] = 1;
             pozitieRegeAlb[1] = 5;
-            pozitieReginaAlba[0] = 1;
-            pozitieReginaAlba[1]= 4;
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------

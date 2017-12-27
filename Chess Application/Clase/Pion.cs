@@ -17,6 +17,7 @@ namespace Chess_Application
             culoare = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
+            tipPiesa = 1;
         }
         public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
         {
@@ -24,23 +25,35 @@ namespace Chess_Application
             {
                 if (loc[i + 1, j] != null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    loc[i + 1, j].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!SahAlb(loc, i, j, i + 1, j))
+                    {
+                        loc[i + 1, j].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
                 if (i < 8 && j < 8 && loc[i + 1, j + 1].culoare == 2)
                 {
-                    loc[i + 1, j + 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!SahAlb(loc, i, j, i + 1, j + 1))
+                    {
+                        loc[i + 1, j + 1].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
                 if (i < 8 && j > 1 && loc[i + 1, j - 1].culoare == 2)
                 {
-                    loc[i + 1, j - 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!SahAlb(loc, i, j, i + 1, j - 1))
+                    {
+                        loc[i + 1, j - 1].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
                 if ((i == 2) && loc[i + 2, j] != null && loc[i + 2, j].imagineLocatie.BackgroundImage == null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    loc[i + 2, j].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!SahAlb(loc, i, j, i + 2, j)) 
+                    {
+                        loc[i + 2, j].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
 
             }

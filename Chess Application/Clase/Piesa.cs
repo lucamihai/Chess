@@ -52,8 +52,27 @@ namespace Chess_Application
             int tempCuloareCurent = loc[curent1, curent2].culoare;
             loc[orig1, orig2].culoare = 0;
             loc[curent1, curent2].culoare = 1;
+            if (loc[i + 1, j - 1].culoare == 2 && loc[i + 1, j - 1].tipPiesa == 1)  
+            {
+                loc[orig1, orig2].culoare = tempCuloareOrig;
+                loc[curent1, curent2].culoare = tempCuloareCurent;
+                return true;
+            }
+            if (loc[i + 1, j + 1].culoare == 2 && loc[i + 1, j + 1].tipPiesa == 1) 
+            {
+                loc[orig1, orig2].culoare = tempCuloareOrig;
+                loc[curent1, curent2].culoare = tempCuloareCurent;
+                return true;
+            }
+            int ct1 = 0;
+            int ct2 = 0;
+            int ct3 = 0;
+            int ct4 = 0;
+            Console.WriteLine("----------------------------------------------------");
             for (int k = j; k >= 1; k--)
             {
+                ct1++;
+                Console.WriteLine("Pe linia " + i + ", coloana" + k + " se afla tipPiesa = " + loc[i, k].tipPiesa + " de culoare " + loc[i, k].culoare);
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
                     if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
@@ -64,11 +83,14 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[i, k].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) Console.WriteLine("protejat");
+                if (loc[i, k].culoare == loc[i, j].culoare && loc[i, k] != loc[i, j]) break;
+                if ((loc[i, k].culoare == 2) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) break;
             }
+            Console.WriteLine("----------------------------------------------------");
             for (int k = j; k <= 8; k++)
             {
+                ct2++;
+                Console.WriteLine("Pe linia " + i + ", coloana" + k + " se afla tipPiesa = " + loc[i, k].tipPiesa + " de culoare " + loc[i, k].culoare);
                 if (loc[i, k].culoare != loc[i, j].culoare)
                 {
                     if ((loc[i, k].tipPiesa == 2 || loc[i, k].tipPiesa == 5) && loc[i, k].culoare == 2)
@@ -79,14 +101,15 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[i, k].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) Console.WriteLine("protejat");
+                if (loc[i, k].culoare == loc[i, j].culoare && loc[i, k] != loc[i, j]) break;
+                if ((loc[i, k].culoare == 2) && loc[i, k].tipPiesa != 2 && loc[i, k].tipPiesa != 5) break;
 
             }
+            Console.WriteLine("----------------------------------------------------");
             for (int k = i; k >= 1; k--)
             {
-                
-                
+                ct3++;
+                Console.WriteLine("Pe linia " + k + ", coloana" +j + " se afla tipPiesa = " + loc[k, j].tipPiesa + " de culoare " + loc[k, j].culoare);
                 if (loc[k, j].culoare != loc[i, j].culoare)
                 {
                     if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
@@ -97,13 +120,14 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[k, j].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) Console.WriteLine("protejat");
+                if (loc[k, j].culoare == loc[i, j].culoare && loc[k, j] != loc[i, j]) break;
+                if ((loc[k, j].culoare == 2) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) break;
             }
+            Console.WriteLine("----------------------------------------------------");
             for (int k = i; k <= 8; k++)
             {
-               
-                
+                ct4++;
+                Console.WriteLine("Pe linia " + k + ", coloana" + j + " se afla tipPiesa = " + loc[k, j].tipPiesa + " de culoare " + loc[k, j].culoare);
                 if (loc[k, j].culoare != loc[i, j].culoare)
                 {
                     if ((loc[k, j].tipPiesa == 2 || loc[k, j].tipPiesa == 5) && loc[k, j].culoare == 2)
@@ -114,9 +138,11 @@ namespace Chess_Application
                         return true;
                     }
                 }
-                if (loc[k, j].culoare == loc[i, j].culoare) Console.WriteLine("protejat");
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) Console.WriteLine("protejat");
+                if (loc[k, j].culoare == loc[i, j].culoare && loc[k, j] != loc[i, j]) break;
+                if ((loc[k, j].culoare == 2) && loc[k, j].tipPiesa != 2 && loc[k, j].tipPiesa != 5) break;
             }
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine("ct1: " + ct1 + ", ct2: " + ct2 + ", ct3: " + ct3 + ", ct4: " + ct4);
             //=====
             /*for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
             {
