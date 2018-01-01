@@ -25,7 +25,7 @@ namespace Chess_Application
             {
                 if (loc[i + 1, j] != null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!SahAlb(loc, i, j, i + 1, j))
+                    if (!Sah(loc, i, j, i + 1, j))
                     {
                         loc[i + 1, j].Marcheaza();
                         loc[i, j].poateFaceMiscari = true;
@@ -33,7 +33,7 @@ namespace Chess_Application
                 }
                 if (i < 8 && j < 8 && loc[i + 1, j + 1].culoare == 2)
                 {
-                    if (!SahAlb(loc, i, j, i + 1, j + 1))
+                    if (!Sah(loc, i, j, i + 1, j + 1))
                     {
                         loc[i + 1, j + 1].Marcheaza();
                         loc[i, j].poateFaceMiscari = true;
@@ -41,7 +41,7 @@ namespace Chess_Application
                 }
                 if (i < 8 && j > 1 && loc[i + 1, j - 1].culoare == 2)
                 {
-                    if (!SahAlb(loc, i, j, i + 1, j - 1))
+                    if (!Sah(loc, i, j, i + 1, j - 1))
                     {
                         loc[i + 1, j - 1].Marcheaza();
                         loc[i, j].poateFaceMiscari = true;
@@ -49,7 +49,7 @@ namespace Chess_Application
                 }
                 if ((i == 2) && loc[i + 2, j] != null && loc[i + 2, j].imagineLocatie.BackgroundImage == null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!SahAlb(loc, i, j, i + 2, j)) 
+                    if (!Sah(loc, i, j, i + 2, j)) 
                     {
                         loc[i + 2, j].Marcheaza();
                         loc[i, j].poateFaceMiscari = true;
@@ -61,23 +61,35 @@ namespace Chess_Application
             {
                 if (loc[i - 1, j] != null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    loc[i - 1, j].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!Sah(loc, i, j, i - 1, j))
+                    {
+                        loc[i - 1, j].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }                   
                 }
                 if (i > 1 && j < 8 && loc[i - 1, j + 1].culoare == 1)
                 {
-                    loc[i - 1, j + 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!Sah(loc, i, j, i - 1, j + 1))
+                    {
+                        loc[i - 1, j + 1].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
                 if (i > 1 && j > 1 && loc[i - 1, j - 1].culoare == 1)
                 {
-                    loc[i - 1, j - 1].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!Sah(loc, i, j, i - 1, j - 1))
+                    {
+                        loc[i - 1, j - 1].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
                 if ((i == 7) && loc[i - 2, j] != null && loc[i - 2, j].imagineLocatie.BackgroundImage == null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    loc[i - 2, j].Marcheaza();
-                    loc[i, j].poateFaceMiscari = true;
+                    if (!Sah(loc, i, j, i - 2, j))
+                    {
+                        loc[i - 2, j].Marcheaza();
+                        loc[i, j].poateFaceMiscari = true;
+                    }
                 }
             }
         }

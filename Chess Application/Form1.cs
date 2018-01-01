@@ -19,12 +19,16 @@ namespace Chess_Application
 
     public partial class Form1 : Form
     {
-        public static int[] pozitieRegeAlb = new int[2];
-        public static int[] pozitieRegeNegru = new int[2];
+        public static Image resizeImage(Image imgToResize, Size size)
+        {
+            return (Image)(new Bitmap(imgToResize, size));
+        }
+        public static Point pozitieRegeAlb = new Point();
+        public static Point pozitieRegeNegru = new Point();
         public static int[] pozitieReginaAlba = new int[2];
         static bool rand = true;
-        static short randMutare = 1;
-        static short randMutareClient = 2;
+        public static short randMutare = 1;
+        public static short randMutareClient = 2;
         short clickCounter = 0;
         public static string mesajDeTransmis;
         public static string mesajPrimit;
@@ -225,6 +229,11 @@ namespace Chess_Application
             origine.tipPiesa = 0;
             origine.piesa = null;
             origine.StergeLocatie();
+            if (destinatie.tipPiesa == 6)
+            {
+                if (destinatie.culoare == 1) { pozitieRegeAlb.X = destinatie.nume[0]-64; pozitieRegeAlb.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeAlb.X + " " + pozitieRegeAlb.Y); }
+                if (destinatie.culoare == 2) { pozitieRegeNegru.X = destinatie.nume[0]-64; pozitieRegeNegru.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeNegru.X + " " + pozitieRegeNegru.Y); }
+            }
             rand = true;
             if (randMutareClient == 2) randMutare = 1;
             else randMutare = 2;
@@ -253,27 +262,16 @@ namespace Chess_Application
             origine.culoare = 0;
             origine.tipPiesa = 0;
             origine.piesa = null;
+            if (destinatie.tipPiesa == 6)
+            {
+                if (destinatie.culoare == 1) { pozitieRegeAlb.X = destinatie.nume[0]-64; pozitieRegeAlb.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeAlb.X + " " + pozitieRegeAlb.Y); }
+                if (destinatie.culoare == 2) { pozitieRegeNegru.X = destinatie.nume[0]-64; pozitieRegeNegru.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeNegru.X + " " + pozitieRegeNegru.Y); }
+            }
             orig.StergeLocatie(); RandNou(locatii);
             clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
             rand = false;
             randMutare = randMutareClient;
             if (sunet) sunetMutare1.Play();
-        }
-
-        public bool SahAlb(int orig1, int orig2, int curent1, int curent2)
-        {
-            int culTempOrig = locatii[orig1, orig2].culoare;
-            int culTempCurent = locatii[curent1, curent2].culoare;
-            if (orig1 != curent1 && orig2 != curent2)
-            {
-                locatii[orig1, orig2].culoare = 0;
-            }
-            locatii[curent1, curent2].culoare = 1;
-            //pornire din rege toate traiectoriile posibile
-            //regina (tura + nebun)
-            //pion
-            //cal
-            return false;
         }
 
         private void meniu1_Load_1(object sender, EventArgs e)
@@ -290,15 +288,10 @@ namespace Chess_Application
                 scriere.WriteLine(tbServerDate.Text);
                 textBox1.Text += username + ": " + tbServerDate.Text + Environment.NewLine;
                 tbServerDate.Clear();
-                // s_text.Close();
             }
-            finally
+            catch
             {
-                // code in finally block is guranteed 
-                // to execute irrespective of 
-                // whether any exception occurs or does 
-                // not occur in the try block
-                //  client.Close();
+                Console.WriteLine("Eroare la transmiterea mesajului");
             }
         }
         //----------------------------------------------------------------------------------------------------------------------
@@ -390,7 +383,9 @@ namespace Chess_Application
             C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
             //=====
+            
 
+            //A1.imagineLocatie.BackgroundImage = resizeImage(A1.imagineLocatie.BackgroundImage, new Size(68, 68));
             //=====           
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
@@ -408,8 +403,10 @@ namespace Chess_Application
             randMutare = 1;
             labelRandMutare.Text = "Piesele albe incep!";
             LocatieTabla.count = 0;
-            pozitieRegeAlb[0] = 1;
-            pozitieRegeAlb[1] = 5;
+            pozitieRegeAlb.X = 1;
+            pozitieRegeAlb.Y = 5;
+            pozitieRegeNegru.X = 8;
+            pozitieRegeNegru.Y = 4;             
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------

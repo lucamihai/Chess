@@ -17,6 +17,7 @@ namespace Chess_Application
             culoare = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
+            tipPiesa = 4;
         }
         public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
         {
@@ -29,7 +30,7 @@ namespace Chess_Application
             //--------------------------------------------------------------------------------------------------------------------------------------
             for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare)
+                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c)) 
                 {
                     loc[l, c].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;
@@ -45,7 +46,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare)
+                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
                 {
                     loc[l, c].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;
@@ -61,7 +62,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare)
+                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
                 {
                     loc[l, c].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;
@@ -77,7 +78,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare)
+                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
                 {
                     loc[l, c].Marcheaza();
                     loc[i, j].poateFaceMiscari = true;

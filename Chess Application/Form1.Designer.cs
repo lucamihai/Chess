@@ -1670,7 +1670,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(812, 383);
+            this.textBox1.Location = new System.Drawing.Point(812, 362);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(259, 156);
@@ -1678,9 +1678,9 @@
             // 
             // tbServerDate
             // 
-            this.tbServerDate.Location = new System.Drawing.Point(881, 326);
+            this.tbServerDate.Location = new System.Drawing.Point(812, 524);
             this.tbServerDate.Name = "tbServerDate";
-            this.tbServerDate.Size = new System.Drawing.Size(100, 20);
+            this.tbServerDate.Size = new System.Drawing.Size(259, 20);
             this.tbServerDate.TabIndex = 22;
             // 
             // button1
@@ -1689,16 +1689,16 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
-            this.button1.Text = "btnSend";
+            this.button1.Text = "Trimite";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // meniu1
             // 
             this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(0, 26);
+            this.meniu1.Location = new System.Drawing.Point(985, 298);
             this.meniu1.Name = "meniu1";
-            this.meniu1.Size = new System.Drawing.Size(1165, 616);
+            this.meniu1.Size = new System.Drawing.Size(1165, 695);
             this.meniu1.TabIndex = 24;
             this.meniu1.Load += new System.EventHandler(this.meniu1_Load_1);
             // 
