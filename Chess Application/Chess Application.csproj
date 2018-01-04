@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clase\Cal.cs" />
+    <Compile Include="Clase\Globale.cs" />
     <Compile Include="Clase\LocatieTabla.cs" />
     <Compile Include="Clase\Nebun.cs" />
     <Compile Include="Clase\Piesa.cs" />
@@ -70,6 +71,12 @@
     <Compile Include="Optiuni.Designer.cs">
       <DependentUpon>Optiuni.cs</DependentUpon>
     </Compile>
+    <Compile Include="PieseDeAles.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PieseDeAles.Designer.cs">
+      <DependentUpon>PieseDeAles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clase\Rege.cs" />
@@ -83,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Optiuni.resx">
       <DependentUpon>Optiuni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PieseDeAles.resx">
+      <DependentUpon>PieseDeAles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -12,7 +12,7 @@ namespace Chess_Application
 {
     public partial class Meniu : UserControl
     {
-
+        public static LocatieTabla AA;
         public Meniu()
         {
             InitializeComponent();

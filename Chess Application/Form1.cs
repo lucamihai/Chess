@@ -19,10 +19,7 @@ namespace Chess_Application
 
     public partial class Form1 : Form
     {
-        public static Image resizeImage(Image imgToResize, Size size)
-        {
-            return (Image)(new Bitmap(imgToResize, size));
-        }
+  
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
         public static int[] pozitieReginaAlba = new int[2];
@@ -35,6 +32,10 @@ namespace Chess_Application
         public static bool modInceptator = true;
         public static bool sunet = true;
         public bool incepeJocNou = false;
+        public bool trebuieSaSelectezi = false;
+        public int counterPioniAlbi, counterTureAlbe, counterCaiAlbi, counterNebuniAlbi, counterReginaAlba;
+        public int counterPioniNegri, counterTureNegre, counterCaiNegri, counterNebuniNegri, counterReginaNeagra;
+        public int tempI, tempJ;
 
         public static string username;
         public static string _username
@@ -49,7 +50,7 @@ namespace Chess_Application
             get { return culoriUseri; }
             set { SetareCulori(value); }
         }
-
+        
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
 
@@ -65,15 +66,18 @@ namespace Chess_Application
         Piesa cal1Negru, cal2Negru;
         Regina reginaNegru; Rege regeNegru;
 
-        LocatieTabla orig, destinatie;
-
+        public static LocatieTabla orig, destinatie;
+        
         LocatieTabla A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
         LocatieTabla H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
 
         LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
 
-        LocatieTabla[,] locatii;
+        LocatieTabla pioniAlbiLuati, tureAlbeLuate, caiAlbiLuati, nebuniAlbiLuati, reginaAlbaLuata;
+        LocatieTabla pioniNegriLuati, tureNegreLuate, caiNegriLuati, nebuniNegriLuati, reginaNeagraLuata;
+
+        public LocatieTabla[,] locatii;
         //=============================================================================================================================================
         public TcpListener server;
         public String dateServer;
@@ -82,6 +86,8 @@ namespace Chess_Application
         bool workThread;
         public static NetworkStream streamServer;
         public static string usernameClient = "Client";
+       
+
         //----------------------------------------------------------------------------------------------------------------------
         public void Asculta_Server()
         {
@@ -100,7 +106,6 @@ namespace Chess_Application
                             workThread = false;
                         if (dateServer.StartsWith("#") && dateServer.Length == 6)
                         {
-                            //dateServer = dateServer.Substring(1);
                             string[] coordonate = new string[2];
                             coordonate = dateServer.Substring(1).Split();
                             int o1 = System.Convert.ToInt32(coordonate[0][0]) - 64;
@@ -112,7 +117,6 @@ namespace Chess_Application
                         }
                         if (dateServer.StartsWith("#username"))
                         {
-                            // dateServer = dateServer.Substring(1);
                             string[] aux = dateServer.Substring(1).Split();
                             usernameClient = aux[1];
                         }
@@ -167,7 +171,6 @@ namespace Chess_Application
 
         public static void SetareCulori(string u)
         {
-            //u = u.Substring(1);
             StreamWriter scriere = new StreamWriter(streamServer);
             scriere.AutoFlush = true;
             string[] culori = u.Split(' ');
@@ -200,7 +203,7 @@ namespace Chess_Application
             activeazalToolStripMenuItem.Visible = true;
             dezactiveazalToolStripMenuItem.Visible = false;
         }
-
+        
         void Muta(LocatieTabla origine, LocatieTabla destinatie)
         {
             if (destinatie.piesa != null)
@@ -221,6 +224,25 @@ namespace Chess_Application
                 }
             }
             listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
+            if (destinatie.tipPiesa != 0)
+            {
+                if (destinatie.culoare == 1)
+                {
+                    if (destinatie.tipPiesa == 1)  labelCPA.Text = (++counterPioniAlbi).ToString();
+                    if (destinatie.tipPiesa == 2) labelCTA.Text = (++counterTureAlbe).ToString();
+                    if (destinatie.tipPiesa == 3) labelCountCA.Text = (++counterCaiAlbi).ToString();
+                    if (destinatie.tipPiesa == 4) labelCNA.Text = (++counterNebuniAlbi).ToString();
+                    if (destinatie.tipPiesa == 5) labelCRA.Text = (++counterReginaAlba).ToString();
+                }
+                if (destinatie.culoare == 2)
+                {
+                    if (destinatie.tipPiesa == 1) labelCPN.Text = (++counterPioniNegri).ToString();
+                    if (destinatie.tipPiesa == 2) labelCTN.Text = (++counterTureNegre).ToString();
+                    if (destinatie.tipPiesa == 3) labelCountCN.Text = (++counterCaiNegri).ToString();
+                    if (destinatie.tipPiesa == 4) labelCNN.Text = (++counterNebuniNegri).ToString();
+                    if (destinatie.tipPiesa == 5) labelCRN.Text = (++counterReginaNeagra).ToString();
+                }
+            }
             destinatie.piesa = origine.piesa;
             destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
             destinatie.tipPiesa = origine.tipPiesa;
@@ -239,6 +261,26 @@ namespace Chess_Application
             else randMutare = 2;
             if (sunet) sunetMutare2.Play();
             Console.WriteLine("tip piesa: " + destinatie.tipPiesa);
+        }
+        void Transfera(LocatieTabla origine, LocatieTabla destinatie)
+        {           
+            destinatie.piesa = origine.piesa;
+            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
+            destinatie.tipPiesa = origine.tipPiesa;
+            destinatie.culoare = origine.culoare;
+            Console.WriteLine("s-a efectuat transferul");
+        }
+        void PreluarePiesa(LocatieTabla origine, LocatieTabla destinatie)
+        {
+            destinatie.piesa = origine.piesa;
+            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
+            destinatie.tipPiesa = origine.tipPiesa;
+            destinatie.culoare = origine.culoare;
+            origine.culoare = 0;
+            origine.tipPiesa = 0;
+            origine.piesa = null;
+            origine.StergeLocatie();
+            Console.WriteLine("am preluat piesa");
         }
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
         {
@@ -266,6 +308,35 @@ namespace Chess_Application
             {
                 if (destinatie.culoare == 1) { pozitieRegeAlb.X = destinatie.nume[0]-64; pozitieRegeAlb.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeAlb.X + " " + pozitieRegeAlb.Y); }
                 if (destinatie.culoare == 2) { pozitieRegeNegru.X = destinatie.nume[0]-64; pozitieRegeNegru.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeNegru.X + " " + pozitieRegeNegru.Y); }
+            }
+            if (randMutare == 1)
+            {
+                if (destinatie.nume.Contains('H') && destinatie.tipPiesa == 1)  
+                {
+
+                    Console.WriteLine("iaca-ta c-a ajuns pionu'-n ultima linie");
+                    if (counterTureAlbe + counterCaiAlbi + counterNebuniAlbi + counterReginaAlba > 0)
+                    {
+                        tempI = 8;
+                        tempJ = destinatie.nume[1] - 48;
+                        trebuieSaSelectezi = true;
+                        transmiteMesaj("trebuie sa selectez, ai rabdare fratica");
+                    }
+                }
+            }
+            if (randMutare == 2)
+            {
+                if (destinatie.nume.Contains('A') && destinatie.tipPiesa == 1) 
+                {
+                    Console.WriteLine("iaca-ta c-a ajuns pionu'-n ultima linie");
+                    if (counterTureNegre + counterCaiNegri + counterNebuniNegri + counterReginaNeagra > 0)
+                    {
+                        tempI = 1;
+                        tempJ = destinatie.nume[1] - 48;
+                        trebuieSaSelectezi = true;
+                        transmiteMesaj("trebuie sa selectez, ai rabdare fratica");
+                    }
+                }
             }
             orig.StergeLocatie(); RandNou(locatii);
             clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
@@ -383,9 +454,11 @@ namespace Chess_Application
             C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
             //=====
-            
-
-            //A1.imagineLocatie.BackgroundImage = resizeImage(A1.imagineLocatie.BackgroundImage, new Size(68, 68));
+            pioniAlbiLuati = new LocatieTabla(pion1Alb, pbPioniAlbiLuati);      pioniNegriLuati = new LocatieTabla(pion1Negru, pbPioniNegriLuati);
+            tureAlbeLuate = new LocatieTabla(tura1Alb, pbTureAlbeLuate);        tureNegreLuate = new LocatieTabla(tura1Negru, pbTureNegreLuate);
+            caiAlbiLuati = new LocatieTabla(cal1Alb, pbCaiAlbiLuati);           caiNegriLuati = new LocatieTabla(cal1Negru, pbCaiNegriLuati);
+            nebuniAlbiLuati = new LocatieTabla(nebun1Alb, pbNebuniAlbiLuati);   nebuniNegriLuati = new LocatieTabla(nebun1Negru, pbNebuniNegriLuati);
+            reginaAlbaLuata = new LocatieTabla(reginaAlb, pbReginaAlbaLuata);   reginaNeagraLuata = new LocatieTabla(reginaNegru, pbReginaNeagraLuata);
             //=====           
             locatii = new LocatieTabla[10, 10];
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
@@ -406,13 +479,19 @@ namespace Chess_Application
             pozitieRegeAlb.X = 1;
             pozitieRegeAlb.Y = 5;
             pozitieRegeNegru.X = 8;
-            pozitieRegeNegru.Y = 4;             
+            pozitieRegeNegru.Y = 4;
+            labelCPA.Text = 0.ToString();       labelCPN.Text = 0.ToString();
+            labelCTA.Text = 0.ToString();       labelCTN.Text = 0.ToString();
+            labelCountCA.Text = 0.ToString();   labelCountCN.Text = 0.ToString();
+            labelCNA.Text = 0.ToString();       labelCNN.Text = 0.ToString();
+            labelCRA.Text = 0.ToString();       labelCRN.Text = 0.ToString();
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
         public Form1()
         {
             InitializeComponent();
+            //pieseDeAles1.setare(piesaAleasa);
             server = new TcpListener(System.Net.IPAddress.Any, 3000);
             server.Start();
             t = new Thread(new ThreadStart(Asculta_Server));
@@ -446,6 +525,7 @@ namespace Chess_Application
             pion3Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             pion5Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             pion7Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            //t1 = new Tura(1, pbTuraAlb, pbTuraAlbMic);
             //=====
             tura1Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
             cal1Negru = new Cal(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
@@ -539,8 +619,102 @@ namespace Chess_Application
             Rearanjare(loc); clickCounter = 100; RestoreCulori(loc);
         }
 
+
+        private void pbPioniAlbiLuati_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pbTureAlbeLuate_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterTureAlbe != 0)
+            {
+                Transfera(tureAlbeLuate, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCTA.Text = (--counterTureAlbe).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+
+        private void pbCaiAlbiLuati_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterCaiAlbi!=0)
+            {
+                Transfera(caiAlbiLuati, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCountCA.Text = (--counterCaiAlbi).ToString();
+                transmiteMesaj("gata boss");
+            }           
+        }
+        private void pbNebuniAlbiLuati_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterNebuniAlbi != 0)
+            {
+                Transfera(nebuniAlbiLuati, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCNA.Text = (--counterNebuniAlbi).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+
+        private void pbReginaAlbaLuata_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterReginaAlba != 0)
+            {
+                Transfera(reginaAlbaLuata, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCRA.Text = (--counterReginaAlba).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+        //=====
+        private void pbTureNegreLuate_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterTureNegre != 0)
+            {
+                Transfera(tureNegreLuate, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCTN.Text = (--counterTureNegre).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+
+        private void pbCaiNegriLuati_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterCaiNegri != 0)
+            {
+                Transfera(caiNegriLuati, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCountCN.Text = (--counterCaiNegri).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+
+        private void pbNebuniNegriLuati_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterNebuniNegri != 0)
+            {
+                Transfera(nebuniNegriLuati, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCNN.Text = (--counterNebuniNegri).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+
+        private void pbReginaNeagraLuata_Click(object sender, EventArgs e)
+        {
+            if (trebuieSaSelectezi && counterReginaNeagra != 0)
+            {
+                Transfera(reginaNeagraLuata, locatii[tempI, tempJ]);
+                trebuieSaSelectezi = false;
+                labelCRN.Text = (--counterReginaNeagra).ToString();
+                transmiteMesaj("gata boss");
+            }
+        }
+
         private void _1A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -562,6 +736,7 @@ namespace Chess_Application
 
         private void _2A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -583,6 +758,7 @@ namespace Chess_Application
 
         private void _3A_Click(object sender, EventArgs e)
         {
+            if(trebuieSaSelectezi) return;
             if (clickCounter == 1 && A3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -604,6 +780,7 @@ namespace Chess_Application
 
         private void _4A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -625,6 +802,7 @@ namespace Chess_Application
 
         private void _5A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -646,6 +824,7 @@ namespace Chess_Application
 
         private void _6A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -667,6 +846,7 @@ namespace Chess_Application
 
         private void _7A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -688,6 +868,7 @@ namespace Chess_Application
 
         private void _8A_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && A8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -709,6 +890,7 @@ namespace Chess_Application
 
         private void _1B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -730,6 +912,7 @@ namespace Chess_Application
 
         private void _2B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -751,6 +934,7 @@ namespace Chess_Application
 
         private void _3B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -772,6 +956,7 @@ namespace Chess_Application
 
         private void _4B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -793,6 +978,7 @@ namespace Chess_Application
 
         private void _5B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -814,6 +1000,7 @@ namespace Chess_Application
 
         private void _6B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -835,6 +1022,7 @@ namespace Chess_Application
 
         private void _7B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -856,6 +1044,7 @@ namespace Chess_Application
 
         private void _8B_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && B8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -877,6 +1066,7 @@ namespace Chess_Application
 
         private void _1C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -898,6 +1088,7 @@ namespace Chess_Application
 
         private void _2C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -919,6 +1110,7 @@ namespace Chess_Application
 
         private void _3C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -940,6 +1132,7 @@ namespace Chess_Application
 
         private void _4C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -961,6 +1154,7 @@ namespace Chess_Application
 
         private void _5C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -982,6 +1176,7 @@ namespace Chess_Application
 
         private void _6C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1003,6 +1198,7 @@ namespace Chess_Application
 
         private void _7C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1024,6 +1220,7 @@ namespace Chess_Application
 
         private void _8C_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && C8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1045,6 +1242,7 @@ namespace Chess_Application
 
         private void _1D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1066,6 +1264,7 @@ namespace Chess_Application
 
         private void _2D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1087,6 +1286,7 @@ namespace Chess_Application
 
         private void _3D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1108,6 +1308,7 @@ namespace Chess_Application
 
         private void _4D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1129,6 +1330,7 @@ namespace Chess_Application
 
         private void _5D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1150,6 +1352,7 @@ namespace Chess_Application
 
         private void _6D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1171,6 +1374,7 @@ namespace Chess_Application
 
         private void _7D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1192,6 +1396,7 @@ namespace Chess_Application
 
         private void _8D_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && D8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1213,6 +1418,7 @@ namespace Chess_Application
 
         private void _1E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1234,6 +1440,7 @@ namespace Chess_Application
 
         private void _2E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1255,6 +1462,7 @@ namespace Chess_Application
 
         private void _3E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1276,6 +1484,7 @@ namespace Chess_Application
 
         private void _4E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1297,6 +1506,7 @@ namespace Chess_Application
 
         private void _5E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1318,6 +1528,7 @@ namespace Chess_Application
 
         private void _6E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1339,6 +1550,7 @@ namespace Chess_Application
 
         private void _7E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1360,6 +1572,7 @@ namespace Chess_Application
 
         private void _8E_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && E8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1381,6 +1594,7 @@ namespace Chess_Application
 
         private void _1F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1402,6 +1616,7 @@ namespace Chess_Application
 
         private void _2F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1423,6 +1638,7 @@ namespace Chess_Application
 
         private void _3F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1444,6 +1660,7 @@ namespace Chess_Application
 
         private void _4F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1465,6 +1682,7 @@ namespace Chess_Application
 
         private void _5F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1486,6 +1704,7 @@ namespace Chess_Application
 
         private void _6F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1507,6 +1726,7 @@ namespace Chess_Application
 
         private void _7F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1528,6 +1748,7 @@ namespace Chess_Application
 
         private void _8F_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && F8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1549,6 +1770,7 @@ namespace Chess_Application
 
         private void _1G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1570,6 +1792,7 @@ namespace Chess_Application
 
         private void _2G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1591,6 +1814,7 @@ namespace Chess_Application
 
         private void _3G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1612,6 +1836,7 @@ namespace Chess_Application
 
         private void _4G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1633,6 +1858,7 @@ namespace Chess_Application
 
         private void _5G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1654,6 +1880,7 @@ namespace Chess_Application
 
         private void _6G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1675,6 +1902,7 @@ namespace Chess_Application
 
         private void _7G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1696,6 +1924,7 @@ namespace Chess_Application
 
         private void _8G_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && G8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1717,6 +1946,7 @@ namespace Chess_Application
 
         private void _1H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H1 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1738,6 +1968,7 @@ namespace Chess_Application
 
         private void _2H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H2 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1759,6 +1990,7 @@ namespace Chess_Application
 
         private void _3H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H3 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1780,6 +2012,7 @@ namespace Chess_Application
 
         private void _4H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H4 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1801,6 +2034,7 @@ namespace Chess_Application
 
         private void _5H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H5 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1822,6 +2056,7 @@ namespace Chess_Application
 
         private void _6H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H6 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1843,6 +2078,7 @@ namespace Chess_Application
 
         private void _7H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H7 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
@@ -1864,6 +2100,7 @@ namespace Chess_Application
 
         private void _8H_Click(object sender, EventArgs e)
         {
+            if (trebuieSaSelectezi) return;
             if (clickCounter == 1 && H8 == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);

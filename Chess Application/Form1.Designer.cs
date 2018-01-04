@@ -160,6 +160,28 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.pbPioniAlbiLuati = new System.Windows.Forms.PictureBox();
+            this.pbReginaAlbaLuata = new System.Windows.Forms.PictureBox();
+            this.pbNebuniAlbiLuati = new System.Windows.Forms.PictureBox();
+            this.pbCaiAlbiLuati = new System.Windows.Forms.PictureBox();
+            this.pbTureAlbeLuate = new System.Windows.Forms.PictureBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.labelCPA = new System.Windows.Forms.Label();
+            this.labelCTA = new System.Windows.Forms.Label();
+            this.labelCountCA = new System.Windows.Forms.Label();
+            this.labelCNA = new System.Windows.Forms.Label();
+            this.labelCRA = new System.Windows.Forms.Label();
+            this.labelCRN = new System.Windows.Forms.Label();
+            this.labelCNN = new System.Windows.Forms.Label();
+            this.labelCountCN = new System.Windows.Forms.Label();
+            this.labelCTN = new System.Windows.Forms.Label();
+            this.labelCPN = new System.Windows.Forms.Label();
+            this.pbTureNegreLuate = new System.Windows.Forms.PictureBox();
+            this.pbCaiNegriLuati = new System.Windows.Forms.PictureBox();
+            this.pbNebuniNegriLuati = new System.Windows.Forms.PictureBox();
+            this.pbReginaNeagraLuata = new System.Windows.Forms.PictureBox();
+            this.pbPioniNegriLuati = new System.Windows.Forms.PictureBox();
             this.meniu1 = new Chess_Application.Meniu();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
@@ -256,6 +278,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPioniAlbiLuati)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbaLuata)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniAlbiLuati)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaiAlbiLuati)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTureAlbeLuate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTureNegreLuate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaiNegriLuati)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniNegriLuati)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNeagraLuata)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPioniNegriLuati)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -324,7 +356,7 @@
             this.panel2.Controls.Add(this._6H);
             this.panel2.Controls.Add(this._7H);
             this.panel2.Controls.Add(this._8H);
-            this.panel2.Location = new System.Drawing.Point(236, 106);
+            this.panel2.Location = new System.Drawing.Point(236, 173);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(525, 512);
             this.panel2.TabIndex = 1;
@@ -1231,7 +1263,7 @@
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Location = new System.Drawing.Point(176, 106);
+            this.panel1.Location = new System.Drawing.Point(176, 173);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(54, 512);
             this.panel1.TabIndex = 13;
@@ -1246,7 +1278,7 @@
             this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Location = new System.Drawing.Point(236, 624);
+            this.panel3.Location = new System.Drawing.Point(236, 691);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(512, 47);
             this.panel3.TabIndex = 14;
@@ -1358,7 +1390,7 @@
             this.panelPiese.Controls.Add(this.pbNebunNegru);
             this.panelPiese.Controls.Add(this.pbNebunAlb);
             this.panelPiese.Controls.Add(this.pbPionAlb);
-            this.panelPiese.Location = new System.Drawing.Point(12, 70);
+            this.panelPiese.Location = new System.Drawing.Point(30, 173);
             this.panelPiese.Name = "panelPiese";
             this.panelPiese.Size = new System.Drawing.Size(140, 606);
             this.panelPiese.TabIndex = 15;
@@ -1606,7 +1638,7 @@
             // 
             this.labelRandMutare.AutoSize = true;
             this.labelRandMutare.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.labelRandMutare.Location = new System.Drawing.Point(402, 54);
+            this.labelRandMutare.Location = new System.Drawing.Point(385, 36);
             this.labelRandMutare.Name = "labelRandMutare";
             this.labelRandMutare.Size = new System.Drawing.Size(111, 16);
             this.labelRandMutare.TabIndex = 16;
@@ -1623,7 +1655,7 @@
             this.Mutare,
             this.Piesa1,
             this.Piesa2});
-            this.listaMiscari.Location = new System.Drawing.Point(799, 106);
+            this.listaMiscari.Location = new System.Drawing.Point(799, 204);
             this.listaMiscari.Name = "listaMiscari";
             this.listaMiscari.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1670,7 +1702,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(812, 362);
+            this.textBox1.Location = new System.Drawing.Point(812, 460);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(259, 156);
@@ -1678,14 +1710,14 @@
             // 
             // tbServerDate
             // 
-            this.tbServerDate.Location = new System.Drawing.Point(812, 524);
+            this.tbServerDate.Location = new System.Drawing.Point(812, 622);
             this.tbServerDate.Name = "tbServerDate";
             this.tbServerDate.Size = new System.Drawing.Size(259, 20);
             this.tbServerDate.TabIndex = 22;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(881, 554);
+            this.button1.Location = new System.Drawing.Point(881, 652);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
@@ -1693,10 +1725,237 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(0, 267);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(15, 64);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // pbPioniAlbiLuati
+            // 
+            this.pbPioniAlbiLuati.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbPioniAlbiLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbPioniAlbiLuati.Image")));
+            this.pbPioniAlbiLuati.Location = new System.Drawing.Point(335, 78);
+            this.pbPioniAlbiLuati.Name = "pbPioniAlbiLuati";
+            this.pbPioniAlbiLuati.Size = new System.Drawing.Size(64, 64);
+            this.pbPioniAlbiLuati.TabIndex = 26;
+            this.pbPioniAlbiLuati.TabStop = false;
+            this.pbPioniAlbiLuati.Click += new System.EventHandler(this.pbPioniAlbiLuati_Click);
+            // 
+            // pbReginaAlbaLuata
+            // 
+            this.pbReginaAlbaLuata.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbReginaAlbaLuata.Image = ((System.Drawing.Image)(resources.GetObject("pbReginaAlbaLuata.Image")));
+            this.pbReginaAlbaLuata.Location = new System.Drawing.Point(591, 78);
+            this.pbReginaAlbaLuata.Name = "pbReginaAlbaLuata";
+            this.pbReginaAlbaLuata.Size = new System.Drawing.Size(64, 64);
+            this.pbReginaAlbaLuata.TabIndex = 27;
+            this.pbReginaAlbaLuata.TabStop = false;
+            this.pbReginaAlbaLuata.Click += new System.EventHandler(this.pbReginaAlbaLuata_Click);
+            // 
+            // pbNebuniAlbiLuati
+            // 
+            this.pbNebuniAlbiLuati.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbNebuniAlbiLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbNebuniAlbiLuati.Image")));
+            this.pbNebuniAlbiLuati.Location = new System.Drawing.Point(527, 78);
+            this.pbNebuniAlbiLuati.Name = "pbNebuniAlbiLuati";
+            this.pbNebuniAlbiLuati.Size = new System.Drawing.Size(64, 64);
+            this.pbNebuniAlbiLuati.TabIndex = 28;
+            this.pbNebuniAlbiLuati.TabStop = false;
+            this.pbNebuniAlbiLuati.Click += new System.EventHandler(this.pbNebuniAlbiLuati_Click);
+            // 
+            // pbCaiAlbiLuati
+            // 
+            this.pbCaiAlbiLuati.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbCaiAlbiLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbCaiAlbiLuati.Image")));
+            this.pbCaiAlbiLuati.Location = new System.Drawing.Point(463, 78);
+            this.pbCaiAlbiLuati.Name = "pbCaiAlbiLuati";
+            this.pbCaiAlbiLuati.Size = new System.Drawing.Size(64, 64);
+            this.pbCaiAlbiLuati.TabIndex = 29;
+            this.pbCaiAlbiLuati.TabStop = false;
+            this.pbCaiAlbiLuati.Click += new System.EventHandler(this.pbCaiAlbiLuati_Click);
+            // 
+            // pbTureAlbeLuate
+            // 
+            this.pbTureAlbeLuate.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbTureAlbeLuate.Image = ((System.Drawing.Image)(resources.GetObject("pbTureAlbeLuate.Image")));
+            this.pbTureAlbeLuate.Location = new System.Drawing.Point(399, 78);
+            this.pbTureAlbeLuate.Name = "pbTureAlbeLuate";
+            this.pbTureAlbeLuate.Size = new System.Drawing.Size(64, 64);
+            this.pbTureAlbeLuate.TabIndex = 30;
+            this.pbTureAlbeLuate.TabStop = false;
+            this.pbTureAlbeLuate.Click += new System.EventHandler(this.pbTureAlbeLuate_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(449, 62);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(66, 13);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "Spoils o\' war";
+            // 
+            // labelCPA
+            // 
+            this.labelCPA.AutoSize = true;
+            this.labelCPA.Location = new System.Drawing.Point(345, 145);
+            this.labelCPA.Name = "labelCPA";
+            this.labelCPA.Size = new System.Drawing.Size(41, 13);
+            this.labelCPA.TabIndex = 32;
+            this.labelCPA.Text = "label18";
+            this.labelCPA.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelCTA
+            // 
+            this.labelCTA.AutoSize = true;
+            this.labelCTA.Location = new System.Drawing.Point(411, 145);
+            this.labelCTA.Name = "labelCTA";
+            this.labelCTA.Size = new System.Drawing.Size(41, 13);
+            this.labelCTA.TabIndex = 33;
+            this.labelCTA.Text = "label19";
+            this.labelCTA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCountCA
+            // 
+            this.labelCountCA.AutoSize = true;
+            this.labelCountCA.Location = new System.Drawing.Point(474, 145);
+            this.labelCountCA.Name = "labelCountCA";
+            this.labelCountCA.Size = new System.Drawing.Size(41, 13);
+            this.labelCountCA.TabIndex = 34;
+            this.labelCountCA.Text = "label20";
+            this.labelCountCA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCNA
+            // 
+            this.labelCNA.AutoSize = true;
+            this.labelCNA.Location = new System.Drawing.Point(541, 145);
+            this.labelCNA.Name = "labelCNA";
+            this.labelCNA.Size = new System.Drawing.Size(41, 13);
+            this.labelCNA.TabIndex = 35;
+            this.labelCNA.Text = "label21";
+            this.labelCNA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCRA
+            // 
+            this.labelCRA.AutoSize = true;
+            this.labelCRA.Location = new System.Drawing.Point(603, 145);
+            this.labelCRA.Name = "labelCRA";
+            this.labelCRA.Size = new System.Drawing.Size(41, 13);
+            this.labelCRA.TabIndex = 36;
+            this.labelCRA.Text = "label22";
+            this.labelCRA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCRN
+            // 
+            this.labelCRN.AutoSize = true;
+            this.labelCRN.Location = new System.Drawing.Point(603, 811);
+            this.labelCRN.Name = "labelCRN";
+            this.labelCRN.Size = new System.Drawing.Size(41, 13);
+            this.labelCRN.TabIndex = 46;
+            this.labelCRN.Text = "label22";
+            this.labelCRN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCNN
+            // 
+            this.labelCNN.AutoSize = true;
+            this.labelCNN.Location = new System.Drawing.Point(541, 811);
+            this.labelCNN.Name = "labelCNN";
+            this.labelCNN.Size = new System.Drawing.Size(41, 13);
+            this.labelCNN.TabIndex = 45;
+            this.labelCNN.Text = "label21";
+            this.labelCNN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCountCN
+            // 
+            this.labelCountCN.AutoSize = true;
+            this.labelCountCN.Location = new System.Drawing.Point(474, 811);
+            this.labelCountCN.Name = "labelCountCN";
+            this.labelCountCN.Size = new System.Drawing.Size(41, 13);
+            this.labelCountCN.TabIndex = 44;
+            this.labelCountCN.Text = "label20";
+            this.labelCountCN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCTN
+            // 
+            this.labelCTN.AutoSize = true;
+            this.labelCTN.Location = new System.Drawing.Point(411, 811);
+            this.labelCTN.Name = "labelCTN";
+            this.labelCTN.Size = new System.Drawing.Size(41, 13);
+            this.labelCTN.TabIndex = 43;
+            this.labelCTN.Text = "label19";
+            this.labelCTN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCPN
+            // 
+            this.labelCPN.AutoSize = true;
+            this.labelCPN.Location = new System.Drawing.Point(345, 811);
+            this.labelCPN.Name = "labelCPN";
+            this.labelCPN.Size = new System.Drawing.Size(41, 13);
+            this.labelCPN.TabIndex = 42;
+            this.labelCPN.Text = "label18";
+            this.labelCPN.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // pbTureNegreLuate
+            // 
+            this.pbTureNegreLuate.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbTureNegreLuate.Image = ((System.Drawing.Image)(resources.GetObject("pbTureNegreLuate.Image")));
+            this.pbTureNegreLuate.Location = new System.Drawing.Point(399, 744);
+            this.pbTureNegreLuate.Name = "pbTureNegreLuate";
+            this.pbTureNegreLuate.Size = new System.Drawing.Size(64, 64);
+            this.pbTureNegreLuate.TabIndex = 41;
+            this.pbTureNegreLuate.TabStop = false;
+            this.pbTureNegreLuate.Click += new System.EventHandler(this.pbTureNegreLuate_Click);
+            // 
+            // pbCaiNegriLuati
+            // 
+            this.pbCaiNegriLuati.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbCaiNegriLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbCaiNegriLuati.Image")));
+            this.pbCaiNegriLuati.Location = new System.Drawing.Point(463, 744);
+            this.pbCaiNegriLuati.Name = "pbCaiNegriLuati";
+            this.pbCaiNegriLuati.Size = new System.Drawing.Size(64, 64);
+            this.pbCaiNegriLuati.TabIndex = 40;
+            this.pbCaiNegriLuati.TabStop = false;
+            this.pbCaiNegriLuati.Click += new System.EventHandler(this.pbCaiNegriLuati_Click);
+            // 
+            // pbNebuniNegriLuati
+            // 
+            this.pbNebuniNegriLuati.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbNebuniNegriLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbNebuniNegriLuati.Image")));
+            this.pbNebuniNegriLuati.Location = new System.Drawing.Point(527, 744);
+            this.pbNebuniNegriLuati.Name = "pbNebuniNegriLuati";
+            this.pbNebuniNegriLuati.Size = new System.Drawing.Size(64, 64);
+            this.pbNebuniNegriLuati.TabIndex = 39;
+            this.pbNebuniNegriLuati.TabStop = false;
+            this.pbNebuniNegriLuati.Click += new System.EventHandler(this.pbNebuniNegriLuati_Click);
+            // 
+            // pbReginaNeagraLuata
+            // 
+            this.pbReginaNeagraLuata.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbReginaNeagraLuata.Image = ((System.Drawing.Image)(resources.GetObject("pbReginaNeagraLuata.Image")));
+            this.pbReginaNeagraLuata.Location = new System.Drawing.Point(591, 744);
+            this.pbReginaNeagraLuata.Name = "pbReginaNeagraLuata";
+            this.pbReginaNeagraLuata.Size = new System.Drawing.Size(64, 64);
+            this.pbReginaNeagraLuata.TabIndex = 38;
+            this.pbReginaNeagraLuata.TabStop = false;
+            this.pbReginaNeagraLuata.Click += new System.EventHandler(this.pbReginaNeagraLuata_Click);
+            // 
+            // pbPioniNegriLuati
+            // 
+            this.pbPioniNegriLuati.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pbPioniNegriLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbPioniNegriLuati.Image")));
+            this.pbPioniNegriLuati.Location = new System.Drawing.Point(335, 744);
+            this.pbPioniNegriLuati.Name = "pbPioniNegriLuati";
+            this.pbPioniNegriLuati.Size = new System.Drawing.Size(64, 64);
+            this.pbPioniNegriLuati.TabIndex = 37;
+            this.pbPioniNegriLuati.TabStop = false;
+            // 
             // meniu1
             // 
             this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(985, 298);
+            this.meniu1.Location = new System.Drawing.Point(620, 27);
             this.meniu1.Name = "meniu1";
             this.meniu1.Size = new System.Drawing.Size(1165, 695);
             this.meniu1.TabIndex = 24;
@@ -1707,7 +1966,29 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1165, 693);
+            this.ClientSize = new System.Drawing.Size(1165, 834);
+            this.Controls.Add(this.labelCRN);
+            this.Controls.Add(this.labelCNN);
+            this.Controls.Add(this.labelCountCN);
+            this.Controls.Add(this.labelCTN);
+            this.Controls.Add(this.labelCPN);
+            this.Controls.Add(this.pbTureNegreLuate);
+            this.Controls.Add(this.pbCaiNegriLuati);
+            this.Controls.Add(this.pbNebuniNegriLuati);
+            this.Controls.Add(this.pbReginaNeagraLuata);
+            this.Controls.Add(this.pbPioniNegriLuati);
+            this.Controls.Add(this.labelCRA);
+            this.Controls.Add(this.labelCNA);
+            this.Controls.Add(this.labelCountCA);
+            this.Controls.Add(this.labelCTA);
+            this.Controls.Add(this.labelCPA);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.pbTureAlbeLuate);
+            this.Controls.Add(this.pbCaiAlbiLuati);
+            this.Controls.Add(this.pbNebuniAlbiLuati);
+            this.Controls.Add(this.pbReginaAlbaLuata);
+            this.Controls.Add(this.pbPioniAlbiLuati);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.meniu1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbServerDate);
@@ -1823,6 +2104,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPioniAlbiLuati)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbaLuata)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniAlbiLuati)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaiAlbiLuati)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTureAlbeLuate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTureNegreLuate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaiNegriLuati)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniNegriLuati)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNeagraLuata)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPioniNegriLuati)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1963,6 +2254,29 @@
         private System.Windows.Forms.ToolStripMenuItem activeazalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
         public Meniu meniu1;
+        private System.Windows.Forms.Button button2;
+        public PieseDeAles pieseDeAles1;
+        private System.Windows.Forms.PictureBox pbPioniAlbiLuati;
+        private System.Windows.Forms.PictureBox pbReginaAlbaLuata;
+        private System.Windows.Forms.PictureBox pbNebuniAlbiLuati;
+        private System.Windows.Forms.PictureBox pbCaiAlbiLuati;
+        private System.Windows.Forms.PictureBox pbTureAlbeLuate;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label labelCPA;
+        private System.Windows.Forms.Label labelCTA;
+        private System.Windows.Forms.Label labelCountCA;
+        private System.Windows.Forms.Label labelCNA;
+        private System.Windows.Forms.Label labelCRA;
+        private System.Windows.Forms.Label labelCRN;
+        private System.Windows.Forms.Label labelCNN;
+        private System.Windows.Forms.Label labelCountCN;
+        private System.Windows.Forms.Label labelCTN;
+        private System.Windows.Forms.Label labelCPN;
+        private System.Windows.Forms.PictureBox pbTureNegreLuate;
+        private System.Windows.Forms.PictureBox pbCaiNegriLuati;
+        private System.Windows.Forms.PictureBox pbNebuniNegriLuati;
+        private System.Windows.Forms.PictureBox pbReginaNeagraLuata;
+        private System.Windows.Forms.PictureBox pbPioniNegriLuati;
     }
 }
 
