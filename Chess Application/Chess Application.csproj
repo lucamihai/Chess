@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clase\Cal.cs" />
-    <Compile Include="Clase\Globale.cs" />
     <Compile Include="Clase\LocatieTabla.cs" />
     <Compile Include="Clase\Nebun.cs" />
     <Compile Include="Clase\Piesa.cs" />

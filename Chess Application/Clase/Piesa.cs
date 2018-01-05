@@ -882,7 +882,7 @@ namespace Chess_Application
                     //========== nebun / regina ========
                     for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
@@ -893,7 +893,7 @@ namespace Chess_Application
                     }
                     for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
@@ -904,18 +904,18 @@ namespace Chess_Application
                     }
                     for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4)) 
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala stanga sus");
+                            Console.WriteLine("sah la verificare in diagonala stanga sus de la pozitia "+l+" "+c);
                             return true;
                         }
                         if (loc[l, c].culoare != 0 && loc[l, c] != loc[i, j]) break;
                     }
                     for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
@@ -1147,7 +1147,7 @@ namespace Chess_Application
                     //========== nebun / regina ========
                     for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4)) 
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
@@ -1158,7 +1158,7 @@ namespace Chess_Application
                     }
                     for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
@@ -1169,7 +1169,7 @@ namespace Chess_Application
                     }
                     for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;
@@ -1180,7 +1180,7 @@ namespace Chess_Application
                     }
                     for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
                     {
-                        if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                        if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                         {
                             loc[orig1, orig2].culoare = tempCuloareOrig;
                             loc[curent1, curent2].culoare = tempCuloareCurent;

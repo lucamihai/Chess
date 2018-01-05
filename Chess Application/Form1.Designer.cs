@@ -160,7 +160,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.pbPioniAlbiLuati = new System.Windows.Forms.PictureBox();
             this.pbReginaAlbaLuata = new System.Windows.Forms.PictureBox();
             this.pbNebuniAlbiLuati = new System.Windows.Forms.PictureBox();
@@ -1073,7 +1072,7 @@
             this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1165, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1655,9 +1654,10 @@
             this.Mutare,
             this.Piesa1,
             this.Piesa2});
-            this.listaMiscari.Location = new System.Drawing.Point(799, 204);
+            this.listaMiscari.Location = new System.Drawing.Point(812, 173);
             this.listaMiscari.Name = "listaMiscari";
             this.listaMiscari.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.listaMiscari.RowHeadersVisible = false;
             this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.listaMiscari.Size = new System.Drawing.Size(223, 156);
             this.listaMiscari.TabIndex = 20;
@@ -1705,6 +1705,7 @@
             this.textBox1.Location = new System.Drawing.Point(812, 460);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(259, 156);
             this.textBox1.TabIndex = 21;
             // 
@@ -1714,6 +1715,7 @@
             this.tbServerDate.Name = "tbServerDate";
             this.tbServerDate.Size = new System.Drawing.Size(259, 20);
             this.tbServerDate.TabIndex = 22;
+            this.tbServerDate.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.tbServerDate_PreviewKeyDown);
             // 
             // button1
             // 
@@ -1724,15 +1726,6 @@
             this.button1.Text = "Trimite";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(0, 267);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(15, 64);
-            this.button2.TabIndex = 25;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // pbPioniAlbiLuati
             // 
@@ -1955,9 +1948,9 @@
             // meniu1
             // 
             this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(620, 27);
+            this.meniu1.Location = new System.Drawing.Point(661, 31);
             this.meniu1.Name = "meniu1";
-            this.meniu1.Size = new System.Drawing.Size(1165, 695);
+            this.meniu1.Size = new System.Drawing.Size(1184, 695);
             this.meniu1.TabIndex = 24;
             this.meniu1.Load += new System.EventHandler(this.meniu1_Load_1);
             // 
@@ -1966,7 +1959,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1165, 834);
+            this.ClientSize = new System.Drawing.Size(1184, 836);
             this.Controls.Add(this.labelCRN);
             this.Controls.Add(this.labelCNN);
             this.Controls.Add(this.labelCountCN);
@@ -1988,7 +1981,6 @@
             this.Controls.Add(this.pbNebuniAlbiLuati);
             this.Controls.Add(this.pbReginaAlbaLuata);
             this.Controls.Add(this.pbPioniAlbiLuati);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.meniu1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbServerDate);
@@ -2253,8 +2245,6 @@
         private System.Windows.Forms.ToolStripMenuItem sunetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
-        public Meniu meniu1;
-        private System.Windows.Forms.Button button2;
         public PieseDeAles pieseDeAles1;
         private System.Windows.Forms.PictureBox pbPioniAlbiLuati;
         private System.Windows.Forms.PictureBox pbReginaAlbaLuata;
@@ -2277,6 +2267,7 @@
         private System.Windows.Forms.PictureBox pbNebuniNegriLuati;
         private System.Windows.Forms.PictureBox pbReginaNeagraLuata;
         private System.Windows.Forms.PictureBox pbPioniNegriLuati;
+        public Meniu meniu1;
     }
 }
 
