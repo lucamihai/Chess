@@ -38,7 +38,7 @@ namespace Chess_Application
         public int counterPioniNegri, counterTureNegre, counterCaiNegri, counterNebuniNegri, counterReginaNeagra;
         public int tempI, tempJ;
 
-        public static string username;
+        public static string username = "Server";
         public static string _username
         {
             get { return username; }
@@ -87,9 +87,10 @@ namespace Chess_Application
         bool workThread;
         public static NetworkStream streamServer;
         public static string usernameClient = "Client";
-       
+
 
         //----------------------------------------------------------------------------------------------------------------------
+        #region Retea
         public void Asculta_Server()
         {
             while (workThread)
@@ -103,64 +104,67 @@ namespace Chess_Application
                     {
                         string dateServer = citireServer.ReadLine();
                         if (dateServer == null) break;//primesc nimic - clientul a plecat
-                        if (dateServer == "#Gata") //ca sa pot sa inchid serverul
-                            workThread = false;
-                        if (dateServer.StartsWith("#") && dateServer.Length == 6)
+                        if (dateServer.StartsWith("#"))
                         {
-                            string[] coordonate = new string[2];
-                            coordonate = dateServer.Substring(1).Split();
-                            int o1 = System.Convert.ToInt32(coordonate[0][0]) - 64;
-                            int o2 = System.Convert.ToInt32(coordonate[0][1]) - 48;
-                            int d1 = System.Convert.ToInt32(coordonate[1][0]) - 64;
-                            int d2 = System.Convert.ToInt32(coordonate[1][1]) - 48;
-                            MethodInvoker mutare = new MethodInvoker(() => Muta(locatii[o1, o2], locatii[d1, d2]));
-                            serverForm.Invoke(mutare);
-                        }
-                        if (dateServer.StartsWith("#username"))
-                        {
-                            string[] aux = dateServer.Substring(1).Split();
-                            usernameClient = aux[1];
-                        }
-                        if (dateServer.StartsWith("#culori"))
-                        {
-                            string u = dateServer.Substring(8);
-                            string[] w = u.Split(' ');
-                            int r1 = Convert.ToInt32(w[0]);
-                            int r2 = Convert.ToInt32(w[1]);
-                            randMutare = (short)r1;
-                            randMutareClient = (short)r2;
-                            if (r1 == 1) rand = true;
-                            else rand = false;
-                        }
-                        if (dateServer.StartsWith("#request new game"))
-                        {
-                            incepeJocNou = true;
-                        }
-                        if (dateServer.StartsWith("#new game"))
-                        {
-                            NewGame();                           
-                        }
-                        if (dateServer == "#selectie") { adversarulSelecteaza = true; }
-                        if (dateServer == "#final selectie") { adversarulSelecteaza = false; }
-                        if (dateServer.StartsWith("#selectat"))
-                        {
-                            string[] detalii = dateServer.Substring(10).Split();
-                            foreach (string a in detalii) Console.WriteLine(a);
-                            tempI = Convert.ToInt32(detalii[0]);
-                            tempJ = Convert.ToInt32(detalii[1]);
-                            if (detalii[2][1] == 'A')
+                            if (dateServer == "#Gata") //ca sa pot sa inchid serverul
+                                workThread = false;
+                            if (dateServer.StartsWith("#") && dateServer.Length == 6)
                             {
-                                if (detalii[2][0] == 'T') { Transfera(tureAlbeLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTA.Text = (--counterTureAlbe).ToString()); Invoke(m); }
-                                if (detalii[2][0] == 'C') { Transfera(caiAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCA.Text = (--counterCaiAlbi).ToString()); Invoke(m); }
-                                if (detalii[2][0] == 'N') { Transfera(nebuniAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNA.Text = (--counterNebuniAlbi).ToString()); Invoke(m); }
-                                if (detalii[2][0] == 'R') { Transfera(reginaAlbaLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRA.Text = (--counterReginaAlba).ToString()); Invoke(m); }
+                                string[] coordonate = new string[2];
+                                coordonate = dateServer.Substring(1).Split();
+                                int o1 = System.Convert.ToInt32(coordonate[0][0]) - 64;
+                                int o2 = System.Convert.ToInt32(coordonate[0][1]) - 48;
+                                int d1 = System.Convert.ToInt32(coordonate[1][0]) - 64;
+                                int d2 = System.Convert.ToInt32(coordonate[1][1]) - 48;
+                                MethodInvoker mutare = new MethodInvoker(() => Muta(locatii[o1, o2], locatii[d1, d2]));
+                                serverForm.Invoke(mutare);
                             }
-                            if (detalii[2][1] == 'N')
+                            if (dateServer.StartsWith("#username"))
                             {
-                                if (detalii[2][0] == 'T') { Transfera(tureNegreLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTN.Text = (--counterTureNegre).ToString()); Invoke(m); }
-                                if (detalii[2][0] == 'C') { Transfera(caiNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCN.Text = (--counterCaiNegri).ToString()); Invoke(m); }
-                                if (detalii[2][0] == 'N') { Transfera(nebuniNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNN.Text = (--counterNebuniNegri).ToString()); Invoke(m); }
-                                if (detalii[2][0] == 'R') { Transfera(reginaNeagraLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRN.Text = (--counterReginaNeagra).ToString()); Invoke(m); }
+                                usernameClient = dateServer.Substring(9);
+                            }
+                            if (dateServer.StartsWith("#culori"))
+                            {
+                                string u = dateServer.Substring(8);
+                                string[] w = u.Split(' ');
+                                int r1 = Convert.ToInt32(w[0]);
+                                int r2 = Convert.ToInt32(w[1]);
+                                randMutare = (short)r1;
+                                randMutareClient = (short)r2;
+                                if (r1 == 1) rand = true;
+                                else rand = false;
+                            }
+                            if (dateServer.StartsWith("#request new game"))
+                            {
+                                incepeJocNou = true;
+                            }
+                            if (dateServer.StartsWith("#new game"))
+                            {
+                                MethodInvoker m = new MethodInvoker(() => NewGame());
+                                this.Invoke(m);
+                            }
+                            if (dateServer == "#selectie") { adversarulSelecteaza = true; }
+                            if (dateServer == "#final selectie") { adversarulSelecteaza = false; }
+                            if (dateServer.StartsWith("#selectat"))
+                            {
+                                string[] detalii = dateServer.Substring(10).Split();
+                                foreach (string a in detalii) Console.WriteLine(a);
+                                tempI = Convert.ToInt32(detalii[0]);
+                                tempJ = Convert.ToInt32(detalii[1]);
+                                if (detalii[2][1] == 'A')
+                                {
+                                    if (detalii[2][0] == 'T') { Transfera(tureAlbeLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTA.Text = (--counterTureAlbe).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'C') { Transfera(caiAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCA.Text = (--counterCaiAlbi).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'N') { Transfera(nebuniAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNA.Text = (--counterNebuniAlbi).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'R') { Transfera(reginaAlbaLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRA.Text = (--counterReginaAlba).ToString()); Invoke(m); }
+                                }
+                                if (detalii[2][1] == 'N')
+                                {
+                                    if (detalii[2][0] == 'T') { Transfera(tureNegreLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTN.Text = (--counterTureNegre).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'C') { Transfera(caiNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCN.Text = (--counterCaiNegri).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'N') { Transfera(nebuniNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNN.Text = (--counterNebuniNegri).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'R') { Transfera(reginaNeagraLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRN.Text = (--counterReginaNeagra).ToString()); Invoke(m); }
+                                }
                             }
                         }
                         else
@@ -230,6 +234,7 @@ namespace Chess_Application
             if (e.KeyCode == Keys.Enter && tbServerDate.Text!="")
                 btnSend_Click(this, new EventArgs());
         }
+#endregion
 
         private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -244,7 +249,16 @@ namespace Chess_Application
             activeazalToolStripMenuItem.Visible = true;
             dezactiveazalToolStripMenuItem.Visible = false;
         }
-        
+        #region Deplasare Piese
+        void Transfera(LocatieTabla origine, LocatieTabla destinatie)
+        {
+            destinatie.piesa = origine.piesa;
+            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
+            destinatie.tipPiesa = origine.tipPiesa;
+            destinatie.culoare = origine.culoare;
+            Console.WriteLine("s-a efectuat transferul");
+        }
+
         void Muta(LocatieTabla origine, LocatieTabla destinatie)
         {
             if (destinatie.piesa != null)
@@ -300,29 +314,25 @@ namespace Chess_Application
             rand = true;
             if (randMutareClient == 2) randMutare = 1;
             else randMutare = 2;
+            if (randMutare == 1) labelRand.Text = "randul pieselor albe";
+            else labelRand.Text = "randul pieselor negre";
             if (sunet) sunetMutare2.Play();
-            MatAlb();
+            if (MatAlb())
+            {
+                textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
+                MethodInvoker m = new MethodInvoker(() => NewGame());
+                this.Invoke(m);
+                transmiteMesaj("#new game");
+            }
+            if (MatNegru())
+            {
+                textBox1.AppendText("a castigat albul"); System.Threading.Thread.Sleep(2000);
+                MethodInvoker m = new MethodInvoker(() => NewGame());
+                this.Invoke(m);
+                transmiteMesaj("#new game");
+            }
         }
-        void Transfera(LocatieTabla origine, LocatieTabla destinatie)
-        {           
-            destinatie.piesa = origine.piesa;
-            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
-            destinatie.tipPiesa = origine.tipPiesa;
-            destinatie.culoare = origine.culoare;
-            Console.WriteLine("s-a efectuat transferul");
-        }
-        void PreluarePiesa(LocatieTabla origine, LocatieTabla destinatie)
-        {
-            destinatie.piesa = origine.piesa;
-            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
-            destinatie.tipPiesa = origine.tipPiesa;
-            destinatie.culoare = origine.culoare;
-            origine.culoare = 0;
-            origine.tipPiesa = 0;
-            origine.piesa = null;
-            origine.StergeLocatie();
-            Console.WriteLine("am preluat piesa");
-        }
+
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
         {
             if (destinatie.piesa != null)
@@ -404,9 +414,25 @@ namespace Chess_Application
             clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
             rand = false;
             randMutare = randMutareClient;
+            if (randMutare == 1) labelRand.Text = "randul pieselor albe";
+            else labelRand.Text = "randul pieselor negre";
             if (sunet) sunetMutare1.Play();
-            MatAlb();
+            if (MatAlb())
+            {
+                textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
+                NewGame();
+                transmiteMesaj("#new game");
+            }
+            if (MatNegru())
+            {
+                textBox1.AppendText("a castigat albul"); System.Threading.Thread.Sleep(2000);
+                MethodInvoker m = new MethodInvoker(() => NewGame());
+                this.Invoke(m);
+                transmiteMesaj("#new game");
+            }
+
         }
+#endregion
 
         private void meniu1_Load_1(object sender, EventArgs e)
         {
@@ -473,17 +499,14 @@ namespace Chess_Application
         {
             if (!incepeJocNou)
             {
-                mesajDeTransmis = "#request new game";
-                transmiteMesaj();
-                mesajDeTransmis = username + " doreste sa inceapa un joc nou. Daca esti de acord, File->New Game.";
-                transmiteMesaj();
+                transmiteMesaj("#request new game");
+                transmiteMesaj(username + " doreste sa inceapa un joc nou. Daca esti de acord, File->New Game.");
             }
             else
             {
                 NewGame();
                 incepeJocNou = false;
-                mesajDeTransmis = "#new game";
-                transmiteMesaj();
+                transmiteMesaj("#new game");
             } 
 
         }
@@ -557,7 +580,7 @@ namespace Chess_Application
             {
                 for (int j=1; j<=8; j++)
                 {
-                    if (locatii[i, j].culoare == 1)
+                    if (locatii[i, j].culoare == 1 && locatii[i, j].piesa != null)
                     {
                         locatii[i, j].piesa.VerificaPosibilitati(i, j, locatii);
                         if (locatii[i, j].poateFaceMiscari == true)
@@ -565,12 +588,37 @@ namespace Chess_Application
                             RestoreCulori(locatii);
                             locatii[i, j].poateFaceMiscari = false;
                             Console.WriteLine("Albu' nu-i in mat (so far)");
+                            textBox1.AppendText(LocatieTabla.count+". piesa de pe pozitia " + i + " " + j + " poate face miscari..." + Environment.NewLine);
+                            textBox1.AppendText("pe acea pozitie se afla " + locatii[i, j].tipPiesa + " de culoarea " + locatii[i, j].culoare + Environment.NewLine);
                             return false;
                         }
                     }
                 }
             }
-            Console.WriteLine("Albu-i in mat...");
+            tbServerDate.Text+=(LocatieTabla.count+". Albu-i in mat...");
+            return true;
+        }
+        bool MatNegru()
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    if (locatii[i, j].culoare == 2 && locatii[i, j].piesa != null)
+                    {
+                        locatii[i, j].piesa.VerificaPosibilitati(i, j, locatii);
+                        if (locatii[i, j].poateFaceMiscari == true)
+                        {
+                            RestoreCulori(locatii);
+                            locatii[i, j].poateFaceMiscari = false;
+                            Console.WriteLine("Negru' nu-i in mat (so far)");
+                            Console.WriteLine("piesa de pe pozitia " + i + " " + j + " poate face miscari...");
+                            return false;
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Negru-i in mat...");
             return true;
         }
 
@@ -578,7 +626,6 @@ namespace Chess_Application
         public Form1()
         {
             InitializeComponent();
-            //pieseDeAles1.setare(piesaAleasa);
             server = new TcpListener(System.Net.IPAddress.Any, 3000);
             server.Start();
             t = new Thread(new ThreadStart(Asculta_Server));
@@ -612,7 +659,6 @@ namespace Chess_Application
             pion3Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             pion5Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
             pion7Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            //t1 = new Tura(1, pbTuraAlb, pbTuraAlbMic);
             //=====
             tura1Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
             cal1Negru = new Cal(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
@@ -686,9 +732,6 @@ namespace Chess_Application
             }
             randMutare++;
             if (randMutare > 2) randMutare = 1;
-            if (randMutare == 1) labelRandMutare.Text = "Randul pieselor albe";
-            if (randMutare == 2) labelRandMutare.Text = "Randul pieselor negre";
-
         }
         public void Rearanjare(LocatieTabla[,] loc)
         {
@@ -706,7 +749,7 @@ namespace Chess_Application
             Rearanjare(loc); clickCounter = 100; RestoreCulori(loc);
         }
 
-        #region selectarePiese
+        #region Piese luate
         private void pbPioniAlbiLuati_Click(object sender, EventArgs e)
         {
 
@@ -806,7 +849,9 @@ namespace Chess_Application
                 transmiteMesaj("#final selectie");
             }
         }
-#endregion
+        #endregion
+
+        #region Click casute
         private void _1A_Click(object sender, EventArgs e)
         {
             if (trebuieSaSelectezi || adversarulSelecteaza) return;
@@ -2214,5 +2259,6 @@ namespace Chess_Application
                 Muta(orig, H8, mesajDeTransmis);
             }
         }
+#endregion
     }
 }

@@ -181,6 +181,8 @@
             this.pbNebuniNegriLuati = new System.Windows.Forms.PictureBox();
             this.pbReginaNeagraLuata = new System.Windows.Forms.PictureBox();
             this.pbPioniNegriLuati = new System.Windows.Forms.PictureBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.labelRand = new System.Windows.Forms.Label();
             this.meniu1 = new Chess_Application.Meniu();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
@@ -1637,7 +1639,7 @@
             // 
             this.labelRandMutare.AutoSize = true;
             this.labelRandMutare.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.labelRandMutare.Location = new System.Drawing.Point(385, 36);
+            this.labelRandMutare.Location = new System.Drawing.Point(427, 35);
             this.labelRandMutare.Name = "labelRandMutare";
             this.labelRandMutare.Size = new System.Drawing.Size(111, 16);
             this.labelRandMutare.TabIndex = 16;
@@ -1945,21 +1947,42 @@
             this.pbPioniNegriLuati.TabIndex = 37;
             this.pbPioniNegriLuati.TabStop = false;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(461, 838);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(66, 13);
+            this.label18.TabIndex = 48;
+            this.label18.Text = "Spoils o\' war";
+            // 
+            // labelRand
+            // 
+            this.labelRand.AutoSize = true;
+            this.labelRand.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.labelRand.Location = new System.Drawing.Point(864, 383);
+            this.labelRand.Name = "labelRand";
+            this.labelRand.Size = new System.Drawing.Size(131, 19);
+            this.labelRand.TabIndex = 49;
+            this.labelRand.Text = "Randul pieselor albe";
+            // 
             // meniu1
             // 
             this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(661, 31);
+            this.meniu1.Location = new System.Drawing.Point(0, -1);
             this.meniu1.Name = "meniu1";
-            this.meniu1.Size = new System.Drawing.Size(1184, 695);
-            this.meniu1.TabIndex = 24;
-            this.meniu1.Load += new System.EventHandler(this.meniu1_Load_1);
+            this.meniu1.Size = new System.Drawing.Size(1184, 866);
+            this.meniu1.TabIndex = 49;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1184, 836);
+            this.ClientSize = new System.Drawing.Size(1184, 860);
+            this.Controls.Add(this.meniu1);
+            this.Controls.Add(this.labelRand);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.labelCRN);
             this.Controls.Add(this.labelCNN);
             this.Controls.Add(this.labelCountCN);
@@ -1981,7 +2004,6 @@
             this.Controls.Add(this.pbNebuniAlbiLuati);
             this.Controls.Add(this.pbReginaAlbaLuata);
             this.Controls.Add(this.pbPioniAlbiLuati);
-            this.Controls.Add(this.meniu1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
@@ -2245,7 +2267,6 @@
         private System.Windows.Forms.ToolStripMenuItem sunetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
-        public PieseDeAles pieseDeAles1;
         private System.Windows.Forms.PictureBox pbPioniAlbiLuati;
         private System.Windows.Forms.PictureBox pbReginaAlbaLuata;
         private System.Windows.Forms.PictureBox pbNebuniAlbiLuati;
@@ -2267,7 +2288,9 @@
         private System.Windows.Forms.PictureBox pbNebuniNegriLuati;
         private System.Windows.Forms.PictureBox pbReginaNeagraLuata;
         private System.Windows.Forms.PictureBox pbPioniNegriLuati;
-        public Meniu meniu1;
+        private System.Windows.Forms.Label label18;
+        private Meniu meniu1;
+        public System.Windows.Forms.Label labelRand;
     }
 }
 

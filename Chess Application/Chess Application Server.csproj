@@ -22,6 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Capture.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -70,12 +75,6 @@
     <Compile Include="Optiuni.Designer.cs">
       <DependentUpon>Optiuni.cs</DependentUpon>
     </Compile>
-    <Compile Include="PieseDeAles.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PieseDeAles.Designer.cs">
-      <DependentUpon>PieseDeAles.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clase\Rege.cs" />
@@ -90,9 +89,6 @@
     <EmbeddedResource Include="Optiuni.resx">
       <DependentUpon>Optiuni.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PieseDeAles.resx">
-      <DependentUpon>PieseDeAles.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -103,6 +99,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,6 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\mutare2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Capture.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

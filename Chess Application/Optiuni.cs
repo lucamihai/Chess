@@ -13,6 +13,7 @@ namespace Chess_Application
     
     public partial class Optiuni : UserControl
     {
+        Form1 f;
         public System.Delegate _SchimbareUsername;
         public Delegate apeleaza
         {
@@ -20,8 +21,7 @@ namespace Chess_Application
         }
         public Optiuni()
         {
-            InitializeComponent();
-            //this.Hide();
+            InitializeComponent();           
         }
 
         private void checkBoxWhite_CheckedChanged(object sender, EventArgs e)
@@ -41,22 +41,20 @@ namespace Chess_Application
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (textBoxUsername.Text != null && !textBoxUsername.Text.EndsWith(" "))
-            {
+            if (textBoxUsername.Text != "" && !textBoxUsername.Text.EndsWith(" "))
+            {               
                 Form1._username = textBoxUsername.Text;
-                //object[] obj = new object[1];
-                //obj[0] = textBoxUsername.Text as object;
-                //_SchimbareUsername.DynamicInvoke(obj);
-                //MethodInvoker m = new MethodInvoker(() => Form1.serverForm.textBox1.Text += (usernameClient + ": " + dateServer + Environment.NewLine));
-                labelError.Text = "";
+                labelError.Text = "";          
                 this.Hide();
             }
-            else labelError.Text = "Format username inacceptabil";
-            if (checkBoxWhite.Checked == true)
-            {
-                Form1._culoriUseri = "1 2";
-            }
+            else labelError.Text = "Format username inacceptabil";          
+            if (checkBoxWhite.Checked == true) Form1._culoriUseri = "1 2";
             else Form1._culoriUseri = "2 1";
+        }
+
+        private void textBoxUsername_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
