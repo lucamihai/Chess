@@ -22,6 +22,13 @@ namespace Chess_Application
         }
         public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
         {
+            for (int m = 1; m <= 8; m++)
+            {
+                for (int n = 1; m <= 8; m++)
+                {
+                    loc[m, n].sePoate = false;
+                }
+            }
             //miscarea reginei este obtinuta din miscarea nebunului combinata cu miscarea turei
             for (int k = j; k >= 1; k--)
             {

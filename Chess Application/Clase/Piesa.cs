@@ -44,7 +44,7 @@ namespace Chess_Application
             int tempCuloare;
             if (Form1.randMutare == 1)
             {
-                i = Form1.pozitieRegeAlb.X; j = Form1.pozitieRegeAlb.Y;
+                i = Form1.pozitieRegeAlb.X; j = Form1.pozitieRegeAlb.Y;               
                 if (loc[i + 1, j - 1] != null)
                 {
                     loc[i, j].culoare = 0;

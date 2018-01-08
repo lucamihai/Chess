@@ -143,7 +143,7 @@ namespace Chess_Application
                                 MethodInvoker m = new MethodInvoker(() => NewGame());
                                 this.Invoke(m);
                             }
-                            if (dateServer == "#selectie") { adversarulSelecteaza = true; }
+                            if (dateServer == "#selectie") { adversarulSelecteaza = true; MethodInvoker m = new MethodInvoker(() => textBox1.AppendText(usernameClient + " are de selectat o piesa din regiunea Spoils o' war"+Environment.NewLine)); Invoke(m); }
                             if (dateServer == "#final selectie") { adversarulSelecteaza = false; }
                             if (dateServer.StartsWith("#selectat"))
                             {
@@ -257,6 +257,7 @@ namespace Chess_Application
             destinatie.tipPiesa = origine.tipPiesa;
             destinatie.culoare = origine.culoare;
             Console.WriteLine("s-a efectuat transferul");
+            textBox1.AppendText("O piesa a fost selectata" + Environment.NewLine);
         }
 
         void Muta(LocatieTabla origine, LocatieTabla destinatie)
@@ -332,6 +333,7 @@ namespace Chess_Application
                 this.Invoke(m);
                 transmiteMesaj("#new game");
             }
+            R(locatii);
         }
 
         void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
@@ -393,6 +395,7 @@ namespace Chess_Application
                         tempJ = destinatie.nume[1] - 48;
                         trebuieSaSelectezi = true;
                         transmiteMesaj("#selectie");
+                        textBox1.AppendText(username + " are de selectat o piesa din regiunea Spoils o' war"+Environment.NewLine);
                     }
                 }
             }
@@ -407,6 +410,7 @@ namespace Chess_Application
                         tempJ = destinatie.nume[1] - 48;
                         trebuieSaSelectezi = true;
                         transmiteMesaj("#selectie");
+                        textBox1.AppendText(username + " are de selectat o piesa din regiunea Spoils o' war"+Environment.NewLine);
                     }
                 }
             }
@@ -432,7 +436,7 @@ namespace Chess_Application
                 this.Invoke(m);
                 transmiteMesaj("#new game");
             }
-
+            R(locatii);
         }
 #endregion
 
@@ -562,7 +566,8 @@ namespace Chess_Application
             listaMiscari.Rows.Clear();
             RestoreCulori(locatii);
             clickCounter = 0;
-            randMutare = 1;
+            if (randMutareClient == 2) { randMutare = 1; rand = true; }
+            else { randMutare = 2; rand = false; }
             labelRandMutare.Text = "Piesele albe incep!";
             LocatieTabla.count = 0;
             pozitieRegeAlb.X = 1;
@@ -574,7 +579,12 @@ namespace Chess_Application
             labelCountCA.Text = 0.ToString();   labelCountCN.Text = 0.ToString();
             labelCNA.Text = 0.ToString();       labelCNN.Text = 0.ToString();
             labelCRA.Text = 0.ToString();       labelCRN.Text = 0.ToString();
-            R(locatii);
+            counterPioniAlbi = 0;   counterPioniNegri = 0;
+            counterTureAlbe = 0;    counterTureNegre = 0;
+            counterCaiAlbi = 0;     counterCaiNegri = 0;
+            counterNebuniAlbi = 0;  counterNebuniNegri = 0;
+            counterReginaAlba = 0;  counterReginaNeagra = 0;
+            R(locatii);           
         }
 
         bool MatAlb()
