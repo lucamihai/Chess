@@ -97,7 +97,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newGameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.quitGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,11 +165,6 @@
             this.pbCaiAlbiLuati = new System.Windows.Forms.PictureBox();
             this.pbTureAlbeLuate = new System.Windows.Forms.PictureBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.labelCPA = new System.Windows.Forms.Label();
-            this.labelCTA = new System.Windows.Forms.Label();
-            this.labelCountCA = new System.Windows.Forms.Label();
-            this.labelCNA = new System.Windows.Forms.Label();
-            this.labelCRA = new System.Windows.Forms.Label();
             this.labelCRN = new System.Windows.Forms.Label();
             this.labelCNN = new System.Windows.Forms.Label();
             this.labelCountCN = new System.Windows.Forms.Label();
@@ -183,6 +177,12 @@
             this.pbPioniNegriLuati = new System.Windows.Forms.PictureBox();
             this.label18 = new System.Windows.Forms.Label();
             this.labelRand = new System.Windows.Forms.Label();
+            this.labelCPA = new System.Windows.Forms.Label();
+            this.labelCTA = new System.Windows.Forms.Label();
+            this.labelCountCA = new System.Windows.Forms.Label();
+            this.labelCNA = new System.Windows.Forms.Label();
+            this.labelCRA = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.meniu1 = new Chess_Application.Meniu();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
@@ -1082,7 +1082,6 @@
             // 
             this.newGameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newGameToolStripMenuItem1,
-            this.quitGameToolStripMenuItem,
             this.quitApplicationToolStripMenuItem});
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             this.newGameToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -1092,21 +1091,14 @@
             // newGameToolStripMenuItem1
             // 
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
-            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(175, 22);
+            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
             this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem1_Click);
-            // 
-            // quitGameToolStripMenuItem
-            // 
-            this.quitGameToolStripMenuItem.Name = "quitGameToolStripMenuItem";
-            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.quitGameToolStripMenuItem.Text = "Quit to main menu";
-            this.quitGameToolStripMenuItem.Click += new System.EventHandler(this.quitGameToolStripMenuItem_Click);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
-            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
             this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.quitApplicationToolStripMenuItem_Click);
             // 
@@ -1661,7 +1653,7 @@
             this.listaMiscari.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.listaMiscari.RowHeadersVisible = false;
             this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listaMiscari.Size = new System.Drawing.Size(223, 156);
+            this.listaMiscari.Size = new System.Drawing.Size(183, 156);
             this.listaMiscari.TabIndex = 20;
             // 
             // counter
@@ -1793,60 +1785,10 @@
             this.label17.TabIndex = 31;
             this.label17.Text = "Spoils o\' war";
             // 
-            // labelCPA
-            // 
-            this.labelCPA.AutoSize = true;
-            this.labelCPA.Location = new System.Drawing.Point(345, 145);
-            this.labelCPA.Name = "labelCPA";
-            this.labelCPA.Size = new System.Drawing.Size(41, 13);
-            this.labelCPA.TabIndex = 32;
-            this.labelCPA.Text = "label18";
-            this.labelCPA.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelCTA
-            // 
-            this.labelCTA.AutoSize = true;
-            this.labelCTA.Location = new System.Drawing.Point(411, 145);
-            this.labelCTA.Name = "labelCTA";
-            this.labelCTA.Size = new System.Drawing.Size(41, 13);
-            this.labelCTA.TabIndex = 33;
-            this.labelCTA.Text = "label19";
-            this.labelCTA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCountCA
-            // 
-            this.labelCountCA.AutoSize = true;
-            this.labelCountCA.Location = new System.Drawing.Point(474, 145);
-            this.labelCountCA.Name = "labelCountCA";
-            this.labelCountCA.Size = new System.Drawing.Size(41, 13);
-            this.labelCountCA.TabIndex = 34;
-            this.labelCountCA.Text = "label20";
-            this.labelCountCA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCNA
-            // 
-            this.labelCNA.AutoSize = true;
-            this.labelCNA.Location = new System.Drawing.Point(541, 145);
-            this.labelCNA.Name = "labelCNA";
-            this.labelCNA.Size = new System.Drawing.Size(41, 13);
-            this.labelCNA.TabIndex = 35;
-            this.labelCNA.Text = "label21";
-            this.labelCNA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCRA
-            // 
-            this.labelCRA.AutoSize = true;
-            this.labelCRA.Location = new System.Drawing.Point(603, 145);
-            this.labelCRA.Name = "labelCRA";
-            this.labelCRA.Size = new System.Drawing.Size(41, 13);
-            this.labelCRA.TabIndex = 36;
-            this.labelCRA.Text = "label22";
-            this.labelCRA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelCRN
             // 
             this.labelCRN.AutoSize = true;
-            this.labelCRN.Location = new System.Drawing.Point(603, 811);
+            this.labelCRN.Location = new System.Drawing.Point(616, 811);
             this.labelCRN.Name = "labelCRN";
             this.labelCRN.Size = new System.Drawing.Size(41, 13);
             this.labelCRN.TabIndex = 46;
@@ -1856,7 +1798,7 @@
             // labelCNN
             // 
             this.labelCNN.AutoSize = true;
-            this.labelCNN.Location = new System.Drawing.Point(541, 811);
+            this.labelCNN.Location = new System.Drawing.Point(554, 811);
             this.labelCNN.Name = "labelCNN";
             this.labelCNN.Size = new System.Drawing.Size(41, 13);
             this.labelCNN.TabIndex = 45;
@@ -1866,7 +1808,7 @@
             // labelCountCN
             // 
             this.labelCountCN.AutoSize = true;
-            this.labelCountCN.Location = new System.Drawing.Point(474, 811);
+            this.labelCountCN.Location = new System.Drawing.Point(489, 811);
             this.labelCountCN.Name = "labelCountCN";
             this.labelCountCN.Size = new System.Drawing.Size(41, 13);
             this.labelCountCN.TabIndex = 44;
@@ -1876,7 +1818,7 @@
             // labelCTN
             // 
             this.labelCTN.AutoSize = true;
-            this.labelCTN.Location = new System.Drawing.Point(411, 811);
+            this.labelCTN.Location = new System.Drawing.Point(426, 811);
             this.labelCTN.Name = "labelCTN";
             this.labelCTN.Size = new System.Drawing.Size(41, 13);
             this.labelCTN.TabIndex = 43;
@@ -1886,7 +1828,7 @@
             // labelCPN
             // 
             this.labelCPN.AutoSize = true;
-            this.labelCPN.Location = new System.Drawing.Point(345, 811);
+            this.labelCPN.Location = new System.Drawing.Point(360, 811);
             this.labelCPN.Name = "labelCPN";
             this.labelCPN.Size = new System.Drawing.Size(41, 13);
             this.labelCPN.TabIndex = 42;
@@ -1966,13 +1908,73 @@
             this.labelRand.TabIndex = 49;
             this.labelRand.Text = "Randul pieselor albe";
             // 
+            // labelCPA
+            // 
+            this.labelCPA.AutoSize = true;
+            this.labelCPA.Location = new System.Drawing.Point(361, 145);
+            this.labelCPA.Name = "labelCPA";
+            this.labelCPA.Size = new System.Drawing.Size(41, 13);
+            this.labelCPA.TabIndex = 32;
+            this.labelCPA.Text = "label18";
+            this.labelCPA.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelCTA
+            // 
+            this.labelCTA.AutoSize = true;
+            this.labelCTA.Location = new System.Drawing.Point(424, 145);
+            this.labelCTA.Name = "labelCTA";
+            this.labelCTA.Size = new System.Drawing.Size(41, 13);
+            this.labelCTA.TabIndex = 33;
+            this.labelCTA.Text = "label19";
+            this.labelCTA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCountCA
+            // 
+            this.labelCountCA.AutoSize = true;
+            this.labelCountCA.Location = new System.Drawing.Point(486, 145);
+            this.labelCountCA.Name = "labelCountCA";
+            this.labelCountCA.Size = new System.Drawing.Size(41, 13);
+            this.labelCountCA.TabIndex = 34;
+            this.labelCountCA.Text = "label20";
+            this.labelCountCA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCNA
+            // 
+            this.labelCNA.AutoSize = true;
+            this.labelCNA.Location = new System.Drawing.Point(553, 145);
+            this.labelCNA.Name = "labelCNA";
+            this.labelCNA.Size = new System.Drawing.Size(41, 13);
+            this.labelCNA.TabIndex = 35;
+            this.labelCNA.Text = "label21";
+            this.labelCNA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCRA
+            // 
+            this.labelCRA.AutoSize = true;
+            this.labelCRA.Location = new System.Drawing.Point(616, 145);
+            this.labelCRA.Name = "labelCRA";
+            this.labelCRA.Size = new System.Drawing.Size(41, 13);
+            this.labelCRA.TabIndex = 36;
+            this.labelCRA.Text = "label22";
+            this.labelCRA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.label19.Location = new System.Drawing.Point(853, 145);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(90, 16);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "Istoric miscari";
+            // 
             // meniu1
             // 
             this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(0, -1);
+            this.meniu1.Location = new System.Drawing.Point(0, 0);
             this.meniu1.Name = "meniu1";
             this.meniu1.Size = new System.Drawing.Size(1184, 866);
-            this.meniu1.TabIndex = 49;
+            this.meniu1.TabIndex = 51;
             // 
             // Form1
             // 
@@ -1981,6 +1983,7 @@
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 860);
             this.Controls.Add(this.meniu1);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.labelRand);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.labelCRN);
@@ -2015,9 +2018,10 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Sah";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);
@@ -2202,7 +2206,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem quitGameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitApplicationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip2;
@@ -2273,11 +2276,6 @@
         private System.Windows.Forms.PictureBox pbCaiAlbiLuati;
         private System.Windows.Forms.PictureBox pbTureAlbeLuate;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label labelCPA;
-        private System.Windows.Forms.Label labelCTA;
-        private System.Windows.Forms.Label labelCountCA;
-        private System.Windows.Forms.Label labelCNA;
-        private System.Windows.Forms.Label labelCRA;
         private System.Windows.Forms.Label labelCRN;
         private System.Windows.Forms.Label labelCNN;
         private System.Windows.Forms.Label labelCountCN;
@@ -2289,8 +2287,14 @@
         private System.Windows.Forms.PictureBox pbReginaNeagraLuata;
         private System.Windows.Forms.PictureBox pbPioniNegriLuati;
         private System.Windows.Forms.Label label18;
-        private Meniu meniu1;
         public System.Windows.Forms.Label labelRand;
+        private System.Windows.Forms.Label labelCPA;
+        private System.Windows.Forms.Label labelCTA;
+        private System.Windows.Forms.Label labelCountCA;
+        private System.Windows.Forms.Label labelCNA;
+        private System.Windows.Forms.Label labelCRA;
+        private System.Windows.Forms.Label label19;
+        private Meniu meniu1;
     }
 }
 

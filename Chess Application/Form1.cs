@@ -189,7 +189,7 @@ namespace Chess_Application
             StreamWriter scriere = new StreamWriter(streamServer);
             scriere.AutoFlush = true; // enable automatic flushing
             if (!mesajDeTransmis.StartsWith("#"))
-                textBox1.Text += username + ":    " + mesajDeTransmis + Environment.NewLine;
+                textBox1.AppendText(username + ":    " + mesajDeTransmis + Environment.NewLine);
             scriere.WriteLine(mesajDeTransmis);
         }
         void transmiteMesaj(string a)
@@ -197,7 +197,7 @@ namespace Chess_Application
             StreamWriter scriere = new StreamWriter(streamServer);
             scriere.AutoFlush = true; // enable automatic flushing
             if (!a.StartsWith("#"))
-                textBox1.Text += username + ":    " + a + Environment.NewLine;
+                textBox1.AppendText(username + ":    " + a + Environment.NewLine);
             scriere.WriteLine(a);
         }
         public static void SetareUsername(string u)
@@ -317,6 +317,7 @@ namespace Chess_Application
             if (randMutare == 1) labelRand.Text = "randul pieselor albe";
             else labelRand.Text = "randul pieselor negre";
             if (sunet) sunetMutare2.Play();
+            System.Threading.Thread.Sleep(1);
             if (MatAlb())
             {
                 textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
@@ -417,6 +418,7 @@ namespace Chess_Application
             if (randMutare == 1) labelRand.Text = "randul pieselor albe";
             else labelRand.Text = "randul pieselor negre";
             if (sunet) sunetMutare1.Play();
+            System.Threading.Thread.Sleep(1);
             if (MatAlb())
             {
                 textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
@@ -500,7 +502,7 @@ namespace Chess_Application
             if (!incepeJocNou)
             {
                 transmiteMesaj("#request new game");
-                transmiteMesaj(username + " doreste sa inceapa un joc nou. Daca esti de acord, File->New Game.");
+                transmiteMesaj(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
             }
             else
             {
@@ -572,6 +574,7 @@ namespace Chess_Application
             labelCountCA.Text = 0.ToString();   labelCountCN.Text = 0.ToString();
             labelCNA.Text = 0.ToString();       labelCNN.Text = 0.ToString();
             labelCRA.Text = 0.ToString();       labelCRN.Text = 0.ToString();
+            R(locatii);
         }
 
         bool MatAlb()
@@ -586,16 +589,13 @@ namespace Chess_Application
                         if (locatii[i, j].poateFaceMiscari == true)
                         {
                             RestoreCulori(locatii);
-                            locatii[i, j].poateFaceMiscari = false;
-                            Console.WriteLine("Albu' nu-i in mat (so far)");
-                            textBox1.AppendText(LocatieTabla.count+". piesa de pe pozitia " + i + " " + j + " poate face miscari..." + Environment.NewLine);
-                            textBox1.AppendText("pe acea pozitie se afla " + locatii[i, j].tipPiesa + " de culoarea " + locatii[i, j].culoare + Environment.NewLine);
+                            locatii[i, j].poateFaceMiscari = false;                           
                             return false;
                         }
                     }
                 }
             }
-            tbServerDate.Text+=(LocatieTabla.count+". Albu-i in mat...");
+            textBox1.AppendText("Albu-i in mat..." + Environment.NewLine);
             return true;
         }
         bool MatNegru()
@@ -610,15 +610,13 @@ namespace Chess_Application
                         if (locatii[i, j].poateFaceMiscari == true)
                         {
                             RestoreCulori(locatii);
-                            locatii[i, j].poateFaceMiscari = false;
-                            Console.WriteLine("Negru' nu-i in mat (so far)");
-                            Console.WriteLine("piesa de pe pozitia " + i + " " + j + " poate face miscari...");
+                            locatii[i, j].poateFaceMiscari = false;                           
                             return false;
                         }
                     }
                 }
             }
-            Console.WriteLine("Negru-i in mat...");
+            textBox1.AppendText("Negru-i in mat..." + Environment.NewLine);
             return true;
         }
 
@@ -732,6 +730,16 @@ namespace Chess_Application
             }
             randMutare++;
             if (randMutare > 2) randMutare = 1;
+        }
+        public void R(LocatieTabla[,] loc)
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    loc[i, j].sePoate = false;
+                }
+            }           
         }
         public void Rearanjare(LocatieTabla[,] loc)
         {
