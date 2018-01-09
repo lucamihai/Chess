@@ -56,6 +56,7 @@ namespace Chess_Application
                         if (loc[i + 1, j - 1].culoare != 1) { loc[i + 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i + 1, j - 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i + 1, j + 1] != null)
                 {
@@ -68,6 +69,7 @@ namespace Chess_Application
                         if (loc[i + 1, j + 1].culoare != 1) { loc[i + 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i + 1, j + 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i + 1, j] != null)
                 {
@@ -80,6 +82,7 @@ namespace Chess_Application
                         if (loc[i + 1, j].culoare != 1) { loc[i + 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i + 1, j].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i, j - 1] != null)
                 {
@@ -92,6 +95,7 @@ namespace Chess_Application
                         if (loc[i, j - 1].culoare != 1) { loc[i, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i, j - 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i, j + 1] != null)
                 {
@@ -104,6 +108,7 @@ namespace Chess_Application
                         if (loc[i, j + 1].culoare != 1) { loc[i, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i, j + 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i - 1, j - 1] != null)
                 {
@@ -116,6 +121,7 @@ namespace Chess_Application
                         if (loc[i - 1, j - 1].culoare != 1) { loc[i - 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i - 1, j - 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i - 1, j] != null)
                 {
@@ -128,6 +134,7 @@ namespace Chess_Application
                         if (loc[i - 1, j].culoare != 1) { loc[i - 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i - 1, j].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 if (loc[i - 1, j + 1] != null)
                 {
@@ -140,6 +147,7 @@ namespace Chess_Application
                         if (loc[i - 1, j + 1].culoare != 1) { loc[i - 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i - 1, j + 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 1;
                 }
                 loc[i, j].culoare = 1;
             }
@@ -157,6 +165,7 @@ namespace Chess_Application
                         if (loc[i + 1, j - 1].culoare != 2) { loc[i + 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i + 1, j - 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i + 1, j + 1] != null)
                 {
@@ -169,6 +178,7 @@ namespace Chess_Application
                         if (loc[i + 1, j + 1].culoare != 2) { loc[i + 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i + 1, j + 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i + 1, j] != null)
                 {
@@ -181,6 +191,7 @@ namespace Chess_Application
                         if (loc[i + 1, j].culoare != 2) { loc[i + 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i + 1, j].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i, j - 1] != null)
                 {
@@ -193,6 +204,7 @@ namespace Chess_Application
                         if (loc[i, j - 1].culoare != 2) { loc[i, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i, j - 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i, j + 1] != null)
                 {
@@ -205,6 +217,7 @@ namespace Chess_Application
                         if (loc[i, j + 1].culoare != 2) { loc[i, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i, j + 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i - 1, j - 1] != null)
                 {
@@ -217,6 +230,7 @@ namespace Chess_Application
                         if (loc[i - 1, j - 1].culoare != 2) { loc[i - 1, j - 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i - 1, j - 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i - 1, j] != null)
                 {
@@ -229,6 +243,7 @@ namespace Chess_Application
                         if (loc[i - 1, j].culoare != 2) { loc[i - 1, j].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i - 1, j].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 if (loc[i - 1, j + 1] != null)
                 {
@@ -241,10 +256,10 @@ namespace Chess_Application
                         if (loc[i - 1, j + 1].culoare != 2) { loc[i - 1, j + 1].Marcheaza(); loc[i, j].poateFaceMiscari = true; }
                     }
                     loc[i - 1, j + 1].culoare = tempCuloare;
+                    loc[i, j].culoare = 2;
                 }
                 loc[i, j].culoare = 2;
             }
-            
         }
         public bool Sah(LocatieTabla[,] loc, int i, int j)
         {
@@ -417,7 +432,7 @@ namespace Chess_Application
                 //========== nebun / regina ========
                 for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4)) 
                     {
                         Console.WriteLine("sah la verificare in diagonala stanga jos");
                         return true;
@@ -426,7 +441,7 @@ namespace Chess_Application
                 }
                 for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala dreapta sus");
                         return true;
@@ -435,7 +450,7 @@ namespace Chess_Application
                 }
                 for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala stanga sus");
                         return true;
@@ -444,7 +459,7 @@ namespace Chess_Application
                 }
                 for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 2 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala dreapta jos");
                         return true;
@@ -623,7 +638,7 @@ namespace Chess_Application
                 //========== nebun / regina ========
                 for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala stanga jos");
                         return true;
@@ -632,7 +647,7 @@ namespace Chess_Application
                 }
                 for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala dreapta sus");
                         return true;
@@ -641,7 +656,7 @@ namespace Chess_Application
                 }
                 for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala stanga sus");
                         return true;
@@ -650,7 +665,7 @@ namespace Chess_Application
                 }
                 for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
                 {
-                    if (loc[i, j].culoare != loc[l, c].culoare && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
+                    if (loc[l, c].culoare == 1 && (loc[l, c].tipPiesa == 5 || loc[l, c].tipPiesa == 4))
                     {
                         Console.WriteLine("sah la verificare in diagonala dreapta jos");
                         return true;

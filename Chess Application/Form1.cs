@@ -568,7 +568,7 @@ namespace Chess_Application
             clickCounter = 0;
             if (randMutareClient == 2) { randMutare = 1; rand = true; }
             else { randMutare = 2; rand = false; }
-            labelRandMutare.Text = "Piesele albe incep!";
+            
             LocatieTabla.count = 0;
             pozitieRegeAlb.X = 1;
             pozitieRegeAlb.Y = 5;

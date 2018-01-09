@@ -150,12 +150,7 @@
             this.pbNebunNegru = new System.Windows.Forms.PictureBox();
             this.pbNebunAlb = new System.Windows.Forms.PictureBox();
             this.pbPionAlb = new System.Windows.Forms.PictureBox();
-            this.labelRandMutare = new System.Windows.Forms.Label();
             this.listaMiscari = new System.Windows.Forms.DataGridView();
-            this.counter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -184,6 +179,10 @@
             this.labelCRA = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.meniu1 = new Chess_Application.Meniu();
+            this.counter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -1627,16 +1626,6 @@
             this.pbPionAlb.TabIndex = 0;
             this.pbPionAlb.TabStop = false;
             // 
-            // labelRandMutare
-            // 
-            this.labelRandMutare.AutoSize = true;
-            this.labelRandMutare.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.labelRandMutare.Location = new System.Drawing.Point(427, 35);
-            this.labelRandMutare.Name = "labelRandMutare";
-            this.labelRandMutare.Size = new System.Drawing.Size(111, 16);
-            this.labelRandMutare.TabIndex = 16;
-            this.labelRandMutare.Text = "Piesele albe incep!";
-            // 
             // listaMiscari
             // 
             this.listaMiscari.AllowUserToAddRows = false;
@@ -1655,44 +1644,6 @@
             this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.listaMiscari.Size = new System.Drawing.Size(183, 156);
             this.listaMiscari.TabIndex = 20;
-            // 
-            // counter
-            // 
-            this.counter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.counter.HeaderText = "counter";
-            this.counter.Name = "counter";
-            this.counter.ReadOnly = true;
-            this.counter.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.counter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.counter.Width = 30;
-            // 
-            // Mutare
-            // 
-            this.Mutare.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Mutare.HeaderText = "mutari";
-            this.Mutare.Name = "Mutare";
-            this.Mutare.ReadOnly = true;
-            this.Mutare.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Mutare.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Mutare.Width = 80;
-            // 
-            // Piesa1
-            // 
-            this.Piesa1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Piesa1.HeaderText = "p1";
-            this.Piesa1.Name = "Piesa1";
-            this.Piesa1.ReadOnly = true;
-            this.Piesa1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Piesa1.Width = 35;
-            // 
-            // Piesa2
-            // 
-            this.Piesa2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Piesa2.HeaderText = "p2";
-            this.Piesa2.Name = "Piesa2";
-            this.Piesa2.ReadOnly = true;
-            this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Piesa2.Width = 35;
             // 
             // textBox1
             // 
@@ -1976,12 +1927,50 @@
             this.meniu1.Size = new System.Drawing.Size(1184, 866);
             this.meniu1.TabIndex = 51;
             // 
+            // counter
+            // 
+            this.counter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.counter.HeaderText = "Nr.";
+            this.counter.Name = "counter";
+            this.counter.ReadOnly = true;
+            this.counter.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.counter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.counter.Width = 30;
+            // 
+            // Mutare
+            // 
+            this.Mutare.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Mutare.HeaderText = "Mutare";
+            this.Mutare.Name = "Mutare";
+            this.Mutare.ReadOnly = true;
+            this.Mutare.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Mutare.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Mutare.Width = 80;
+            // 
+            // Piesa1
+            // 
+            this.Piesa1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Piesa1.HeaderText = "p1";
+            this.Piesa1.Name = "Piesa1";
+            this.Piesa1.ReadOnly = true;
+            this.Piesa1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Piesa1.Width = 35;
+            // 
+            // Piesa2
+            // 
+            this.Piesa2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Piesa2.HeaderText = "p2";
+            this.Piesa2.Name = "Piesa2";
+            this.Piesa2.ReadOnly = true;
+            this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Piesa2.Width = 35;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1184, 860);
+            this.ClientSize = new System.Drawing.Size(1184, 685);
             this.Controls.Add(this.meniu1);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.labelRand);
@@ -2011,7 +2000,6 @@
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listaMiscari);
-            this.Controls.Add(this.labelRandMutare);
             this.Controls.Add(this.panelPiese);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -2240,7 +2228,6 @@
         private System.Windows.Forms.PictureBox pbNebunNegru;
         private System.Windows.Forms.PictureBox pbNebunAlb;
         private System.Windows.Forms.PictureBox pbPionAlb;
-        private System.Windows.Forms.Label labelRandMutare;
         //private Meniu meniu1;
         //private Optiuni optiuni;
         private System.Windows.Forms.DataGridView listaMiscari;
@@ -2257,10 +2244,6 @@
         private System.Windows.Forms.PictureBox pbRegeNegruMic;
         private System.Windows.Forms.PictureBox pbPionAlbMic;
         private System.Windows.Forms.PictureBox pbEmpty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn counter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
-        private System.Windows.Forms.DataGridViewImageColumn Piesa1;
-        private System.Windows.Forms.DataGridViewImageColumn Piesa2;
         private System.Windows.Forms.ToolStripMenuItem modIncepatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazaToolStripMenuItem;
@@ -2295,6 +2278,10 @@
         private System.Windows.Forms.Label labelCRA;
         private System.Windows.Forms.Label label19;
         private Meniu meniu1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn counter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
+        private System.Windows.Forms.DataGridViewImageColumn Piesa1;
+        private System.Windows.Forms.DataGridViewImageColumn Piesa2;
     }
 }
 
