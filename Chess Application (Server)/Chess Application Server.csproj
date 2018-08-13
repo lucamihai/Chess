@@ -52,42 +52,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clase\Cal.cs" />
-    <Compile Include="Clase\LocatieTabla.cs" />
-    <Compile Include="Clase\Nebun.cs" />
-    <Compile Include="Clase\Piesa.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Classes\Knight.cs" />
+    <Compile Include="Classes\LocatieTabla.cs" />
+    <Compile Include="Classes\Nebun.cs" />
+    <Compile Include="Classes\Piesa.cs" />
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Meniu.cs">
+    <Compile Include="MainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Meniu.Designer.cs">
-      <DependentUpon>Meniu.cs</DependentUpon>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clase\Pion.cs" />
-    <Compile Include="Optiuni.cs">
+    <Compile Include="Classes\Pion.cs" />
+    <Compile Include="Options.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Optiuni.Designer.cs">
-      <DependentUpon>Optiuni.cs</DependentUpon>
+    <Compile Include="Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Clase\Rege.cs" />
-    <Compile Include="Clase\Regina.cs" />
-    <Compile Include="Clase\Tura.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Classes\Rege.cs" />
+    <Compile Include="Classes\Regina.cs" />
+    <Compile Include="Classes\Tura.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Meniu.resx">
-      <DependentUpon>Meniu.cs</DependentUpon>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Optiuni.resx">
-      <DependentUpon>Optiuni.cs</DependentUpon>
+    <EmbeddedResource Include="Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

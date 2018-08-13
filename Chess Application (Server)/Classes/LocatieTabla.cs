@@ -64,7 +64,7 @@ namespace Chess_Application
         public void Marcheaza()//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
         {
             sePoate = true;
-            if (Form1.modInceptator)
+            if (MainForm.modInceptator)
             {
                 imagineLocatie.BackColor = Color.Green;
             }

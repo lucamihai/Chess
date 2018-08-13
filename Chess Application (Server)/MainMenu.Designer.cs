@@ -1,6 +1,6 @@
 ﻿namespace Chess_Application
 {
-    partial class Meniu
+    partial class MainMenu
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.btnExitApp = new System.Windows.Forms.Button();
             this.btnOptionsMenu = new System.Windows.Forms.Button();
             this.btnStartGame = new System.Windows.Forms.Button();
-            this.optiuni1 = new Chess_Application.Optiuni();
+            this.optiuni1 = new Chess_Application.Options();
             this.SuspendLayout();
             // 
             // btnExitApp
@@ -73,7 +73,7 @@
             this.optiuni1.TabIndex = 6;
             this.optiuni1.Visible = false;
             // 
-            // Meniu
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -82,7 +82,7 @@
             this.Controls.Add(this.btnExitApp);
             this.Controls.Add(this.btnOptionsMenu);
             this.Controls.Add(this.btnStartGame);
-            this.Name = "Meniu";
+            this.Name = "MainMenu";
             this.Size = new System.Drawing.Size(1103, 608);
             this.ResumeLayout(false);
 
@@ -93,6 +93,6 @@
         private System.Windows.Forms.Button btnExitApp;
         private System.Windows.Forms.Button btnOptionsMenu;
         private System.Windows.Forms.Button btnStartGame;
-        private Optiuni optiuni1;
+        private Options optiuni1;
     }
 }

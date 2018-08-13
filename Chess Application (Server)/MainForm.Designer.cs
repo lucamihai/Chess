@@ -1,6 +1,6 @@
 ﻿namespace Chess_Application
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel2 = new System.Windows.Forms.Panel();
             this._1A = new System.Windows.Forms.PictureBox();
             this._2A = new System.Windows.Forms.PictureBox();
@@ -182,7 +182,6 @@
             this.labelCNA = new System.Windows.Forms.Label();
             this.labelCRA = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.meniu1 = new Chess_Application.Meniu();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -1957,21 +1956,12 @@
             this.label19.TabIndex = 50;
             this.label19.Text = "Istoric miscari";
             // 
-            // meniu1
-            // 
-            this.meniu1.BackColor = System.Drawing.Color.Black;
-            this.meniu1.Location = new System.Drawing.Point(0, -1);
-            this.meniu1.Name = "meniu1";
-            this.meniu1.Size = new System.Drawing.Size(1184, 866);
-            this.meniu1.TabIndex = 51;
-            // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 836);
-            this.Controls.Add(this.meniu1);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.labelRand);
             this.Controls.Add(this.label18);
@@ -2011,7 +2001,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Sah";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -2281,7 +2271,6 @@
         private System.Windows.Forms.Label labelCNA;
         private System.Windows.Forms.Label labelCRA;
         private System.Windows.Forms.Label label19;
-        private Meniu meniu1;
         private System.Windows.Forms.DataGridViewTextBoxColumn counter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
         private System.Windows.Forms.DataGridViewImageColumn Piesa1;

@@ -42,9 +42,9 @@ namespace Chess_Application
         {
             int i, j;
             int tempCuloare;
-            if (Form1.randMutare == 1)
+            if (MainForm.randMutare == 1)
             {
-                i = Form1.pozitieRegeAlb.X; j = Form1.pozitieRegeAlb.Y;               
+                i = MainForm.pozitieRegeAlb.X; j = MainForm.pozitieRegeAlb.Y;               
                 if (loc[i + 1, j - 1] != null)
                 {
                     loc[i, j].culoare = 0;
@@ -153,7 +153,7 @@ namespace Chess_Application
             }
             else
             {
-                i = Form1.pozitieRegeNegru.X; j = Form1.pozitieRegeNegru.Y;
+                i = MainForm.pozitieRegeNegru.X; j = MainForm.pozitieRegeNegru.Y;
                 if (loc[i + 1, j - 1] != null)
                 {
                     loc[i, j].culoare = 0;
@@ -680,10 +680,10 @@ namespace Chess_Application
         {
             if (loc[orig1, orig2].tipPiesa != 6)
             {
-                if (Form1.randMutare == 1)
+                if (MainForm.randMutare == 1)
                 {
-                    int i = Form1.pozitieRegeAlb.X;//linia rege
-                    int j = Form1.pozitieRegeAlb.Y;//coloana rege
+                    int i = MainForm.pozitieRegeAlb.X;//linia rege
+                    int j = MainForm.pozitieRegeAlb.Y;//coloana rege
                     Console.WriteLine("Pozititie rege: " + i + " " + j);
                     int tempCuloareOrig = loc[orig1, orig2].culoare;
                     int tempCuloareCurent = loc[curent1, curent2].culoare;
@@ -947,8 +947,8 @@ namespace Chess_Application
                 else
                 {
                     Console.WriteLine("TBD");
-                    int i = Form1.pozitieRegeNegru.X;
-                    int j = Form1.pozitieRegeNegru.Y;
+                    int i = MainForm.pozitieRegeNegru.X;
+                    int j = MainForm.pozitieRegeNegru.Y;
                     Console.WriteLine("Pozititie rege: " + i + " " + j);
                     int tempCuloareOrig = loc[orig1, orig2].culoare;
                     int tempCuloareCurent = loc[curent1, curent2].culoare;

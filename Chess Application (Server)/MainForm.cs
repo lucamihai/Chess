@@ -17,9 +17,11 @@ using System.Threading;
 namespace Chess_Application
 {
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-  
+        Panel menuContainer;
+        MainMenu mainMenu;
+
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
         public static int[] pozitieReginaAlba = new int[2];
@@ -82,7 +84,7 @@ namespace Chess_Application
         //=============================================================================================================================================
         public TcpListener server;
         public String dateServer;
-        private static Form1 serverForm;
+        private static MainForm serverForm;
         Thread t;
         bool workThread;
         public static NetworkStream streamServer;
@@ -452,7 +454,6 @@ namespace Chess_Application
                 StreamWriter scriere = new StreamWriter(streamServer);
                 scriere.AutoFlush = true; // enable automatic flushing
                 scriere.WriteLine(tbServerDate.Text);
-               // textBox1.Text += username + ": " + tbServerDate.Text + Environment.NewLine;
                 textBox1.AppendText(username + ": " + tbServerDate.Text + Environment.NewLine);
                 tbServerDate.Clear();
             }
@@ -461,7 +462,9 @@ namespace Chess_Application
                 Console.WriteLine("Eroare la transmiterea mesajului");
             }
         }
-        //----------------------------------------------------------------------------------------------------------------------
+
+        #region Toolbar actions
+
         private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             modInceptator = true;
@@ -481,12 +484,10 @@ namespace Chess_Application
             panel1.SendToBack();
             panel2.SendToBack();
             panel3.SendToBack();
-            //meniu1.BringToFront();
         }
         private void optiuni1_Load(object sender, EventArgs e)
         {
-            //optiuni1.BringToFront();
-            //optiuni1.Show();
+
         }
 
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -517,7 +518,12 @@ namespace Chess_Application
 
         }
 
-        //---------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
+        public void HideMainMenu()
+        {
+            menuContainer.Hide();
+        }
 
         public void NewGame()
         {
@@ -608,6 +614,7 @@ namespace Chess_Application
             textBox1.AppendText("Albu-i in mat..." + Environment.NewLine);
             return true;
         }
+
         bool MatNegru()
         {
             for (int i = 1; i <= 8; i++)
@@ -631,7 +638,7 @@ namespace Chess_Application
         }
 
         //---------------------------------------------------------------------------------------------------------------------------------------------
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             server = new TcpListener(System.Net.IPAddress.Any, 3000);
@@ -641,6 +648,22 @@ namespace Chess_Application
             username = "Server";
             t.Start();
             serverForm = this;
+
+            mainMenu = new MainMenu(this);
+
+            menuContainer = new Panel();
+            menuContainer.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+            menuContainer.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            menuContainer.Controls.Add(mainMenu);
+
+            mainMenu.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+            mainMenu.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            mainMenu.AutoSize = true;
+            mainMenu.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            Controls.Add(menuContainer);
+
+            menuContainer.BringToFront();
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {

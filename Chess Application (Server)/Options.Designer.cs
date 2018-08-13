@@ -1,6 +1,6 @@
 ﻿namespace Chess_Application
 {
-    partial class Optiuni
+    partial class Options
     {
         /// <summary> 
         /// Required designer variable.

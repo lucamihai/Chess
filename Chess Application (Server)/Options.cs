@@ -11,15 +11,15 @@ using System.Windows.Forms;
 namespace Chess_Application
 {
     
-    public partial class Optiuni : UserControl
+    public partial class Options : UserControl
     {
-        Form1 f;
         public System.Delegate _SchimbareUsername;
         public Delegate apeleaza
         {
             set { _SchimbareUsername = value; }
         }
-        public Optiuni()
+
+        public Options()
         {
             InitializeComponent();           
         }
@@ -36,20 +36,20 @@ namespace Chess_Application
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (textBoxUsername.Text != "" && !textBoxUsername.Text.EndsWith(" "))
             {               
-                Form1._username = textBoxUsername.Text;
+                MainForm._username = textBoxUsername.Text;
                 labelError.Text = "";          
                 this.Hide();
             }
             else labelError.Text = "Format username inacceptabil";          
-            if (checkBoxWhite.Checked == true) Form1._culoriUseri = "1 2";
-            else Form1._culoriUseri = "2 1";
+            if (checkBoxWhite.Checked == true) MainForm._culoriUseri = "1 2";
+            else MainForm._culoriUseri = "2 1";
         }
 
         private void textBoxUsername_TextChanged(object sender, EventArgs e)
