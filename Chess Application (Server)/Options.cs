@@ -13,6 +13,7 @@ namespace Chess_Application
     
     public partial class Options : UserControl
     {
+        MainMenu mainMenu;
         public System.Delegate _SchimbareUsername;
         public Delegate apeleaza
         {
@@ -22,6 +23,12 @@ namespace Chess_Application
         public Options()
         {
             InitializeComponent();           
+        }
+
+        public Options(MainMenu mainMenu)
+        {
+            InitializeComponent();
+            this.mainMenu = mainMenu;
         }
 
         private void checkBoxWhite_CheckedChanged(object sender, EventArgs e)
@@ -43,13 +50,24 @@ namespace Chess_Application
         {
             if (textBoxUsername.Text != "" && !textBoxUsername.Text.EndsWith(" "))
             {               
-                MainForm._username = textBoxUsername.Text;
-                labelError.Text = "";          
-                this.Hide();
+                mainMenu.SetUsername(textBoxUsername.Text);
+                labelError.Text = "";
+
+                if (checkBoxWhite.Checked == true)
+                {
+                    mainMenu.SetColors("1 2");
+                }
+                else
+                {
+                    mainMenu.SetColors("2 1");
+                }
+
+                Hide();
             }
-            else labelError.Text = "Format username inacceptabil";          
-            if (checkBoxWhite.Checked == true) MainForm._culoriUseri = "1 2";
-            else MainForm._culoriUseri = "2 1";
+            else
+            {
+                labelError.Text = "Please enter a non-blank username, without spaces at the end";
+            }
         }
 
         private void textBoxUsername_TextChanged(object sender, EventArgs e)

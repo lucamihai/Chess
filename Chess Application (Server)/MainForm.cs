@@ -40,20 +40,8 @@ namespace Chess_Application
         public int counterPioniNegri, counterTureNegre, counterCaiNegri, counterNebuniNegri, counterReginaNeagra;
         public int tempI, tempJ;
 
-        public static string username = "Server";
-        public static string _username
-        {
-            get { return username; }
-            set { SetareUsername(value); }
-        }
+        public string username = "Server";
 
-        public static string culoriUseri;
-        public static string _culoriUseri
-        {
-            get { return culoriUseri; }
-            set { SetareCulori(value); }
-        }
-        
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
 
@@ -186,6 +174,48 @@ namespace Chess_Application
                 socketServer.Close();
             }
         }
+
+        #region Username and colors settings
+
+        public void SetUsername(string username)
+        {
+            this.username = username;
+
+            // Communicate to partner the new username
+            StreamWriter streamWriter = new StreamWriter(streamServer);
+            streamWriter.AutoFlush = true;
+            streamWriter.WriteLine("#username" + username);
+        }
+
+        public void SetColors(string colorsString)
+        {
+            string[] colors = colorsString.Split(' ');
+            int a = Convert.ToInt32(colors[0]);
+
+            // Player will be controlling white, will have first move
+            if (a == 1)
+            {
+                randMutare = 1;
+                randMutareClient = 2;
+                rand = true;
+            }
+
+            // Player will be controlling black, will have second move
+            else
+            {
+                randMutare = 2;
+                randMutareClient = 1;
+                rand = false;
+            }
+
+            // Communicate to partner the colors
+            StreamWriter scriere = new StreamWriter(streamServer);
+            scriere.AutoFlush = true;
+            scriere.WriteLine("#culori " + colorsString);
+        }
+
+        #endregion
+
         void transmiteMesaj()
         {
             StreamWriter scriere = new StreamWriter(streamServer);
@@ -202,41 +232,15 @@ namespace Chess_Application
                 textBox1.AppendText(username + ":    " + a + Environment.NewLine);
             scriere.WriteLine(a);
         }
-        public static void SetareUsername(string u)
-        {
-            username = u;
-            StreamWriter scriere = new StreamWriter(streamServer);
-            scriere.AutoFlush = true; // enable automatic flushing
-            scriere.WriteLine("#username" + u);
-        }
-
-        public static void SetareCulori(string u)
-        {
-            StreamWriter scriere = new StreamWriter(streamServer);
-            scriere.AutoFlush = true;
-            string[] culori = u.Split(' ');
-            int a = Convert.ToInt32(culori[0]);
-            if (a == 1)
-            {
-                randMutare = 1;
-                randMutareClient = 2;
-                rand = true;
-            }
-            else
-            {
-                randMutare = 2;
-                randMutareClient = 1;
-                rand = false;
-            }
-            scriere.WriteLine("#culori " + u);
-        }
 
         private void tbServerDate_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && tbServerDate.Text!="")
                 btnSend_Click(this, new EventArgs());
         }
-#endregion
+        #endregion
+
+
 
         private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -645,11 +649,10 @@ namespace Chess_Application
             server.Start();
             t = new Thread(new ThreadStart(Asculta_Server));
             workThread = true;
-            username = "Server";
             t.Start();
             serverForm = this;
 
-            mainMenu = new MainMenu(this);
+            mainMenu = new MainMenu(this);  // link main menu to this form
 
             menuContainer = new Panel();
             menuContainer.MinimumSize = new System.Drawing.Size(this.Width, this.Height);

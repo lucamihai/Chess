@@ -26,7 +26,7 @@ namespace Chess_Application
             InitializeComponent();
             this.mainForm = mainForm;
 
-            options = new Options();
+            options = new Options(this);    // link options menu to this menu
             
             Controls.Add(options);
             options.BringToFront();
@@ -56,6 +56,16 @@ namespace Chess_Application
         public void HideMainMenu()
         {
             Hide();
+        }
+
+        public void SetUsername(string username)
+        {
+            mainForm.SetUsername(username);
+        }
+
+        public void SetColors(string colorsString)
+        {;
+            mainForm.SetColors(colorsString);
         }
     }
 }

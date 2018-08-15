@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Knight.cs" />
+    <Compile Include="Classes\Cal.cs" />
     <Compile Include="Classes\LocatieTabla.cs" />
     <Compile Include="Classes\Nebun.cs" />
     <Compile Include="Classes\Piesa.cs" />
