@@ -80,7 +80,60 @@ namespace Chess_Application
 
 
         //----------------------------------------------------------------------------------------------------------------------
-        #region Retea
+
+        public MainForm()
+        {
+            InitializeComponent();
+            server = new TcpListener(System.Net.IPAddress.Any, 3000);
+            server.Start();
+            t = new Thread(new ThreadStart(Asculta_Server));
+            workThread = true;
+            t.Start();
+            serverForm = this;
+
+            mainMenu = new MainMenu(this);  // link main menu to this form
+
+            menuContainer = new Panel();
+            menuContainer.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+            menuContainer.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            menuContainer.Controls.Add(mainMenu);
+
+            mainMenu.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+            mainMenu.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            mainMenu.AutoSize = true;
+            mainMenu.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            Controls.Add(menuContainer);
+
+            menuContainer.BringToFront();
+
+            listaMiscari.ScrollBars = ScrollBars.Vertical;
+            tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
+            cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
+            nebun1Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
+            reginaAlb = new Regina(1, pbReginaAlb, pbReginaAlbMic); regeAlb = new Rege(1, pbRegeAlb, pbRegeAlbMic);
+            pion1Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion2Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion3Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion5Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            pion7Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            //=====
+            tura1Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
+            cal1Negru = new Cal(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
+            nebun1Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic);
+            reginaNegru = new Regina(2, pbReginaNegru, pbReginaNegruMic); regeNegru = new Rege(2, pbRegeNegru, pbRegeNegruMic);
+            pion1Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion2Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion3Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion5Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            pion7Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            //=====
+            NewGame();
+            destinatie = new LocatieTabla();
+            activeazaToolStripMenuItem.Available = false;
+            activeazalToolStripMenuItem.Available = false;
+        }
+
+        #region Network stuff
+
         public void Asculta_Server()
         {
             while (workThread)
@@ -209,9 +262,9 @@ namespace Chess_Application
             }
 
             // Communicate to partner the colors
-            StreamWriter scriere = new StreamWriter(streamServer);
-            scriere.AutoFlush = true;
-            scriere.WriteLine("#culori " + colorsString);
+            StreamWriter streamWriter = new StreamWriter(streamServer);
+            streamWriter.AutoFlush = true;
+            streamWriter.WriteLine("#culori " + colorsString);
         }
 
         #endregion
@@ -238,9 +291,10 @@ namespace Chess_Application
             if (e.KeyCode == Keys.Enter && tbServerDate.Text!="")
                 btnSend_Click(this, new EventArgs());
         }
+
         #endregion
 
-
+        #region OptionsToolStripMenu
 
         private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -255,7 +309,51 @@ namespace Chess_Application
             activeazalToolStripMenuItem.Visible = true;
             dezactiveazalToolStripMenuItem.Visible = false;
         }
+
+        private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modInceptator = true;
+            activeazaToolStripMenuItem.Available = false;
+            dezactiveazaToolStripMenuItem.Available = true;
+        }
+
+        private void dezactiveazaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            modInceptator = false;
+            activeazaToolStripMenuItem.Available = true;
+            dezactiveazaToolStripMenuItem.Available = false;
+        }
+
+        private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
+        private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (!incepeJocNou)
+            {
+                transmiteMesaj("#request new game");
+                transmiteMesaj(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
+            }
+            else
+            {
+                NewGame();
+                incepeJocNou = false;
+                transmiteMesaj("#new game");
+            }
+
+        }
+
+        #endregion
+
         #region Deplasare Piese
+
         void Transfera(LocatieTabla origine, LocatieTabla destinatie)
         {
             destinatie.piesa = origine.piesa;
@@ -446,11 +544,6 @@ namespace Chess_Application
         }
 #endregion
 
-        private void meniu1_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSend_Click(object sender, EventArgs e)
         {
             try
@@ -466,63 +559,6 @@ namespace Chess_Application
                 Console.WriteLine("Eroare la transmiterea mesajului");
             }
         }
-
-        #region Toolbar actions
-
-        private void activeazaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            modInceptator = true;
-            activeazaToolStripMenuItem.Available = false;
-            dezactiveazaToolStripMenuItem.Available = true;
-        }
-
-        private void dezactiveazaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            modInceptator = false;
-            activeazaToolStripMenuItem.Available = true;
-            dezactiveazaToolStripMenuItem.Available = false;
-        }
-
-        private void meniu1_Load(object sender, EventArgs e)
-        {
-            panel1.SendToBack();
-            panel2.SendToBack();
-            panel3.SendToBack();
-        }
-        private void optiuni1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewGame();
-            //meniu1.Show();
-            //optiuni1.Show();
-        }
-
-        private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (!incepeJocNou)
-            {
-                transmiteMesaj("#request new game");
-                transmiteMesaj(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
-            }
-            else
-            {
-                NewGame();
-                incepeJocNou = false;
-                transmiteMesaj("#new game");
-            } 
-
-        }
-
-        #endregion
 
         public void HideMainMenu()
         {
@@ -641,33 +677,6 @@ namespace Chess_Application
             return true;
         }
 
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-        public MainForm()
-        {
-            InitializeComponent();
-            server = new TcpListener(System.Net.IPAddress.Any, 3000);
-            server.Start();
-            t = new Thread(new ThreadStart(Asculta_Server));
-            workThread = true;
-            t.Start();
-            serverForm = this;
-
-            mainMenu = new MainMenu(this);  // link main menu to this form
-
-            menuContainer = new Panel();
-            menuContainer.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
-            menuContainer.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            menuContainer.Controls.Add(mainMenu);
-
-            mainMenu.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
-            mainMenu.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            mainMenu.AutoSize = true;
-            mainMenu.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
-            Controls.Add(menuContainer);
-
-            menuContainer.BringToFront();
-        }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
@@ -682,32 +691,6 @@ namespace Chess_Application
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            listaMiscari.ScrollBars = ScrollBars.Vertical;
-            tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
-            cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
-            nebun1Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
-            reginaAlb = new Regina(1, pbReginaAlb, pbReginaAlbMic); regeAlb = new Rege(1, pbRegeAlb, pbRegeAlbMic);
-            pion1Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion2Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion3Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion5Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion7Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            //=====
-            tura1Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
-            cal1Negru = new Cal(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
-            nebun1Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic);
-            reginaNegru = new Regina(2, pbReginaNegru, pbReginaNegruMic); regeNegru = new Rege(2, pbRegeNegru, pbRegeNegruMic);
-            pion1Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion2Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion3Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion5Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion7Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            //=====
-            NewGame();
-            destinatie = new LocatieTabla();
-            activeazaToolStripMenuItem.Available = false;
-            activeazalToolStripMenuItem.Available = false;
-        }
         public void RestoreCulori(LocatieTabla[,] loc)
         {
             A1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
@@ -752,7 +735,18 @@ namespace Chess_Application
         }
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!incepeJocNou)
+            {
+                transmiteMesaj("#request new game");
+                transmiteMesaj(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
 
+            }
+            else
+            {
+                NewGame();
+                incepeJocNou = false;
+                transmiteMesaj("#new game");
+            }
         }
 
         public void RandNou(LocatieTabla[,] loc)

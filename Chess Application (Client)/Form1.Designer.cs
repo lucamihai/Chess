@@ -1092,14 +1092,14 @@
             // newGameToolStripMenuItem1
             // 
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
-            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
             this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem1_Click);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
-            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
             this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.quitApplicationToolStripMenuItem_Click);
             // 

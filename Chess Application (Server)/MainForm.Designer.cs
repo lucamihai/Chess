@@ -1084,19 +1084,18 @@
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             this.newGameToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.newGameToolStripMenuItem.Text = "File";
-            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // newGameToolStripMenuItem1
             // 
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
-            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
-            this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem1_Click);
+            this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
-            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
             this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.quitApplicationToolStripMenuItem_Click);
             // 
@@ -2005,7 +2004,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Sah";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._1A)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).EndInit();
