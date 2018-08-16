@@ -368,8 +368,7 @@
             this._1A.Name = "_1A";
             this._1A.Size = new System.Drawing.Size(64, 64);
             this._1A.TabIndex = 0;
-            this._1A.TabStop = false;
-            this._1A.Click += new System.EventHandler(this._1A_Click);
+            this._1A.TabStop = false;           
             // 
             // _2A
             // 
@@ -380,7 +379,6 @@
             this._2A.Size = new System.Drawing.Size(64, 64);
             this._2A.TabIndex = 0;
             this._2A.TabStop = false;
-            this._2A.Click += new System.EventHandler(this._2A_Click);
             // 
             // _3A
             // 
@@ -391,7 +389,6 @@
             this._3A.Size = new System.Drawing.Size(64, 64);
             this._3A.TabIndex = 0;
             this._3A.TabStop = false;
-            this._3A.Click += new System.EventHandler(this._3A_Click);
             // 
             // _4A
             // 
@@ -402,7 +399,6 @@
             this._4A.Size = new System.Drawing.Size(64, 64);
             this._4A.TabIndex = 0;
             this._4A.TabStop = false;
-            this._4A.Click += new System.EventHandler(this._4A_Click);
             // 
             // _5A
             // 
@@ -413,7 +409,6 @@
             this._5A.Size = new System.Drawing.Size(64, 64);
             this._5A.TabIndex = 0;
             this._5A.TabStop = false;
-            this._5A.Click += new System.EventHandler(this._5A_Click);
             // 
             // _6A
             // 
@@ -424,7 +419,6 @@
             this._6A.Size = new System.Drawing.Size(64, 64);
             this._6A.TabIndex = 0;
             this._6A.TabStop = false;
-            this._6A.Click += new System.EventHandler(this._6A_Click);
             // 
             // _7A
             // 
@@ -435,7 +429,6 @@
             this._7A.Size = new System.Drawing.Size(64, 64);
             this._7A.TabIndex = 0;
             this._7A.TabStop = false;
-            this._7A.Click += new System.EventHandler(this._7A_Click);
             // 
             // _8A
             // 
@@ -446,7 +439,6 @@
             this._8A.Size = new System.Drawing.Size(64, 64);
             this._8A.TabIndex = 0;
             this._8A.TabStop = false;
-            this._8A.Click += new System.EventHandler(this._8A_Click);
             // 
             // _1B
             // 
@@ -457,7 +449,6 @@
             this._1B.Size = new System.Drawing.Size(64, 64);
             this._1B.TabIndex = 0;
             this._1B.TabStop = false;
-            this._1B.Click += new System.EventHandler(this._1B_Click);
             // 
             // _2B
             // 
@@ -468,7 +459,6 @@
             this._2B.Size = new System.Drawing.Size(64, 64);
             this._2B.TabIndex = 0;
             this._2B.TabStop = false;
-            this._2B.Click += new System.EventHandler(this._2B_Click);
             // 
             // _3B
             // 
@@ -479,7 +469,6 @@
             this._3B.Size = new System.Drawing.Size(64, 64);
             this._3B.TabIndex = 0;
             this._3B.TabStop = false;
-            this._3B.Click += new System.EventHandler(this._3B_Click);
             // 
             // _4B
             // 
@@ -490,7 +479,6 @@
             this._4B.Size = new System.Drawing.Size(64, 64);
             this._4B.TabIndex = 0;
             this._4B.TabStop = false;
-            this._4B.Click += new System.EventHandler(this._4B_Click);
             // 
             // _5B
             // 
@@ -501,7 +489,6 @@
             this._5B.Size = new System.Drawing.Size(64, 64);
             this._5B.TabIndex = 0;
             this._5B.TabStop = false;
-            this._5B.Click += new System.EventHandler(this._5B_Click);
             // 
             // _6B
             // 
@@ -512,7 +499,6 @@
             this._6B.Size = new System.Drawing.Size(64, 64);
             this._6B.TabIndex = 0;
             this._6B.TabStop = false;
-            this._6B.Click += new System.EventHandler(this._6B_Click);
             // 
             // _7B
             // 
@@ -523,7 +509,6 @@
             this._7B.Size = new System.Drawing.Size(64, 64);
             this._7B.TabIndex = 0;
             this._7B.TabStop = false;
-            this._7B.Click += new System.EventHandler(this._7B_Click);
             // 
             // _8B
             // 
@@ -534,7 +519,6 @@
             this._8B.Size = new System.Drawing.Size(64, 64);
             this._8B.TabIndex = 0;
             this._8B.TabStop = false;
-            this._8B.Click += new System.EventHandler(this._8B_Click);
             // 
             // _1C
             // 
@@ -546,7 +530,6 @@
             this._1C.Size = new System.Drawing.Size(64, 64);
             this._1C.TabIndex = 0;
             this._1C.TabStop = false;
-            this._1C.Click += new System.EventHandler(this._1C_Click);
             // 
             // _2C
             // 
@@ -557,7 +540,6 @@
             this._2C.Size = new System.Drawing.Size(64, 64);
             this._2C.TabIndex = 0;
             this._2C.TabStop = false;
-            this._2C.Click += new System.EventHandler(this._2C_Click);
             // 
             // _3C
             // 
@@ -568,7 +550,6 @@
             this._3C.Size = new System.Drawing.Size(64, 64);
             this._3C.TabIndex = 0;
             this._3C.TabStop = false;
-            this._3C.Click += new System.EventHandler(this._3C_Click);
             // 
             // _4C
             // 
@@ -579,7 +560,6 @@
             this._4C.Size = new System.Drawing.Size(64, 64);
             this._4C.TabIndex = 0;
             this._4C.TabStop = false;
-            this._4C.Click += new System.EventHandler(this._4C_Click);
             // 
             // _5C
             // 
@@ -590,7 +570,6 @@
             this._5C.Size = new System.Drawing.Size(64, 64);
             this._5C.TabIndex = 0;
             this._5C.TabStop = false;
-            this._5C.Click += new System.EventHandler(this._5C_Click);
             // 
             // _6C
             // 
@@ -601,7 +580,6 @@
             this._6C.Size = new System.Drawing.Size(64, 64);
             this._6C.TabIndex = 0;
             this._6C.TabStop = false;
-            this._6C.Click += new System.EventHandler(this._6C_Click);
             // 
             // _7C
             // 
@@ -612,7 +590,6 @@
             this._7C.Size = new System.Drawing.Size(64, 64);
             this._7C.TabIndex = 0;
             this._7C.TabStop = false;
-            this._7C.Click += new System.EventHandler(this._7C_Click);
             // 
             // _8C
             // 
@@ -623,7 +600,6 @@
             this._8C.Size = new System.Drawing.Size(64, 64);
             this._8C.TabIndex = 0;
             this._8C.TabStop = false;
-            this._8C.Click += new System.EventHandler(this._8C_Click);
             // 
             // _1D
             // 
@@ -634,7 +610,6 @@
             this._1D.Size = new System.Drawing.Size(64, 64);
             this._1D.TabIndex = 0;
             this._1D.TabStop = false;
-            this._1D.Click += new System.EventHandler(this._1D_Click);
             // 
             // _2D
             // 
@@ -645,7 +620,6 @@
             this._2D.Size = new System.Drawing.Size(64, 64);
             this._2D.TabIndex = 0;
             this._2D.TabStop = false;
-            this._2D.Click += new System.EventHandler(this._2D_Click);
             // 
             // _3D
             // 
@@ -656,7 +630,6 @@
             this._3D.Size = new System.Drawing.Size(64, 64);
             this._3D.TabIndex = 0;
             this._3D.TabStop = false;
-            this._3D.Click += new System.EventHandler(this._3D_Click);
             // 
             // _4D
             // 
@@ -667,7 +640,6 @@
             this._4D.Size = new System.Drawing.Size(64, 64);
             this._4D.TabIndex = 0;
             this._4D.TabStop = false;
-            this._4D.Click += new System.EventHandler(this._4D_Click);
             // 
             // _5D
             // 
@@ -678,7 +650,6 @@
             this._5D.Size = new System.Drawing.Size(64, 64);
             this._5D.TabIndex = 0;
             this._5D.TabStop = false;
-            this._5D.Click += new System.EventHandler(this._5D_Click);
             // 
             // _6D
             // 
@@ -689,7 +660,6 @@
             this._6D.Size = new System.Drawing.Size(64, 64);
             this._6D.TabIndex = 0;
             this._6D.TabStop = false;
-            this._6D.Click += new System.EventHandler(this._6D_Click);
             // 
             // _7D
             // 
@@ -700,7 +670,6 @@
             this._7D.Size = new System.Drawing.Size(64, 64);
             this._7D.TabIndex = 0;
             this._7D.TabStop = false;
-            this._7D.Click += new System.EventHandler(this._7D_Click);
             // 
             // _8D
             // 
@@ -711,7 +680,6 @@
             this._8D.Size = new System.Drawing.Size(64, 64);
             this._8D.TabIndex = 0;
             this._8D.TabStop = false;
-            this._8D.Click += new System.EventHandler(this._8D_Click);
             // 
             // _1E
             // 
@@ -722,7 +690,6 @@
             this._1E.Size = new System.Drawing.Size(64, 64);
             this._1E.TabIndex = 0;
             this._1E.TabStop = false;
-            this._1E.Click += new System.EventHandler(this._1E_Click);
             // 
             // _2E
             // 
@@ -733,7 +700,6 @@
             this._2E.Size = new System.Drawing.Size(64, 64);
             this._2E.TabIndex = 0;
             this._2E.TabStop = false;
-            this._2E.Click += new System.EventHandler(this._2E_Click);
             // 
             // _3E
             // 
@@ -744,7 +710,6 @@
             this._3E.Size = new System.Drawing.Size(64, 64);
             this._3E.TabIndex = 0;
             this._3E.TabStop = false;
-            this._3E.Click += new System.EventHandler(this._3E_Click);
             // 
             // _4E
             // 
@@ -755,7 +720,6 @@
             this._4E.Size = new System.Drawing.Size(64, 64);
             this._4E.TabIndex = 0;
             this._4E.TabStop = false;
-            this._4E.Click += new System.EventHandler(this._4E_Click);
             // 
             // _5E
             // 
@@ -766,7 +730,6 @@
             this._5E.Size = new System.Drawing.Size(64, 64);
             this._5E.TabIndex = 0;
             this._5E.TabStop = false;
-            this._5E.Click += new System.EventHandler(this._5E_Click);
             // 
             // _6E
             // 
@@ -777,7 +740,6 @@
             this._6E.Size = new System.Drawing.Size(64, 64);
             this._6E.TabIndex = 0;
             this._6E.TabStop = false;
-            this._6E.Click += new System.EventHandler(this._6E_Click);
             // 
             // _7E
             // 
@@ -788,7 +750,6 @@
             this._7E.Size = new System.Drawing.Size(64, 64);
             this._7E.TabIndex = 0;
             this._7E.TabStop = false;
-            this._7E.Click += new System.EventHandler(this._7E_Click);
             // 
             // _8E
             // 
@@ -799,7 +760,6 @@
             this._8E.Size = new System.Drawing.Size(64, 64);
             this._8E.TabIndex = 0;
             this._8E.TabStop = false;
-            this._8E.Click += new System.EventHandler(this._8E_Click);
             // 
             // _1F
             // 
@@ -810,7 +770,6 @@
             this._1F.Size = new System.Drawing.Size(64, 64);
             this._1F.TabIndex = 0;
             this._1F.TabStop = false;
-            this._1F.Click += new System.EventHandler(this._1F_Click);
             // 
             // _2F
             // 
@@ -821,7 +780,6 @@
             this._2F.Size = new System.Drawing.Size(64, 64);
             this._2F.TabIndex = 0;
             this._2F.TabStop = false;
-            this._2F.Click += new System.EventHandler(this._2F_Click);
             // 
             // _3F
             // 
@@ -832,7 +790,6 @@
             this._3F.Size = new System.Drawing.Size(64, 64);
             this._3F.TabIndex = 0;
             this._3F.TabStop = false;
-            this._3F.Click += new System.EventHandler(this._3F_Click);
             // 
             // _4F
             // 
@@ -843,7 +800,6 @@
             this._4F.Size = new System.Drawing.Size(64, 64);
             this._4F.TabIndex = 0;
             this._4F.TabStop = false;
-            this._4F.Click += new System.EventHandler(this._4F_Click);
             // 
             // _5F
             // 
@@ -854,7 +810,6 @@
             this._5F.Size = new System.Drawing.Size(64, 64);
             this._5F.TabIndex = 0;
             this._5F.TabStop = false;
-            this._5F.Click += new System.EventHandler(this._5F_Click);
             // 
             // _6F
             // 
@@ -865,7 +820,6 @@
             this._6F.Size = new System.Drawing.Size(64, 64);
             this._6F.TabIndex = 0;
             this._6F.TabStop = false;
-            this._6F.Click += new System.EventHandler(this._6F_Click);
             // 
             // _7F
             // 
@@ -876,7 +830,6 @@
             this._7F.Size = new System.Drawing.Size(64, 64);
             this._7F.TabIndex = 0;
             this._7F.TabStop = false;
-            this._7F.Click += new System.EventHandler(this._7F_Click);
             // 
             // _8F
             // 
@@ -887,7 +840,6 @@
             this._8F.Size = new System.Drawing.Size(64, 64);
             this._8F.TabIndex = 0;
             this._8F.TabStop = false;
-            this._8F.Click += new System.EventHandler(this._8F_Click);
             // 
             // _1G
             // 
@@ -898,7 +850,6 @@
             this._1G.Size = new System.Drawing.Size(64, 64);
             this._1G.TabIndex = 0;
             this._1G.TabStop = false;
-            this._1G.Click += new System.EventHandler(this._1G_Click);
             // 
             // _2G
             // 
@@ -909,7 +860,6 @@
             this._2G.Size = new System.Drawing.Size(64, 64);
             this._2G.TabIndex = 0;
             this._2G.TabStop = false;
-            this._2G.Click += new System.EventHandler(this._2G_Click);
             // 
             // _3G
             // 
@@ -920,7 +870,6 @@
             this._3G.Size = new System.Drawing.Size(64, 64);
             this._3G.TabIndex = 0;
             this._3G.TabStop = false;
-            this._3G.Click += new System.EventHandler(this._3G_Click);
             // 
             // _4G
             // 
@@ -931,7 +880,6 @@
             this._4G.Size = new System.Drawing.Size(64, 64);
             this._4G.TabIndex = 0;
             this._4G.TabStop = false;
-            this._4G.Click += new System.EventHandler(this._4G_Click);
             // 
             // _5G
             // 
@@ -942,7 +890,6 @@
             this._5G.Size = new System.Drawing.Size(64, 64);
             this._5G.TabIndex = 0;
             this._5G.TabStop = false;
-            this._5G.Click += new System.EventHandler(this._5G_Click);
             // 
             // _6G
             // 
@@ -953,7 +900,6 @@
             this._6G.Size = new System.Drawing.Size(64, 64);
             this._6G.TabIndex = 0;
             this._6G.TabStop = false;
-            this._6G.Click += new System.EventHandler(this._6G_Click);
             // 
             // _7G
             // 
@@ -964,7 +910,6 @@
             this._7G.Size = new System.Drawing.Size(64, 64);
             this._7G.TabIndex = 0;
             this._7G.TabStop = false;
-            this._7G.Click += new System.EventHandler(this._7G_Click);
             // 
             // _8G
             // 
@@ -975,7 +920,6 @@
             this._8G.Size = new System.Drawing.Size(64, 64);
             this._8G.TabIndex = 0;
             this._8G.TabStop = false;
-            this._8G.Click += new System.EventHandler(this._8G_Click);
             // 
             // _1H
             // 
@@ -986,7 +930,6 @@
             this._1H.Size = new System.Drawing.Size(64, 64);
             this._1H.TabIndex = 0;
             this._1H.TabStop = false;
-            this._1H.Click += new System.EventHandler(this._1H_Click);
             // 
             // _2H
             // 
@@ -997,7 +940,6 @@
             this._2H.Size = new System.Drawing.Size(64, 64);
             this._2H.TabIndex = 0;
             this._2H.TabStop = false;
-            this._2H.Click += new System.EventHandler(this._2H_Click);
             // 
             // _3H
             // 
@@ -1008,7 +950,6 @@
             this._3H.Size = new System.Drawing.Size(64, 64);
             this._3H.TabIndex = 0;
             this._3H.TabStop = false;
-            this._3H.Click += new System.EventHandler(this._3H_Click);
             // 
             // _4H
             // 
@@ -1019,7 +960,6 @@
             this._4H.Size = new System.Drawing.Size(64, 64);
             this._4H.TabIndex = 0;
             this._4H.TabStop = false;
-            this._4H.Click += new System.EventHandler(this._4H_Click);
             // 
             // _5H
             // 
@@ -1030,7 +970,6 @@
             this._5H.Size = new System.Drawing.Size(64, 64);
             this._5H.TabIndex = 0;
             this._5H.TabStop = false;
-            this._5H.Click += new System.EventHandler(this._5H_Click);
             // 
             // _6H
             // 
@@ -1041,7 +980,6 @@
             this._6H.Size = new System.Drawing.Size(64, 64);
             this._6H.TabIndex = 0;
             this._6H.TabStop = false;
-            this._6H.Click += new System.EventHandler(this._6H_Click);
             // 
             // _7H
             // 
@@ -1052,7 +990,6 @@
             this._7H.Size = new System.Drawing.Size(64, 64);
             this._7H.TabIndex = 0;
             this._7H.TabStop = false;
-            this._7H.Click += new System.EventHandler(this._7H_Click);
             // 
             // _8H
             // 
@@ -1063,7 +1000,6 @@
             this._8H.Size = new System.Drawing.Size(64, 64);
             this._8H.TabIndex = 0;
             this._8H.TabStop = false;
-            this._8H.Click += new System.EventHandler(this._8H_Click);
             // 
             // menuStrip1
             // 
@@ -1088,14 +1024,14 @@
             // newGameToolStripMenuItem1
             // 
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
-            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
             this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
-            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
             this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.quitApplicationToolStripMenuItem_Click);
             // 

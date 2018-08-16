@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Chess_Application</RootNamespace>
     <AssemblyName>Chess Application</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,7 +56,7 @@
     <Compile Include="Classes\Cal.cs" />
     <Compile Include="Classes\LocatieTabla.cs" />
     <Compile Include="Classes\Nebun.cs" />
-    <Compile Include="Classes\Piesa.cs" />
+    <Compile Include="Classes\ChessPiece.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

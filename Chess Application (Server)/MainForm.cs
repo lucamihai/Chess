@@ -13,7 +13,6 @@ using System.Net;
 using System.IO;
 using System.Threading;
 
-
 namespace Chess_Application
 {
 
@@ -21,6 +20,8 @@ namespace Chess_Application
     {
         Panel menuContainer;
         MainMenu mainMenu;
+
+        Dictionary <PictureBox, LocatieTabla> Boxes; 
 
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
@@ -45,19 +46,19 @@ namespace Chess_Application
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
 
-        Pion pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
-        Tura tura1Alb, tura2Alb;
-        Nebun nebun1Alb, nebun2Alb;
-        Cal cal1Alb, cal2Alb;
-        Regina reginaAlb; Rege regeAlb;
+        Piesa pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
+        Piesa tura1Alb, tura2Alb;
+        Piesa nebun1Alb, nebun2Alb;
+        Piesa cal1Alb, cal2Alb;
+        Piesa reginaAlb; Piesa regeAlb;
 
-        Pion pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
+        Piesa pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
         Piesa tura1Negru, tura2Negru;
         Piesa nebun1Negru, nebun2Negru;
         Piesa cal1Negru, cal2Negru;
-        Regina reginaNegru; Rege regeNegru;
+        Piesa reginaNegru; Piesa regeNegru;
 
-        public static LocatieTabla orig, destinatie;
+        public LocatieTabla orig, destinatie;
         
         LocatieTabla A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
         LocatieTabla H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
@@ -84,6 +85,7 @@ namespace Chess_Application
         public MainForm()
         {
             InitializeComponent();
+
             server = new TcpListener(System.Net.IPAddress.Any, 3000);
             server.Start();
             t = new Thread(new ThreadStart(Asculta_Server));
@@ -108,6 +110,9 @@ namespace Chess_Application
             menuContainer.BringToFront();
 
             listaMiscari.ScrollBars = ScrollBars.Vertical;
+
+            #region Chess pieces
+
             tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
             cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
             nebun1Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
@@ -125,11 +130,29 @@ namespace Chess_Application
             pion3Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
             pion5Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
             pion7Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            //=====
+
+            #endregion
+
             NewGame();
+
+            #region Event Assignment
+
+            
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    for (int j = 1; j <= 8; j++)
+                    {
+                        locatii[i, j].imagineLocatie.Click += BoxClick;
+                    }
+                }
+
+            #endregion
+
             destinatie = new LocatieTabla();
             activeazaToolStripMenuItem.Available = false;
             activeazalToolStripMenuItem.Available = false;
+
         }
 
         #region Network stuff
@@ -334,12 +357,13 @@ namespace Chess_Application
             Application.Exit();
         }
 
-        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!incepeJocNou)
             {
                 transmiteMesaj("#request new game");
                 transmiteMesaj(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
+
             }
             else
             {
@@ -347,7 +371,6 @@ namespace Chess_Application
                 incepeJocNou = false;
                 transmiteMesaj("#new game");
             }
-
         }
 
         #endregion
@@ -567,6 +590,8 @@ namespace Chess_Application
 
         public void NewGame()
         {
+            #region Reset Boxes with pieces on them
+
             A1 = new LocatieTabla(tura1Alb, _1A); H1 = new LocatieTabla(tura1Negru, _1H);
             A2 = new LocatieTabla(cal1Alb, _2A); H2 = new LocatieTabla(cal1Negru, _2H);
             A3 = new LocatieTabla(nebun1Alb, _3A); H3 = new LocatieTabla(nebun1Negru, _3H);
@@ -583,7 +608,11 @@ namespace Chess_Application
             B6 = new LocatieTabla(pion6Alb, _6B); G6 = new LocatieTabla(pion6Negru, _6G);
             B7 = new LocatieTabla(pion7Alb, _7B); G7 = new LocatieTabla(pion7Negru, _7G);
             B8 = new LocatieTabla(pion8Alb, _8B); G8 = new LocatieTabla(pion8Negru, _8G);
-            //=====
+
+            #endregion
+
+            #region Reset empty boxes
+
             C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D); E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
             C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D); E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
             C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D); E3 = new LocatieTabla(_3E); F3 = new LocatieTabla(_3F);
@@ -592,14 +621,23 @@ namespace Chess_Application
             C6 = new LocatieTabla(_6C); D6 = new LocatieTabla(_6D); E6 = new LocatieTabla(_6E); F6 = new LocatieTabla(_6F);
             C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
             C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
-            //=====
+
+            #endregion
+
+            #region Reset Capture boxes
+
             pioniAlbiLuati = new LocatieTabla(pion1Alb, pbPioniAlbiLuati);      pioniNegriLuati = new LocatieTabla(pion1Negru, pbPioniNegriLuati);
             tureAlbeLuate = new LocatieTabla(tura1Alb, pbTureAlbeLuate);        tureNegreLuate = new LocatieTabla(tura1Negru, pbTureNegreLuate);
             caiAlbiLuati = new LocatieTabla(cal1Alb, pbCaiAlbiLuati);           caiNegriLuati = new LocatieTabla(cal1Negru, pbCaiNegriLuati);
             nebuniAlbiLuati = new LocatieTabla(nebun1Alb, pbNebuniAlbiLuati);   nebuniNegriLuati = new LocatieTabla(nebun1Negru, pbNebuniNegriLuati);
             reginaAlbaLuata = new LocatieTabla(reginaAlb, pbReginaAlbaLuata);   reginaNeagraLuata = new LocatieTabla(reginaNegru, pbReginaNeagraLuata);
-            //=====           
+
+            #endregion
+
+            #region Prepare boxes matrix
+
             locatii = new LocatieTabla[10, 10];
+
             locatii[1, 1] = A1; locatii[1, 2] = A2; locatii[1, 3] = A3; locatii[1, 4] = A4; locatii[1, 5] = A5; locatii[1, 6] = A6; locatii[1, 7] = A7; locatii[1, 8] = A8;
             locatii[2, 1] = B1; locatii[2, 2] = B2; locatii[2, 3] = B3; locatii[2, 4] = B4; locatii[2, 5] = B5; locatii[2, 6] = B6; locatii[2, 7] = B7; locatii[2, 8] = B8;
             locatii[3, 1] = C1; locatii[3, 2] = C2; locatii[3, 3] = C3; locatii[3, 4] = C4; locatii[3, 5] = C5; locatii[3, 6] = C6; locatii[3, 7] = C7; locatii[3, 8] = C8;
@@ -608,13 +646,42 @@ namespace Chess_Application
             locatii[6, 1] = F1; locatii[6, 2] = F2; locatii[6, 3] = F3; locatii[6, 4] = F4; locatii[6, 5] = F5; locatii[6, 6] = F6; locatii[6, 7] = F7; locatii[6, 8] = F8;
             locatii[7, 1] = G1; locatii[7, 2] = G2; locatii[7, 3] = G3; locatii[7, 4] = G4; locatii[7, 5] = G5; locatii[7, 6] = G6; locatii[7, 7] = G7; locatii[7, 8] = G8;
             locatii[8, 1] = H1; locatii[8, 2] = H2; locatii[8, 3] = H3; locatii[8, 4] = H4; locatii[8, 5] = H5; locatii[8, 6] = H6; locatii[8, 7] = H7; locatii[8, 8] = H8;
-            //=====
+
+            #endregion
+
+            #region Boxes dictionary
+
+            Boxes = new Dictionary<PictureBox, LocatieTabla>();
+
+            Boxes[_1A] = A1; Boxes[_2A] = A2; Boxes[_3A] = A3; Boxes[_4A] = A4; Boxes[_5A] = A5; Boxes[_6A] = A6; Boxes[_7A] = A7; Boxes[_8A] = A8;
+            Boxes[_1B] = B1; Boxes[_2B] = B2; Boxes[_3B] = B3; Boxes[_4B] = B4; Boxes[_5B] = B5; Boxes[_6B] = B6; Boxes[_7B] = B7; Boxes[_8B] = B8;
+            Boxes[_1C] = C1; Boxes[_2C] = C2; Boxes[_3C] = C3; Boxes[_4C] = C4; Boxes[_5C] = C5; Boxes[_6C] = C6; Boxes[_7C] = C7; Boxes[_8C] = C8;
+            Boxes[_1D] = D1; Boxes[_2D] = D2; Boxes[_3D] = D3; Boxes[_4D] = D4; Boxes[_5D] = D5; Boxes[_6D] = D6; Boxes[_7D] = D7; Boxes[_8D] = D8;
+            Boxes[_1E] = E1; Boxes[_2E] = E2; Boxes[_3E] = E3; Boxes[_4E] = E4; Boxes[_5E] = E5; Boxes[_6E] = E6; Boxes[_7E] = E7; Boxes[_8E] = E8;
+            Boxes[_1F] = F1; Boxes[_2F] = F2; Boxes[_3F] = F3; Boxes[_4F] = F4; Boxes[_5F] = F5; Boxes[_6F] = F6; Boxes[_7F] = F7; Boxes[_8F] = F8;
+            Boxes[_1G] = G1; Boxes[_2G] = G2; Boxes[_3G] = G3; Boxes[_4G] = G4; Boxes[_5G] = G5; Boxes[_6G] = G6; Boxes[_7G] = G7; Boxes[_8G] = G8;
+            Boxes[_1H] = H1; Boxes[_2H] = H2; Boxes[_3H] = H3; Boxes[_4H] = H4; Boxes[_5H] = H5; Boxes[_6H] = H6; Boxes[_7H] = H7; Boxes[_8H] = H8;
+
+            #endregion
+
+
             listaMiscari.Rows.Clear();
+
             RestoreCulori(locatii);
+
             clickCounter = 0;
-            if (randMutareClient == 2) { randMutare = 1; rand = true; }
-            else { randMutare = 2; rand = false; }
-            
+
+            if (randMutareClient == 2)
+            {
+                randMutare = 1;
+                rand = true;
+            }
+            else
+            {
+                randMutare = 2;
+                rand = false;
+            }
+
             LocatieTabla.count = 0;
             pozitieRegeAlb.X = 1;
             pozitieRegeAlb.Y = 5;
@@ -651,7 +718,9 @@ namespace Chess_Application
                     }
                 }
             }
+
             textBox1.AppendText("Albu-i in mat..." + Environment.NewLine);
+
             return true;
         }
 
@@ -673,7 +742,9 @@ namespace Chess_Application
                     }
                 }
             }
+
             textBox1.AppendText("Negru-i in mat..." + Environment.NewLine);
+
             return true;
         }
 
@@ -733,21 +804,6 @@ namespace Chess_Application
             H5.imagineLocatie.BackColor = System.Drawing.Color.Silver; H6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
             H7.imagineLocatie.BackColor = System.Drawing.Color.Silver; H8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
         }
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!incepeJocNou)
-            {
-                transmiteMesaj("#request new game");
-                transmiteMesaj(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
-
-            }
-            else
-            {
-                NewGame();
-                incepeJocNou = false;
-                transmiteMesaj("#new game");
-            }
-        }
 
         public void RandNou(LocatieTabla[,] loc)
         {
@@ -761,6 +817,7 @@ namespace Chess_Application
             randMutare++;
             if (randMutare > 2) randMutare = 1;
         }
+
         public void R(LocatieTabla[,] loc)
         {
             for (int i = 1; i <= 8; i++)
@@ -771,6 +828,7 @@ namespace Chess_Application
                 }
             }           
         }
+
         public void Rearanjare(LocatieTabla[,] loc)
         {
             for (int i = 1; i <= 8; i++)
@@ -782,12 +840,14 @@ namespace Chess_Application
             }
             clickCounter = 0;
         }
+
         public void Deselectare(LocatieTabla[,] loc)
         {
             Rearanjare(loc); clickCounter = 100; RestoreCulori(loc);
         }
 
-        #region Piese luate
+        #region Recapturing chess pieces
+
         private void pbPioniAlbiLuati_Click(object sender, EventArgs e)
         {
 
@@ -887,1416 +947,43 @@ namespace Chess_Application
                 transmiteMesaj("#final selectie");
             }
         }
+
         #endregion
 
-        #region Click casute
-        private void _1A_Click(object sender, EventArgs e)
+        void BoxClick(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A1 == orig)
+            PictureBox clickedBox = (PictureBox)sender;
+            LocatieTabla clickedBoxObject = Boxes[clickedBox];
+
+            if (trebuieSaSelectezi || adversarulSelecteaza)
+            {
+                return;
+            }
+   
+            if (clickCounter == 1 && clickedBoxObject == orig)
             {
                 Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
             }
-            if (clickCounter == 0 && _1A.BackgroundImage != null && randMutare == A1.culoare && rand)
+
+            if (clickCounter == 0 && clickedBox.BackgroundImage != null && randMutare == clickedBoxObject.culoare && rand)
             {
-                A1.piesa.VerificaPosibilitati(1, 1, locatii);
-                if (A1.poateFaceMiscari == true)
+                short row = clickedBoxObject.GetRow();
+                short column = clickedBoxObject.GetColumn();
+
+                clickedBoxObject.piesa.VerificaPosibilitati(row, column, locatii);
+                if (clickedBoxObject.poateFaceMiscari == true)
                 {
-                    orig = A1;
+                    orig = clickedBoxObject;
                     clickCounter++;
                 }
             }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A1 != orig && A1.sePoate == true)
+
+            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && clickedBoxObject != orig && clickedBoxObject.sePoate == true)
             {
-                Muta(orig, A1, mesajDeTransmis);
+                Muta(orig, clickedBoxObject, mesajDeTransmis);
             }
+
         }
 
-        private void _2A_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2A.BackgroundImage != null && randMutare == A2.culoare && rand)
-            {
-                A2.piesa.VerificaPosibilitati(1, 2, locatii);
-                if (A2.poateFaceMiscari == true)
-                {
-                    orig = A2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A2 != orig && A2.sePoate == true)
-            {
-                Muta(orig, A2, mesajDeTransmis);
-            }
-        }
-
-        private void _3A_Click(object sender, EventArgs e)
-        {
-            if(trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3A.BackgroundImage != null && randMutare == A3.culoare && rand)
-            {
-                A3.piesa.VerificaPosibilitati(1, 3, locatii);
-                if (A3.poateFaceMiscari == true)
-                {
-                    orig = A3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A3 != orig && A3.sePoate == true)
-            {
-                Muta(orig, A3, mesajDeTransmis);
-            }
-        }
-
-        private void _4A_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4A.BackgroundImage != null && randMutare == A4.culoare && rand)
-            {
-                A4.piesa.VerificaPosibilitati(1, 4, locatii);
-                if (A4.poateFaceMiscari == true)
-                {
-                    orig = A4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A4 != orig && A4.sePoate == true)
-            {
-                Muta(orig, A4, mesajDeTransmis);
-            }
-        }
-
-        private void _5A_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5A.BackgroundImage != null && randMutare == A5.culoare && rand)
-            {
-                A5.piesa.VerificaPosibilitati(1, 5, locatii);
-                if (A5.poateFaceMiscari == true)
-                {
-                    orig = A5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A5 != orig && A5.sePoate == true)
-            {
-                Muta(orig, A5, mesajDeTransmis);
-            }
-        }
-
-        private void _6A_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6A.BackgroundImage != null && randMutare == A6.culoare && rand)
-            {
-                A6.piesa.VerificaPosibilitati(1, 6, locatii);
-                if (A6.poateFaceMiscari == true)
-                {
-                    orig = A6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A6 != orig && A6.sePoate == true)
-            {
-                Muta(orig, A6, mesajDeTransmis);
-            }
-        }
-
-        private void _7A_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7A.BackgroundImage != null && randMutare == A7.culoare && rand)
-            {
-                A7.piesa.VerificaPosibilitati(1, 7, locatii);
-                if (A7.poateFaceMiscari == true)
-                {
-                    orig = A7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A7 != orig && A7.sePoate == true)
-            {
-                Muta(orig, A7, mesajDeTransmis);
-            }
-        }
-
-        private void _8A_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && A8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8A.BackgroundImage != null && randMutare == A8.culoare && rand)
-            {
-                A8.piesa.VerificaPosibilitati(1, 8, locatii);
-                if (A8.poateFaceMiscari == true)
-                {
-                    orig = A8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && A8 != orig && A8.sePoate == true)
-            {
-                Muta(orig, A8, mesajDeTransmis);
-            }
-        }
-
-        private void _1B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1B.BackgroundImage != null && randMutare == B1.culoare && rand)
-            {
-                B1.piesa.VerificaPosibilitati(2, 1, locatii);
-                if (B1.poateFaceMiscari == true)
-                {
-                    orig = B1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B1 != orig && B1.sePoate == true)
-            {
-                Muta(orig, B1, mesajDeTransmis);
-            }
-        }
-
-        private void _2B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2B.BackgroundImage != null && randMutare == B2.culoare && rand)
-            {
-                B2.piesa.VerificaPosibilitati(2, 2, locatii);
-                if (B2.poateFaceMiscari == true)
-                {
-                    orig = B2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B2 != orig && B2.sePoate == true)
-            {
-                Muta(orig, B2, mesajDeTransmis);
-            }
-        }
-
-        private void _3B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3B.BackgroundImage != null && randMutare == B3.culoare && rand)
-            {
-                B3.piesa.VerificaPosibilitati(2, 3, locatii);
-                if (B3.poateFaceMiscari == true)
-                {
-                    orig = B3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B3 != orig && B3.sePoate == true)
-            {
-                Muta(orig, B3, mesajDeTransmis);
-            }
-        }
-
-        private void _4B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4B.BackgroundImage != null && randMutare == B4.culoare && rand)
-            {
-                B4.piesa.VerificaPosibilitati(2, 4, locatii);
-                if (B4.poateFaceMiscari == true)
-                {
-                    orig = B4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B4 != orig && B4.sePoate == true)
-            {
-                Muta(orig, B4, mesajDeTransmis);
-            }
-        }
-
-        private void _5B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5B.BackgroundImage != null && randMutare == B5.culoare && rand)
-            {
-                B5.piesa.VerificaPosibilitati(2, 5, locatii);
-                if (B5.poateFaceMiscari == true)
-                {
-                    orig = B5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B5 != orig && B5.sePoate == true)
-            {
-                Muta(orig, B5, mesajDeTransmis);
-            }
-        }
-
-        private void _6B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6B.BackgroundImage != null && randMutare == B6.culoare && rand)
-            {
-                B6.piesa.VerificaPosibilitati(2, 6, locatii);
-                if (B6.poateFaceMiscari == true)
-                {
-                    orig = B6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B6 != orig && B6.sePoate == true)
-            {
-                Muta(orig, B6, mesajDeTransmis);
-            }
-        }
-
-        private void _7B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7B.BackgroundImage != null && randMutare == B7.culoare && rand)
-            {
-                B7.piesa.VerificaPosibilitati(2, 7, locatii);
-                if (B7.poateFaceMiscari == true)
-                {
-                    orig = B7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B7 != orig && B7.sePoate == true)
-            {
-                Muta(orig, B7, mesajDeTransmis);
-            }
-        }
-
-        private void _8B_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && B8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8B.BackgroundImage != null && randMutare == B8.culoare && rand)
-            {
-                B8.piesa.VerificaPosibilitati(2, 8, locatii);
-                if (B8.poateFaceMiscari == true)
-                {
-                    orig = B8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && B8 != orig && B8.sePoate == true)
-            {
-                Muta(orig, B8, mesajDeTransmis);
-            }
-        }
-
-        private void _1C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1C.BackgroundImage != null && randMutare == C1.culoare && rand)
-            {
-                C1.piesa.VerificaPosibilitati(3, 1, locatii);
-                if (C1.poateFaceMiscari == true)
-                {
-                    orig = C1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C1 != orig && C1.sePoate == true)
-            {
-                Muta(orig, C1, mesajDeTransmis);
-            }
-        }
-
-        private void _2C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2C.BackgroundImage != null && randMutare == C2.culoare && rand)
-            {
-                C2.piesa.VerificaPosibilitati(3, 2, locatii);
-                if (C2.poateFaceMiscari == true)
-                {
-                    orig = C2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C2 != orig && C2.sePoate == true)
-            {
-                Muta(orig, C2, mesajDeTransmis);
-            }
-        }
-
-        private void _3C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3C.BackgroundImage != null && randMutare == C3.culoare && rand)
-            {
-                C3.piesa.VerificaPosibilitati(3, 3, locatii);
-                if (C3.poateFaceMiscari == true)
-                {
-                    orig = C3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C3 != orig && C3.sePoate == true)
-            {
-                Muta(orig, C3, mesajDeTransmis);
-            }
-        }
-
-        private void _4C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4C.BackgroundImage != null && randMutare == C4.culoare && rand)
-            {
-                C4.piesa.VerificaPosibilitati(3, 4, locatii);
-                if (C4.poateFaceMiscari == true)
-                {
-                    orig = C4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C4 != orig && C4.sePoate == true)
-            {
-                Muta(orig, C4, mesajDeTransmis);
-            }
-        }
-
-        private void _5C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5C.BackgroundImage != null && randMutare == C5.culoare && rand)
-            {
-                C5.piesa.VerificaPosibilitati(3, 5, locatii);
-                if (C5.poateFaceMiscari == true)
-                {
-                    orig = C5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C5 != orig && C5.sePoate == true)
-            {
-                Muta(orig, C5, mesajDeTransmis);
-            }
-        }
-
-        private void _6C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6C.BackgroundImage != null && randMutare == C6.culoare && rand)
-            {
-                C6.piesa.VerificaPosibilitati(3, 6, locatii);
-                if (C6.poateFaceMiscari == true)
-                {
-                    orig = C6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C6 != orig && C6.sePoate == true)
-            {
-                Muta(orig, C6, mesajDeTransmis);
-            }
-        }
-
-        private void _7C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7C.BackgroundImage != null && randMutare == C7.culoare && rand)
-            {
-                C7.piesa.VerificaPosibilitati(3, 7, locatii);
-                if (C7.poateFaceMiscari == true)
-                {
-                    orig = C7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C7 != orig && C7.sePoate == true)
-            {
-                Muta(orig, C7, mesajDeTransmis);
-            }
-        }
-
-        private void _8C_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && C8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8C.BackgroundImage != null && randMutare == C8.culoare && rand)
-            {
-                C8.piesa.VerificaPosibilitati(3, 8, locatii);
-                if (C8.poateFaceMiscari == true)
-                {
-                    orig = C8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && C8 != orig && C8.sePoate == true)
-            {
-                Muta(orig, C8, mesajDeTransmis);
-            }
-        }
-
-        private void _1D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1D.BackgroundImage != null && randMutare == D1.culoare && rand)
-            {
-                D1.piesa.VerificaPosibilitati(4, 1, locatii);
-                if (D1.poateFaceMiscari == true)
-                {
-                    orig = D1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D1 != orig && D1.sePoate == true)
-            {
-                Muta(orig, D1, mesajDeTransmis);
-            }
-        }
-
-        private void _2D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2D.BackgroundImage != null && randMutare == D2.culoare && rand)
-            {
-                D2.piesa.VerificaPosibilitati(4, 2, locatii);
-                if (D2.poateFaceMiscari == true)
-                {
-                    orig = D2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D2 != orig && D2.sePoate == true)
-            {
-                Muta(orig, D2, mesajDeTransmis);
-            }
-        }
-
-        private void _3D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3D.BackgroundImage != null && randMutare == D3.culoare && rand)
-            {
-                D3.piesa.VerificaPosibilitati(4, 3, locatii);
-                if (D3.poateFaceMiscari == true)
-                {
-                    orig = D3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D3 != orig && D3.sePoate == true)
-            {
-                Muta(orig, D3, mesajDeTransmis);
-            }
-        }
-
-        private void _4D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4D.BackgroundImage != null && randMutare == D4.culoare && rand)
-            {
-                D4.piesa.VerificaPosibilitati(4, 4, locatii);
-                if (D4.poateFaceMiscari == true)
-                {
-                    orig = D4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D4 != orig && D4.sePoate == true)
-            {
-                Muta(orig, D4, mesajDeTransmis);
-            }
-        }
-
-        private void _5D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5D.BackgroundImage != null && randMutare == D5.culoare && rand)
-            {
-                D5.piesa.VerificaPosibilitati(4, 5, locatii);
-                if (D5.poateFaceMiscari == true)
-                {
-                    orig = D5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D5 != orig && D5.sePoate == true)
-            {
-                Muta(orig, D5, mesajDeTransmis);
-            }
-        }
-
-        private void _6D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6D.BackgroundImage != null && randMutare == D6.culoare && rand)
-            {
-                D6.piesa.VerificaPosibilitati(4, 6, locatii);
-                if (D6.poateFaceMiscari == true)
-                {
-                    orig = D6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D6 != orig && D6.sePoate == true)
-            {
-                Muta(orig, D6, mesajDeTransmis);
-            }
-        }
-
-        private void _7D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7D.BackgroundImage != null && randMutare == D7.culoare && rand)
-            {
-                D7.piesa.VerificaPosibilitati(4, 7, locatii);
-                if (D7.poateFaceMiscari == true)
-                {
-                    orig = D7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D7 != orig && D7.sePoate == true)
-            {
-                Muta(orig, D7, mesajDeTransmis);
-            }
-        }
-
-        private void _8D_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && D8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8D.BackgroundImage != null && randMutare == D8.culoare && rand)
-            {
-                D8.piesa.VerificaPosibilitati(4, 8, locatii);
-                if (D8.poateFaceMiscari == true)
-                {
-                    orig = D8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && D8 != orig && D8.sePoate == true)
-            {
-                Muta(orig, D8, mesajDeTransmis);
-            }
-        }
-
-        private void _1E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1E.BackgroundImage != null && randMutare == E1.culoare && rand)
-            {
-                E1.piesa.VerificaPosibilitati(5, 1, locatii);
-                if (E1.poateFaceMiscari == true)
-                {
-                    orig = E1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E1 != orig && E1.sePoate == true)
-            {
-                Muta(orig, E1, mesajDeTransmis);
-            }
-        }
-
-        private void _2E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2E.BackgroundImage != null && randMutare == E2.culoare && rand)
-            {
-                E2.piesa.VerificaPosibilitati(5, 2, locatii);
-                if (E2.poateFaceMiscari == true)
-                {
-                    orig = E2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E2 != orig && E2.sePoate == true)
-            {
-                Muta(orig, E2, mesajDeTransmis);
-            }
-        }
-
-        private void _3E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3E.BackgroundImage != null && randMutare == E3.culoare && rand)
-            {
-                E3.piesa.VerificaPosibilitati(5, 3, locatii);
-                if (E3.poateFaceMiscari == true)
-                {
-                    orig = E3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E3 != orig && E3.sePoate == true)
-            {
-                Muta(orig, E3, mesajDeTransmis);
-            }
-        }
-
-        private void _4E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4E.BackgroundImage != null && randMutare == E4.culoare && rand)
-            {
-                E4.piesa.VerificaPosibilitati(5, 4, locatii);
-                if (E4.poateFaceMiscari == true)
-                {
-                    orig = E4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E4 != orig && E4.sePoate == true)
-            {
-                Muta(orig, E4, mesajDeTransmis);
-            }
-        }
-
-        private void _5E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5E.BackgroundImage != null && randMutare == E5.culoare && rand)
-            {
-                E5.piesa.VerificaPosibilitati(5, 5, locatii);
-                if (E5.poateFaceMiscari == true)
-                {
-                    orig = E5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E5 != orig && E5.sePoate == true)
-            {
-                Muta(orig, E5, mesajDeTransmis);
-            }
-        }
-
-        private void _6E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6E.BackgroundImage != null && randMutare == E6.culoare && rand)
-            {
-                E6.piesa.VerificaPosibilitati(5, 6, locatii);
-                if (E6.poateFaceMiscari == true)
-                {
-                    orig = E6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E6 != orig && E6.sePoate == true)
-            {
-                Muta(orig, E6, mesajDeTransmis);
-            }
-        }
-
-        private void _7E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7E.BackgroundImage != null && randMutare == E7.culoare && rand)
-            {
-                E7.piesa.VerificaPosibilitati(5, 7, locatii);
-                if (E7.poateFaceMiscari == true)
-                {
-                    orig = E7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E7 != orig && E7.sePoate == true)
-            {
-                Muta(orig, E7, mesajDeTransmis);
-            }
-        }
-
-        private void _8E_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && E8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8E.BackgroundImage != null && randMutare == E8.culoare && rand)
-            {
-                E8.piesa.VerificaPosibilitati(5, 8, locatii);
-                if (E8.poateFaceMiscari == true)
-                {
-                    orig = E8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && E8 != orig && E8.sePoate == true)
-            {
-                Muta(orig, E8, mesajDeTransmis);
-            }
-        }
-
-        private void _1F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1F.BackgroundImage != null && randMutare == F1.culoare && rand)
-            {
-                F1.piesa.VerificaPosibilitati(6, 1, locatii);
-                if (F1.poateFaceMiscari == true)
-                {
-                    orig = F1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F1 != orig && F1.sePoate == true)
-            {
-                Muta(orig, F1, mesajDeTransmis);
-            }
-        }
-
-        private void _2F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2F.BackgroundImage != null && randMutare == F2.culoare && rand)
-            {
-                F2.piesa.VerificaPosibilitati(6, 2, locatii);
-                if (F2.poateFaceMiscari == true)
-                {
-                    orig = F2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F2 != orig && F2.sePoate == true)
-            {
-                Muta(orig, F2, mesajDeTransmis);
-            }
-        }
-
-        private void _3F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3F.BackgroundImage != null && randMutare == F3.culoare && rand)
-            {
-                F3.piesa.VerificaPosibilitati(6, 3, locatii);
-                if (F3.poateFaceMiscari == true)
-                {
-                    orig = F3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F3 != orig && F3.sePoate == true)
-            {
-                Muta(orig, F3, mesajDeTransmis);
-            }
-        }
-
-        private void _4F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4F.BackgroundImage != null && randMutare == F4.culoare && rand)
-            {
-                F4.piesa.VerificaPosibilitati(6, 4, locatii);
-                if (F4.poateFaceMiscari == true)
-                {
-                    orig = F4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F4 != orig && F4.sePoate == true)
-            {
-                Muta(orig, F4, mesajDeTransmis);
-            }
-        }
-
-        private void _5F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5F.BackgroundImage != null && randMutare == F5.culoare && rand)
-            {
-                F5.piesa.VerificaPosibilitati(6, 5, locatii);
-                if (F5.poateFaceMiscari == true)
-                {
-                    orig = F5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F5 != orig && F5.sePoate == true)
-            {
-                Muta(orig, F5, mesajDeTransmis);
-            }
-        }
-
-        private void _6F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6F.BackgroundImage != null && randMutare == F6.culoare && rand)
-            {
-                F6.piesa.VerificaPosibilitati(6, 6, locatii);
-                if (F6.poateFaceMiscari == true)
-                {
-                    orig = F6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F6 != orig && F6.sePoate == true)
-            {
-                Muta(orig, F6, mesajDeTransmis);
-            }
-        }
-
-        private void _7F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7F.BackgroundImage != null && randMutare == F7.culoare && rand)
-            {
-                F7.piesa.VerificaPosibilitati(6, 7, locatii);
-                if (F7.poateFaceMiscari == true)
-                {
-                    orig = F7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F7 != orig && F7.sePoate == true)
-            {
-                Muta(orig, F7, mesajDeTransmis);
-            }
-        }
-
-        private void _8F_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && F8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8F.BackgroundImage != null && randMutare == F8.culoare && rand)
-            {
-                F8.piesa.VerificaPosibilitati(6, 8, locatii);
-                if (F8.poateFaceMiscari == true)
-                {
-                    orig = F8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && F8 != orig && F8.sePoate == true)
-            {
-                Muta(orig, F8, mesajDeTransmis);
-            }
-        }
-
-        private void _1G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1G.BackgroundImage != null && randMutare == G1.culoare && rand)
-            {
-                G1.piesa.VerificaPosibilitati(7, 1, locatii);
-                if (G1.poateFaceMiscari == true)
-                {
-                    orig = G1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G1 != orig && G1.sePoate == true)
-            {
-                Muta(orig, G1, mesajDeTransmis);
-            }
-        }
-
-        private void _2G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2G.BackgroundImage != null && randMutare == G2.culoare && rand)
-            {
-                G2.piesa.VerificaPosibilitati(7, 2, locatii);
-                if (G2.poateFaceMiscari == true)
-                {
-                    orig = G2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G2 != orig && G2.sePoate == true)
-            {
-                Muta(orig, G2, mesajDeTransmis);
-            }
-        }
-
-        private void _3G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3G.BackgroundImage != null && randMutare == G3.culoare && rand)
-            {
-                G3.piesa.VerificaPosibilitati(7, 3, locatii);
-                if (G3.poateFaceMiscari == true)
-                {
-                    orig = G3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G3 != orig && G3.sePoate == true)
-            {
-                Muta(orig, G3, mesajDeTransmis);
-            }
-        }
-
-        private void _4G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4G.BackgroundImage != null && randMutare == G4.culoare && rand)
-            {
-                G4.piesa.VerificaPosibilitati(7, 4, locatii);
-                if (G4.poateFaceMiscari == true)
-                {
-                    orig = G4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G4 != orig && G4.sePoate == true)
-            {
-                Muta(orig, G4, mesajDeTransmis);
-            }
-        }
-
-        private void _5G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5G.BackgroundImage != null && randMutare == G5.culoare && rand)
-            {
-                G5.piesa.VerificaPosibilitati(7, 5, locatii);
-                if (G5.poateFaceMiscari == true)
-                {
-                    orig = G5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G5 != orig && G5.sePoate == true)
-            {
-                Muta(orig, G5, mesajDeTransmis);
-            }
-        }
-
-        private void _6G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6G.BackgroundImage != null && randMutare == G6.culoare && rand)
-            {
-                G6.piesa.VerificaPosibilitati(7, 6, locatii);
-                if (G6.poateFaceMiscari == true)
-                {
-                    orig = G6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G6 != orig && G6.sePoate == true)
-            {
-                Muta(orig, G6, mesajDeTransmis);
-            }
-        }
-
-        private void _7G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7G.BackgroundImage != null && randMutare == G7.culoare && rand)
-            {
-                G7.piesa.VerificaPosibilitati(7, 7, locatii);
-                if (G7.poateFaceMiscari == true)
-                {
-                    orig = G7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G7 != orig && G7.sePoate == true)
-            {
-                Muta(orig, G7, mesajDeTransmis);
-            }
-        }
-
-        private void _8G_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && G8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8G.BackgroundImage != null && randMutare == G8.culoare && rand)
-            {
-                G8.piesa.VerificaPosibilitati(7, 8, locatii);
-                if (G8.poateFaceMiscari == true)
-                {
-                    orig = G8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && G8 != orig && G8.sePoate == true)
-            {
-                Muta(orig, G8, mesajDeTransmis);
-            }
-        }
-
-        private void _1H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H1 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _1H.BackgroundImage != null && randMutare == H1.culoare && rand)
-            {
-                H1.piesa.VerificaPosibilitati(8, 1, locatii);
-                if (H1.poateFaceMiscari == true)
-                {
-                    orig = H1;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H1 != orig && H1.sePoate == true)
-            {
-                Muta(orig, H1, mesajDeTransmis);
-            }
-        }
-
-        private void _2H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H2 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _2H.BackgroundImage != null && randMutare == H2.culoare && rand)
-            {
-                H2.piesa.VerificaPosibilitati(8, 2, locatii);
-                if (H2.poateFaceMiscari == true)
-                {
-                    orig = H2;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H2 != orig && H2.sePoate == true)
-            {
-                Muta(orig, H2, mesajDeTransmis);
-            }
-        }
-
-        private void _3H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H3 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _3H.BackgroundImage != null && randMutare == H3.culoare && rand)
-            {
-                H3.piesa.VerificaPosibilitati(8, 3, locatii);
-                if (H3.poateFaceMiscari == true)
-                {
-                    orig = H3;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H3 != orig && H3.sePoate == true)
-            {
-                Muta(orig, H3, mesajDeTransmis);
-            }
-        }
-
-        private void _4H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H4 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _4H.BackgroundImage != null && randMutare == H4.culoare && rand)
-            {
-                H4.piesa.VerificaPosibilitati(8, 4, locatii);
-                if (H4.poateFaceMiscari == true)
-                {
-                    orig = H4;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H4 != orig && H4.sePoate == true)
-            {
-                Muta(orig, H4, mesajDeTransmis);
-            }
-        }
-
-        private void _5H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H5 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _5H.BackgroundImage != null && randMutare == H5.culoare && rand)
-            {
-                H5.piesa.VerificaPosibilitati(8, 5, locatii);
-                if (H5.poateFaceMiscari == true)
-                {
-                    orig = H5;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H5 != orig && H5.sePoate == true)
-            {
-                Muta(orig, H5, mesajDeTransmis);
-            }
-        }
-
-        private void _6H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H6 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _6H.BackgroundImage != null && randMutare == H6.culoare && rand)
-            {
-                H6.piesa.VerificaPosibilitati(8, 6, locatii);
-                if (H6.poateFaceMiscari == true)
-                {
-                    orig = H6;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H6 != orig && H6.sePoate == true)
-            {
-                Muta(orig, H6, mesajDeTransmis);
-            }
-        }
-
-        private void _7H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H7 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _7H.BackgroundImage != null && randMutare == H7.culoare && rand)
-            {
-                H7.piesa.VerificaPosibilitati(8, 7, locatii);
-                if (H7.poateFaceMiscari == true)
-                {
-                    orig = H7;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H7 != orig && H7.sePoate == true)
-            {
-                Muta(orig, H7, mesajDeTransmis);
-            }
-        }
-
-        private void _8H_Click(object sender, EventArgs e)
-        {
-            if (trebuieSaSelectezi || adversarulSelecteaza) return;
-            if (clickCounter == 1 && H8 == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
-            if (clickCounter == 0 && _8H.BackgroundImage != null && randMutare == H8.culoare && rand)
-            {
-                H8.piesa.VerificaPosibilitati(8, 8, locatii);
-                if (H8.poateFaceMiscari == true)
-                {
-                    orig = H8;
-                    clickCounter++;
-                }
-            }
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && H8 != orig && H8.sePoate == true)
-            {
-                Muta(orig, H8, mesajDeTransmis);
-            }
-        }
-#endregion
     }
 }

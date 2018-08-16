@@ -683,8 +683,8 @@ namespace Chess_Application
             A1 = new LocatieTabla(tura1Alb, _1A);   H1 = new LocatieTabla(tura1Negru, _1H);
             A2 = new LocatieTabla(cal1Alb, _2A);    H2 = new LocatieTabla(cal1Negru, _2H);
             A3 = new LocatieTabla(nebun1Alb, _3A);  H3 = new LocatieTabla(nebun1Negru, _3H);
-            A4 = new LocatieTabla(reginaAlb, _4A);  H4 = new LocatieTabla(reginaNegru, _4H);
-            A5 = new LocatieTabla(regeAlb, _5A);    H5 = new LocatieTabla(regeNegru, _5H);
+            A4 = new LocatieTabla(reginaAlb, _4A);  H4 = new LocatieTabla(regeNegru, _4H);
+            A5 = new LocatieTabla(regeAlb, _5A);    H5 = new LocatieTabla(reginaNegru, _5H);
             A6 = new LocatieTabla(nebun2Alb, _6A);  H6 = new LocatieTabla(nebun2Negru, _6H);
             A7 = new LocatieTabla(cal2Alb, _7A);    H7 = new LocatieTabla(cal2Negru, _7H);
             A8 = new LocatieTabla(tura2Alb, _8A);   H8 = new LocatieTabla(tura2Negru, _8H);
@@ -734,7 +734,7 @@ namespace Chess_Application
             pozitieRegeAlb.X = 1;
             pozitieRegeAlb.Y = 5;
             pozitieRegeNegru.X = 8;
-            pozitieRegeNegru.Y = 5;
+            pozitieRegeNegru.Y = 4;
             labelCPA.Text = 0.ToString();       labelCPN.Text = 0.ToString();
             labelCTA.Text = 0.ToString();       labelCTN.Text = 0.ToString();
             labelCountCA.Text = 0.ToString();   labelCountCN.Text = 0.ToString();

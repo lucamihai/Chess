@@ -25,13 +25,33 @@ namespace Chess_Application
         public bool sePoate = false;
         public PictureBox imagineLocatie;
 
-        public static string Reverse(string s)
+        short row, column;
+
+        // Used for insantiating the matrix of boxes
+        public LocatieTabla()
         {
-            char[] charArray = s.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
+
         }
 
+        // Used for empty boxes
+        public LocatieTabla(PictureBox b)
+        {
+            imagineLocatie = b;
+            imagineLocatie.BackgroundImage = null;
+            nume = b.Name;
+            nume = nume.Substring(1);
+            nume = Reverse(nume);
+
+            row = (short)nume[0];
+            row -= (short)'A';
+            row += 1;
+
+            column = (short)nume[1];
+            column -= (short)'1';
+            column += 1;
+        }
+
+        // Used for boxes with a chess piece on them
         public LocatieTabla(Piesa p, PictureBox b)
         {
             piesa = p;
@@ -41,27 +61,25 @@ namespace Chess_Application
             b.BackgroundImage = p.imaginePiesa.BackgroundImage;
             nume = b.Name;
             nume = nume.Substring(1);
-            nume=Reverse(nume);
+            nume = Reverse(nume);
+
+            row = (short)nume[0];
+            row -= (short)'A';
+            row += 1;
+
+            column = (short)nume[1];
+            column -= (short)'1';
+            column += 1;
         }
 
-        public LocatieTabla()
+        public static string Reverse(string s)
         {
-
-        }
-        public LocatieTabla(PictureBox b)
-        {
-            imagineLocatie = b;
-            imagineLocatie.BackgroundImage = null;
-            nume = b.Name;
-            nume = nume.Substring(1);
-            nume=Reverse(nume);
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
 
-        public void MarcheazaSimplu(CheckBox c)//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
-        {
-            sePoate = true;
-        }
-        public void Marcheaza()//daca sunt indeplinite regulile, marcheaza locatia ca fiind accesibila; optional afiseaza verde pe casuta respectiva
+        public void Marcheaza()
         {
             sePoate = true;
             if (MainForm.modInceptator)
@@ -74,6 +92,16 @@ namespace Chess_Application
         {
             imagineLocatie.BackgroundImage = null;
         }
-        
+
+        public short GetRow()
+        {
+            return row;
+        }
+
+        public short GetColumn()
+        {
+            return column;
+        }
+
     }
 }
