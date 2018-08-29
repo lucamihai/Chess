@@ -646,13 +646,12 @@ namespace Chess_Application
             panel1.SendToBack();
             panel2.SendToBack();
             panel3.SendToBack();
-            meniu1.BringToFront();
+
         }
 
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewGame();
-            meniu1.Show();
         }
 
         private void quitApplicationToolStripMenuItem_Click(object sender, EventArgs e)

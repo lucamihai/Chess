@@ -25,23 +25,26 @@ namespace Chess_Application
 
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
-        public static int[] pozitieReginaAlba = new int[2];
+        int tempI, tempJ;
+
+        short clickCounter = 0;
+
         static bool rand = true;
+        public static bool modInceptator = true;
+        bool soundEnabled = true;
+        bool incepeJocNou = false;
+        bool trebuieSaSelectezi = false;
+        bool adversarulSelecteaza = false;
+
         public static short randMutare = 1;
         public static short randMutareClient = 2;
-        short clickCounter = 0;
-        public static string mesajDeTransmis;
-        public static string mesajPrimit;
-        public static bool modInceptator = true;
-        public static bool sunet = true;
-        public bool incepeJocNou = false;
-        public bool trebuieSaSelectezi = false;
-        public bool adversarulSelecteaza = false;
-        public int counterPioniAlbi, counterTureAlbe, counterCaiAlbi, counterNebuniAlbi, counterReginaAlba;
-        public int counterPioniNegri, counterTureNegre, counterCaiNegri, counterNebuniNegri, counterReginaNeagra;
-        public int tempI, tempJ;
 
-        public string username = "Server";
+        int counterPioniAlbi, counterTureAlbe, counterCaiAlbi, counterNebuniAlbi, counterReginaAlba;
+        int counterPioniNegri, counterTureNegre, counterCaiNegri, counterNebuniNegri, counterReginaNeagra;
+
+        static string mesajDeTransmis;
+
+        string username = "Server";
 
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
@@ -50,13 +53,13 @@ namespace Chess_Application
         Piesa tura1Alb, tura2Alb;
         Piesa nebun1Alb, nebun2Alb;
         Piesa cal1Alb, cal2Alb;
-        Piesa reginaAlb; Piesa regeAlb;
+        Piesa reginaAlb, regeAlb;
 
         Piesa pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
         Piesa tura1Negru, tura2Negru;
         Piesa nebun1Negru, nebun2Negru;
         Piesa cal1Negru, cal2Negru;
-        Piesa reginaNegru; Piesa regeNegru;
+        Piesa reginaNegru, regeNegru;
 
         public LocatieTabla orig, destinatie;
         
@@ -70,17 +73,18 @@ namespace Chess_Application
         LocatieTabla pioniNegriLuati, tureNegreLuate, caiNegriLuati, nebuniNegriLuati, reginaNeagraLuata;
 
         public LocatieTabla[,] locatii;
-        //=============================================================================================================================================
+
+        #region Network variables and objects
+
         public TcpListener server;
-        public String dateServer;
+        public string dateServer;
         private static MainForm serverForm;
         Thread t;
         bool workThread;
         public static NetworkStream streamServer;
         public static string usernameClient = "Client";
 
-
-        //----------------------------------------------------------------------------------------------------------------------
+        #endregion
 
         public MainForm()
         {
@@ -155,6 +159,20 @@ namespace Chess_Application
 
         }
 
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                workThread = false;
+                streamServer.Close();
+            }
+
+            catch (Exception)
+            {
+
+            }
+        }
+
         #region Network stuff
 
         public void Asculta_Server()
@@ -182,7 +200,7 @@ namespace Chess_Application
                                 int o2 = System.Convert.ToInt32(coordonate[0][1]) - 48;
                                 int d1 = System.Convert.ToInt32(coordonate[1][0]) - 64;
                                 int d2 = System.Convert.ToInt32(coordonate[1][1]) - 48;
-                                MethodInvoker mutare = new MethodInvoker(() => Muta(locatii[o1, o2], locatii[d1, d2]));
+                                MethodInvoker mutare = new MethodInvoker(() => OpponentMovePiece(locatii[o1, o2], locatii[d1, d2]));
                                 serverForm.Invoke(mutare);
                             }
                             if (dateServer.StartsWith("#username"))
@@ -300,6 +318,7 @@ namespace Chess_Application
                 textBox1.AppendText(username + ":    " + mesajDeTransmis + Environment.NewLine);
             scriere.WriteLine(mesajDeTransmis);
         }
+
         void transmiteMesaj(string a)
         {
             StreamWriter scriere = new StreamWriter(streamServer);
@@ -311,8 +330,10 @@ namespace Chess_Application
 
         private void tbServerDate_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && tbServerDate.Text!="")
+            if (e.KeyCode == Keys.Enter && tbServerDate.Text != "")
+            {
                 btnSend_Click(this, new EventArgs());
+            }     
         }
 
         #endregion
@@ -321,14 +342,14 @@ namespace Chess_Application
 
         private void activeazalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sunet = true;
+            soundEnabled = true;
             activeazalToolStripMenuItem.Visible = false;
             dezactiveazalToolStripMenuItem.Visible = true;
         }
 
         private void dezactiveazalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sunet = false;
+            soundEnabled = false;
             activeazalToolStripMenuItem.Visible = true;
             dezactiveazalToolStripMenuItem.Visible = false;
         }
@@ -375,144 +396,298 @@ namespace Chess_Application
 
         #endregion
 
-        #region Deplasare Piese
-
-        void Transfera(LocatieTabla origine, LocatieTabla destinatie)
+        /// <summary>
+        /// Method used when retaking a captured chess piece.
+        /// </summary>
+        /// <param name="origin">Captured chess piece box</param>
+        /// <param name="destination">Box where the captured piece will be placed</param>
+        void Transfera(LocatieTabla origin, LocatieTabla destination)
         {
-            destinatie.piesa = origine.piesa;
-            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
-            destinatie.tipPiesa = origine.tipPiesa;
-            destinatie.culoare = origine.culoare;
-            Console.WriteLine("s-a efectuat transferul");
+            destination.piesa = origin.piesa;
+            destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
+            destination.tipPiesa = origin.tipPiesa;
+            destination.culoare = origin.culoare;
+
             textBox1.AppendText("O piesa a fost selectata" + Environment.NewLine);
         }
 
-        void Muta(LocatieTabla origine, LocatieTabla destinatie)
+        #region Deplasare Piese
+
+        /// <summary>
+        /// Method called when the opponent moves a chess piece.
+        /// </summary>
+        /// <param name="origin">The box whose piece will be moved.</param>
+        /// <param name="destination">The box where the selected piece will be moved</param>
+        void OpponentMovePiece(LocatieTabla origin, LocatieTabla destination)
         {
-            if (destinatie.piesa != null)
+            #region Add history entry
+
+            // If the destination has a piece, add its image to the entry
+            if (destination.piesa != null)
             {
-                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
-                if (LocatieTabla.count == 7)
-                {
-                    listaMiscari.Width = listaMiscari.Width + 17;
-                }
+                listaMiscari.Rows.Add(
+                    ++LocatieTabla.count, 
+                    origin.nume + " -> " + destination.nume, 
+                    origin.piesa.imagineMicaPiesa.Image, 
+                    destination.piesa.imagineMicaPiesa.Image
+                );
             }
-            if (destinatie.piesa == null)
+
+            // If the destination doesn't have a piece, add an empty image
+            if (destination.piesa == null)
             {
                 Bitmap img = new Bitmap(25, 25);
-                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, img);
-                if (LocatieTabla.count == 7)
-                {
-                    listaMiscari.Width = listaMiscari.Width + 17;
-                }
+
+                listaMiscari.Rows.Add(
+                    ++LocatieTabla.count, 
+                    origin.nume + " -> " + destination.nume, 
+                    origin.piesa.imagineMicaPiesa.Image, 
+                    img
+                );
             }
+
+            // When the scroll bar appears, enlarge the width
+            if (LocatieTabla.count == 7)
+            {
+                listaMiscari.Width = listaMiscari.Width + 17;
+            }
+
             listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
-            if (destinatie.tipPiesa != 0)
+
+            #endregion
+
+            // If the destionation has a piece, it will be removed => increase the counter of the captured piece type
+            if (destination.tipPiesa != 0)
             {
-                if (destinatie.culoare == 1)
+                if (destination.culoare == 1)
                 {
-                    if (destinatie.tipPiesa == 1) { labelCPA.Text = (++counterPioniAlbi).ToString();  }
-                    if (destinatie.tipPiesa == 2) { labelCTA.Text = (++counterTureAlbe).ToString();  }
-                    if (destinatie.tipPiesa == 3) { labelCountCA.Text = (++counterCaiAlbi).ToString(); }
-                    if (destinatie.tipPiesa == 4) { labelCNA.Text = (++counterNebuniAlbi).ToString();  }
-                    if (destinatie.tipPiesa == 5) { labelCRA.Text = (++counterReginaAlba).ToString();  }
+                    switch (destination.tipPiesa)
+                    {
+                        case 1:
+                            labelCPA.Text = (++counterPioniAlbi).ToString();
+                            break;
+                        case 2:
+                            labelCTA.Text = (++counterTureAlbe).ToString();
+                            break;
+                        case 3:
+                            labelCountCA.Text = (++counterCaiAlbi).ToString();
+                            break;
+                        case 4:
+                            labelCNA.Text = (++counterNebuniAlbi).ToString();
+                            break;
+                        case 5:
+                            labelCRA.Text = (++counterReginaAlba).ToString();
+                            break;
+                    }
                 }
-                if (destinatie.culoare == 2)
+
+                if (destination.culoare == 2)
                 {
-                    if (destinatie.tipPiesa == 1) { labelCPN.Text = (++counterPioniNegri).ToString();  }
-                    if (destinatie.tipPiesa == 2) { labelCTN.Text = (++counterTureNegre).ToString();  }
-                    if (destinatie.tipPiesa == 3) { labelCountCN.Text = (++counterCaiNegri).ToString();  }
-                    if (destinatie.tipPiesa == 4) { labelCNN.Text = (++counterNebuniNegri).ToString();  }
-                    if (destinatie.tipPiesa == 5) { labelCRN.Text = (++counterReginaNeagra).ToString();  }
+                    switch (destination.tipPiesa)
+                    {
+                        case 1:
+                            labelCPN.Text = (++counterPioniNegri).ToString();
+                            break;
+                        case 2:
+                            labelCTN.Text = (++counterTureNegre).ToString();
+                            break;
+                        case 3:
+                            labelCountCN.Text = (++counterCaiNegri).ToString();
+                            break;
+                        case 4:
+                            labelCNN.Text = (++counterNebuniNegri).ToString();
+                            break;
+                        case 5:
+                            labelCRN.Text = (++counterReginaNeagra).ToString();
+                            break;
+                    }
                 }
             }
-            destinatie.piesa = origine.piesa;
-            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
-            destinatie.tipPiesa = origine.tipPiesa;
-            destinatie.culoare = origine.culoare;
-            origine.culoare = 0;
-            origine.tipPiesa = 0;
-            origine.piesa = null;
-            origine.StergeLocatie();
-            if (destinatie.tipPiesa == 6)
+
+            destination.piesa = origin.piesa;
+            destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
+            destination.tipPiesa = origin.tipPiesa;
+            destination.culoare = origin.culoare;
+
+            origin.culoare = 0;
+            origin.tipPiesa = 0;
+            origin.piesa = null;
+            origin.StergeLocatie();
+
+            // If, the king was moved, update its coordinates
+            if (destination.tipPiesa == 6)
             {
-                if (destinatie.culoare == 1) { pozitieRegeAlb.X = destinatie.nume[0]-64; pozitieRegeAlb.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeAlb.X + " " + pozitieRegeAlb.Y); }
-                if (destinatie.culoare == 2) { pozitieRegeNegru.X = destinatie.nume[0]-64; pozitieRegeNegru.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeNegru.X + " " + pozitieRegeNegru.Y); }
+                if (destination.culoare == 1)
+                {
+                    pozitieRegeAlb.X = destination.nume[0]-64;
+                    pozitieRegeAlb.Y = destination.nume[1]-48;
+                }
+                if (destination.culoare == 2)
+                {
+                    pozitieRegeNegru.X = destination.nume[0]-64;
+                    pozitieRegeNegru.Y = destination.nume[1]-48;
+                }
             }
+
             rand = true;
-            if (randMutareClient == 2) randMutare = 1;
-            else randMutare = 2;
-            if (randMutare == 1) labelRand.Text = "randul pieselor albe";
-            else labelRand.Text = "randul pieselor negre";
-            if (sunet) sunetMutare2.Play();
+
+            if (randMutareClient == 2)
+            {
+                randMutare = 1;
+                labelRand.Text = "White's turn";
+            }
+            else
+            {
+                randMutare = 2;
+                labelRand.Text = "Black's turn";
+            }
+
+            if (soundEnabled)
+            {
+                sunetMutare2.Play();
+            }
+
             System.Threading.Thread.Sleep(1);
+
             if (MatAlb())
             {
-                textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
+                textBox1.AppendText("Checkmate! Black has won"); System.Threading.Thread.Sleep(2000);
                 MethodInvoker m = new MethodInvoker(() => NewGame());
                 this.Invoke(m);
                 transmiteMesaj("#new game");
             }
             if (MatNegru())
             {
-                textBox1.AppendText("a castigat albul"); System.Threading.Thread.Sleep(2000);
+                textBox1.AppendText("Checkmate! White has won"); System.Threading.Thread.Sleep(2000);
                 MethodInvoker m = new MethodInvoker(() => NewGame());
                 this.Invoke(m);
                 transmiteMesaj("#new game");
             }
+
             R(locatii);
         }
 
-        void Muta(LocatieTabla origine, LocatieTabla destinatie, string mesaj)
+        /// <summary>
+        /// Method called when the current player moves a chess piece.
+        /// </summary>
+        /// <param name="origine"></param>
+        /// <param name="destinatie"></param>
+        void MovePiece(LocatieTabla origin, LocatieTabla destination)
         {
-            if (destinatie.piesa != null)
+            #region Add history entry
+
+            // If the destination has a piece, add its image to the entry
+            if (destination.piesa != null)
             {
-                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, destinatie.piesa.imagineMicaPiesa.Image);
-                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;
+                listaMiscari.Rows.Add(
+                    ++LocatieTabla.count,
+                    origin.nume + " -> " + destination.nume,
+                    origin.piesa.imagineMicaPiesa.Image,
+                    destination.piesa.imagineMicaPiesa.Image
+                );
             }
-            if (destinatie.piesa == null)
+
+            // If the destination doesn't have a piece, add an empty image
+            if (destination.piesa == null)
             {
                 Bitmap img = new Bitmap(25, 25);
-                listaMiscari.Rows.Add(++LocatieTabla.count, origine.nume + " -> " + destinatie.nume, origine.piesa.imagineMicaPiesa.Image, img);
-                if (LocatieTabla.count == 7) listaMiscari.Width = listaMiscari.Width + 17;
+
+                listaMiscari.Rows.Add(
+                    ++LocatieTabla.count,
+                    origin.nume + " -> " + destination.nume,
+                    origin.piesa.imagineMicaPiesa.Image,
+                    img
+                );
             }
-            if (destinatie.tipPiesa != 0)
+
+            // When the scroll bar appears, enlarge the width
+            if (LocatieTabla.count == 7)
             {
-                if (destinatie.culoare == 1)
-                {
-                    if (destinatie.tipPiesa == 1) { labelCPA.Text = (++counterPioniAlbi).ToString(); }
-                    if (destinatie.tipPiesa == 2) { labelCTA.Text = (++counterTureAlbe).ToString(); }
-                    if (destinatie.tipPiesa == 3) { labelCountCA.Text = (++counterCaiAlbi).ToString(); }
-                    if (destinatie.tipPiesa == 4) { labelCNA.Text = (++counterNebuniAlbi).ToString(); }
-                    if (destinatie.tipPiesa == 5) { labelCRA.Text = (++counterReginaAlba).ToString(); }
-                }
-                if (destinatie.culoare == 2)
-                {
-                    if (destinatie.tipPiesa == 1) { labelCPN.Text = (++counterPioniNegri).ToString(); }
-                    if (destinatie.tipPiesa == 2) { labelCTN.Text = (++counterTureNegre).ToString(); }
-                    if (destinatie.tipPiesa == 3) { labelCountCN.Text = (++counterCaiNegri).ToString(); }
-                    if (destinatie.tipPiesa == 4) { labelCNN.Text = (++counterNebuniNegri).ToString(); }
-                    if (destinatie.tipPiesa == 5) { labelCRN.Text = (++counterReginaNeagra).ToString(); }
-                }
+                listaMiscari.Width = listaMiscari.Width + 17;
             }
-            mesajDeTransmis = "#" + origine.nume + " " + destinatie.nume;
+
             listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
-            destinatie.piesa = origine.piesa;
-            destinatie.imagineLocatie.BackgroundImage = origine.imagineLocatie.BackgroundImage;
-            destinatie.tipPiesa = origine.tipPiesa;
-            destinatie.culoare = origine.culoare;
-            origine.culoare = 0;
-            origine.tipPiesa = 0;
-            origine.piesa = null;
-            if (destinatie.tipPiesa == 6)
+
+            #endregion
+
+            // If the destionation has a piece, it will be removed => increase the counter of the captured piece type
+            if (destination.tipPiesa != 0)
             {
-                if (destinatie.culoare == 1) { pozitieRegeAlb.X = destinatie.nume[0]-64; pozitieRegeAlb.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeAlb.X + " " + pozitieRegeAlb.Y); }
-                if (destinatie.culoare == 2) { pozitieRegeNegru.X = destinatie.nume[0]-64; pozitieRegeNegru.Y = destinatie.nume[1]-48; Console.WriteLine(pozitieRegeNegru.X + " " + pozitieRegeNegru.Y); }
+                if (destination.culoare == 1)
+                {
+                    switch (destination.tipPiesa)
+                    {
+                        case 1:
+                            labelCPA.Text = (++counterPioniAlbi).ToString();
+                            break;
+                        case 2:
+                            labelCTA.Text = (++counterTureAlbe).ToString();
+                            break;
+                        case 3:
+                            labelCountCA.Text = (++counterCaiAlbi).ToString();
+                            break;
+                        case 4:
+                            labelCNA.Text = (++counterNebuniAlbi).ToString();
+                            break;
+                        case 5:
+                            labelCRA.Text = (++counterReginaAlba).ToString();
+                            break;
+                    }
+                }
+
+                if (destination.culoare == 2)
+                {
+                    switch (destination.tipPiesa)
+                    {
+                        case 1:
+                            labelCPN.Text = (++counterPioniNegri).ToString();
+                            break;
+                        case 2:
+                            labelCTN.Text = (++counterTureNegre).ToString();
+                            break;
+                        case 3:
+                            labelCountCN.Text = (++counterCaiNegri).ToString();
+                            break;
+                        case 4:
+                            labelCNN.Text = (++counterNebuniNegri).ToString();
+                            break;
+                        case 5:
+                            labelCRN.Text = (++counterReginaNeagra).ToString();
+                            break;
+                    }
+                }
             }
-            
+
+            mesajDeTransmis = "#" + origin.nume + " " + destination.nume;
+            transmiteMesaj();
+
+            destination.piesa = origin.piesa;
+            destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
+            destination.tipPiesa = origin.tipPiesa;
+            destination.culoare = origin.culoare;
+
+            origin.culoare = 0;
+            origin.tipPiesa = 0;
+            origin.piesa = null;
+
+            // If, the king was moved, update its coordinates
+            if (destination.tipPiesa == 6)
+            {
+                if (destination.culoare == 1)
+                {
+                    pozitieRegeAlb.X = destination.nume[0] - 64;
+                    pozitieRegeAlb.Y = destination.nume[1] - 48;
+                }
+                if (destination.culoare == 2)
+                {
+                    pozitieRegeNegru.X = destination.nume[0] - 64;
+                    pozitieRegeNegru.Y = destination.nume[1] - 48;
+                }
+            }
+
             if (randMutare == 1)
             {
-                if (destinatie.nume.Contains('H') && destinatie.tipPiesa == 1)  
+                if (destination.nume.Contains('H') && destination.tipPiesa == 1)  
                 {
 
                     Console.WriteLine("iaca-ta c-a ajuns pionu'-n ultima linie");
@@ -526,9 +701,10 @@ namespace Chess_Application
                     }
                 }
             }
+
             if (randMutare == 2)
             {
-                if (destinatie.nume.Contains('A') && destinatie.tipPiesa == 1) 
+                if (destination.nume.Contains('A') && destination.tipPiesa == 1) 
                 {
                     Console.WriteLine("iaca-ta c-a ajuns pionu'-n ultima linie");
                     if (counterTureNegre + counterCaiNegri + counterNebuniNegri + counterReginaNeagra > 0)
@@ -542,14 +718,30 @@ namespace Chess_Application
                 }
             }
 
-            orig.StergeLocatie(); RandNou(locatii);
-            clickCounter = 0; RestoreCulori(locatii); transmiteMesaj();
+            orig.StergeLocatie();
+            RandNou(locatii);
+            clickCounter = 0;
+            RestoreCulori(locatii);
+            
             rand = false;
             randMutare = randMutareClient;
-            if (randMutare == 1) labelRand.Text = "randul pieselor albe";
-            else labelRand.Text = "randul pieselor negre";
-            if (sunet) sunetMutare1.Play();
+
+            if (randMutare == 1)
+            {
+                labelRand.Text = "randul pieselor albe";
+            }
+            else
+            {
+                labelRand.Text = "randul pieselor negre";
+            }
+
+            if (soundEnabled)
+            {
+                sunetMutare1.Play();
+            }
+
             System.Threading.Thread.Sleep(1);
+
             if (MatAlb())
             {
                 textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
@@ -563,9 +755,11 @@ namespace Chess_Application
                 this.Invoke(m);
                 transmiteMesaj("#new game");
             }
+
             R(locatii);
         }
-#endregion
+
+        #endregion
 
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -588,8 +782,12 @@ namespace Chess_Application
             menuContainer.Hide();
         }
 
+        /// <summary>
+        /// Method responsible for rearanging the chess board for a new game.
+        /// </summary>
         public void NewGame()
         {
+
             #region Reset Boxes with pieces on them
 
             A1 = new LocatieTabla(tura1Alb, _1A); H1 = new LocatieTabla(tura1Negru, _1H);
@@ -663,7 +861,6 @@ namespace Chess_Application
             Boxes[_1H] = H1; Boxes[_2H] = H2; Boxes[_3H] = H3; Boxes[_4H] = H4; Boxes[_5H] = H5; Boxes[_6H] = H6; Boxes[_7H] = H7; Boxes[_8H] = H8;
 
             #endregion
-
 
             listaMiscari.Rows.Clear();
 
@@ -748,20 +945,6 @@ namespace Chess_Application
             return true;
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                workThread = false;
-                streamServer.Close();
-            }
-
-            catch (Exception)
-            {
-
-            }
-        }
-
         public void RestoreCulori(LocatieTabla[,] loc)
         {
             A1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
@@ -841,10 +1024,6 @@ namespace Chess_Application
             clickCounter = 0;
         }
 
-        public void Deselectare(LocatieTabla[,] loc)
-        {
-            Rearanjare(loc); clickCounter = 100; RestoreCulori(loc);
-        }
 
         #region Recapturing chess pieces
 
@@ -876,6 +1055,7 @@ namespace Chess_Application
                 transmiteMesaj("#final selectie");
             }           
         }
+
         private void pbNebuniAlbiLuati_Click(object sender, EventArgs e)
         {
             if (trebuieSaSelectezi && counterNebuniAlbi != 0)
@@ -899,7 +1079,9 @@ namespace Chess_Application
                 transmiteMesaj("#final selectie");
             }
         }
+
         //=====
+
         private void pbTureNegreLuate_Click(object sender, EventArgs e)
         {
             if (trebuieSaSelectezi && counterTureNegre != 0)
@@ -950,6 +1132,12 @@ namespace Chess_Application
 
         #endregion
 
+        /// <summary>
+        /// Event called whenever a box is clicked.
+        /// Responsible for making player moves possible.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void BoxClick(object sender, EventArgs e)
         {
             PictureBox clickedBox = (PictureBox)sender;
@@ -959,12 +1147,8 @@ namespace Chess_Application
             {
                 return;
             }
-   
-            if (clickCounter == 1 && clickedBoxObject == orig)
-            {
-                Rearanjare(locatii); clickCounter = 100; RestoreCulori(locatii);
-            }
 
+            // First click on a box with a chess piece
             if (clickCounter == 0 && clickedBox.BackgroundImage != null && randMutare == clickedBoxObject.culoare && rand)
             {
                 short row = clickedBoxObject.GetRow();
@@ -975,14 +1159,27 @@ namespace Chess_Application
                 {
                     orig = clickedBoxObject;
                     clickCounter++;
+                    return;
                 }
             }
 
-            if (clickCounter == 100) clickCounter = 0; if (clickCounter == 1 && clickedBoxObject != orig && clickedBoxObject.sePoate == true)
+            // Second click on a box
+            if (clickCounter == 1)
             {
-                Muta(orig, clickedBoxObject, mesajDeTransmis);
-            }
+                // Click on the same box => Cancel moving current chess piece
+                if (clickedBoxObject == orig)
+                {
+                    Rearanjare(locatii);
+                    clickCounter = 0;
+                    RestoreCulori(locatii);
+                }
 
+                //Click on a different box where the current piece can be moved
+                if (clickedBoxObject != orig && clickedBoxObject.sePoate == true)
+                {
+                    MovePiece(orig, clickedBoxObject);
+                }
+            }
         }
 
     }

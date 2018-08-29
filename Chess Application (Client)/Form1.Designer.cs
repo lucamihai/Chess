@@ -2253,7 +2253,6 @@
         private System.Windows.Forms.PictureBox pbNebunAlb;
         private System.Windows.Forms.PictureBox pbPionAlb;
         private System.Windows.Forms.Label labelRand;
-        private Meniu meniu1;
         private System.Windows.Forms.DataGridView listaMiscari;
         private System.Windows.Forms.PictureBox pbPionNegruMic;
         private System.Windows.Forms.PictureBox pbTuraAlbMic;
