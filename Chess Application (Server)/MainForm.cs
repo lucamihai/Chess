@@ -74,6 +74,9 @@ namespace Chess_Application
 
         public LocatieTabla[,] locatii;
 
+        Color BoxColorLight = System.Drawing.Color.Silver;
+        Color BoxColorDark = Color.FromArgb(132, 107, 86);
+
         #region Network variables and objects
 
         public TcpListener server;
@@ -237,17 +240,17 @@ namespace Chess_Application
                                 tempJ = Convert.ToInt32(detalii[1]);
                                 if (detalii[2][1] == 'A')
                                 {
-                                    if (detalii[2][0] == 'T') { Transfera(tureAlbeLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTA.Text = (--counterTureAlbe).ToString()); Invoke(m); }
-                                    if (detalii[2][0] == 'C') { Transfera(caiAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCA.Text = (--counterCaiAlbi).ToString()); Invoke(m); }
-                                    if (detalii[2][0] == 'N') { Transfera(nebuniAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNA.Text = (--counterNebuniAlbi).ToString()); Invoke(m); }
-                                    if (detalii[2][0] == 'R') { Transfera(reginaAlbaLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRA.Text = (--counterReginaAlba).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'T') { RetakePiece(tureAlbeLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTA.Text = (--counterTureAlbe).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'C') { RetakePiece(caiAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCA.Text = (--counterCaiAlbi).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'N') { RetakePiece(nebuniAlbiLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNA.Text = (--counterNebuniAlbi).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'R') { RetakePiece(reginaAlbaLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRA.Text = (--counterReginaAlba).ToString()); Invoke(m); }
                                 }
                                 if (detalii[2][1] == 'N')
                                 {
-                                    if (detalii[2][0] == 'T') { Transfera(tureNegreLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTN.Text = (--counterTureNegre).ToString()); Invoke(m); }
-                                    if (detalii[2][0] == 'C') { Transfera(caiNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCN.Text = (--counterCaiNegri).ToString()); Invoke(m); }
-                                    if (detalii[2][0] == 'N') { Transfera(nebuniNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNN.Text = (--counterNebuniNegri).ToString()); Invoke(m); }
-                                    if (detalii[2][0] == 'R') { Transfera(reginaNeagraLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRN.Text = (--counterReginaNeagra).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'T') { RetakePiece(tureNegreLuate, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCTN.Text = (--counterTureNegre).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'C') { RetakePiece(caiNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCountCN.Text = (--counterCaiNegri).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'N') { RetakePiece(nebuniNegriLuati, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCNN.Text = (--counterNebuniNegri).ToString()); Invoke(m); }
+                                    if (detalii[2][0] == 'R') { RetakePiece(reginaNeagraLuata, locatii[tempI, tempJ]); MethodInvoker m = new MethodInvoker(() => labelCRN.Text = (--counterReginaNeagra).ToString()); Invoke(m); }
                                 }
                             }
                         }
@@ -397,11 +400,11 @@ namespace Chess_Application
         #endregion
 
         /// <summary>
-        /// Method used when retaking a captured chess piece.
+        /// Used to retake a captured chess piece.
         /// </summary>
         /// <param name="origin">Captured chess piece box</param>
         /// <param name="destination">Box where the captured piece will be placed</param>
-        void Transfera(LocatieTabla origin, LocatieTabla destination)
+        void RetakePiece(LocatieTabla origin, LocatieTabla destination)
         {
             destination.piesa = origin.piesa;
             destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
@@ -549,14 +552,14 @@ namespace Chess_Application
 
             System.Threading.Thread.Sleep(1);
 
-            if (MatAlb())
+            if (CheckmateWhite())
             {
                 textBox1.AppendText("Checkmate! Black has won"); System.Threading.Thread.Sleep(2000);
                 MethodInvoker m = new MethodInvoker(() => NewGame());
                 this.Invoke(m);
                 transmiteMesaj("#new game");
             }
-            if (MatNegru())
+            if (CheckmateBlack())
             {
                 textBox1.AppendText("Checkmate! White has won"); System.Threading.Thread.Sleep(2000);
                 MethodInvoker m = new MethodInvoker(() => NewGame());
@@ -564,7 +567,7 @@ namespace Chess_Application
                 transmiteMesaj("#new game");
             }
 
-            R(locatii);
+            ResetBoxes(locatii);
         }
 
         /// <summary>
@@ -685,43 +688,45 @@ namespace Chess_Application
                 }
             }
 
+            // A white pawn has reached the last line
             if (randMutare == 1)
             {
                 if (destination.nume.Contains('H') && destination.tipPiesa == 1)  
                 {
-
-                    Console.WriteLine("iaca-ta c-a ajuns pionu'-n ultima linie");
                     if (counterTureAlbe + counterCaiAlbi + counterNebuniAlbi + counterReginaAlba > 0)
                     {
                         tempI = 8;
-                        tempJ = destinatie.nume[1] - 48;
+                        tempJ = destination.nume[1] - 48;
                         trebuieSaSelectezi = true;
                         transmiteMesaj("#selectie");
-                        textBox1.AppendText(username + " are de selectat o piesa din regiunea Spoils o' war"+Environment.NewLine);
+                        textBox1.AppendText(username + " must select a chess piece from Spoils o' war"+Environment.NewLine);
                     }
                 }
             }
 
+            // A black pawn has reached the last line
             if (randMutare == 2)
             {
                 if (destination.nume.Contains('A') && destination.tipPiesa == 1) 
                 {
-                    Console.WriteLine("iaca-ta c-a ajuns pionu'-n ultima linie");
                     if (counterTureNegre + counterCaiNegri + counterNebuniNegri + counterReginaNeagra > 0)
                     {
                         tempI = 1;
-                        tempJ = destinatie.nume[1] - 48;
+                        tempJ = destination.nume[1] - 48;
                         trebuieSaSelectezi = true;
                         transmiteMesaj("#selectie");
-                        textBox1.AppendText(username + " are de selectat o piesa din regiunea Spoils o' war"+Environment.NewLine);
+                        textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
             }
 
             orig.StergeLocatie();
-            RandNou(locatii);
+
+            NewTurn();
+            ResetBoxes(locatii);
+
             clickCounter = 0;
-            RestoreCulori(locatii);
+            RestoreColors(locatii);
             
             rand = false;
             randMutare = randMutareClient;
@@ -742,13 +747,13 @@ namespace Chess_Application
 
             System.Threading.Thread.Sleep(1);
 
-            if (MatAlb())
+            if (CheckmateWhite())
             {
                 textBox1.AppendText("a castigat negrul"); System.Threading.Thread.Sleep(2000);
                 NewGame();
                 transmiteMesaj("#new game");
             }
-            if (MatNegru())
+            if (CheckmateBlack())
             {
                 textBox1.AppendText("a castigat albul"); System.Threading.Thread.Sleep(2000);
                 MethodInvoker m = new MethodInvoker(() => NewGame());
@@ -756,7 +761,7 @@ namespace Chess_Application
                 transmiteMesaj("#new game");
             }
 
-            R(locatii);
+            ResetBoxes(locatii);
         }
 
         #endregion
@@ -765,15 +770,16 @@ namespace Chess_Application
         {
             try
             {
-                StreamWriter scriere = new StreamWriter(streamServer);
-                scriere.AutoFlush = true; // enable automatic flushing
-                scriere.WriteLine(tbServerDate.Text);
+                StreamWriter streamWriter = new StreamWriter(streamServer);
+
+                streamWriter.AutoFlush = true;
+                streamWriter.WriteLine(tbServerDate.Text);
                 textBox1.AppendText(username + ": " + tbServerDate.Text + Environment.NewLine);
                 tbServerDate.Clear();
             }
             catch
             {
-                Console.WriteLine("Eroare la transmiterea mesajului");
+                MessageBox.Show("There was an error sending the message"); 
             }
         }
 
@@ -788,7 +794,7 @@ namespace Chess_Application
         public void NewGame()
         {
 
-            #region Reset Boxes with pieces on them
+            #region Reset boxes with chess pieces on them
 
             A1 = new LocatieTabla(tura1Alb, _1A); H1 = new LocatieTabla(tura1Negru, _1H);
             A2 = new LocatieTabla(cal1Alb, _2A); H2 = new LocatieTabla(cal1Negru, _2H);
@@ -809,7 +815,7 @@ namespace Chess_Application
 
             #endregion
 
-            #region Reset empty boxes
+            #region Reset boxes without chess pieces on them
 
             C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D); E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
             C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D); E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
@@ -822,7 +828,7 @@ namespace Chess_Application
 
             #endregion
 
-            #region Reset Capture boxes
+            #region Reset capture boxes
 
             pioniAlbiLuati = new LocatieTabla(pion1Alb, pbPioniAlbiLuati);      pioniNegriLuati = new LocatieTabla(pion1Negru, pbPioniNegriLuati);
             tureAlbeLuate = new LocatieTabla(tura1Alb, pbTureAlbeLuate);        tureNegreLuate = new LocatieTabla(tura1Negru, pbTureNegreLuate);
@@ -864,7 +870,7 @@ namespace Chess_Application
 
             listaMiscari.Rows.Clear();
 
-            RestoreCulori(locatii);
+            RestoreColors(locatii);
 
             clickCounter = 0;
 
@@ -880,24 +886,38 @@ namespace Chess_Application
             }
 
             LocatieTabla.count = 0;
+
             pozitieRegeAlb.X = 1;
             pozitieRegeAlb.Y = 5;
+
             pozitieRegeNegru.X = 8;
             pozitieRegeNegru.Y = 4;
+
+            ResetBoxes(locatii);
+
+            #region Reset captured pieces count and labels
+
+            counterPioniAlbi = 0; counterPioniNegri = 0;
+            counterTureAlbe = 0; counterTureNegre = 0;
+            counterCaiAlbi = 0; counterCaiNegri = 0;
+            counterNebuniAlbi = 0; counterNebuniNegri = 0;
+            counterReginaAlba = 0; counterReginaNeagra = 0;
+
             labelCPA.Text = 0.ToString();       labelCPN.Text = 0.ToString();
             labelCTA.Text = 0.ToString();       labelCTN.Text = 0.ToString();
             labelCountCA.Text = 0.ToString();   labelCountCN.Text = 0.ToString();
             labelCNA.Text = 0.ToString();       labelCNN.Text = 0.ToString();
             labelCRA.Text = 0.ToString();       labelCRN.Text = 0.ToString();
-            counterPioniAlbi = 0;   counterPioniNegri = 0;
-            counterTureAlbe = 0;    counterTureNegre = 0;
-            counterCaiAlbi = 0;     counterCaiNegri = 0;
-            counterNebuniAlbi = 0;  counterNebuniNegri = 0;
-            counterReginaAlba = 0;  counterReginaNeagra = 0;
-            R(locatii);           
+
+            #endregion
+                       
         }
 
-        bool MatAlb()
+        /// <summary>
+        /// Determines wether White is in checkmate or not.
+        /// </summary>
+        /// <returns>true if White is in checkmate, false if White isn't in checkmate</returns>
+        bool CheckmateWhite()
         {
             for(int i=1; i<=8; i++)
             {
@@ -908,7 +928,7 @@ namespace Chess_Application
                         locatii[i, j].piesa.VerificaPosibilitati(i, j, locatii);
                         if (locatii[i, j].poateFaceMiscari == true)
                         {
-                            RestoreCulori(locatii);
+                            RestoreColors(locatii);
                             locatii[i, j].poateFaceMiscari = false;                           
                             return false;
                         }
@@ -921,7 +941,11 @@ namespace Chess_Application
             return true;
         }
 
-        bool MatNegru()
+        /// <summary>
+        /// Determines wether Black is in checkmate or not.
+        /// </summary>
+        /// <returns>true if Black is in checkmate, false if Black isn't in checkmate</returns>
+        bool CheckmateBlack()
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -932,7 +956,7 @@ namespace Chess_Application
                         locatii[i, j].piesa.VerificaPosibilitati(i, j, locatii);
                         if (locatii[i, j].poateFaceMiscari == true)
                         {
-                            RestoreCulori(locatii);
+                            RestoreColors(locatii);
                             locatii[i, j].poateFaceMiscari = false;                           
                             return false;
                         }
@@ -945,69 +969,49 @@ namespace Chess_Application
             return true;
         }
 
-        public void RestoreCulori(LocatieTabla[,] loc)
+        /// <summary>
+        /// Reset the colors of the boxes.
+        /// </summary>
+        /// <param name="ChessBoard">The boxes matrix.</param>
+        public void RestoreColors(LocatieTabla[,] ChessBoard)
         {
-            A1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            A3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            A5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            A7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); A8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-
-            B1.imagineLocatie.BackColor = System.Drawing.Color.Silver; B2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            B3.imagineLocatie.BackColor = System.Drawing.Color.Silver; B4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            B5.imagineLocatie.BackColor = System.Drawing.Color.Silver; B6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            B7.imagineLocatie.BackColor = System.Drawing.Color.Silver; B8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-
-            C1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            C3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            C5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            C7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); C8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-
-            D1.imagineLocatie.BackColor = System.Drawing.Color.Silver; D2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            D3.imagineLocatie.BackColor = System.Drawing.Color.Silver; D4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            D5.imagineLocatie.BackColor = System.Drawing.Color.Silver; D6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            D7.imagineLocatie.BackColor = System.Drawing.Color.Silver; D8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-
-            E1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            E3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            E5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            E7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); E8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-
-            F1.imagineLocatie.BackColor = System.Drawing.Color.Silver; F2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            F3.imagineLocatie.BackColor = System.Drawing.Color.Silver; F4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            F5.imagineLocatie.BackColor = System.Drawing.Color.Silver; F6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            F7.imagineLocatie.BackColor = System.Drawing.Color.Silver; F8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-
-            G1.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G2.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            G3.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G4.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            G5.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G6.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-            G7.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86); G8.imagineLocatie.BackColor = System.Drawing.Color.Silver;
-
-            H1.imagineLocatie.BackColor = System.Drawing.Color.Silver; H2.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            H3.imagineLocatie.BackColor = System.Drawing.Color.Silver; H4.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            H5.imagineLocatie.BackColor = System.Drawing.Color.Silver; H6.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-            H7.imagineLocatie.BackColor = System.Drawing.Color.Silver; H8.imagineLocatie.BackColor = Color.FromArgb(132, 107, 86);
-        }
-
-        public void RandNou(LocatieTabla[,] loc)
-        {
-            for (int i = 1; i <= 8; i++)
+            for (int i = 1; i < 9; i++)
             {
-                for (int j = 1; j <= 8; j++)
+                for (int j = 1; j < 9; j++)
                 {
-                    loc[i, j].sePoate = false;
+                    if ( (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1) )
+                    {
+                        ChessBoard[i, j].imagineLocatie.BackColor = BoxColorDark;
+                    }
+                    else
+                    {
+                        ChessBoard[i, j].imagineLocatie.BackColor = BoxColorLight;
+                    }
                 }
             }
-            randMutare++;
-            if (randMutare > 2) randMutare = 1;
         }
 
-        public void R(LocatieTabla[,] loc)
+        public void NewTurn()
+        {
+            randMutare++;
+
+            if (randMutare > 2)
+            {
+                randMutare = 1;
+            }
+        }
+
+        /// <summary>
+        /// Sets every box as unavailable for chess pieces to move upon.
+        /// </summary>
+        /// <param name="boxes">The matrix of boxes to be set as unavailable.</param>
+        public void ResetBoxes(LocatieTabla[,] boxes)
         {
             for (int i = 1; i <= 8; i++)
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    loc[i, j].sePoate = false;
+                    boxes[i, j].sePoate = false;
                 }
             }           
         }
@@ -1036,7 +1040,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterTureAlbe != 0)
             {
-                Transfera(tureAlbeLuate, locatii[tempI, tempJ]);
+                RetakePiece(tureAlbeLuate, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCTA.Text = (--counterTureAlbe).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " TA");
@@ -1048,7 +1052,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterCaiAlbi!=0)
             {
-                Transfera(caiAlbiLuati, locatii[tempI, tempJ]);
+                RetakePiece(caiAlbiLuati, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCountCA.Text = (--counterCaiAlbi).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " CA");
@@ -1060,7 +1064,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterNebuniAlbi != 0)
             {
-                Transfera(nebuniAlbiLuati, locatii[tempI, tempJ]);
+                RetakePiece(nebuniAlbiLuati, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCNA.Text = (--counterNebuniAlbi).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " NA");
@@ -1072,7 +1076,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterReginaAlba != 0)
             {
-                Transfera(reginaAlbaLuata, locatii[tempI, tempJ]);
+                RetakePiece(reginaAlbaLuata, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCRA.Text = (--counterReginaAlba).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " RA");
@@ -1086,7 +1090,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterTureNegre != 0)
             {
-                Transfera(tureNegreLuate, locatii[tempI, tempJ]);
+                RetakePiece(tureNegreLuate, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCTN.Text = (--counterTureNegre).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " TN");
@@ -1098,7 +1102,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterCaiNegri != 0)
             {
-                Transfera(caiNegriLuati, locatii[tempI, tempJ]);
+                RetakePiece(caiNegriLuati, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCountCN.Text = (--counterCaiNegri).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " CN");
@@ -1110,7 +1114,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterNebuniNegri != 0)
             {
-                Transfera(nebuniNegriLuati, locatii[tempI, tempJ]);
+                RetakePiece(nebuniNegriLuati, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCNN.Text = (--counterNebuniNegri).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " NN");
@@ -1122,7 +1126,7 @@ namespace Chess_Application
         {
             if (trebuieSaSelectezi && counterReginaNeagra != 0)
             {
-                Transfera(reginaNeagraLuata, locatii[tempI, tempJ]);
+                RetakePiece(reginaNeagraLuata, locatii[tempI, tempJ]);
                 trebuieSaSelectezi = false;
                 labelCRN.Text = (--counterReginaNeagra).ToString();
                 transmiteMesaj("#selectat " + tempI + " " + tempJ + " RN");
@@ -1171,7 +1175,7 @@ namespace Chess_Application
                 {
                     Rearanjare(locatii);
                     clickCounter = 0;
-                    RestoreCulori(locatii);
+                    RestoreColors(locatii);
                 }
 
                 //Click on a different box where the current piece can be moved
