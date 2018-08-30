@@ -32,7 +32,7 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c)) 
                 {
-                    loc[l, c].Marcheaza();
+                    loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
@@ -48,7 +48,7 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
                 {
-                    loc[l, c].Marcheaza();
+                    loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
@@ -64,7 +64,7 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
                 {
-                    loc[l, c].Marcheaza();
+                    loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)
@@ -80,7 +80,7 @@ namespace Chess_Application
             {
                 if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
                 {
-                    loc[l, c].Marcheaza();
+                    loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
                 }
                 if (culoare == 1)

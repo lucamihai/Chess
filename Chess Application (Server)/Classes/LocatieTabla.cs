@@ -16,29 +16,28 @@ namespace Chess_Application
 {
     public class LocatieTabla
     {
-        public static int count = 0;
         public string nume;
         public bool poateFaceMiscari = false;
         public Piesa piesa;
         public int tipPiesa = 0;
         public int culoare = 0;
-        public bool sePoate = false;
+        bool available = false;
         public PictureBox imagineLocatie;
 
         short row, column;
 
-        // Used for insantiating the matrix of boxes
+        // Used for instantiating the matrix of boxes
         public LocatieTabla()
         {
 
         }
 
         // Used for empty boxes
-        public LocatieTabla(PictureBox b)
+        public LocatieTabla(PictureBox pictureBox)
         {
-            imagineLocatie = b;
+            imagineLocatie = pictureBox;
             imagineLocatie.BackgroundImage = null;
-            nume = b.Name;
+            nume = pictureBox.Name;
             nume = nume.Substring(1);
             nume = Reverse(nume);
 
@@ -52,14 +51,14 @@ namespace Chess_Application
         }
 
         // Used for boxes with a chess piece on them
-        public LocatieTabla(Piesa p, PictureBox b)
+        public LocatieTabla(Piesa piece, PictureBox pictureBox)
         {
-            piesa = p;
-            culoare = p.culoare;
-            tipPiesa = p.tipPiesa;
-            imagineLocatie = b;
-            b.BackgroundImage = p.imaginePiesa.BackgroundImage;
-            nume = b.Name;
+            piesa = piece;
+            culoare = piece.culoare;
+            tipPiesa = piece.tipPiesa;
+            imagineLocatie = pictureBox;
+            pictureBox.BackgroundImage = piece.imaginePiesa.BackgroundImage;
+            nume = pictureBox.Name;
             nume = nume.Substring(1);
             nume = Reverse(nume);
 
@@ -72,35 +71,69 @@ namespace Chess_Application
             column += 1;
         }
 
-        public static string Reverse(string s)
+        /// <summary>
+        /// Sets the color of the box.
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetColor(Color color)
+        {
+            imagineLocatie.BackColor = color;
+        }
+
+        public string Reverse(string s)
         {
             char[] charArray = s.ToCharArray();
             Array.Reverse(charArray);
             return new string(charArray);
         }
 
-        public void Marcheaza()
+        /// <summary>
+        /// Marks the box as available for other pieces to move upon.
+        /// </summary>
+        public void MarkAsAvailable()
         {
-            sePoate = true;
+            available = true;
             if (MainForm.modInceptator)
             {
                 imagineLocatie.BackColor = Color.Green;
             }
         }
 
-        public void StergeLocatie()
+        /// <summary>
+        /// Marks the box as unavailable for other pieces to move upon.
+        /// </summary>
+        public void MarkAsUnavailable()
+        {
+            available = false;
+        }
+
+        public void RemovePieceImage()
         {
             imagineLocatie.BackgroundImage = null;
         }
 
-        public short GetRow()
+        public short Row
         {
-            return row;
+            get
+            {
+                return row;
+            }
         }
 
-        public short GetColumn()
+        public short Column
         {
-            return column;
+            get
+            {
+                return column;
+            }
+        }
+
+        public bool Available
+        {
+            get
+            {
+                return available;
+            }
         }
 
     }

@@ -27,7 +27,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i + 1, j))
                     {
-                        loc[i + 1, j].Marcheaza();
+                        loc[i + 1, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
@@ -35,7 +35,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i + 1, j + 1))
                     {
-                        loc[i + 1, j + 1].Marcheaza();
+                        loc[i + 1, j + 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
@@ -43,7 +43,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i + 1, j - 1))
                     {
-                        loc[i + 1, j - 1].Marcheaza();
+                        loc[i + 1, j - 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
@@ -51,7 +51,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i + 2, j)) 
                     {
-                        loc[i + 2, j].Marcheaza();
+                        loc[i + 2, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
@@ -63,7 +63,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i - 1, j))
                     {
-                        loc[i - 1, j].Marcheaza();
+                        loc[i - 1, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }                   
                 }
@@ -71,7 +71,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i - 1, j + 1))
                     {
-                        loc[i - 1, j + 1].Marcheaza();
+                        loc[i - 1, j + 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
@@ -79,7 +79,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i - 1, j - 1))
                     {
-                        loc[i - 1, j - 1].Marcheaza();
+                        loc[i - 1, j - 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
@@ -87,7 +87,7 @@ namespace Chess_Application
                 {
                     if (!Sah(loc, i, j, i - 2, j))
                     {
-                        loc[i - 2, j].Marcheaza();
+                        loc[i - 2, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
                     }
                 }
