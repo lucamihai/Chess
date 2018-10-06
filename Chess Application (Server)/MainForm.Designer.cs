@@ -368,7 +368,7 @@
             this._1A.Name = "_1A";
             this._1A.Size = new System.Drawing.Size(64, 64);
             this._1A.TabIndex = 0;
-            this._1A.TabStop = false;           
+            this._1A.TabStop = false;
             // 
             // _2A
             // 
@@ -1050,22 +1050,22 @@
             this.activeazaToolStripMenuItem,
             this.dezactiveazaToolStripMenuItem});
             this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
-            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
             // 
             // activeazaToolStripMenuItem
             // 
             this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
-            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.activeazaToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.activeazaToolStripMenuItem_Click);
+            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.EnableBeginnerMode);
             // 
             // dezactiveazaToolStripMenuItem
             // 
             this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
-            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazaToolStripMenuItem_Click);
+            this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.DisableBeginnerMode);
             // 
             // sunetToolStripMenuItem
             // 
@@ -1073,22 +1073,22 @@
             this.activeazalToolStripMenuItem,
             this.dezactiveazalToolStripMenuItem});
             this.sunetToolStripMenuItem.Name = "sunetToolStripMenuItem";
-            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sunetToolStripMenuItem.Text = "Sunet";
             // 
             // activeazalToolStripMenuItem
             // 
             this.activeazalToolStripMenuItem.Name = "activeazalToolStripMenuItem";
-            this.activeazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.activeazalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.activeazalToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.activeazalToolStripMenuItem_Click);
+            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.EnableSound);
             // 
             // dezactiveazalToolStripMenuItem
             // 
             this.dezactiveazalToolStripMenuItem.Name = "dezactiveazalToolStripMenuItem";
-            this.dezactiveazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.dezactiveazalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dezactiveazalToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.dezactiveazalToolStripMenuItem_Click);
+            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.DisableSound);
             // 
             // menuStrip2
             // 
