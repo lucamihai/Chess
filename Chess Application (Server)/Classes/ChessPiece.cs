@@ -54,26 +54,31 @@ namespace Chess_Application
         /// <returns>True if the move can be made, false otherwise.</returns>
         public bool IsMovePossible(LocatieTabla[,] chessBoard, Point source, Point destination)
         {
-            int kingColor = chessBoard[source.X, source.Y].culoare;
+            if (chessBoard[source.X, source.Y] == null || chessBoard[destination.X, destination.Y] == null)
+            {
+                return false;
+            }
+
             bool isPossible = false;
 
-            if (chessBoard[destination.X, destination.Y] != null)
+            // Remember the colors of the king and of the destination
+            int kingColor = chessBoard[source.X, source.Y].culoare;
+            int destinationColor = chessBoard[destination.X, destination.Y].culoare;
+            
+
+            // Pretend the king was moved to the destination
+            chessBoard[source.X, source.Y].culoare = 0;
+            chessBoard[destination.X, destination.Y].culoare = kingColor;
+
+            if ( !IsInCheck(chessBoard, destination.X, destination.Y) )
             {
-                chessBoard[destination.X, destination.Y].culoare = 0;
-                chessBoard[destination.X, destination.Y].culoare = kingColor;
-
-                if (!IsInCheck(chessBoard, destination.X, destination.Y))
-                {
-                    chessBoard[destination.X, destination.Y].culoare = kingColor;
-
-                    if (chessBoard[destination.X, destination.Y].culoare != kingColor)
-                    {
-                        isPossible = true;
-                    }
-                }
-                chessBoard[source.X, source.Y].culoare = kingColor;
-                chessBoard[destination.X, destination.Y].culoare = 1;
+                isPossible = (destinationColor != kingColor);
             }
+
+            // Restore colors of the king and of the destination
+            chessBoard[source.X, source.Y].culoare = kingColor;
+            chessBoard[destination.X, destination.Y].culoare = destinationColor;
+            
 
             return isPossible;
         }
