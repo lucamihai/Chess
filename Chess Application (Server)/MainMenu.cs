@@ -12,7 +12,6 @@ namespace Chess_Application
 {
     public partial class MainMenu : UserControl
     {
-        //public static LocatieTabla AA;
         MainForm mainForm;
         Options options;
 
@@ -64,7 +63,7 @@ namespace Chess_Application
         }
 
         public void SetColors(string colorsString)
-        {;
+        {
             mainForm.SetColors(colorsString);
         }
     }

@@ -10,7 +10,7 @@ using System.Net;
 
 namespace Chess_Application
 {
-    public class Rege : Piesa
+    public class Rege : ChessPiece
     {
         public Rege(int c, PictureBox p, PictureBox pm)
         {
@@ -19,7 +19,7 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 6;
         }
-        public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
         {
             SahDinRege(loc);
         }

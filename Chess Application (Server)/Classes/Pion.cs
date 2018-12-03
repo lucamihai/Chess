@@ -10,7 +10,7 @@ using System.Net;
 
 namespace Chess_Application
 {
-    public class Pion : Piesa
+    public class Pion : ChessPiece
     {
         public Pion(int c, PictureBox p, PictureBox pm)
         {
@@ -19,13 +19,13 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 1;
         }
-        public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
         {
             if (culoare == 1)//pion alb
             {
                 if (loc[i + 1, j] != null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!Sah(loc, i, j, i + 1, j))
+                    if (!IsInCheck(loc, i, j, i + 1, j))
                     {
                         loc[i + 1, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -33,7 +33,7 @@ namespace Chess_Application
                 }
                 if (i < 8 && j < 8 && loc[i + 1, j + 1].culoare == 2)
                 {
-                    if (!Sah(loc, i, j, i + 1, j + 1))
+                    if (!IsInCheck(loc, i, j, i + 1, j + 1))
                     {
                         loc[i + 1, j + 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -41,7 +41,7 @@ namespace Chess_Application
                 }
                 if (i < 8 && j > 1 && loc[i + 1, j - 1].culoare == 2)
                 {
-                    if (!Sah(loc, i, j, i + 1, j - 1))
+                    if (!IsInCheck(loc, i, j, i + 1, j - 1))
                     {
                         loc[i + 1, j - 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -49,7 +49,7 @@ namespace Chess_Application
                 }
                 if ((i == 2) && loc[i + 2, j] != null && loc[i + 2, j].imagineLocatie.BackgroundImage == null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!Sah(loc, i, j, i + 2, j)) 
+                    if (!IsInCheck(loc, i, j, i + 2, j)) 
                     {
                         loc[i + 2, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -61,7 +61,7 @@ namespace Chess_Application
             {
                 if (loc[i - 1, j] != null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!Sah(loc, i, j, i - 1, j))
+                    if (!IsInCheck(loc, i, j, i - 1, j))
                     {
                         loc[i - 1, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -69,7 +69,7 @@ namespace Chess_Application
                 }
                 if (i > 1 && j < 8 && loc[i - 1, j + 1].culoare == 1)
                 {
-                    if (!Sah(loc, i, j, i - 1, j + 1))
+                    if (!IsInCheck(loc, i, j, i - 1, j + 1))
                     {
                         loc[i - 1, j + 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -77,7 +77,7 @@ namespace Chess_Application
                 }
                 if (i > 1 && j > 1 && loc[i - 1, j - 1].culoare == 1)
                 {
-                    if (!Sah(loc, i, j, i - 1, j - 1))
+                    if (!IsInCheck(loc, i, j, i - 1, j - 1))
                     {
                         loc[i - 1, j - 1].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -85,7 +85,7 @@ namespace Chess_Application
                 }
                 if ((i == 7) && loc[i - 2, j] != null && loc[i - 2, j].imagineLocatie.BackgroundImage == null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!Sah(loc, i, j, i - 2, j))
+                    if (!IsInCheck(loc, i, j, i - 2, j))
                     {
                         loc[i - 2, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;

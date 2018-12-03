@@ -18,7 +18,7 @@ namespace Chess_Application
     {
         public string nume;
         public bool poateFaceMiscari = false;
-        public Piesa piesa;
+        public ChessPiece piesa;
         public int tipPiesa = 0;
         public int culoare = 0;
         bool available = false;
@@ -51,7 +51,7 @@ namespace Chess_Application
         }
 
         // Used for boxes with a chess piece on them
-        public LocatieTabla(Piesa piece, PictureBox pictureBox)
+        public LocatieTabla(ChessPiece piece, PictureBox pictureBox)
         {
             piesa = piece;
             culoare = piece.culoare;

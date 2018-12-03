@@ -36,8 +36,8 @@ namespace Chess_Application
 
         bool soundEnabled = true;
         bool incepeJocNou = false;
-        bool trebuieSaSelectezi = false;
-        bool adversarulSelecteaza = false;
+        bool currentPlayerMustSelect = false;
+        bool opponentMustSelect = false;
 
         public static int randMutare = 1;
         public static int randMutareClient = 2;
@@ -51,17 +51,17 @@ namespace Chess_Application
         SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
         SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
 
-        Piesa pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
-        Piesa tura1Alb, tura2Alb;
-        Piesa nebun1Alb, nebun2Alb;
-        Piesa cal1Alb, cal2Alb;
-        Piesa reginaAlb, regeAlb;
+        ChessPiece pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
+        ChessPiece tura1Alb, tura2Alb;
+        ChessPiece nebun1Alb, nebun2Alb;
+        ChessPiece cal1Alb, cal2Alb;
+        ChessPiece reginaAlb, regeAlb;
 
-        Piesa pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
-        Piesa tura1Negru, tura2Negru;
-        Piesa nebun1Negru, nebun2Negru;
-        Piesa cal1Negru, cal2Negru;
-        Piesa reginaNegru, regeNegru;
+        ChessPiece pion1Negru, pion2Negru, pion3Negru, pion4Negru, pion5Negru, pion6Negru, pion7Negru, pion8Negru;
+        ChessPiece tura1Negru, tura2Negru;
+        ChessPiece nebun1Negru, nebun2Negru;
+        ChessPiece cal1Negru, cal2Negru;
+        ChessPiece reginaNegru, regeNegru;
 
         LocatieTabla orig;
         
@@ -288,6 +288,7 @@ namespace Chess_Application
             {
                 
             }
+
             serverTcpListener.Stop();
         }
 
@@ -379,7 +380,7 @@ namespace Chess_Application
                             // Client must retake a captured piece
                             if (receivedData == "#selectie")
                             {
-                                adversarulSelecteaza = true;
+                                opponentMustSelect = true;
                                 MethodInvoker notify = new MethodInvoker(() 
                                     => textBox1.AppendText(usernameClient + " are de selectat o piesa din regiunea Spoils o' war" + Environment.NewLine)
                                 );
@@ -389,7 +390,7 @@ namespace Chess_Application
                             // Client has retaken a captured piece
                             if (receivedData == "#final selectie")
                             {
-                                adversarulSelecteaza = false;
+                                opponentMustSelect = false;
                             }
 
                             // Client has retaken a captured piece, update this info
@@ -770,7 +771,7 @@ namespace Chess_Application
                     {
                         retakeRow = 8;
                         retakeColumn = destination.nume[1] - 48;
-                        trebuieSaSelectezi = true;
+                        currentPlayerMustSelect = true;
                         SendMessage("#selectie");
                         textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
@@ -786,7 +787,7 @@ namespace Chess_Application
                     {
                         retakeRow = 1;
                         retakeColumn = destination.nume[1] - 48;
-                        trebuieSaSelectezi = true;
+                        currentPlayerMustSelect = true;
                         SendMessage("#selectie");
                         textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
@@ -1019,10 +1020,10 @@ namespace Chess_Application
 
         private void pbTureAlbeLuate_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterTureAlbe != 0)
+            if (currentPlayerMustSelect && counterTureAlbe != 0)
             {
                 RetakePiece(tureAlbeLuate, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCTA.Text = (--counterTureAlbe).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " TA");
                 SendMessage("#final selectie");
@@ -1031,10 +1032,10 @@ namespace Chess_Application
 
         private void pbCaiAlbiLuati_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterCaiAlbi != 0)
+            if (currentPlayerMustSelect && counterCaiAlbi != 0)
             {
                 RetakePiece(caiAlbiLuati, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCountCA.Text = (--counterCaiAlbi).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " CA");
                 SendMessage("#final selectie");
@@ -1043,10 +1044,10 @@ namespace Chess_Application
 
         private void pbNebuniAlbiLuati_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterNebuniAlbi != 0)
+            if (currentPlayerMustSelect && counterNebuniAlbi != 0)
             {
                 RetakePiece(nebuniAlbiLuati, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCNA.Text = (--counterNebuniAlbi).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " NA");
                 SendMessage("#final selectie");
@@ -1055,10 +1056,10 @@ namespace Chess_Application
 
         private void pbReginaAlbaLuata_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterReginaAlba != 0)
+            if (currentPlayerMustSelect && counterReginaAlba != 0)
             {
                 RetakePiece(reginaAlbaLuata, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCRA.Text = (--counterReginaAlba).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " RA");
                 SendMessage("#final selectie");
@@ -1071,10 +1072,10 @@ namespace Chess_Application
 
         private void pbTureNegreLuate_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterTureNegre != 0)
+            if (currentPlayerMustSelect && counterTureNegre != 0)
             {
                 RetakePiece(tureNegreLuate, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCTN.Text = (--counterTureNegre).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " TN");
                 SendMessage("#final selectie");
@@ -1083,10 +1084,10 @@ namespace Chess_Application
 
         private void pbCaiNegriLuati_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterCaiNegri != 0)
+            if (currentPlayerMustSelect && counterCaiNegri != 0)
             {
                 RetakePiece(caiNegriLuati, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCountCN.Text = (--counterCaiNegri).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " CN");
                 SendMessage("#final selectie");
@@ -1095,10 +1096,10 @@ namespace Chess_Application
 
         private void pbNebuniNegriLuati_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterNebuniNegri != 0)
+            if (currentPlayerMustSelect && counterNebuniNegri != 0)
             {
                 RetakePiece(nebuniNegriLuati, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCNN.Text = (--counterNebuniNegri).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " NN");
                 SendMessage("#final selectie");
@@ -1107,10 +1108,10 @@ namespace Chess_Application
 
         private void pbReginaNeagraLuata_Click(object sender, EventArgs e)
         {
-            if (trebuieSaSelectezi && counterReginaNeagra != 0)
+            if (currentPlayerMustSelect && counterReginaNeagra != 0)
             {
                 RetakePiece(reginaNeagraLuata, ChessBoard[retakeRow, retakeColumn]);
-                trebuieSaSelectezi = false;
+                currentPlayerMustSelect = false;
                 labelCRN.Text = (--counterReginaNeagra).ToString();
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " RN");
                 SendMessage("#final selectie");
@@ -1155,7 +1156,7 @@ namespace Chess_Application
                 {
                     if (ChessBoard[i, j].culoare == 1 && ChessBoard[i, j].piesa != null)
                     {
-                        ChessBoard[i, j].piesa.VerificaPosibilitati(i, j, ChessBoard);
+                        ChessBoard[i, j].piesa.CheckPossibilities(i, j, ChessBoard);
                         if (ChessBoard[i, j].poateFaceMiscari == true)
                         {
                             RestoreColors(ChessBoard);
@@ -1183,7 +1184,7 @@ namespace Chess_Application
                 {
                     if (ChessBoard[i, j].culoare == 2 && ChessBoard[i, j].piesa != null)
                     {
-                        ChessBoard[i, j].piesa.VerificaPosibilitati(i, j, ChessBoard);
+                        ChessBoard[i, j].piesa.CheckPossibilities(i, j, ChessBoard);
                         if (ChessBoard[i, j].poateFaceMiscari == true)
                         {
                             RestoreColors(ChessBoard);
@@ -1260,7 +1261,7 @@ namespace Chess_Application
             PictureBox clickedBox = (PictureBox)sender;
             LocatieTabla clickedBoxObject = Boxes[clickedBox];
 
-            if (trebuieSaSelectezi || adversarulSelecteaza)
+            if (currentPlayerMustSelect || opponentMustSelect)
             {
                 return;
             }
@@ -1271,7 +1272,7 @@ namespace Chess_Application
                 short row = clickedBoxObject.Row;
                 short column = clickedBoxObject.Column;
 
-                clickedBoxObject.piesa.VerificaPosibilitati(row, column, ChessBoard);
+                clickedBoxObject.piesa.CheckPossibilities(row, column, ChessBoard);
                 if (clickedBoxObject.poateFaceMiscari == true)
                 {
                     orig = clickedBoxObject;

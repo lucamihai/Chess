@@ -10,7 +10,7 @@ using System.Net;
 
 namespace Chess_Application
 {
-    public class Tura : Piesa
+    public class Tura : ChessPiece
     {
         public Tura(int c, PictureBox p, PictureBox pm)
         {
@@ -19,7 +19,7 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 2;
         }
-        public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
         {
             {
                 //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
@@ -34,13 +34,13 @@ namespace Chess_Application
                 {
                     if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare)
                     {
-                        if (loc[i, k] != loc[i, j] && !Sah(loc, i, j, i, k))
+                        if (loc[i, k] != loc[i, j] && !IsInCheck(loc, i, j, i, k))
                         {
                             loc[i, k].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[i, k].culoare != loc[i, j].culoare && !Sah(loc, i, j, i, k))
+                    if (loc[i, k].culoare != loc[i, j].culoare && !IsInCheck(loc, i, j, i, k))
                     {
                         loc[i, k].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -51,13 +51,13 @@ namespace Chess_Application
                 {
                     if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare)
                     {
-                        if (loc[i, k] != loc[i, j] && !Sah(loc, i, j, i, k))
+                        if (loc[i, k] != loc[i, j] && !IsInCheck(loc, i, j, i, k))
                         {
                             loc[i, k].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[i, k].culoare != loc[i, j].culoare && !Sah(loc, i, j, i, k))
+                    if (loc[i, k].culoare != loc[i, j].culoare && !IsInCheck(loc, i, j, i, k))
                     {
                         loc[i, k].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -68,13 +68,13 @@ namespace Chess_Application
                 {
                     if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare)
                     {
-                        if (loc[k, j] != loc[i, j] && !Sah(loc, i, j, k, j))
+                        if (loc[k, j] != loc[i, j] && !IsInCheck(loc, i, j, k, j))
                         {
                             loc[k, j].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[k, j].culoare != loc[i, j].culoare && !Sah(loc, i, j, k, j))
+                    if (loc[k, j].culoare != loc[i, j].culoare && !IsInCheck(loc, i, j, k, j))
                     {
                         loc[k, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;
@@ -85,13 +85,13 @@ namespace Chess_Application
                 {
                     if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare)
                     {
-                        if (loc[k, j] != loc[i, j] && !Sah(loc, i, j, k, j))
+                        if (loc[k, j] != loc[i, j] && !IsInCheck(loc, i, j, k, j))
                         {
                             loc[k, j].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[k, j].culoare != loc[i, j].culoare && !Sah(loc, i, j, k, j))
+                    if (loc[k, j].culoare != loc[i, j].culoare && !IsInCheck(loc, i, j, k, j))
                     {
                         loc[k, j].MarkAsAvailable();
                         loc[i, j].poateFaceMiscari = true;

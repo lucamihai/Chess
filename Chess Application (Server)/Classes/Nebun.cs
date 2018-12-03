@@ -10,7 +10,7 @@ using System.Net;
 
 namespace Chess_Application
 {
-    public class Nebun : Piesa
+    public class Nebun : ChessPiece
     {
         public Nebun(int c, PictureBox p, PictureBox pm)
         {
@@ -19,7 +19,7 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 4;
         }
-        public override void VerificaPosibilitati(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
         {
             //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
 
@@ -30,7 +30,7 @@ namespace Chess_Application
             //--------------------------------------------------------------------------------------------------------------------------------------
             for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c)) 
+                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c)) 
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
@@ -46,7 +46,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
+                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c))
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
@@ -62,7 +62,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
+                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c))
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
@@ -78,7 +78,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !Sah(loc, i, j, l, c))
+                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c))
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
