@@ -78,7 +78,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\Rege.cs" />
+    <Compile Include="Classes\King.cs" />
     <Compile Include="Classes\Regina.cs" />
     <Compile Include="Classes\Tura.cs" />
     <EmbeddedResource Include="MainForm.resx">
