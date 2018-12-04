@@ -115,23 +115,23 @@ namespace Chess_Application
 
             #region Initialize chess pieces
 
-            tura1Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Tura(1, pbTuraAlb, pbTuraAlbMic);
-            cal1Alb = new Cal(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Cal(1, pbCalAlb, pbCalAlbMic);
-            nebun1Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic); nebun2Alb = new Nebun(1, pbNebunAlb, pbNebunAlbMic);
-            reginaAlb = new Regina(1, pbReginaAlb, pbReginaAlbMic); regeAlb = new King(1, pbRegeAlb, pbRegeAlbMic);
-            pion1Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion2Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion3Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion5Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
-            pion7Alb = new Pion(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pion(1, pbPionAlb, pbPionAlbMic);
+            tura1Alb = new Rook(1, pbTuraAlb, pbTuraAlbMic); tura2Alb = new Rook(1, pbTuraAlb, pbTuraAlbMic);
+            cal1Alb = new Knight(1, pbCalAlb, pbCalAlbMic); cal2Alb = new Knight(1, pbCalAlb, pbCalAlbMic);
+            nebun1Alb = new Bishop(1, pbNebunAlb, pbNebunAlbMic); nebun2Alb = new Bishop(1, pbNebunAlb, pbNebunAlbMic);
+            reginaAlb = new Queen(1, pbReginaAlb, pbReginaAlbMic); regeAlb = new King(1, pbRegeAlb, pbRegeAlbMic);
+            pion1Alb = new Pawn(1, pbPionAlb, pbPionAlbMic); pion2Alb = new Pawn(1, pbPionAlb, pbPionAlbMic);
+            pion3Alb = new Pawn(1, pbPionAlb, pbPionAlbMic); pion4Alb = new Pawn(1, pbPionAlb, pbPionAlbMic);
+            pion5Alb = new Pawn(1, pbPionAlb, pbPionAlbMic); pion6Alb = new Pawn(1, pbPionAlb, pbPionAlbMic);
+            pion7Alb = new Pawn(1, pbPionAlb, pbPionAlbMic); pion8Alb = new Pawn(1, pbPionAlb, pbPionAlbMic);
             //=====
-            tura1Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Tura(2, pbTuraNegru, pbTuraNegruMic);
-            cal1Negru = new Cal(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Cal(2, pbCalNegru, pbCalNegruMic);
-            nebun1Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Nebun(2, pbNebunNegru, pbNebunNegruMic);
-            reginaNegru = new Regina(2, pbReginaNegru, pbReginaNegruMic); regeNegru = new King(2, pbRegeNegru, pbRegeNegruMic);
-            pion1Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion2Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion3Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion4Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion5Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion6Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
-            pion7Negru = new Pion(2, pbPionNegru, pbPionNegruMic); pion8Negru = new Pion(2, pbPionNegru, pbPionNegruMic);
+            tura1Negru = new Rook(2, pbTuraNegru, pbTuraNegruMic); tura2Negru = new Rook(2, pbTuraNegru, pbTuraNegruMic);
+            cal1Negru = new Knight(2, pbCalNegru, pbCalNegruMic); cal2Negru = new Knight(2, pbCalNegru, pbCalNegruMic);
+            nebun1Negru = new Bishop(2, pbNebunNegru, pbNebunNegruMic); nebun2Negru = new Bishop(2, pbNebunNegru, pbNebunNegruMic);
+            reginaNegru = new Queen(2, pbReginaNegru, pbReginaNegruMic); regeNegru = new King(2, pbRegeNegru, pbRegeNegruMic);
+            pion1Negru = new Pawn(2, pbPionNegru, pbPionNegruMic); pion2Negru = new Pawn(2, pbPionNegru, pbPionNegruMic);
+            pion3Negru = new Pawn(2, pbPionNegru, pbPionNegruMic); pion4Negru = new Pawn(2, pbPionNegru, pbPionNegruMic);
+            pion5Negru = new Pawn(2, pbPionNegru, pbPionNegruMic); pion6Negru = new Pawn(2, pbPionNegru, pbPionNegruMic);
+            pion7Negru = new Pawn(2, pbPionNegru, pbPionNegruMic); pion8Negru = new Pawn(2, pbPionNegru, pbPionNegruMic);
 
             #endregion
 

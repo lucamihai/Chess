@@ -45,541 +45,619 @@ namespace Chess_Application
         }
 
         
-
-        public bool IsInCheck(LocatieTabla[,] chessBoard, int orig1, int orig2, int curent1, int curent2)
+        /// <summary>
+        /// Determines if a move made from origin to destination would trigger a check.
+        /// </summary>
+        /// <param name="chessBoard">The chessboard</param>
+        /// <param name="origRow">Row of the origin</param>
+        /// <param name="origColumn">Column of the origin</param>
+        /// <param name="destinationRow">Row of the destination</param>
+        /// <param name="destinationColumn">Column of the destination</param>
+        /// <returns></returns>
+        public bool TriggersCheck(LocatieTabla[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
-            if (chessBoard[orig1, orig2].tipPiesa != 6)
+            if (chessBoard[origRow, origColumn].tipPiesa != 6)
             {
+                Point kingPosition;
                 if (MainForm.randMutare == 1)
                 {
-                    int i = MainForm.pozitieRegeAlb.X;//linia rege
-                    int j = MainForm.pozitieRegeAlb.Y;//coloana rege
-                    Console.WriteLine("Pozititie rege: " + i + " " + j);
-                    int tempCuloareOrig = chessBoard[orig1, orig2].culoare;
-                    int tempCuloareCurent = chessBoard[curent1, curent2].culoare;
-                    chessBoard[orig1, orig2].culoare = 0;
-                    chessBoard[curent1, curent2].culoare = 1;
-                    //========== pion / rege ========
-                    if (chessBoard[i + 1, j - 1] != null)
-                    {
-                        if (chessBoard[i + 1, j - 1].culoare == 2 && (chessBoard[i + 1, j - 1].tipPiesa == 1 || chessBoard[i + 1, j - 1].tipPiesa == 6))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i + 1, j + 1] != null)
-                    {
-                        if (chessBoard[i + 1, j + 1].culoare == 2 && (chessBoard[i + 1, j + 1].tipPiesa == 1 || chessBoard[i + 1, j + 1].tipPiesa == 6))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    //========== rege ========
-                    if (chessBoard[i + 1, j] != null)
-                    {
-                        if (chessBoard[i + 1, j].culoare == 2 && chessBoard[i + 1, j].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i, j - 1] != null)
-                    {
-                        if (chessBoard[i, j - 1].culoare == 2 && chessBoard[i, j - 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i, j + 1] != null)
-                    {
-                        if (chessBoard[i, j + 1].culoare == 2 && chessBoard[i, j + 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i - 1, j - 1] != null)
-                    {
-                        if (chessBoard[i - 1, j - 1].culoare == 2 && chessBoard[i - 1, j - 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i - 1, j] != null)
-                    {
-                        if (chessBoard[i - 1, j].culoare == 2 && chessBoard[i - 1, j].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i - 1, j + 1] != null)
-                    {
-                        if (chessBoard[i - 1, j + 1].culoare == 2 && chessBoard[i - 1, j + 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    //========== cal ========
-                    if ((i < 8 && j < 7) && chessBoard[i + 1, j + 2].culoare == 2 && chessBoard[i + 1, j + 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i < 8 && j > 2) && chessBoard[i + 1, j - 2].culoare == 2 && chessBoard[i + 1, j - 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //-----
-                    if ((i < 7 && j < 8) && chessBoard[i + 2, j + 1].culoare == 2 && chessBoard[i + 2, j + 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i < 7 && j > 1) && chessBoard[i + 2, j - 1].culoare == 2 && chessBoard[i + 2, j - 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //-----
-                    if ((i > 1 && j < 7) && chessBoard[i - 1, j + 2].culoare == 2 && chessBoard[i - 1, j + 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i > 1 && j > 2) && chessBoard[i - 1, j - 2].culoare == 2 && chessBoard[i - 1, j - 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //-----             
-                    if ((i > 2 && j < 8) && chessBoard[i - 2, j + 1].culoare == 2 && chessBoard[i - 2, j + 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i > 2 && j > 1) && chessBoard[i - 2, j - 1].culoare == 2 && chessBoard[i - 2, j - 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //========== tura / regina ========
-                    int ct1 = 0;
-                    int ct2 = 0;
-                    int ct3 = 0;
-                    int ct4 = 0;
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = j; k >= 1; k--)
-                    {
-                        ct1++;
-                        Console.WriteLine("Pe linia " + i + ", coloana" + k + " se afla tipPiesa = " + chessBoard[i, k].tipPiesa + " de culoare " + chessBoard[i, k].culoare);
-                        if (chessBoard[i, k].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[i, k].tipPiesa == 2 || chessBoard[i, k].tipPiesa == 5) && chessBoard[i, k].culoare == 2)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in stanga");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[i, k].culoare == chessBoard[i, j].culoare && chessBoard[i, k] != chessBoard[i, j]) break;
-                        if ((chessBoard[i, k].culoare == 2) && chessBoard[i, k].tipPiesa != 2 && chessBoard[i, k].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = j; k <= 8; k++)
-                    {
-                        ct2++;
-                        Console.WriteLine("Pe linia " + i + ", coloana" + k + " se afla tipPiesa = " + chessBoard[i, k].tipPiesa + " de culoare " + chessBoard[i, k].culoare);
-                        if (chessBoard[i, k].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[i, k].tipPiesa == 2 || chessBoard[i, k].tipPiesa == 5) && chessBoard[i, k].culoare == 2)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in dreapta");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[i, k].culoare == chessBoard[i, j].culoare && chessBoard[i, k] != chessBoard[i, j]) break;
-                        if ((chessBoard[i, k].culoare == 2) && chessBoard[i, k].tipPiesa != 2 && chessBoard[i, k].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = i; k >= 1; k--)
-                    {
-                        ct3++;
-                        Console.WriteLine("Pe linia " + k + ", coloana" + j + " se afla tipPiesa = " + chessBoard[k, j].tipPiesa + " de culoare " + chessBoard[k, j].culoare);
-                        if (chessBoard[k, j].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[k, j].tipPiesa == 2 || chessBoard[k, j].tipPiesa == 5) && chessBoard[k, j].culoare == 2)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in jos");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[k, j].culoare == chessBoard[i, j].culoare && chessBoard[k, j] != chessBoard[i, j]) break;
-                        if ((chessBoard[k, j].culoare == 2) && chessBoard[k, j].tipPiesa != 2 && chessBoard[k, j].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = i; k <= 8; k++)
-                    {
-                        ct4++;
-                        Console.WriteLine("Pe linia " + k + ", coloana" + j + " se afla tipPiesa = " + chessBoard[k, j].tipPiesa + " de culoare " + chessBoard[k, j].culoare);
-                        if (chessBoard[k, j].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[k, j].tipPiesa == 2 || chessBoard[k, j].tipPiesa == 5) && chessBoard[k, j].culoare == 2)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in sus");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[k, j].culoare == chessBoard[i, j].culoare && chessBoard[k, j] != chessBoard[i, j]) break;
-                        if ((chessBoard[k, j].culoare == 2) && chessBoard[k, j].tipPiesa != 2 && chessBoard[k, j].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    Console.WriteLine("ct1: " + ct1 + ", ct2: " + ct2 + ", ct3: " + ct3 + ", ct4: " + ct4);
-                    //========== nebun / regina ========
-                    for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
-                    {
-                        if (chessBoard[l, c].culoare == 2 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala stanga jos");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
-                    {
-                        if (chessBoard[l, c].culoare == 2 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala dreapta sus");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
-                    {
-                        if (chessBoard[l, c].culoare == 2 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4)) 
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala stanga sus de la pozitia "+l+" "+c);
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
-                    {
-                        if (chessBoard[l, c].culoare == 2 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala dreapta jos");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    Console.WriteLine("pe pozitia 3,5 se exista: " + chessBoard[3, 5].tipPiesa + " de culoarea: " + chessBoard[3, 5].culoare);
-                    chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                    chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                    return false;
+                    kingPosition = MainForm.pozitieRegeAlb;
                 }
                 else
                 {
-                    Console.WriteLine("TBD");
-                    int i = MainForm.pozitieRegeNegru.X;
-                    int j = MainForm.pozitieRegeNegru.Y;
-                    Console.WriteLine("Pozititie rege: " + i + " " + j);
-                    int tempCuloareOrig = chessBoard[orig1, orig2].culoare;
-                    int tempCuloareCurent = chessBoard[curent1, curent2].culoare;
-                    chessBoard[orig1, orig2].culoare = 0;
-                    chessBoard[curent1, curent2].culoare = 1;
-                    //========== pion / rege ========
-                    if (chessBoard[i - 1, j - 1] != null)
+                    kingPosition = MainForm.pozitieRegeNegru;
+                }
+
+
+                // Back up origin and destination data
+                int tempOrigColor = chessBoard[origRow, origColumn].culoare;
+                int tempOrigPiece = chessBoard[origRow, origColumn].tipPiesa;
+                int tempDestColor = chessBoard[destinationRow, destinationColumn].culoare;
+                int tempDestPiece = chessBoard[destinationRow, destinationColumn].tipPiesa;
+
+                // Pretend the move was made
+                chessBoard[origRow, origColumn].culoare = 0;
+                chessBoard[origRow, origColumn].tipPiesa = 0;
+                chessBoard[destinationRow, destinationColumn].culoare = tempOrigColor;
+                chessBoard[destinationRow, destinationColumn].tipPiesa = tempOrigPiece;
+
+                bool check = false;
+
+                check = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
+                if (check)
+                {
+                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                    return true;
+                }
+
+                check = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
+                if (check)
+                {
+                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                    return true;
+                }
+
+                check = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
+                if (check)
+                {
+                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                    return true;
+                }
+
+                check = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
+                if (check)
+                {
+                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                    return true;
+                }
+
+                check = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
+                if (check)
+                {
+                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                    return true;
+                }
+
+                check = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
+                if (check)
+                {
+                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                    return true;
+                }
+
+                chessBoard[origRow, origColumn].culoare = tempOrigColor;
+                chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
+                chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
+                chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+
+                return false;
+            }
+
+            return false;
+        }
+
+        protected bool IsThreatenedByPawns(LocatieTabla[,] chessBoard, int row, int column)
+        {
+            LocatieTabla pieceCell = chessBoard[row, column];
+
+            if (pieceCell.culoare == 1)
+            {
+                if (chessBoard[row + 1, column - 1] != null)
+                {
+                    if (chessBoard[row + 1, column - 1].culoare == 2 && chessBoard[row + 1, column - 1].tipPiesa == 1)
                     {
-                        if (chessBoard[i - 1, j - 1].culoare == 1 && (chessBoard[i - 1, j - 1].tipPiesa == 1 || chessBoard[i - 1, j - 1].tipPiesa == 6))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i - 1, j + 1] != null)
-                    {
-                        if (chessBoard[i - 1, j + 1].culoare == 1 && (chessBoard[i - 1, j + 1].tipPiesa == 1 || chessBoard[i - 1, j + 1].tipPiesa == 6))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    //========== rege ========
-                    if (chessBoard[i + 1, j] != null)
-                    {
-                        if (chessBoard[i + 1, j].culoare == 1 && chessBoard[i + 1, j].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i, j - 1] != null)
-                    {
-                        if (chessBoard[i, j - 1].culoare == 1 && chessBoard[i, j - 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i, j + 1] != null)
-                    {
-                        if (chessBoard[i, j + 1].culoare == 1 && chessBoard[i, j + 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i + 1, j - 1] != null)
-                    {
-                        if (chessBoard[i - 1, j - 1].culoare == 1 && chessBoard[i - 1, j - 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i - 1, j] != null)
-                    {
-                        if (chessBoard[i - 1, j].culoare == 1 && chessBoard[i - 1, j].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    if (chessBoard[i + 1, j + 1] != null)
-                    {
-                        if (chessBoard[i - 1, j + 1].culoare == 1 && chessBoard[i - 1, j + 1].tipPiesa == 6)
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            return true;
-                        }
-                    }
-                    //========== cal ========
-                    if ((i < 8 && j < 7) && chessBoard[i + 1, j + 2].culoare == 1 && chessBoard[i + 1, j + 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
                         return true;
                     }
-                    if ((i < 8 && j > 2) && chessBoard[i + 1, j - 2].culoare == 1 && chessBoard[i + 1, j - 2].tipPiesa == 3)
+                }
+
+                if (chessBoard[row + 1, column + 1] != null)
+                {
+                    if (chessBoard[row + 1, column + 1].culoare == 2 && chessBoard[row + 1, column + 1].tipPiesa == 1)
                     {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
                         return true;
                     }
-                    //-----
-                    if ((i < 7 && j < 8) && chessBoard[i + 2, j + 1].culoare == 1 && chessBoard[i + 2, j + 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i < 7 && j > 1) && chessBoard[i + 2, j - 1].culoare == 1 && chessBoard[i + 2, j - 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //-----
-                    if ((i > 1 && j < 7) && chessBoard[i - 1, j + 2].culoare == 1 && chessBoard[i - 1, j + 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i > 1 && j > 2) && chessBoard[i - 1, j - 2].culoare == 1 && chessBoard[i - 1, j - 2].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //-----             
-                    if ((i > 2 && j < 8) && chessBoard[i - 2, j + 1].culoare == 1 && chessBoard[i - 2, j + 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    if ((i > 2 && j > 1) && chessBoard[i - 2, j - 1].culoare == 1 && chessBoard[i - 2, j - 1].tipPiesa == 3)
-                    {
-                        chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                        chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                        return true;
-                    }
-                    //========== tura / regina ========
-                    int ct1 = 0;
-                    int ct2 = 0;
-                    int ct3 = 0;
-                    int ct4 = 0;
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = j; k >= 1; k--)
-                    {
-                        ct1++;
-                        Console.WriteLine("Pe linia " + i + ", coloana" + k + " se afla tipPiesa = " + chessBoard[i, k].tipPiesa + " de culoare " + chessBoard[i, k].culoare);
-                        if (chessBoard[i, k].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[i, k].tipPiesa == 2 || chessBoard[i, k].tipPiesa == 5) && chessBoard[i, k].culoare == 1)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in stanga");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[i, k].culoare == chessBoard[i, j].culoare && chessBoard[i, k] != chessBoard[i, j]) break;
-                        if ((chessBoard[i, k].culoare == 1) && chessBoard[i, k].tipPiesa != 2 && chessBoard[i, k].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = j; k <= 8; k++)
-                    {
-                        ct2++;
-                        Console.WriteLine("Pe linia " + i + ", coloana" + k + " se afla tipPiesa = " + chessBoard[i, k].tipPiesa + " de culoare " + chessBoard[i, k].culoare);
-                        if (chessBoard[i, k].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[i, k].tipPiesa == 2 || chessBoard[i, k].tipPiesa == 5) && chessBoard[i, k].culoare == 1)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in dreapta");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[i, k].culoare == chessBoard[i, j].culoare && chessBoard[i, k] != chessBoard[i, j]) break;
-                        if ((chessBoard[i, k].culoare == 1) && chessBoard[i, k].tipPiesa != 2 && chessBoard[i, k].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = i; k >= 1; k--)
-                    {
-                        ct3++;
-                        Console.WriteLine("Pe linia " + k + ", coloana" + j + " se afla tipPiesa = " + chessBoard[k, j].tipPiesa + " de culoare " + chessBoard[k, j].culoare);
-                        if (chessBoard[k, j].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[k, j].tipPiesa == 2 || chessBoard[k, j].tipPiesa == 5) && chessBoard[k, j].culoare == 1)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in jos");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[k, j].culoare == chessBoard[i, j].culoare && chessBoard[k, j] != chessBoard[i, j]) break;
-                        if ((chessBoard[k, j].culoare == 1) && chessBoard[k, j].tipPiesa != 2 && chessBoard[k, j].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    for (int k = i; k <= 8; k++)
-                    {
-                        ct4++;
-                        Console.WriteLine("Pe linia " + k + ", coloana" + j + " se afla tipPiesa = " + chessBoard[k, j].tipPiesa + " de culoare " + chessBoard[k, j].culoare);
-                        if (chessBoard[k, j].culoare != chessBoard[i, j].culoare)
-                        {
-                            if ((chessBoard[k, j].tipPiesa == 2 || chessBoard[k, j].tipPiesa == 5) && chessBoard[k, j].culoare == 1)
-                            {
-                                chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                                chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                                Console.WriteLine("sah la verificare in sus");
-                                return true;
-                            }
-                        }
-                        if (chessBoard[k, j].culoare == chessBoard[i, j].culoare && chessBoard[k, j] != chessBoard[i, j]) break;
-                        if ((chessBoard[k, j].culoare == 1) && chessBoard[k, j].tipPiesa != 2 && chessBoard[k, j].tipPiesa != 5) break;
-                    }
-                    Console.WriteLine("----------------------------------------------------");
-                    Console.WriteLine("ct1: " + ct1 + ", ct2: " + ct2 + ", ct3: " + ct3 + ", ct4: " + ct4);
-                    //========== nebun / regina ========
-                    for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
-                    {
-                        if (chessBoard[l, c].culoare == 1 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4)) 
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala stanga jos");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
-                    {
-                        if (chessBoard[l, c].culoare == 1 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala dreapta sus");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
-                    {
-                        if (chessBoard[l, c].culoare == 1 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala stanga sus");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
-                    {
-                        if (chessBoard[l, c].culoare == 1 && (chessBoard[l, c].tipPiesa == 5 || chessBoard[l, c].tipPiesa == 4))
-                        {
-                            chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                            chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                            Console.WriteLine("sah la verificare in diagonala dreapta jos");
-                            return true;
-                        }
-                        if (chessBoard[l, c].culoare != 0 && chessBoard[l, c] != chessBoard[i, j]) break;
-                    }
-                    //Console.WriteLine("pe pozitia 3,5 se exista: " + loc[3, 5].tipPiesa + " de culoarea: " + loc[3, 5].culoare);
-                    chessBoard[orig1, orig2].culoare = tempCuloareOrig;
-                    chessBoard[curent1, curent2].culoare = tempCuloareCurent;
-                    return false;
                 }
             }
+
+            if (pieceCell.culoare == 2)
+            {
+                if (chessBoard[row - 1, column - 1] != null)
+                {
+                    if (chessBoard[row - 1, column - 1].culoare == 1 && chessBoard[row - 1, column - 1].tipPiesa == 1)
+                    {
+                        return true;
+                    }
+                }
+
+                if (chessBoard[row - 1, column + 1] != null)
+                {
+                    if (chessBoard[row - 1, column + 1].culoare == 1 && chessBoard[row - 1, column + 1].tipPiesa == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        protected bool IsThreatenedByKing(LocatieTabla[,] chessBoard, int row, int column)
+        {
+            LocatieTabla pieceCell = chessBoard[row, column];
+
+            if (chessBoard[row + 1, column - 1] != null)
+            {
+                if (chessBoard[row + 1, column - 1].culoare != pieceCell.culoare && chessBoard[row + 1, column - 1].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row + 1, column + 1] != null)
+            {
+                if (chessBoard[row + 1, column + 1].culoare != pieceCell.culoare && chessBoard[row + 1, column + 1].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row + 1, column] != null)
+            {
+                if (chessBoard[row + 1, column].culoare != pieceCell.culoare && chessBoard[row + 1, column].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row, column - 1] != null)
+            {
+                if (chessBoard[row, column - 1].culoare != pieceCell.culoare && chessBoard[row, column - 1].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row, column + 1] != null)
+            {
+                if (chessBoard[row, column + 1].culoare != pieceCell.culoare && chessBoard[row, column + 1].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row - 1, column - 1] != null)
+            {
+                if (chessBoard[row - 1, column - 1].culoare != pieceCell.culoare && chessBoard[row - 1, column - 1].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row - 1, column] != null)
+            {
+                if (chessBoard[row - 1, column].culoare != pieceCell.culoare && chessBoard[row - 1, column].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            if (chessBoard[row - 1, column + 1] != null)
+            {
+                if (chessBoard[row - 1, column + 1].culoare != pieceCell.culoare && chessBoard[row - 1, column + 1].tipPiesa == 6)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected bool IsThreatenedByKnights(LocatieTabla[,] chessBoard, int row, int column)
+        {
+            LocatieTabla pieceCell = chessBoard[row, column];
+
+            if (row < 8 && column < 7)
+            {
+                if (chessBoard[row + 1, column + 2].culoare != pieceCell.culoare && chessBoard[row + 1, column + 2].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            if (row < 8 && column > 2)
+            {
+                if (chessBoard[row + 1, column - 2].culoare != pieceCell.culoare && chessBoard[row + 1, column - 2].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            //-----
+            if (row < 7 && column < 8)
+            {
+                if (chessBoard[row + 2, column + 1].culoare != pieceCell.culoare && chessBoard[row + 2, column + 1].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            if (row < 7 && column > 1)
+            {
+                if (chessBoard[row + 2, column - 1].culoare != pieceCell.culoare && chessBoard[row + 2, column - 1].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            //-----
+            if (row > 1 && column < 7)
+            {
+                if (chessBoard[row - 1, column + 2].culoare != pieceCell.culoare && chessBoard[row - 1, column + 2].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            if (row > 1 && column > 2)
+            {
+                if (chessBoard[row - 1, column - 2].culoare != pieceCell.culoare && chessBoard[row - 1, column - 2].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            //-----             
+            if (row > 2 && column < 8)
+            {
+                if (chessBoard[row - 2, column + 1].culoare != pieceCell.culoare && chessBoard[row - 2, column + 1].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            if (row > 2 && column > 1)
+            {
+                if (chessBoard[row - 2, column - 1].culoare != pieceCell.culoare && chessBoard[row - 2, column - 1].tipPiesa == 3)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected bool IsThreatenedByBishops(LocatieTabla[,] chessBoard, int row, int column)
+        {
+            LocatieTabla pieceCell = chessBoard[row, column];
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            return false;
+        }
+
+        protected bool IsThreatenedByRooks(LocatieTabla[,] chessBoard, int row, int column)
+        {
+            LocatieTabla pieceCell = chessBoard[row, column];
+
+            for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
+            {
+                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[row, secondaryColumn].tipPiesa == 2)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
+            {
+                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[row, secondaryColumn].tipPiesa == 2)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
+            {
+                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[secondaryRow, column].tipPiesa == 2)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
+            {
+                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[secondaryRow, column].tipPiesa == 2)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            return false;
+        }
+
+        protected bool IsThreatenedByQueen(LocatieTabla[,] chessBoard, int row, int column)
+        {
+            LocatieTabla pieceCell = chessBoard[row, column];
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
+            {
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                {
+                    return true;
+                }
+
+                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                {
+                    break;
+                }
+            }
+
+            // -----
+
+            for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
+            {
+                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[row, secondaryColumn].tipPiesa == 5)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
+            {
+                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[row, secondaryColumn].tipPiesa == 5)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
+            {
+                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[secondaryRow, column].tipPiesa == 5)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
+            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
+            {
+                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                {
+                    if (chessBoard[secondaryRow, column].tipPiesa == 5)
+                    {
+                        return true;
+                    }
+
+                    // If other piece was found, further rooks can't threaten the king
+                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    {
+                        break;
+                    }
+                }
+
+                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                {
+                    break;
+                }
+            }
+
             return false;
         }
 

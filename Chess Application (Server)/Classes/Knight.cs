@@ -10,9 +10,9 @@ using System.Net;
 
 namespace Chess_Application
 {
-    public class Cal : ChessPiece
+    public class Knight : ChessPiece
     {
-        public Cal(int c, PictureBox p, PictureBox pm)
+        public Knight(int c, PictureBox p, PictureBox pm)
         {
             culoare = c;
             imaginePiesa = p;
@@ -23,45 +23,45 @@ namespace Chess_Application
         {
             //self explanatory right here
             //=====
-            if ((i < 8 && j < 7) && (loc[i + 1, j + 2].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i + 1, j + 2)) 
+            if ((i < 8 && j < 7) && (loc[i + 1, j + 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 1, j + 2)) 
             {
                 loc[i + 1, j + 2].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
-            if ((i < 8 && j > 2) && (loc[i + 1, j - 2].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i + 1, j - 2)) 
+            if ((i < 8 && j > 2) && (loc[i + 1, j - 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 1, j - 2)) 
             {
                 loc[i + 1, j - 2].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
             //=====
-            if ((i < 7 && j < 8) && (loc[i + 2, j + 1].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i + 2, j + 1)) 
+            if ((i < 7 && j < 8) && (loc[i + 2, j + 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 2, j + 1)) 
             {
                 loc[i + 2, j + 1].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
-            if ((i < 7 && j > 1) && (loc[i + 2, j - 1].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i + 2, j - 1)) 
+            if ((i < 7 && j > 1) && (loc[i + 2, j - 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 2, j - 1)) 
             {
                 loc[i + 2, j - 1].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
             //=====
-            if ((i > 1 && j < 7) && (loc[i - 1, j + 2].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i - 1, j + 2)) 
+            if ((i > 1 && j < 7) && (loc[i - 1, j + 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 1, j + 2)) 
             {
                 loc[i - 1, j + 2].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
-            if ((i > 1 && j > 2) && (loc[i - 1, j - 2].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i - 1, j - 2)) 
+            if ((i > 1 && j > 2) && (loc[i - 1, j - 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 1, j - 2)) 
             {
                 loc[i - 1, j - 2].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
             //=====              
-            if ((i > 2 && j < 8) && (loc[i - 2, j + 1].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i - 2, j + 1)) 
+            if ((i > 2 && j < 8) && (loc[i - 2, j + 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 2, j + 1)) 
             {
                 loc[i - 2, j + 1].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;
             }
-            if ((i > 2 && j > 1) && (loc[i - 2, j - 1].culoare != loc[i, j].culoare) && !IsInCheck(loc, i, j, i - 2, j - 1)) 
+            if ((i > 2 && j > 1) && (loc[i - 2, j - 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 2, j - 1)) 
             {
                 loc[i - 2, j - 1].MarkAsAvailable();
                 loc[i, j].poateFaceMiscari = true;

@@ -10,9 +10,9 @@ using System.Net;
 
 namespace Chess_Application
 {
-    public class Nebun : ChessPiece
+    public class Bishop : ChessPiece
     {
-        public Nebun(int c, PictureBox p, PictureBox pm)
+        public Bishop(int c, PictureBox p, PictureBox pm)
         {
             culoare = c;
             imaginePiesa = p;
@@ -30,7 +30,7 @@ namespace Chess_Application
             //--------------------------------------------------------------------------------------------------------------------------------------
             for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c)) 
+                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c)) 
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
@@ -46,7 +46,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c))
+                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c))
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
@@ -62,7 +62,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c))
+                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c))
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
@@ -78,7 +78,7 @@ namespace Chess_Application
             }
             for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !IsInCheck(loc, i, j, l, c))
+                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c))
                 {
                     loc[l, c].MarkAsAvailable();
                     loc[i, j].poateFaceMiscari = true;
