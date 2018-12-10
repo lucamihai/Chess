@@ -19,28 +19,28 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 2;
         }
-        public override void CheckPossibilities(int row, int column, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
         {
             {
                 // Check movement to the west
                 for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
                 {
-                    if (loc[row, secondaryColumn - 1] != null && loc[row, secondaryColumn - 1].culoare == loc[row, column].culoare)
+                    if (chessBoard[row, secondaryColumn - 1] != null && chessBoard[row, secondaryColumn - 1].culoare == chessBoard[row, column].culoare)
                     {
-                        if (loc[row, secondaryColumn] != loc[row, column] && !TriggersCheck(loc, row, column, row, secondaryColumn))
+                        if (chessBoard[row, secondaryColumn] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                         {
-                            loc[row, secondaryColumn].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
+                            chessBoard[row, secondaryColumn].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
 
-                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, row, secondaryColumn))
+                    if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                     {
-                        loc[row, secondaryColumn].MarkAsAvailable();
-                        loc[row, column].poateFaceMiscari = true;
+                        chessBoard[row, secondaryColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
 
-                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && loc[row, secondaryColumn].culoare != 0)
+                    if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && chessBoard[row, secondaryColumn].culoare != 0)
                     {
                         break;
                     }
@@ -49,22 +49,22 @@ namespace Chess_Application
                 // Check movement to the east
                 for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
                 {
-                    if (loc[row, secondaryColumn + 1] != null && loc[row, secondaryColumn + 1].culoare == loc[row, column].culoare)
+                    if (chessBoard[row, secondaryColumn + 1] != null && chessBoard[row, secondaryColumn + 1].culoare == chessBoard[row, column].culoare)
                     {
-                        if (loc[row, secondaryColumn] != loc[row, column] && !TriggersCheck(loc, row, column, row, secondaryColumn))
+                        if (chessBoard[row, secondaryColumn] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                         {
-                            loc[row, secondaryColumn].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
+                            chessBoard[row, secondaryColumn].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
 
-                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, row, secondaryColumn))
+                    if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                     {
-                        loc[row, secondaryColumn].MarkAsAvailable();
-                        loc[row, column].poateFaceMiscari = true;
+                        chessBoard[row, secondaryColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
 
-                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && loc[row, secondaryColumn].culoare != 0)
+                    if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && chessBoard[row, secondaryColumn].culoare != 0)
                     {
                         break;
                     }
@@ -73,22 +73,22 @@ namespace Chess_Application
                 // Check movement to the south
                 for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
                 {
-                    if (loc[secondaryRow - 1, column] != null && loc[secondaryRow - 1, column].culoare == loc[row, column].culoare)
+                    if (chessBoard[secondaryRow - 1, column] != null && chessBoard[secondaryRow - 1, column].culoare == chessBoard[row, column].culoare)
                     {
-                        if (loc[secondaryRow, column] != loc[row, column] && !TriggersCheck(loc, row, column, secondaryRow, column))
+                        if (chessBoard[secondaryRow, column] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                         {
-                            loc[secondaryRow, column].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
+                            chessBoard[secondaryRow, column].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
 
-                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, secondaryRow, column))
+                    if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                     {
-                        loc[secondaryRow, column].MarkAsAvailable();
-                        loc[row, column].poateFaceMiscari = true;
+                        chessBoard[secondaryRow, column].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
 
-                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && loc[secondaryRow, column].culoare != 0)
+                    if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && chessBoard[secondaryRow, column].culoare != 0)
                     {
                         break;
                     }
@@ -97,21 +97,21 @@ namespace Chess_Application
                 // Check movement to the north
                 for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
                 {
-                    if (loc[secondaryRow + 1, column] != null && loc[secondaryRow + 1, column].culoare == loc[row, column].culoare)
+                    if (chessBoard[secondaryRow + 1, column] != null && chessBoard[secondaryRow + 1, column].culoare == chessBoard[row, column].culoare)
                     {
-                        if (loc[secondaryRow, column] != loc[row, column] && !TriggersCheck(loc, row, column, secondaryRow, column))
+                        if (chessBoard[secondaryRow, column] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                         {
-                            loc[secondaryRow, column].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
+                            chessBoard[secondaryRow, column].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, secondaryRow, column))
+                    if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                     {
-                        loc[secondaryRow, column].MarkAsAvailable();
-                        loc[row, column].poateFaceMiscari = true;
+                        chessBoard[secondaryRow, column].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
 
-                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && loc[secondaryRow, column].culoare != 0)
+                    if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && chessBoard[secondaryRow, column].culoare != 0)
                     {
                         break;
                     }

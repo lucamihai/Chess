@@ -20,145 +20,194 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 5;
         }
-        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
         {
             for (int m = 1; m <= 8; m++)
             {
                 for (int n = 1; m <= 8; m++)
                 {
-                    loc[m, n].MarkAsUnavailable();
+                    chessBoard[m, n].MarkAsUnavailable();
                 }
             }
-            //miscarea reginei este obtinuta din miscarea nebunului combinata cu miscarea turei
-            for (int k = j; k >= 1; k--)
+
+            #region Rook behaviour
+
+            // Check movement to the west
+            for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
-                if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare)
+                if (chessBoard[row, secondaryColumn - 1] != null && chessBoard[row, secondaryColumn - 1].culoare == chessBoard[row, column].culoare)
                 {
-                    if (loc[i, k] != loc[i, j] && !TriggersCheck(loc, i, j, i, k)) 
+                    if (chessBoard[row, secondaryColumn] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                     {
-                        loc[i, k].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
-                    } break;
+                        chessBoard[row, secondaryColumn].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                    break;
                 }
-                if (loc[i, k].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, i, k)) 
+
+                if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                 {
-                    loc[i, k].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[row, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+
+                if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && chessBoard[row, secondaryColumn].culoare != 0)
+                {
+                    break;
+                }
             }
-            for (int k = j; k <= 8; k++)
+
+            // Check movement to the east
+            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
-                if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare)
+                if (chessBoard[row, secondaryColumn + 1] != null && chessBoard[row, secondaryColumn + 1].culoare == chessBoard[row, column].culoare)
                 {
-                    if (loc[i, k] != loc[i, j] && !TriggersCheck(loc, i, j, i, k)) 
+                    if (chessBoard[row, secondaryColumn] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                     {
-                        loc[i, k].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
-                    } break;
+                        chessBoard[row, secondaryColumn].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                    break;
                 }
-                if (loc[i, k].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, i, k))
+
+                if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                 {
-                    loc[i, k].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[row, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+
+                if (chessBoard[row, secondaryColumn].culoare != chessBoard[row, column].culoare && chessBoard[row, secondaryColumn].culoare != 0)
+                {
+                    break;
+                }
             }
-            for (int k = i; k >= 1; k--)
+
+            // Check movement to the south
+            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
-                if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare)
+                if (chessBoard[secondaryRow - 1, column] != null && chessBoard[secondaryRow - 1, column].culoare == chessBoard[row, column].culoare)
                 {
-                    if (loc[k, j] != loc[i, j] && !TriggersCheck(loc, i, j, k, j))
+                    if (chessBoard[secondaryRow, column] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                     {
-                        loc[k, j].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
-                    } break;
+                        chessBoard[secondaryRow, column].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                    break;
                 }
-                if (loc[k, j].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, k, j))
+
+                if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                 {
-                    loc[k, j].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, column].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+
+                if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && chessBoard[secondaryRow, column].culoare != 0)
+                {
+                    break;
+                }
             }
-            for (int k = i; k <= 8; k++)
+
+            // Check movement to the north
+            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
-                if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare)
+                if (chessBoard[secondaryRow + 1, column] != null && chessBoard[secondaryRow + 1, column].culoare == chessBoard[row, column].culoare)
                 {
-                    if (loc[k, j] != loc[i, j] && !TriggersCheck(loc, i, j, k, j))
+                    if (chessBoard[secondaryRow, column] != chessBoard[row, column] && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                     {
-                        loc[k, j].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
-                    } break;
+                        chessBoard[secondaryRow, column].MarkAsAvailable(); chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                    break;
                 }
-                if (loc[k, j].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, k, j))
+                if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, column))
                 {
-                    loc[k, j].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, column].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+
+                if (chessBoard[secondaryRow, column].culoare != chessBoard[row, column].culoare && chessBoard[secondaryRow, column].culoare != 0)
+                {
+                    break;
+                }
             }
-            //=====
-            for (int l = i, c = j; l >= 1 && c >= 1; l--, c--)
+
+            #endregion
+
+            #region Bishop behaviour
+
+            // Check movement to the south - west
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c)) 
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[l, c].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if (culoare == 1)
+
+                // If a piece was found
+                if (chessBoard[secondaryRow - 1, secondaryColumn - 1] != null)
                 {
-                    if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                }
-                if (culoare == 2)
-                {
-                    if (loc[l - 1, c - 1] != null && (loc[l - 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                    if (chessBoard[secondaryRow - 1, secondaryColumn - 1].culoare != 0)
+                    {
+                        break;
+                    }
                 }
             }
-            for (int l = i, c = j; l <= 8 && c <= 8; l++, c++)
+
+            // Check movement to the north - east
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c))
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[l, c].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if (culoare == 1)
+
+                // If a piece was found
+                if (chessBoard[secondaryRow + 1, secondaryColumn + 1] != null)
                 {
-                    if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                }
-                if (culoare == 2)
-                {
-                    if (loc[l + 1, c + 1] != null && (loc[l + 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                    if (chessBoard[secondaryRow + 1, secondaryColumn + 1].culoare != 0)
+                    {
+                        break;
+                    }
                 }
             }
-            for (int l = i, c = j; l <= 8 && c >= 1; l++, c--)
+
+            // Check movement to the north - west
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c))
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[l, c].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if (culoare == 1)
+
+                // If a piece was found
+                if (chessBoard[secondaryRow + 1, secondaryColumn - 1] != null)
                 {
-                    if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                }
-                if (culoare == 2)
-                {
-                    if (loc[l + 1, c - 1] != null && (loc[l + 1, c - 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                    if (chessBoard[secondaryRow + 1, secondaryColumn - 1].culoare != 0)
+                    {
+                        break;
+                    }
                 }
             }
-            for (int l = i, c = j; l >= 1 && c <= 8; l--, c++)
+
+            // Check movement to the south - east
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (loc[i, j].culoare != loc[l, c].culoare && !TriggersCheck(loc, i, j, l, c))
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[l, c].MarkAsAvailable();
-                    loc[i, j].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
-                if (culoare == 1)
+
+                // If a piece was found
+                if (chessBoard[secondaryRow - 1, secondaryColumn + 1] != null)
                 {
-                    if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 1 || loc[l, c].culoare == 2)) break;
-                }
-                if (culoare == 2)
-                {
-                    if (loc[l - 1, c + 1] != null && (loc[l - 1, c + 1].culoare == 2 || loc[l, c].culoare == 1)) break;
+                    if (chessBoard[secondaryRow - 1, secondaryColumn + 1].culoare != 0)
+                    {
+                        break;
+                    }
                 }
             }
+
+            #endregion
         }
     }
 }

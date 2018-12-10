@@ -20,21 +20,21 @@ namespace Chess_Application
             tipPiesa = 4;
         }
 
-        public override void CheckPossibilities(int row, int column, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
         {
             // Check movement to the south - west
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (loc[row, column].culoare != loc[secondaryRow, secondaryColumn].culoare && !TriggersCheck(loc, row, column, secondaryRow, secondaryColumn)) 
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn)) 
                 {
-                    loc[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    loc[row, column].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
 
                 // If a piece was found
-                if (loc[secondaryRow - 1, secondaryColumn - 1] != null)
+                if (chessBoard[secondaryRow - 1, secondaryColumn - 1] != null)
                 {
-                    if (loc[secondaryRow - 1, secondaryColumn - 1].culoare != 0)
+                    if (chessBoard[secondaryRow - 1, secondaryColumn - 1].culoare != 0)
                     {
                         break;
                     }
@@ -44,16 +44,16 @@ namespace Chess_Application
             // Check movement to the north - east
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (loc[row, column].culoare != loc[secondaryRow, secondaryColumn].culoare && !TriggersCheck(loc, row, column, secondaryRow, secondaryColumn))
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    loc[row, column].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
 
                 // If a piece was found
-                if (loc[secondaryRow + 1, secondaryColumn + 1] != null)
+                if (chessBoard[secondaryRow + 1, secondaryColumn + 1] != null)
                 {
-                    if (loc[secondaryRow + 1, secondaryColumn + 1].culoare != 0)
+                    if (chessBoard[secondaryRow + 1, secondaryColumn + 1].culoare != 0)
                     {
                         break;
                     }
@@ -63,16 +63,16 @@ namespace Chess_Application
             // Check movement to the north - west
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (loc[row, column].culoare != loc[secondaryRow, secondaryColumn].culoare && !TriggersCheck(loc, row, column, secondaryRow, secondaryColumn))
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    loc[row, column].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
 
                 // If a piece was found
-                if (loc[secondaryRow + 1, secondaryColumn - 1] != null)
+                if (chessBoard[secondaryRow + 1, secondaryColumn - 1] != null)
                 {
-                    if (loc[secondaryRow + 1, secondaryColumn - 1].culoare != 0)
+                    if (chessBoard[secondaryRow + 1, secondaryColumn - 1].culoare != 0)
                     {
                         break;
                     }
@@ -82,16 +82,16 @@ namespace Chess_Application
             // Check movement to the south - east
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (loc[row, column].culoare != loc[secondaryRow, secondaryColumn].culoare && !TriggersCheck(loc, row, column, secondaryRow, secondaryColumn))
+                if (chessBoard[row, column].culoare != chessBoard[secondaryRow, secondaryColumn].culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                 {
-                    loc[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    loc[row, column].poateFaceMiscari = true;
+                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                    chessBoard[row, column].poateFaceMiscari = true;
                 }
 
                 // If a piece was found
-                if (loc[secondaryRow - 1, secondaryColumn + 1] != null)
+                if (chessBoard[secondaryRow - 1, secondaryColumn + 1] != null)
                 {
-                    if (loc[secondaryRow - 1, secondaryColumn + 1].culoare != 0)
+                    if (chessBoard[secondaryRow - 1, secondaryColumn + 1].culoare != 0)
                     {
                         break;
                     }
