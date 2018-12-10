@@ -19,76 +19,92 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 1;
         }
-        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
         {
-            if (culoare == 1)//pion alb
+            // White pawn
+            if (culoare == 1)
             {
-                if (loc[i + 1, j] != null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
+                if (chessBoard[row + 1, column] != null && chessBoard[row + 1, column].imagineLocatie.BackgroundImage == null)
                 {
-                    if (!TriggersCheck(loc, i, j, i + 1, j))
+                    if ( !TriggersCheck(chessBoard, row, column, row + 1, column) )
                     {
-                        loc[i + 1, j].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                }
-                if (i < 8 && j < 8 && loc[i + 1, j + 1].culoare == 2)
-                {
-                    if (!TriggersCheck(loc, i, j, i + 1, j + 1))
-                    {
-                        loc[i + 1, j + 1].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                }
-                if (i < 8 && j > 1 && loc[i + 1, j - 1].culoare == 2)
-                {
-                    if (!TriggersCheck(loc, i, j, i + 1, j - 1))
-                    {
-                        loc[i + 1, j - 1].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                }
-                if ((i == 2) && loc[i + 2, j] != null && loc[i + 2, j].imagineLocatie.BackgroundImage == null && loc[i + 1, j].imagineLocatie.BackgroundImage == null)
-                {
-                    if (!TriggersCheck(loc, i, j, i + 2, j)) 
-                    {
-                        loc[i + 2, j].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        chessBoard[row + 1, column].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
                 }
 
-            }
-            if (culoare == 2)//pion negru
-            {
-                if (loc[i - 1, j] != null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
+                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].culoare == 2)
                 {
-                    if (!TriggersCheck(loc, i, j, i - 1, j))
+                    if ( !TriggersCheck(chessBoard, row, column, row + 1, column + 1) )
                     {
-                        loc[i - 1, j].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        chessBoard[row + 1, column + 1].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
+
+                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].culoare == 2)
+                {
+                    if ( !TriggersCheck(chessBoard, row, column, row + 1, column - 1) )
+                    {
+                        chessBoard[row + 1, column - 1].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
+
+                // Check if pawn can make 2 steps forward
+                if (row == 2 && chessBoard[row + 2, column] != null )
+                {
+                    if (chessBoard[row + 2, column].imagineLocatie.BackgroundImage == null && chessBoard[row + 1, column].imagineLocatie.BackgroundImage == null)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, row + 2, column))
+                        {
+                            chessBoard[row + 2, column].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+            }
+
+            // Black pawn
+            if (culoare == 2)
+            {
+                if (chessBoard[row - 1, column] != null && chessBoard[row - 1, column].imagineLocatie.BackgroundImage == null)
+                {
+                    if ( !TriggersCheck(chessBoard, row, column, row - 1, column) )
+                    {
+                        chessBoard[row - 1, column].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }                   
                 }
-                if (i > 1 && j < 8 && loc[i - 1, j + 1].culoare == 1)
+
+                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].culoare == 1)
                 {
-                    if (!TriggersCheck(loc, i, j, i - 1, j + 1))
+                    if ( !TriggersCheck(chessBoard, row, column, row - 1, column + 1) )
                     {
-                        loc[i - 1, j + 1].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        chessBoard[row - 1, column + 1].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
                 }
-                if (i > 1 && j > 1 && loc[i - 1, j - 1].culoare == 1)
+
+                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].culoare == 1)
                 {
-                    if (!TriggersCheck(loc, i, j, i - 1, j - 1))
+                    if ( !TriggersCheck(chessBoard, row, column, row - 1, column - 1) )
                     {
-                        loc[i - 1, j - 1].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        chessBoard[row - 1, column - 1].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
                     }
                 }
-                if ((i == 7) && loc[i - 2, j] != null && loc[i - 2, j].imagineLocatie.BackgroundImage == null && loc[i - 1, j].imagineLocatie.BackgroundImage == null)
+
+                // Check if pawn can make 2 steps forward
+                if (row == 7 && chessBoard[row - 2, column] != null)
                 {
-                    if (!TriggersCheck(loc, i, j, i - 2, j))
+                    if (chessBoard[row - 2, column].imagineLocatie.BackgroundImage == null && chessBoard[row - 1, column].imagineLocatie.BackgroundImage == null)
                     {
-                        loc[i - 2, j].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        if (!TriggersCheck(chessBoard, row, column, row - 2, column))
+                        {
+                            chessBoard[row - 2, column].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
                     }
                 }
             }

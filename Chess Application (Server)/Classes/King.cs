@@ -172,8 +172,5 @@ namespace Chess_Application
 
             return check;
         }
-
-        
-
     }
 }

@@ -81,10 +81,10 @@ namespace Chess_Application
                 chessBoard[destinationRow, destinationColumn].culoare = tempOrigColor;
                 chessBoard[destinationRow, destinationColumn].tipPiesa = tempOrigPiece;
 
-                bool check = false;
+                bool triggersCheck = false;
 
-                check = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
-                if (check)
+                triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
+                if (triggersCheck)
                 {
                     chessBoard[origRow, origColumn].culoare = tempOrigColor;
                     chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
@@ -94,8 +94,8 @@ namespace Chess_Application
                     return true;
                 }
 
-                check = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
-                if (check)
+                triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
+                if (triggersCheck)
                 {
                     chessBoard[origRow, origColumn].culoare = tempOrigColor;
                     chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
@@ -105,8 +105,8 @@ namespace Chess_Application
                     return true;
                 }
 
-                check = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
-                if (check)
+                triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
+                if (triggersCheck)
                 {
                     chessBoard[origRow, origColumn].culoare = tempOrigColor;
                     chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
@@ -116,8 +116,8 @@ namespace Chess_Application
                     return true;
                 }
 
-                check = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
-                if (check)
+                triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
+                if (triggersCheck)
                 {
                     chessBoard[origRow, origColumn].culoare = tempOrigColor;
                     chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
@@ -127,8 +127,8 @@ namespace Chess_Application
                     return true;
                 }
 
-                check = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
-                if (check)
+                triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
+                if (triggersCheck)
                 {
                     chessBoard[origRow, origColumn].culoare = tempOrigColor;
                     chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
@@ -138,8 +138,8 @@ namespace Chess_Application
                     return true;
                 }
 
-                check = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
-                if (check)
+                triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
+                if (triggersCheck)
                 {
                     chessBoard[origRow, origColumn].culoare = tempOrigColor;
                     chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
@@ -153,8 +153,6 @@ namespace Chess_Application
                 chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
                 chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
                 chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
-
-                return false;
             }
 
             return false;

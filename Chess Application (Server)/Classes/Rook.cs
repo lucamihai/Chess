@@ -19,84 +19,102 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 2;
         }
-        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int row, int column, LocatieTabla[,] loc)
         {
             {
-                //------------------------------explicatie universala pentru cele 4 for-uri-------------------------------------------------------------
+                // Check movement to the west
+                for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
+                {
+                    if (loc[row, secondaryColumn - 1] != null && loc[row, secondaryColumn - 1].culoare == loc[row, column].culoare)
+                    {
+                        if (loc[row, secondaryColumn] != loc[row, column] && !TriggersCheck(loc, row, column, row, secondaryColumn))
+                        {
+                            loc[row, secondaryColumn].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
+                        }
+                        break;
+                    }
 
-                //primul if din for: daca urmatoarea casuta exista si are o piesa de aceeasi culoare intrerupe
-                //aditional, daca locatia curenta este diferita de locatia originala(de la apelul functiei), marcheaza casuta respectiva
-                //al doilea if din for: daca cele doua casute contin piese de culori diferite(printre care 0==casuta goala), marcheaza casuta curenta
-                //al treilea if din for: daca casuta curenta are o piesa diferita de cea a casutei originale, intrerupe for-ul
-                //obs. casuta respectiva "apuca" sa fie marcata, intrucat este marcata anterior
-                //--------------------------------------------------------------------------------------------------------------------------------------
-                for (int k = j; k >= 1; k--)
-                {
-                    if (loc[i, k - 1] != null && loc[i, k - 1].culoare == loc[i, j].culoare)
+                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, row, secondaryColumn))
                     {
-                        if (loc[i, k] != loc[i, j] && !TriggersCheck(loc, i, j, i, k))
-                        {
-                            loc[i, k].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
-                        }
+                        loc[row, secondaryColumn].MarkAsAvailable();
+                        loc[row, column].poateFaceMiscari = true;
+                    }
+
+                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && loc[row, secondaryColumn].culoare != 0)
+                    {
                         break;
                     }
-                    if (loc[i, k].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, i, k))
-                    {
-                        loc[i, k].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
-                    }
-                    if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
                 }
-                for (int k = j; k <= 8; k++)
+
+                // Check movement to the east
+                for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
                 {
-                    if (loc[i, k + 1] != null && loc[i, k + 1].culoare == loc[i, j].culoare)
+                    if (loc[row, secondaryColumn + 1] != null && loc[row, secondaryColumn + 1].culoare == loc[row, column].culoare)
                     {
-                        if (loc[i, k] != loc[i, j] && !TriggersCheck(loc, i, j, i, k))
+                        if (loc[row, secondaryColumn] != loc[row, column] && !TriggersCheck(loc, row, column, row, secondaryColumn))
                         {
-                            loc[i, k].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
+                            loc[row, secondaryColumn].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[i, k].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, i, k))
+
+                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, row, secondaryColumn))
                     {
-                        loc[i, k].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        loc[row, secondaryColumn].MarkAsAvailable();
+                        loc[row, column].poateFaceMiscari = true;
                     }
-                    if ((loc[i, k].culoare != loc[i, j].culoare && loc[i, k].culoare != 0)) break;
+
+                    if (loc[row, secondaryColumn].culoare != loc[row, column].culoare && loc[row, secondaryColumn].culoare != 0)
+                    {
+                        break;
+                    }
                 }
-                for (int k = i; k >= 1; k--)
+
+                // Check movement to the south
+                for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
                 {
-                    if (loc[k - 1, j] != null && loc[k - 1, j].culoare == loc[i, j].culoare)
+                    if (loc[secondaryRow - 1, column] != null && loc[secondaryRow - 1, column].culoare == loc[row, column].culoare)
                     {
-                        if (loc[k, j] != loc[i, j] && !TriggersCheck(loc, i, j, k, j))
+                        if (loc[secondaryRow, column] != loc[row, column] && !TriggersCheck(loc, row, column, secondaryRow, column))
                         {
-                            loc[k, j].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
+                            loc[secondaryRow, column].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[k, j].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, k, j))
+
+                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, secondaryRow, column))
                     {
-                        loc[k, j].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        loc[secondaryRow, column].MarkAsAvailable();
+                        loc[row, column].poateFaceMiscari = true;
                     }
-                    if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+
+                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && loc[secondaryRow, column].culoare != 0)
+                    {
+                        break;
+                    }
                 }
-                for (int k = i; k <= 8; k++)
+
+                // Check movement to the north
+                for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
                 {
-                    if (loc[k + 1, j] != null && loc[k + 1, j].culoare == loc[i, j].culoare)
+                    if (loc[secondaryRow + 1, column] != null && loc[secondaryRow + 1, column].culoare == loc[row, column].culoare)
                     {
-                        if (loc[k, j] != loc[i, j] && !TriggersCheck(loc, i, j, k, j))
+                        if (loc[secondaryRow, column] != loc[row, column] && !TriggersCheck(loc, row, column, secondaryRow, column))
                         {
-                            loc[k, j].MarkAsAvailable(); loc[i, j].poateFaceMiscari = true;
+                            loc[secondaryRow, column].MarkAsAvailable(); loc[row, column].poateFaceMiscari = true;
                         }
                         break;
                     }
-                    if (loc[k, j].culoare != loc[i, j].culoare && !TriggersCheck(loc, i, j, k, j))
+                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && !TriggersCheck(loc, row, column, secondaryRow, column))
                     {
-                        loc[k, j].MarkAsAvailable();
-                        loc[i, j].poateFaceMiscari = true;
+                        loc[secondaryRow, column].MarkAsAvailable();
+                        loc[row, column].poateFaceMiscari = true;
                     }
-                    if ((loc[k, j].culoare != loc[i, j].culoare && loc[k, j].culoare != 0)) break;
+
+                    if (loc[secondaryRow, column].culoare != loc[row, column].culoare && loc[secondaryRow, column].culoare != 0)
+                    {
+                        break;
+                    }
                 }
             }
         }

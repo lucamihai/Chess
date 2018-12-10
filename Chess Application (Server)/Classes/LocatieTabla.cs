@@ -21,12 +21,18 @@ namespace Chess_Application
         public ChessPiece piesa;
         public int tipPiesa = 0;
         public int culoare = 0;
-        bool available = false;
         public PictureBox imagineLocatie;
 
-        short row, column;
+        #region Properties
 
-        // Used for instantiating the matrix of boxes
+        public short Row { get; }
+
+        public short Column { get; }
+
+        public bool Available { get; private set; } = false;
+
+        #endregion
+
         public LocatieTabla()
         {
 
@@ -41,13 +47,13 @@ namespace Chess_Application
             nume = nume.Substring(1);
             nume = Reverse(nume);
 
-            row = (short)nume[0];
-            row -= (short)'A';
-            row += 1;
+            Row = (short)nume[0];
+            Row -= (short)'A';
+            Row += 1;
 
-            column = (short)nume[1];
-            column -= (short)'1';
-            column += 1;
+            Column = (short)nume[1];
+            Column -= (short)'1';
+            Column += 1;
         }
 
         // Used for boxes with a chess piece on them
@@ -62,19 +68,15 @@ namespace Chess_Application
             nume = nume.Substring(1);
             nume = Reverse(nume);
 
-            row = (short)nume[0];
-            row -= (short)'A';
-            row += 1;
+            Row = (short)nume[0];
+            Row -= (short)'A';
+            Row += 1;
 
-            column = (short)nume[1];
-            column -= (short)'1';
-            column += 1;
+            Column = (short)nume[1];
+            Column -= (short)'1';
+            Column += 1;
         }
 
-        /// <summary>
-        /// Sets the color of the box.
-        /// </summary>
-        /// <param name="color"></param>
         public void SetColor(Color color)
         {
             imagineLocatie.BackColor = color;
@@ -92,7 +94,8 @@ namespace Chess_Application
         /// </summary>
         public void MarkAsAvailable()
         {
-            available = true;
+            Available = true;
+
             if (MainForm.modInceptator)
             {
                 imagineLocatie.BackColor = Color.Green;
@@ -104,37 +107,12 @@ namespace Chess_Application
         /// </summary>
         public void MarkAsUnavailable()
         {
-            available = false;
+            Available = false;
         }
 
         public void RemovePieceImage()
         {
             imagineLocatie.BackgroundImage = null;
         }
-
-        public short Row
-        {
-            get
-            {
-                return row;
-            }
-        }
-
-        public short Column
-        {
-            get
-            {
-                return column;
-            }
-        }
-
-        public bool Available
-        {
-            get
-            {
-                return available;
-            }
-        }
-
     }
 }
