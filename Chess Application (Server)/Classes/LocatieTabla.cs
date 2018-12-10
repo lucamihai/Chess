@@ -11,6 +11,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using System.Threading;
+using Chess_Application.Classes;
 
 namespace Chess_Application
 {
@@ -45,7 +46,7 @@ namespace Chess_Application
             imagineLocatie.BackgroundImage = null;
             nume = pictureBox.Name;
             nume = nume.Substring(1);
-            nume = Reverse(nume);
+            nume = Utilities.Reverse(nume);
 
             Row = (short)nume[0];
             Row -= (short)'A';
@@ -66,7 +67,7 @@ namespace Chess_Application
             pictureBox.BackgroundImage = piece.imaginePiesa.BackgroundImage;
             nume = pictureBox.Name;
             nume = nume.Substring(1);
-            nume = Reverse(nume);
+            nume = Utilities.Reverse(nume);
 
             Row = (short)nume[0];
             Row -= (short)'A';
@@ -80,13 +81,6 @@ namespace Chess_Application
         public void SetColor(Color color)
         {
             imagineLocatie.BackColor = color;
-        }
-
-        public string Reverse(string s)
-        {
-            char[] charArray = s.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
         }
 
         /// <summary>
