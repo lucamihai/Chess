@@ -48,8 +48,8 @@ namespace Chess_Application
         string username = "Server";
         string usernameClient = "Client";
 
-        SoundPlayer sunetMutare1 = new SoundPlayer(Properties.Resources.mutare1);
-        SoundPlayer sunetMutare2 = new SoundPlayer(Properties.Resources.mutare2);
+        SoundPlayer moveSound1 = new SoundPlayer(Properties.Resources.MoveSound1);
+        SoundPlayer moveSound2 = new SoundPlayer(Properties.Resources.MoveSound2);
 
         ChessPiece pion1Alb, pion2Alb, pion3Alb, pion4Alb, pion5Alb, pion6Alb, pion7Alb, pion8Alb;
         ChessPiece tura1Alb, tura2Alb;
@@ -816,7 +816,7 @@ namespace Chess_Application
 
             if (soundEnabled)
             {
-                sunetMutare1.Play();
+                moveSound1.Play();
             }
 
             System.Threading.Thread.Sleep(1);
@@ -969,7 +969,7 @@ namespace Chess_Application
 
             if (soundEnabled)
             {
-                sunetMutare2.Play();
+                moveSound2.Play();
             }
 
             System.Threading.Thread.Sleep(1);

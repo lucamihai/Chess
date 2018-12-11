@@ -25,7 +25,7 @@ namespace Chess_Application
             InitializeComponent();
             this.mainForm = mainForm;
 
-            options = new Options(this);    // link options menu to this menu
+            options = new Options(this);
             
             Controls.Add(options);
             options.BringToFront();
@@ -42,14 +42,14 @@ namespace Chess_Application
             mainForm.HideMainMenu();           
         }
 
-        private void btnExitApp_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void btnOptionsMenu_Click(object sender, EventArgs e)
         {
             options.Show();
+        }
+
+        private void btnExitApp_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         public void HideMainMenu()

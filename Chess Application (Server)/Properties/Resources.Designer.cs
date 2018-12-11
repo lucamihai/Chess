@@ -63,18 +63,18 @@ namespace Chess_Application.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream mutare1 {
+        internal static System.IO.UnmanagedMemoryStream MoveSound1 {
             get {
-                return ResourceManager.GetStream("mutare1", resourceCulture);
+                return ResourceManager.GetStream("MoveSound1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream mutare2 {
+        internal static System.IO.UnmanagedMemoryStream MoveSound2 {
             get {
-                return ResourceManager.GetStream("mutare2", resourceCulture);
+                return ResourceManager.GetStream("MoveSound2", resourceCulture);
             }
         }
     }
