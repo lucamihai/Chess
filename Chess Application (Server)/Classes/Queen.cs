@@ -20,7 +20,7 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 5;
         }
-        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
+        public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
             for (int m = 1; m <= 8; m++)
             {

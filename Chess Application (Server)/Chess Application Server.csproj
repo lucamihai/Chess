@@ -54,9 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Knight.cs" />
-    <Compile Include="Classes\LocatieTabla.cs" />
+    <Compile Include="Classes\Box.cs" />
     <Compile Include="Classes\Bishop.cs" />
     <Compile Include="Classes\ChessPiece.cs" />
+    <Compile Include="Classes\Utilities.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,7 +101,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -21,7 +21,7 @@ namespace Chess_Application
         Panel menuContainer;
         MainMenu mainMenu;
 
-        Dictionary <PictureBox, LocatieTabla> Boxes; 
+        Dictionary <PictureBox, Box> Boxes; 
 
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
@@ -63,18 +63,18 @@ namespace Chess_Application
         ChessPiece cal1Negru, cal2Negru;
         ChessPiece reginaNegru, regeNegru;
 
-        LocatieTabla orig;
+        Box orig;
         
-        LocatieTabla A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
-        LocatieTabla H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
+        Box A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
+        Box H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
 
-        LocatieTabla C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
-        LocatieTabla E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
+        Box C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
+        Box E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
 
-        LocatieTabla pioniAlbiLuati, tureAlbeLuate, caiAlbiLuati, nebuniAlbiLuati, reginaAlbaLuata;
-        LocatieTabla pioniNegriLuati, tureNegreLuate, caiNegriLuati, nebuniNegriLuati, reginaNeagraLuata;
+        Box pioniAlbiLuati, tureAlbeLuate, caiAlbiLuati, nebuniAlbiLuati, reginaAlbaLuata;
+        Box pioniNegriLuati, tureNegreLuate, caiNegriLuati, nebuniNegriLuati, reginaNeagraLuata;
 
-        LocatieTabla[,] ChessBoard;
+        Box[,] ChessBoard;
 
         Color BoxColorLight = System.Drawing.Color.Silver;
         Color BoxColorDark = Color.FromArgb(132, 107, 86);
@@ -162,51 +162,51 @@ namespace Chess_Application
 
             #region Reset boxes with chess pieces on them
 
-            A1 = new LocatieTabla(tura1Alb, _1A); H1 = new LocatieTabla(tura1Negru, _1H);
-            A2 = new LocatieTabla(cal1Alb, _2A); H2 = new LocatieTabla(cal1Negru, _2H);
-            A3 = new LocatieTabla(nebun1Alb, _3A); H3 = new LocatieTabla(nebun1Negru, _3H);
-            A4 = new LocatieTabla(reginaAlb, _4A); H4 = new LocatieTabla(regeNegru, _4H);
-            A5 = new LocatieTabla(regeAlb, _5A); H5 = new LocatieTabla(reginaNegru, _5H);
-            A6 = new LocatieTabla(nebun2Alb, _6A); H6 = new LocatieTabla(nebun2Negru, _6H);
-            A7 = new LocatieTabla(cal2Alb, _7A); H7 = new LocatieTabla(cal2Negru, _7H);
-            A8 = new LocatieTabla(tura2Alb, _8A); H8 = new LocatieTabla(tura2Negru, _8H);
-            B1 = new LocatieTabla(pion1Alb, _1B); G1 = new LocatieTabla(pion1Negru, _1G);
-            B2 = new LocatieTabla(pion2Alb, _2B); G2 = new LocatieTabla(pion2Negru, _2G);
-            B3 = new LocatieTabla(pion3Alb, _3B); G3 = new LocatieTabla(pion3Negru, _3G);
-            B4 = new LocatieTabla(pion4Alb, _4B); G4 = new LocatieTabla(pion4Negru, _4G);
-            B5 = new LocatieTabla(pion5Alb, _5B); G5 = new LocatieTabla(pion5Negru, _5G);
-            B6 = new LocatieTabla(pion6Alb, _6B); G6 = new LocatieTabla(pion6Negru, _6G);
-            B7 = new LocatieTabla(pion7Alb, _7B); G7 = new LocatieTabla(pion7Negru, _7G);
-            B8 = new LocatieTabla(pion8Alb, _8B); G8 = new LocatieTabla(pion8Negru, _8G);
+            A1 = new Box(tura1Alb, _1A); H1 = new Box(tura1Negru, _1H);
+            A2 = new Box(cal1Alb, _2A); H2 = new Box(cal1Negru, _2H);
+            A3 = new Box(nebun1Alb, _3A); H3 = new Box(nebun1Negru, _3H);
+            A4 = new Box(reginaAlb, _4A); H4 = new Box(regeNegru, _4H);
+            A5 = new Box(regeAlb, _5A); H5 = new Box(reginaNegru, _5H);
+            A6 = new Box(nebun2Alb, _6A); H6 = new Box(nebun2Negru, _6H);
+            A7 = new Box(cal2Alb, _7A); H7 = new Box(cal2Negru, _7H);
+            A8 = new Box(tura2Alb, _8A); H8 = new Box(tura2Negru, _8H);
+            B1 = new Box(pion1Alb, _1B); G1 = new Box(pion1Negru, _1G);
+            B2 = new Box(pion2Alb, _2B); G2 = new Box(pion2Negru, _2G);
+            B3 = new Box(pion3Alb, _3B); G3 = new Box(pion3Negru, _3G);
+            B4 = new Box(pion4Alb, _4B); G4 = new Box(pion4Negru, _4G);
+            B5 = new Box(pion5Alb, _5B); G5 = new Box(pion5Negru, _5G);
+            B6 = new Box(pion6Alb, _6B); G6 = new Box(pion6Negru, _6G);
+            B7 = new Box(pion7Alb, _7B); G7 = new Box(pion7Negru, _7G);
+            B8 = new Box(pion8Alb, _8B); G8 = new Box(pion8Negru, _8G);
 
             #endregion
 
             #region Reset boxes without chess pieces on them
 
-            C1 = new LocatieTabla(_1C); D1 = new LocatieTabla(_1D); E1 = new LocatieTabla(_1E); F1 = new LocatieTabla(_1F);
-            C2 = new LocatieTabla(_2C); D2 = new LocatieTabla(_2D); E2 = new LocatieTabla(_2E); F2 = new LocatieTabla(_2F);
-            C3 = new LocatieTabla(_3C); D3 = new LocatieTabla(_3D); E3 = new LocatieTabla(_3E); F3 = new LocatieTabla(_3F);
-            C4 = new LocatieTabla(_4C); D4 = new LocatieTabla(_4D); E4 = new LocatieTabla(_4E); F4 = new LocatieTabla(_4F);
-            C5 = new LocatieTabla(_5C); D5 = new LocatieTabla(_5D); E5 = new LocatieTabla(_5E); F5 = new LocatieTabla(_5F);
-            C6 = new LocatieTabla(_6C); D6 = new LocatieTabla(_6D); E6 = new LocatieTabla(_6E); F6 = new LocatieTabla(_6F);
-            C7 = new LocatieTabla(_7C); D7 = new LocatieTabla(_7D); E7 = new LocatieTabla(_7E); F7 = new LocatieTabla(_7F);
-            C8 = new LocatieTabla(_8C); D8 = new LocatieTabla(_8D); E8 = new LocatieTabla(_8E); F8 = new LocatieTabla(_8F);
+            C1 = new Box(_1C); D1 = new Box(_1D); E1 = new Box(_1E); F1 = new Box(_1F);
+            C2 = new Box(_2C); D2 = new Box(_2D); E2 = new Box(_2E); F2 = new Box(_2F);
+            C3 = new Box(_3C); D3 = new Box(_3D); E3 = new Box(_3E); F3 = new Box(_3F);
+            C4 = new Box(_4C); D4 = new Box(_4D); E4 = new Box(_4E); F4 = new Box(_4F);
+            C5 = new Box(_5C); D5 = new Box(_5D); E5 = new Box(_5E); F5 = new Box(_5F);
+            C6 = new Box(_6C); D6 = new Box(_6D); E6 = new Box(_6E); F6 = new Box(_6F);
+            C7 = new Box(_7C); D7 = new Box(_7D); E7 = new Box(_7E); F7 = new Box(_7F);
+            C8 = new Box(_8C); D8 = new Box(_8D); E8 = new Box(_8E); F8 = new Box(_8F);
 
             #endregion
 
             #region Reset capture boxes
 
-            pioniAlbiLuati = new LocatieTabla(pion1Alb, pbPioniAlbiLuati); pioniNegriLuati = new LocatieTabla(pion1Negru, pbPioniNegriLuati);
-            tureAlbeLuate = new LocatieTabla(tura1Alb, pbTureAlbeLuate); tureNegreLuate = new LocatieTabla(tura1Negru, pbTureNegreLuate);
-            caiAlbiLuati = new LocatieTabla(cal1Alb, pbCaiAlbiLuati); caiNegriLuati = new LocatieTabla(cal1Negru, pbCaiNegriLuati);
-            nebuniAlbiLuati = new LocatieTabla(nebun1Alb, pbNebuniAlbiLuati); nebuniNegriLuati = new LocatieTabla(nebun1Negru, pbNebuniNegriLuati);
-            reginaAlbaLuata = new LocatieTabla(reginaAlb, pbReginaAlbaLuata); reginaNeagraLuata = new LocatieTabla(reginaNegru, pbReginaNeagraLuata);
+            pioniAlbiLuati = new Box(pion1Alb, pbPioniAlbiLuati); pioniNegriLuati = new Box(pion1Negru, pbPioniNegriLuati);
+            tureAlbeLuate = new Box(tura1Alb, pbTureAlbeLuate); tureNegreLuate = new Box(tura1Negru, pbTureNegreLuate);
+            caiAlbiLuati = new Box(cal1Alb, pbCaiAlbiLuati); caiNegriLuati = new Box(cal1Negru, pbCaiNegriLuati);
+            nebuniAlbiLuati = new Box(nebun1Alb, pbNebuniAlbiLuati); nebuniNegriLuati = new Box(nebun1Negru, pbNebuniNegriLuati);
+            reginaAlbaLuata = new Box(reginaAlb, pbReginaAlbaLuata); reginaNeagraLuata = new Box(reginaNegru, pbReginaNeagraLuata);
 
             #endregion
 
             #region Prepare the ChessBoard boxes matrix
 
-            ChessBoard = new LocatieTabla[10, 10];
+            ChessBoard = new Box[10, 10];
 
             ChessBoard[1, 1] = A1; ChessBoard[1, 2] = A2; ChessBoard[1, 3] = A3; ChessBoard[1, 4] = A4; ChessBoard[1, 5] = A5; ChessBoard[1, 6] = A6; ChessBoard[1, 7] = A7; ChessBoard[1, 8] = A8;
             ChessBoard[2, 1] = B1; ChessBoard[2, 2] = B2; ChessBoard[2, 3] = B3; ChessBoard[2, 4] = B4; ChessBoard[2, 5] = B5; ChessBoard[2, 6] = B6; ChessBoard[2, 7] = B7; ChessBoard[2, 8] = B8;
@@ -221,7 +221,7 @@ namespace Chess_Application
 
             #region Boxes dictionary
 
-            Boxes = new Dictionary<PictureBox, LocatieTabla>();
+            Boxes = new Dictionary<PictureBox, Box>();
 
             Boxes[_1A] = A1; Boxes[_2A] = A2; Boxes[_3A] = A3; Boxes[_4A] = A4; Boxes[_5A] = A5; Boxes[_6A] = A6; Boxes[_7A] = A7; Boxes[_8A] = A8;
             Boxes[_1B] = B1; Boxes[_2B] = B2; Boxes[_3B] = B3; Boxes[_4B] = B4; Boxes[_5B] = B5; Boxes[_6B] = B6; Boxes[_7B] = B7; Boxes[_8B] = B8;
@@ -649,7 +649,7 @@ namespace Chess_Application
         /// </summary>
         /// <param name="origine"></param>
         /// <param name="destinatie"></param>
-        void MovePiece(LocatieTabla origin, LocatieTabla destination)
+        void MovePiece(Box origin, Box destination)
         {
             #region Add history entry
 
@@ -843,7 +843,7 @@ namespace Chess_Application
         /// </summary>
         /// <param name="origin">The box whose piece will be moved.</param>
         /// <param name="destination">The box where the selected piece will be moved</param>
-        void OpponentMovePiece(LocatieTabla origin, LocatieTabla destination)
+        void OpponentMovePiece(Box origin, Box destination)
         {
             #region Add history entry
 
@@ -1001,7 +1001,7 @@ namespace Chess_Application
         /// </summary>
         /// <param name="origin">Captured chess piece box</param>
         /// <param name="destination">Box where the captured piece will be placed</param>
-        void RetakePiece(LocatieTabla origin, LocatieTabla destination)
+        void RetakePiece(Box origin, Box destination)
         {
             destination.piesa = origin.piesa;
             destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
@@ -1204,7 +1204,7 @@ namespace Chess_Application
         /// Reset the colors of the boxes.
         /// </summary>
         /// <param name="ChessBoard">The boxes matrix.</param>
-        public void RestoreColors(LocatieTabla[,] ChessBoard)
+        public void RestoreColors(Box[,] ChessBoard)
         {
             for (int i = 1; i < 9; i++)
             {
@@ -1239,7 +1239,7 @@ namespace Chess_Application
         /// Sets every box as unavailable for chess pieces to move upon.
         /// </summary>
         /// <param name="ChessBoard">The boxes matrix.</param>
-        public void SetAllBoxesAsUnavailable(LocatieTabla[,] ChessBoard)
+        public void SetAllBoxesAsUnavailable(Box[,] ChessBoard)
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -1259,7 +1259,7 @@ namespace Chess_Application
         void BoxClick(object sender, EventArgs e)
         {
             PictureBox clickedBox = (PictureBox)sender;
-            LocatieTabla clickedBoxObject = Boxes[clickedBox];
+            Box clickedBoxObject = Boxes[clickedBox];
 
             if (currentPlayerMustSelect || opponentMustSelect)
             {

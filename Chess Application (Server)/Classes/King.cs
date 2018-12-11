@@ -24,7 +24,7 @@ namespace Chess_Application
             tipPiesa = 6;
         }
 
-        public override void CheckPossibilities(int i, int j, LocatieTabla[,] chessBoard)
+        public override void CheckPossibilities(int i, int j, Box[,] chessBoard)
         {
             Point kingPosition;
 
@@ -107,7 +107,7 @@ namespace Chess_Application
         /// <param name="source">Current position of the king</param>
         /// <param name="destination">The position of where the king would be moved</param>
         /// <returns>True if the move can be made, false otherwise.</returns>
-        public bool IsMovePossible(LocatieTabla[,] chessBoard, Point source, Point destination)
+        public bool IsMovePossible(Box[,] chessBoard, Point source, Point destination)
         {
             if (chessBoard[source.X, source.Y] == null || chessBoard[destination.X, destination.Y] == null)
             {
@@ -148,7 +148,7 @@ namespace Chess_Application
         /// <param name="row">Row of the king's position</param>
         /// <param name="column">Column of the king's position</param>
         /// <returns></returns>
-        public bool IsInCheck(LocatieTabla[,] chessBoard, int row, int column)
+        public bool IsInCheck(Box[,] chessBoard, int row, int column)
         {
             bool check = false;
 

@@ -19,54 +19,129 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 3;
         }
-        public override void CheckPossibilities(int i, int j, LocatieTabla[,] loc)
+        public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
-            //self explanatory right here
-            //=====
-            if ((i < 8 && j < 7) && (loc[i + 1, j + 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 1, j + 2)) 
+            int destinationRow, destinationColumn;
+
+            if (row < 8 && column < 7)
             {
-                loc[i + 1, j + 2].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row + 1;
+                destinationColumn = column + 2;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            if ((i < 8 && j > 2) && (loc[i + 1, j - 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 1, j - 2)) 
+
+            if (row < 8 && column > 2) 
             {
-                loc[i + 1, j - 2].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row + 1;
+                destinationColumn = column - 2;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            //=====
-            if ((i < 7 && j < 8) && (loc[i + 2, j + 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 2, j + 1)) 
+
+            if (row < 7 && column < 8) 
             {
-                loc[i + 2, j + 1].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row + 2;
+                destinationColumn = column + 1;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            if ((i < 7 && j > 1) && (loc[i + 2, j - 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i + 2, j - 1)) 
+
+            if (row < 7 && column > 1) 
             {
-                loc[i + 2, j - 1].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row + 2;
+                destinationColumn = column - 1;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            //=====
-            if ((i > 1 && j < 7) && (loc[i - 1, j + 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 1, j + 2)) 
+
+            if (row > 1 && column < 7) 
             {
-                loc[i - 1, j + 2].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row - 1;
+                destinationColumn = column + 2;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            if ((i > 1 && j > 2) && (loc[i - 1, j - 2].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 1, j - 2)) 
+
+            if (row > 1 && column > 2) 
             {
-                loc[i - 1, j - 2].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row - 1;
+                destinationColumn = column - 2;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            //=====              
-            if ((i > 2 && j < 8) && (loc[i - 2, j + 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 2, j + 1)) 
+
+            if (row > 2 && column < 8) 
             {
-                loc[i - 2, j + 1].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row - 2;
+                destinationColumn = column + 1;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            if ((i > 2 && j > 1) && (loc[i - 2, j - 1].culoare != loc[i, j].culoare) && !TriggersCheck(loc, i, j, i - 2, j - 1)) 
+
+            if (row > 2 && column > 1) 
             {
-                loc[i - 2, j - 1].MarkAsAvailable();
-                loc[i, j].poateFaceMiscari = true;
+                destinationRow = row - 2;
+                destinationColumn = column - 1;
+
+                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                {
+                    if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                    {
+                        chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
+                }
             }
-            //=====
         }
     }
 }

@@ -8,11 +8,11 @@ namespace Chess_Application.Classes
 {
     class Utilities
     {
-        public static string Reverse(string s)
+        public static string GetReversedString(string stringToBeReversed)
         {
-            char[] charArray = s.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
+            char[] stringCharacters = stringToBeReversed.ToCharArray();
+            Array.Reverse(stringCharacters);
+            return new string(stringCharacters);
         }
     }
 }

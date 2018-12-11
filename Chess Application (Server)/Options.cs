@@ -14,11 +14,7 @@ namespace Chess_Application
     public partial class Options : UserControl
     {
         MainMenu mainMenu;
-        public System.Delegate _SchimbareUsername;
-        public Delegate apeleaza
-        {
-            set { _SchimbareUsername = value; }
-        }
+        char[] forbiddenUsernameCharacters = { '#', '!', ':' };
 
         public Options()
         {
@@ -29,34 +25,28 @@ namespace Chess_Application
         {
             InitializeComponent();
             this.mainMenu = mainMenu;
+            labelError.Text = "";
         }
 
-        private void checkBoxWhite_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxWhite.Checked == true && checkBoxBlack.Checked == true) checkBoxBlack.Checked = false;
-        }
-
-        private void checkBoxBlack_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxWhite.Checked == true && checkBoxBlack.Checked == true) checkBoxWhite.Checked = false;
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void Cancel(object sender, EventArgs e)
         {
             Hide();
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void Confirm(object sender, EventArgs e)
         {
-            if (textBoxUsername.Text != "" && !textBoxUsername.Text.EndsWith(" "))
+            string username = textBoxUsername.Text;
+
+            if (IsUsernameValid(username))
             {               
-                mainMenu.SetUsername(textBoxUsername.Text);
+                mainMenu.SetUsername(username);
                 labelError.Text = "";
 
-                if (checkBoxWhite.Checked == true)
+                if (radioButtonWhite.Checked == true)
                 {
                     mainMenu.SetColors("1 2");
                 }
+
                 else
                 {
                     mainMenu.SetColors("2 1");
@@ -64,15 +54,39 @@ namespace Chess_Application
 
                 Hide();
             }
-            else
-            {
-                labelError.Text = "Please enter a non-blank username, without spaces at the end";
-            }
         }
 
-        private void textBoxUsername_TextChanged(object sender, EventArgs e)
+        bool IsUsernameValid(string username)
         {
+            bool isValid = true;
+            labelError.Text = "";
 
+            if (username.Length < 3 || username.Length > 15)
+            {
+                labelError.Text += "Username must be between 3 and 15 characters\r\n";
+                isValid = false;
+            }
+
+            foreach(char forbiddenCharacter in forbiddenUsernameCharacters)
+            {
+                if (username.Contains(forbiddenCharacter))
+                {
+                    labelError.Text += "Username shouldn't contain any of the following characters: ";
+                    labelError.Text += String.Join(", ", forbiddenUsernameCharacters);
+                    labelError.Text += "\r\n";
+
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (username.EndsWith(" "))
+            {
+                labelError.Text += "Username shouldn't end with a blank space\r\n";
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }

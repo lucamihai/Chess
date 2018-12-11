@@ -20,7 +20,7 @@ namespace Chess_Application
             tipPiesa = 4;
         }
 
-        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
+        public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
             // Check movement to the south - west
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)

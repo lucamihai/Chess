@@ -39,7 +39,7 @@ namespace Chess_Application
         /// <param name="row">Row of the piece</param>
         /// <param name="column">Column of the piece</param>
         /// <param name="chessBoard">Chess board (Boxes matrix)</param>
-        public virtual void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
+        public virtual void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
 
         }
@@ -54,7 +54,7 @@ namespace Chess_Application
         /// <param name="destinationRow">Row of the destination</param>
         /// <param name="destinationColumn">Column of the destination</param>
         /// <returns></returns>
-        public bool TriggersCheck(LocatieTabla[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
+        public bool TriggersCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
             if (chessBoard[origRow, origColumn].tipPiesa != 6)
             {
@@ -158,9 +158,9 @@ namespace Chess_Application
             return false;
         }
 
-        protected bool IsThreatenedByPawns(LocatieTabla[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByPawns(Box[,] chessBoard, int row, int column)
         {
-            LocatieTabla pieceCell = chessBoard[row, column];
+            Box pieceCell = chessBoard[row, column];
 
             if (pieceCell.culoare == 1)
             {
@@ -203,9 +203,9 @@ namespace Chess_Application
             return false;
         }
 
-        protected bool IsThreatenedByKing(LocatieTabla[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByKing(Box[,] chessBoard, int row, int column)
         {
-            LocatieTabla pieceCell = chessBoard[row, column];
+            Box pieceCell = chessBoard[row, column];
 
             if (chessBoard[row + 1, column - 1] != null)
             {
@@ -274,9 +274,9 @@ namespace Chess_Application
             return false;
         }
 
-        protected bool IsThreatenedByKnights(LocatieTabla[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByKnights(Box[,] chessBoard, int row, int column)
         {
-            LocatieTabla pieceCell = chessBoard[row, column];
+            Box pieceCell = chessBoard[row, column];
 
             if (row < 8 && column < 7)
             {
@@ -348,9 +348,9 @@ namespace Chess_Application
             return false;
         }
 
-        protected bool IsThreatenedByBishops(LocatieTabla[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByBishops(Box[,] chessBoard, int row, int column)
         {
-            LocatieTabla pieceCell = chessBoard[row, column];
+            Box pieceCell = chessBoard[row, column];
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
@@ -407,9 +407,9 @@ namespace Chess_Application
             return false;
         }
 
-        protected bool IsThreatenedByRooks(LocatieTabla[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByRooks(Box[,] chessBoard, int row, int column)
         {
-            LocatieTabla pieceCell = chessBoard[row, column];
+            Box pieceCell = chessBoard[row, column];
 
             for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
@@ -506,9 +506,9 @@ namespace Chess_Application
             return false;
         }
 
-        protected bool IsThreatenedByQueen(LocatieTabla[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByQueen(Box[,] chessBoard, int row, int column)
         {
-            LocatieTabla pieceCell = chessBoard[row, column];
+            Box pieceCell = chessBoard[row, column];
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {

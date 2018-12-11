@@ -15,7 +15,7 @@ using Chess_Application.Classes;
 
 namespace Chess_Application
 {
-    public class LocatieTabla
+    public class Box
     {
         public string nume;
         public bool poateFaceMiscari = false;
@@ -34,19 +34,19 @@ namespace Chess_Application
 
         #endregion
 
-        public LocatieTabla()
+        public Box()
         {
 
         }
 
         // Used for empty boxes
-        public LocatieTabla(PictureBox pictureBox)
+        public Box(PictureBox pictureBox)
         {
             imagineLocatie = pictureBox;
             imagineLocatie.BackgroundImage = null;
             nume = pictureBox.Name;
             nume = nume.Substring(1);
-            nume = Utilities.Reverse(nume);
+            nume = Utilities.GetReversedString(nume);
 
             Row = (short)nume[0];
             Row -= (short)'A';
@@ -58,7 +58,7 @@ namespace Chess_Application
         }
 
         // Used for boxes with a chess piece on them
-        public LocatieTabla(ChessPiece piece, PictureBox pictureBox)
+        public Box(ChessPiece piece, PictureBox pictureBox)
         {
             piesa = piece;
             culoare = piece.culoare;
@@ -67,7 +67,7 @@ namespace Chess_Application
             pictureBox.BackgroundImage = piece.imaginePiesa.BackgroundImage;
             nume = pictureBox.Name;
             nume = nume.Substring(1);
-            nume = Utilities.Reverse(nume);
+            nume = Utilities.GetReversedString(nume);
 
             Row = (short)nume[0];
             Row -= (short)'A';
@@ -76,11 +76,6 @@ namespace Chess_Application
             Column = (short)nume[1];
             Column -= (short)'1';
             Column += 1;
-        }
-
-        public void SetColor(Color color)
-        {
-            imagineLocatie.BackColor = color;
         }
 
         /// <summary>

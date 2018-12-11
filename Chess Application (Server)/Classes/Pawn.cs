@@ -19,7 +19,7 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 1;
         }
-        public override void CheckPossibilities(int row, int column, LocatieTabla[,] chessBoard)
+        public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
             // White pawn
             if (culoare == 1)
