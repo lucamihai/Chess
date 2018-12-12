@@ -1026,14 +1026,14 @@
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
             this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
-            this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
+            this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.ToolStripNewGame);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
             this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
-            this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.quitApplicationToolStripMenuItem_Click);
+            this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.ToolStripQuit);
             // 
             // optionsToolStripMenuItem
             // 
@@ -1642,7 +1642,7 @@
             this.button1.TabIndex = 23;
             this.button1.Text = "Trimite";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btnSend_Click);
+            this.button1.Click += new System.EventHandler(this.SendChatMessage);
             // 
             // pbPioniAlbiLuati
             // 
