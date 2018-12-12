@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\Knight.cs" />
     <Compile Include="Classes\Box.cs" />
     <Compile Include="Classes\Bishop.cs" />
