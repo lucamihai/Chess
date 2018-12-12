@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
-using System.Net;
 using System.IO;
 using System.Threading;
+using Chess_Application.Classes;
 
 namespace Chess_Application
 {
@@ -48,9 +44,6 @@ namespace Chess_Application
         string username = "Server";
         string usernameClient = "Client";
 
-        SoundPlayer moveSound1 = new SoundPlayer(Properties.Resources.MoveSound1);
-        SoundPlayer moveSound2 = new SoundPlayer(Properties.Resources.MoveSound2);
-
         ChessPiece whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8;
         ChessPiece whiteRook1, whiteRook2;
         ChessPiece whiteBishop1, whiteBishop2;
@@ -78,6 +71,9 @@ namespace Chess_Application
 
         Color BoxColorLight = Color.Silver;
         Color BoxColorDark  = Color.FromArgb(132, 107, 86);
+
+        SoundPlayer moveSound1 = new SoundPlayer(Properties.Resources.MoveSound1);
+        SoundPlayer moveSound2 = new SoundPlayer(Properties.Resources.MoveSound2);
 
         TcpListener serverTcpListener;
         Thread networkThread;
@@ -796,7 +792,7 @@ namespace Chess_Application
             rand = false;
             randMutare = randMutareClient;
 
-            if (randMutare == 1)
+            if (randMutare == Constants.TURN_WHITE)
             {
                 labelRand.Text = "White's turn";
             }
@@ -840,7 +836,7 @@ namespace Chess_Application
 
             rand = true;
 
-            if (randMutareClient == 2)
+            if (randMutareClient == Constants.TURN_BLACK)
             {
                 randMutare = 1;
                 labelRand.Text = "White's turn";
@@ -913,45 +909,45 @@ namespace Chess_Application
 
         void UpdateCapturedPiecesCounter(Box destination)
         {
-            if (destination.culoare == 1)
+            if (destination.culoare == Constants.PIECE_COLOR_WHITE)
             {
                 switch (destination.tipPiesa)
                 {
-                    case 1:
+                    case Constants.PIECE_TYPE_PAWN:
                         labelCPA.Text = (++counterPioniAlbi).ToString();
                         break;
-                    case 2:
+                    case Constants.PIECE_TYPE_ROOK:
                         labelCTA.Text = (++counterTureAlbe).ToString();
                         break;
-                    case 3:
+                    case Constants.PIECE_TYPE_KNIGHT:
                         labelCountCA.Text = (++counterCaiAlbi).ToString();
                         break;
-                    case 4:
+                    case Constants.PIECE_TYPE_BISHOP:
                         labelCNA.Text = (++counterNebuniAlbi).ToString();
                         break;
-                    case 5:
+                    case Constants.PIECE_TYPE_QUEEN:
                         labelCRA.Text = (++counterReginaAlba).ToString();
                         break;
                 }
             }
 
-            if (destination.culoare == 2)
+            if (destination.culoare == Constants.PIECE_COLOR_BLACK)
             {
                 switch (destination.tipPiesa)
                 {
-                    case 1:
+                    case Constants.PIECE_TYPE_PAWN:
                         labelCPN.Text = (++counterPioniNegri).ToString();
                         break;
-                    case 2:
+                    case Constants.PIECE_TYPE_ROOK:
                         labelCTN.Text = (++counterTureNegre).ToString();
                         break;
-                    case 3:
+                    case Constants.PIECE_TYPE_KNIGHT:
                         labelCountCN.Text = (++counterCaiNegri).ToString();
                         break;
-                    case 4:
+                    case Constants.PIECE_TYPE_BISHOP:
                         labelCNN.Text = (++counterNebuniNegri).ToString();
                         break;
-                    case 5:
+                    case Constants.PIECE_TYPE_QUEEN:
                         labelCRN.Text = (++counterReginaNeagra).ToString();
                         break;
                 }
@@ -960,12 +956,12 @@ namespace Chess_Application
 
         void UpdateKingPosition(Box destination)
         {
-            if (destination.culoare == 1)
+            if (destination.culoare == Constants.PIECE_COLOR_WHITE)
             {
                 pozitieRegeAlb.X = destination.nume[0] - 64;
                 pozitieRegeAlb.Y = destination.nume[1] - 48;
             }
-            if (destination.culoare == 2)
+            if (destination.culoare == Constants.PIECE_COLOR_BLACK)
             {
                 pozitieRegeNegru.X = destination.nume[0] - 64;
                 pozitieRegeNegru.Y = destination.nume[1] - 48;
@@ -975,15 +971,16 @@ namespace Chess_Application
         void BeginPieceRecapturingIfPawnReachedTheEnd(Box destination)
         {
             // If a white pawn has reached the last line
-            if (randMutare == 1)
+            if (randMutare == Constants.TURN_WHITE)
             {
-                if (destination.nume.Contains('H') && destination.tipPiesa == 1)
+                if (destination.nume.Contains('H') && destination.tipPiesa == Constants.PIECE_TYPE_PAWN)
                 {
                     if (counterTureAlbe + counterCaiAlbi + counterNebuniAlbi + counterReginaAlba > 0)
                     {
                         retakeRow = 8;
                         retakeColumn = destination.nume[1] - 48;
                         currentPlayerMustSelect = true;
+
                         SendMessage("#selectie");
                         textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
@@ -991,15 +988,16 @@ namespace Chess_Application
             }
 
             // If a black pawn has reached the last line
-            if (randMutare == 2)
+            if (randMutare == Constants.TURN_BLACK)
             {
-                if (destination.nume.Contains('A') && destination.tipPiesa == 1)
+                if (destination.nume.Contains('A') && destination.tipPiesa == Constants.PIECE_TYPE_PAWN)
                 {
                     if (counterTureNegre + counterCaiNegri + counterNebuniNegri + counterReginaNeagra > 0)
                     {
                         retakeRow = 1;
                         retakeColumn = destination.nume[1] - 48;
                         currentPlayerMustSelect = true;
+
                         SendMessage("#selectie");
                         textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
@@ -1064,6 +1062,7 @@ namespace Chess_Application
                 RetakePiece(tureAlbeLuate, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCTA.Text = (--counterTureAlbe).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " TA");
                 SendMessage("#final selectie");
             }
@@ -1076,6 +1075,7 @@ namespace Chess_Application
                 RetakePiece(caiAlbiLuati, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCountCA.Text = (--counterCaiAlbi).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " CA");
                 SendMessage("#final selectie");
             }
@@ -1088,6 +1088,7 @@ namespace Chess_Application
                 RetakePiece(nebuniAlbiLuati, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCNA.Text = (--counterNebuniAlbi).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " NA");
                 SendMessage("#final selectie");
             }
@@ -1100,6 +1101,7 @@ namespace Chess_Application
                 RetakePiece(reginaAlbaLuata, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCRA.Text = (--counterReginaAlba).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " RA");
                 SendMessage("#final selectie");
             }
@@ -1116,6 +1118,7 @@ namespace Chess_Application
                 RetakePiece(tureNegreLuate, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCTN.Text = (--counterTureNegre).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " TN");
                 SendMessage("#final selectie");
             }
@@ -1128,6 +1131,7 @@ namespace Chess_Application
                 RetakePiece(caiNegriLuati, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCountCN.Text = (--counterCaiNegri).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " CN");
                 SendMessage("#final selectie");
             }
@@ -1140,6 +1144,7 @@ namespace Chess_Application
                 RetakePiece(nebuniNegriLuati, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCNN.Text = (--counterNebuniNegri).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " NN");
                 SendMessage("#final selectie");
             }
@@ -1152,6 +1157,7 @@ namespace Chess_Application
                 RetakePiece(reginaNeagraLuata, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
                 labelCRN.Text = (--counterReginaNeagra).ToString();
+
                 SendMessage("#selectat " + retakeRow + " " + retakeColumn + " RN");
                 SendMessage("#final selectie");
             }
@@ -1185,13 +1191,14 @@ namespace Chess_Application
 
         bool CheckmateWhite()
         {
-            for(int i=1; i<=8; i++)
+            for (int i = 1; i <= 8; i++)
             {
-                for (int j=1; j<=8; j++)
+                for (int j = 1; j <= 8; j++)
                 {
                     if (ChessBoard[i, j].culoare == 1 && ChessBoard[i, j].piesa != null)
                     {
                         ChessBoard[i, j].piesa.CheckPossibilities(i, j, ChessBoard);
+
                         if (ChessBoard[i, j].poateFaceMiscari == true)
                         {
                             ResetBoxesColors(ChessBoard);
@@ -1201,8 +1208,6 @@ namespace Chess_Application
                     }
                 }
             }
-
-            textBox1.AppendText("Albu-i in mat..." + Environment.NewLine);
 
             return true;
         }
@@ -1216,6 +1221,7 @@ namespace Chess_Application
                     if (ChessBoard[i, j].culoare == 2 && ChessBoard[i, j].piesa != null)
                     {
                         ChessBoard[i, j].piesa.CheckPossibilities(i, j, ChessBoard);
+
                         if (ChessBoard[i, j].poateFaceMiscari == true)
                         {
                             ResetBoxesColors(ChessBoard);
@@ -1225,8 +1231,6 @@ namespace Chess_Application
                     }
                 }
             }
-
-            textBox1.AppendText("Negru-i in mat..." + Environment.NewLine);
 
             return true;
         }

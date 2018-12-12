@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Net.Sockets;
-using System.Net;
+using Chess_Application.Classes;
 
 
 namespace Chess_Application
@@ -56,10 +48,10 @@ namespace Chess_Application
         /// <returns></returns>
         public bool TriggersCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
-            if (chessBoard[origRow, origColumn].tipPiesa != 6)
+            if (chessBoard[origRow, origColumn].tipPiesa != Constants.PIECE_TYPE_KING)
             {
                 Point kingPosition;
-                if (MainForm.randMutare == 1)
+                if (MainForm.randMutare == Constants.TURN_WHITE)
                 {
                     kingPosition = MainForm.pozitieRegeAlb;
                 }
@@ -76,8 +68,8 @@ namespace Chess_Application
                 int tempDestPiece = chessBoard[destinationRow, destinationColumn].tipPiesa;
 
                 // Pretend the move was made
-                chessBoard[origRow, origColumn].culoare = 0;
-                chessBoard[origRow, origColumn].tipPiesa = 0;
+                chessBoard[origRow, origColumn].culoare = Constants.PIECE_COLOR_NONE;
+                chessBoard[origRow, origColumn].tipPiesa = Constants.PIECE_TYPE_NONE;
                 chessBoard[destinationRow, destinationColumn].culoare = tempOrigColor;
                 chessBoard[destinationRow, destinationColumn].tipPiesa = tempOrigPiece;
 
@@ -162,40 +154,52 @@ namespace Chess_Application
         {
             Box pieceCell = chessBoard[row, column];
 
-            if (pieceCell.culoare == 1)
+            if (pieceCell.culoare == Constants.PIECE_COLOR_WHITE)
             {
                 if (chessBoard[row + 1, column - 1] != null)
                 {
-                    if (chessBoard[row + 1, column - 1].culoare == 2 && chessBoard[row + 1, column - 1].tipPiesa == 1)
+                    if (chessBoard[row + 1, column - 1].culoare == Constants.PIECE_COLOR_BLACK)
                     {
-                        return true;
+                        if (chessBoard[row + 1, column - 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        {
+                            return true;
+                        }
                     }
                 }
 
                 if (chessBoard[row + 1, column + 1] != null)
                 {
-                    if (chessBoard[row + 1, column + 1].culoare == 2 && chessBoard[row + 1, column + 1].tipPiesa == 1)
+                    if (chessBoard[row + 1, column + 1].culoare == Constants.PIECE_COLOR_BLACK)
                     {
-                        return true;
+                        if (chessBoard[row + 1, column + 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
 
-            if (pieceCell.culoare == 2)
+            if (pieceCell.culoare == Constants.PIECE_COLOR_BLACK)
             {
                 if (chessBoard[row - 1, column - 1] != null)
                 {
-                    if (chessBoard[row - 1, column - 1].culoare == 1 && chessBoard[row - 1, column - 1].tipPiesa == 1)
+                    if (chessBoard[row - 1, column - 1].culoare == Constants.PIECE_COLOR_WHITE)
                     {
-                        return true;
+                        if (chessBoard[row - 1, column - 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        {
+                            return true;
+                        }
                     }
                 }
 
                 if (chessBoard[row - 1, column + 1] != null)
                 {
-                    if (chessBoard[row - 1, column + 1].culoare == 1 && chessBoard[row - 1, column + 1].tipPiesa == 1)
+                    if (chessBoard[row - 1, column + 1].culoare == Constants.PIECE_COLOR_WHITE)
                     {
-                        return true;
+                        if (chessBoard[row - 1, column + 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -209,65 +213,89 @@ namespace Chess_Application
 
             if (chessBoard[row + 1, column - 1] != null)
             {
-                if (chessBoard[row + 1, column - 1].culoare != pieceCell.culoare && chessBoard[row + 1, column - 1].tipPiesa == 6)
+                if (chessBoard[row + 1, column - 1].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row + 1, column - 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row + 1, column + 1] != null)
             {
-                if (chessBoard[row + 1, column + 1].culoare != pieceCell.culoare && chessBoard[row + 1, column + 1].tipPiesa == 6)
+                if (chessBoard[row + 1, column + 1].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row + 1, column + 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row + 1, column] != null)
             {
-                if (chessBoard[row + 1, column].culoare != pieceCell.culoare && chessBoard[row + 1, column].tipPiesa == 6)
+                if (chessBoard[row + 1, column].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row + 1, column].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row, column - 1] != null)
             {
-                if (chessBoard[row, column - 1].culoare != pieceCell.culoare && chessBoard[row, column - 1].tipPiesa == 6)
+                if (chessBoard[row, column - 1].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row, column - 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row, column + 1] != null)
             {
-                if (chessBoard[row, column + 1].culoare != pieceCell.culoare && chessBoard[row, column + 1].tipPiesa == 6)
+                if (chessBoard[row, column + 1].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row, column + 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row - 1, column - 1] != null)
             {
-                if (chessBoard[row - 1, column - 1].culoare != pieceCell.culoare && chessBoard[row - 1, column - 1].tipPiesa == 6)
+                if (chessBoard[row - 1, column - 1].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row - 1, column - 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row - 1, column] != null)
             {
-                if (chessBoard[row - 1, column].culoare != pieceCell.culoare && chessBoard[row - 1, column].tipPiesa == 6)
+                if (chessBoard[row - 1, column].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row - 1, column].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
             if (chessBoard[row - 1, column + 1] != null)
             {
-                if (chessBoard[row - 1, column + 1].culoare != pieceCell.culoare && chessBoard[row - 1, column + 1].tipPiesa == 6)
+                if (chessBoard[row - 1, column + 1].culoare != pieceCell.culoare)
                 {
-                    return true;
+                    if (chessBoard[row - 1, column + 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -415,19 +443,19 @@ namespace Chess_Application
             {
                 if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
                 {
-                    if (chessBoard[row, secondaryColumn].tipPiesa == 2)
+                    if (chessBoard[row, secondaryColumn].tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
-                    // If other piece was found, further rooks can't threaten the king
+                    // If other piece was found, further rooks can't threaten the piece
                     if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                // If a piece of the same color was found, further rooks can't threaten the piece
                 else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
                 {
                     break;
@@ -438,19 +466,19 @@ namespace Chess_Application
             {
                 if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
                 {
-                    if (chessBoard[row, secondaryColumn].tipPiesa == 2)
+                    if (chessBoard[row, secondaryColumn].tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
-                    // If other piece was found, further rooks can't threaten the king
+                    // If other piece was found, further rooks can't threaten the piece
                     if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                // If a piece of the same color was found, further rooks can't threaten the piece
                 else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
                 {
                     break;
@@ -461,19 +489,19 @@ namespace Chess_Application
             {
                 if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
                 {
-                    if (chessBoard[secondaryRow, column].tipPiesa == 2)
+                    if (chessBoard[secondaryRow, column].tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
-                    // If other piece was found, further rooks can't threaten the king
+                    // If other piece was found, further rooks can't threaten the piece
                     if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                // If a piece of the same color was found, further rooks can't threaten the piece
                 else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
                 {
                     break;
@@ -484,19 +512,19 @@ namespace Chess_Application
             {
                 if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
                 {
-                    if (chessBoard[secondaryRow, column].tipPiesa == 2)
+                    if (chessBoard[secondaryRow, column].tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
-                    // If other piece was found, further rooks can't threaten the king
+                    // If other piece was found, further rooks can't threaten the piece
                     if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
+                // If a piece of the same color was found, further rooks can't threaten the piece
                 else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
                 {
                     break;
