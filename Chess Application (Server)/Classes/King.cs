@@ -38,7 +38,7 @@ namespace Chess_Application
             }
              
             Point newKingPosition;
-            int kingColor = chessBoard[kingPosition.X, kingPosition.Y].culoare;
+            int kingColor = chessBoard[kingPosition.X, kingPosition.Y].Piece.culoare;
 
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y - 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
@@ -96,7 +96,7 @@ namespace Chess_Application
                 chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
             }
 
-            chessBoard[kingPosition.X, kingPosition.Y].culoare = kingColor;
+            chessBoard[kingPosition.X, kingPosition.Y].Piece.culoare = kingColor;
         }
 
 
@@ -117,14 +117,14 @@ namespace Chess_Application
             bool isPossible = false;
 
             // Remember the colors of the king and of the destination
-            int kingColor = chessBoard[source.X, source.Y].culoare;
-            int destinationColor = chessBoard[destination.X, destination.Y].culoare;
+            int kingColor = chessBoard[source.X, source.Y].Piece.culoare;
+            int destinationColor = chessBoard[destination.X, destination.Y].Piece.culoare;
 
 
             // Pretend the king was moved to the destination
-            chessBoard[source.X, source.Y].culoare = 0;
-            chessBoard[source.X, source.Y].tipPiesa = 0;
-            chessBoard[destination.X, destination.Y].culoare = kingColor;
+            chessBoard[source.X, source.Y].Piece.culoare = 0;
+            chessBoard[source.X, source.Y].Piece.tipPiesa = 0;
+            chessBoard[destination.X, destination.Y].Piece.culoare = kingColor;
 
             if (!IsInCheck(chessBoard, destination.X, destination.Y))
             {
@@ -132,9 +132,9 @@ namespace Chess_Application
             }
 
             // Restore states of the king and of the destination
-            chessBoard[source.X, source.Y].culoare = kingColor;
-            chessBoard[source.X, source.Y].tipPiesa = 6;
-            chessBoard[destination.X, destination.Y].culoare = destinationColor;
+            chessBoard[source.X, source.Y].Piece.culoare = kingColor;
+            chessBoard[source.X, source.Y].Piece.tipPiesa = 6;
+            chessBoard[destination.X, destination.Y].Piece.culoare = destinationColor;
 
 
             return isPossible;

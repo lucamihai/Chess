@@ -164,10 +164,10 @@
             this.pbCaiAlbiLuati = new System.Windows.Forms.PictureBox();
             this.pbTureAlbeLuate = new System.Windows.Forms.PictureBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.labelCRN = new System.Windows.Forms.Label();
-            this.labelCNN = new System.Windows.Forms.Label();
-            this.labelCountCN = new System.Windows.Forms.Label();
-            this.labelCTN = new System.Windows.Forms.Label();
+            this.labelCounterCapturedQueenBlack = new System.Windows.Forms.Label();
+            this.labelCounterCapturedBishopsBlack = new System.Windows.Forms.Label();
+            this.labelCounterCapturedKnightsBlack = new System.Windows.Forms.Label();
+            this.labelCounterCapturedRooksBlack = new System.Windows.Forms.Label();
             this.labelCPN = new System.Windows.Forms.Label();
             this.pbTureNegreLuate = new System.Windows.Forms.PictureBox();
             this.pbCaiNegriLuati = new System.Windows.Forms.PictureBox();
@@ -177,10 +177,10 @@
             this.label18 = new System.Windows.Forms.Label();
             this.labelRand = new System.Windows.Forms.Label();
             this.labelCPA = new System.Windows.Forms.Label();
-            this.labelCTA = new System.Windows.Forms.Label();
-            this.labelCountCA = new System.Windows.Forms.Label();
-            this.labelCNA = new System.Windows.Forms.Label();
-            this.labelCRA = new System.Windows.Forms.Label();
+            this.labelCounterCapturedRooksWhite = new System.Windows.Forms.Label();
+            this.labelCounterCapturedKnightsWhite = new System.Windows.Forms.Label();
+            this.labelCounterCapturedBishopsWhite = new System.Windows.Forms.Label();
+            this.labelCounterCapturedQueenWhite = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
@@ -1710,43 +1710,43 @@
             // 
             // labelCRN
             // 
-            this.labelCRN.AutoSize = true;
-            this.labelCRN.Location = new System.Drawing.Point(616, 811);
-            this.labelCRN.Name = "labelCRN";
-            this.labelCRN.Size = new System.Drawing.Size(41, 13);
-            this.labelCRN.TabIndex = 46;
-            this.labelCRN.Text = "label22";
-            this.labelCRN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedQueenBlack.AutoSize = true;
+            this.labelCounterCapturedQueenBlack.Location = new System.Drawing.Point(616, 811);
+            this.labelCounterCapturedQueenBlack.Name = "labelCRN";
+            this.labelCounterCapturedQueenBlack.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedQueenBlack.TabIndex = 46;
+            this.labelCounterCapturedQueenBlack.Text = "label22";
+            this.labelCounterCapturedQueenBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCNN
             // 
-            this.labelCNN.AutoSize = true;
-            this.labelCNN.Location = new System.Drawing.Point(554, 811);
-            this.labelCNN.Name = "labelCNN";
-            this.labelCNN.Size = new System.Drawing.Size(41, 13);
-            this.labelCNN.TabIndex = 45;
-            this.labelCNN.Text = "label21";
-            this.labelCNN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedBishopsBlack.AutoSize = true;
+            this.labelCounterCapturedBishopsBlack.Location = new System.Drawing.Point(554, 811);
+            this.labelCounterCapturedBishopsBlack.Name = "labelCNN";
+            this.labelCounterCapturedBishopsBlack.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedBishopsBlack.TabIndex = 45;
+            this.labelCounterCapturedBishopsBlack.Text = "label21";
+            this.labelCounterCapturedBishopsBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCountCN
             // 
-            this.labelCountCN.AutoSize = true;
-            this.labelCountCN.Location = new System.Drawing.Point(489, 811);
-            this.labelCountCN.Name = "labelCountCN";
-            this.labelCountCN.Size = new System.Drawing.Size(41, 13);
-            this.labelCountCN.TabIndex = 44;
-            this.labelCountCN.Text = "label20";
-            this.labelCountCN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedKnightsBlack.AutoSize = true;
+            this.labelCounterCapturedKnightsBlack.Location = new System.Drawing.Point(489, 811);
+            this.labelCounterCapturedKnightsBlack.Name = "labelCountCN";
+            this.labelCounterCapturedKnightsBlack.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedKnightsBlack.TabIndex = 44;
+            this.labelCounterCapturedKnightsBlack.Text = "label20";
+            this.labelCounterCapturedKnightsBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCTN
             // 
-            this.labelCTN.AutoSize = true;
-            this.labelCTN.Location = new System.Drawing.Point(426, 811);
-            this.labelCTN.Name = "labelCTN";
-            this.labelCTN.Size = new System.Drawing.Size(41, 13);
-            this.labelCTN.TabIndex = 43;
-            this.labelCTN.Text = "label19";
-            this.labelCTN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedRooksBlack.AutoSize = true;
+            this.labelCounterCapturedRooksBlack.Location = new System.Drawing.Point(426, 811);
+            this.labelCounterCapturedRooksBlack.Name = "labelCTN";
+            this.labelCounterCapturedRooksBlack.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedRooksBlack.TabIndex = 43;
+            this.labelCounterCapturedRooksBlack.Text = "label19";
+            this.labelCounterCapturedRooksBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCPN
             // 
@@ -1843,43 +1843,43 @@
             // 
             // labelCTA
             // 
-            this.labelCTA.AutoSize = true;
-            this.labelCTA.Location = new System.Drawing.Point(424, 145);
-            this.labelCTA.Name = "labelCTA";
-            this.labelCTA.Size = new System.Drawing.Size(41, 13);
-            this.labelCTA.TabIndex = 33;
-            this.labelCTA.Text = "label19";
-            this.labelCTA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedRooksWhite.AutoSize = true;
+            this.labelCounterCapturedRooksWhite.Location = new System.Drawing.Point(424, 145);
+            this.labelCounterCapturedRooksWhite.Name = "labelCTA";
+            this.labelCounterCapturedRooksWhite.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedRooksWhite.TabIndex = 33;
+            this.labelCounterCapturedRooksWhite.Text = "label19";
+            this.labelCounterCapturedRooksWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCountCA
             // 
-            this.labelCountCA.AutoSize = true;
-            this.labelCountCA.Location = new System.Drawing.Point(486, 145);
-            this.labelCountCA.Name = "labelCountCA";
-            this.labelCountCA.Size = new System.Drawing.Size(41, 13);
-            this.labelCountCA.TabIndex = 34;
-            this.labelCountCA.Text = "label20";
-            this.labelCountCA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedKnightsWhite.AutoSize = true;
+            this.labelCounterCapturedKnightsWhite.Location = new System.Drawing.Point(486, 145);
+            this.labelCounterCapturedKnightsWhite.Name = "labelCountCA";
+            this.labelCounterCapturedKnightsWhite.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedKnightsWhite.TabIndex = 34;
+            this.labelCounterCapturedKnightsWhite.Text = "label20";
+            this.labelCounterCapturedKnightsWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCNA
             // 
-            this.labelCNA.AutoSize = true;
-            this.labelCNA.Location = new System.Drawing.Point(553, 145);
-            this.labelCNA.Name = "labelCNA";
-            this.labelCNA.Size = new System.Drawing.Size(41, 13);
-            this.labelCNA.TabIndex = 35;
-            this.labelCNA.Text = "label21";
-            this.labelCNA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedBishopsWhite.AutoSize = true;
+            this.labelCounterCapturedBishopsWhite.Location = new System.Drawing.Point(553, 145);
+            this.labelCounterCapturedBishopsWhite.Name = "labelCNA";
+            this.labelCounterCapturedBishopsWhite.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedBishopsWhite.TabIndex = 35;
+            this.labelCounterCapturedBishopsWhite.Text = "label21";
+            this.labelCounterCapturedBishopsWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCRA
             // 
-            this.labelCRA.AutoSize = true;
-            this.labelCRA.Location = new System.Drawing.Point(616, 145);
-            this.labelCRA.Name = "labelCRA";
-            this.labelCRA.Size = new System.Drawing.Size(41, 13);
-            this.labelCRA.TabIndex = 36;
-            this.labelCRA.Text = "label22";
-            this.labelCRA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCounterCapturedQueenWhite.AutoSize = true;
+            this.labelCounterCapturedQueenWhite.Location = new System.Drawing.Point(616, 145);
+            this.labelCounterCapturedQueenWhite.Name = "labelCRA";
+            this.labelCounterCapturedQueenWhite.Size = new System.Drawing.Size(41, 13);
+            this.labelCounterCapturedQueenWhite.TabIndex = 36;
+            this.labelCounterCapturedQueenWhite.Text = "label22";
+            this.labelCounterCapturedQueenWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label19
             // 
@@ -1900,20 +1900,20 @@
             this.Controls.Add(this.label19);
             this.Controls.Add(this.labelRand);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.labelCRN);
-            this.Controls.Add(this.labelCNN);
-            this.Controls.Add(this.labelCountCN);
-            this.Controls.Add(this.labelCTN);
+            this.Controls.Add(this.labelCounterCapturedQueenBlack);
+            this.Controls.Add(this.labelCounterCapturedBishopsBlack);
+            this.Controls.Add(this.labelCounterCapturedKnightsBlack);
+            this.Controls.Add(this.labelCounterCapturedRooksBlack);
             this.Controls.Add(this.labelCPN);
             this.Controls.Add(this.pbTureNegreLuate);
             this.Controls.Add(this.pbCaiNegriLuati);
             this.Controls.Add(this.pbNebuniNegriLuati);
             this.Controls.Add(this.pbReginaNeagraLuata);
             this.Controls.Add(this.pbPioniNegriLuati);
-            this.Controls.Add(this.labelCRA);
-            this.Controls.Add(this.labelCNA);
-            this.Controls.Add(this.labelCountCA);
-            this.Controls.Add(this.labelCTA);
+            this.Controls.Add(this.labelCounterCapturedQueenWhite);
+            this.Controls.Add(this.labelCounterCapturedBishopsWhite);
+            this.Controls.Add(this.labelCounterCapturedKnightsWhite);
+            this.Controls.Add(this.labelCounterCapturedRooksWhite);
             this.Controls.Add(this.labelCPA);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.pbTureAlbeLuate);
@@ -2187,10 +2187,10 @@
         private System.Windows.Forms.PictureBox pbCaiAlbiLuati;
         private System.Windows.Forms.PictureBox pbTureAlbeLuate;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label labelCRN;
-        private System.Windows.Forms.Label labelCNN;
-        private System.Windows.Forms.Label labelCountCN;
-        private System.Windows.Forms.Label labelCTN;
+        private System.Windows.Forms.Label labelCounterCapturedQueenBlack;
+        private System.Windows.Forms.Label labelCounterCapturedBishopsBlack;
+        private System.Windows.Forms.Label labelCounterCapturedKnightsBlack;
+        private System.Windows.Forms.Label labelCounterCapturedRooksBlack;
         private System.Windows.Forms.Label labelCPN;
         private System.Windows.Forms.PictureBox pbTureNegreLuate;
         private System.Windows.Forms.PictureBox pbCaiNegriLuati;
@@ -2200,10 +2200,10 @@
         private System.Windows.Forms.Label label18;
         public System.Windows.Forms.Label labelRand;
         private System.Windows.Forms.Label labelCPA;
-        private System.Windows.Forms.Label labelCTA;
-        private System.Windows.Forms.Label labelCountCA;
-        private System.Windows.Forms.Label labelCNA;
-        private System.Windows.Forms.Label labelCRA;
+        private System.Windows.Forms.Label labelCounterCapturedRooksWhite;
+        private System.Windows.Forms.Label labelCounterCapturedKnightsWhite;
+        private System.Windows.Forms.Label labelCounterCapturedBishopsWhite;
+        private System.Windows.Forms.Label labelCounterCapturedQueenWhite;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.DataGridViewTextBoxColumn counter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;

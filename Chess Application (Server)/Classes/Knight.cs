@@ -28,7 +28,7 @@ namespace Chess_Application
                 destinationRow = row + 1;
                 destinationColumn = column + 2;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -43,7 +43,7 @@ namespace Chess_Application
                 destinationRow = row + 1;
                 destinationColumn = column - 2;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -58,7 +58,7 @@ namespace Chess_Application
                 destinationRow = row + 2;
                 destinationColumn = column + 1;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -73,7 +73,7 @@ namespace Chess_Application
                 destinationRow = row + 2;
                 destinationColumn = column - 1;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -88,7 +88,7 @@ namespace Chess_Application
                 destinationRow = row - 1;
                 destinationColumn = column + 2;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -103,7 +103,7 @@ namespace Chess_Application
                 destinationRow = row - 1;
                 destinationColumn = column - 2;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -118,7 +118,7 @@ namespace Chess_Application
                 destinationRow = row - 2;
                 destinationColumn = column + 1;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -133,7 +133,7 @@ namespace Chess_Application
                 destinationRow = row - 2;
                 destinationColumn = column - 1;
 
-                if (chessBoard[destinationRow, destinationColumn].culoare != chessBoard[row, column].culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {

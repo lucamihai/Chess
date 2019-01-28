@@ -7,7 +7,7 @@ namespace Chess_Application
 {
     public class ChessPiece
     {
-        public int culoare = 1;     // 1 - white, 2 - black;
+        public int culoare = 0;     // 1 - white, 2 - black;
         public int tipPiesa = 0;    // 0 - none, 1 - pawn, 2 - rook, 3 - knight, 4 - bishop, 5 - queen, 6 - king;
 
         public PictureBox imaginePiesa;
@@ -15,7 +15,8 @@ namespace Chess_Application
 
         public ChessPiece()
         {
-
+            imagineMicaPiesa = new PictureBox();
+            imagineMicaPiesa.Image = new Bitmap(25, 25);
         }
 
         public ChessPiece(int color, int type, PictureBox pct)
@@ -48,7 +49,7 @@ namespace Chess_Application
         /// <returns></returns>
         public bool TriggersCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
-            if (chessBoard[origRow, origColumn].tipPiesa != Constants.PIECE_TYPE_KING)
+            if (chessBoard[origRow, origColumn].Piece.tipPiesa != Constants.PIECE_TYPE_KING)
             {
                 Point kingPosition;
                 if (MainForm.randMutare == Constants.TURN_WHITE)
@@ -62,26 +63,26 @@ namespace Chess_Application
 
 
                 // Back up origin and destination data
-                int tempOrigColor = chessBoard[origRow, origColumn].culoare;
-                int tempOrigPiece = chessBoard[origRow, origColumn].tipPiesa;
-                int tempDestColor = chessBoard[destinationRow, destinationColumn].culoare;
-                int tempDestPiece = chessBoard[destinationRow, destinationColumn].tipPiesa;
+                int tempOrigColor = chessBoard[origRow, origColumn].Piece.culoare;
+                int tempOrigPiece = chessBoard[origRow, origColumn].Piece.tipPiesa;
+                int tempDestColor = chessBoard[destinationRow, destinationColumn].Piece.culoare;
+                int tempDestPiece = chessBoard[destinationRow, destinationColumn].Piece.tipPiesa;
 
                 // Pretend the move was made
-                chessBoard[origRow, origColumn].culoare = Constants.PIECE_COLOR_NONE;
-                chessBoard[origRow, origColumn].tipPiesa = Constants.PIECE_TYPE_NONE;
-                chessBoard[destinationRow, destinationColumn].culoare = tempOrigColor;
-                chessBoard[destinationRow, destinationColumn].tipPiesa = tempOrigPiece;
+                chessBoard[origRow, origColumn].Piece.culoare = Constants.PIECE_COLOR_NONE;
+                chessBoard[origRow, origColumn].Piece.tipPiesa = Constants.PIECE_TYPE_NONE;
+                chessBoard[destinationRow, destinationColumn].Piece.culoare = tempOrigColor;
+                chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempOrigPiece;
 
                 bool triggersCheck = false;
 
                 triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
                 if (triggersCheck)
                 {
-                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
                     return true;
                 }
@@ -89,10 +90,10 @@ namespace Chess_Application
                 triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
                 if (triggersCheck)
                 {
-                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
                     return true;
                 }
@@ -100,10 +101,10 @@ namespace Chess_Application
                 triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
                 if (triggersCheck)
                 {
-                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
                     return true;
                 }
@@ -111,10 +112,10 @@ namespace Chess_Application
                 triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
                 if (triggersCheck)
                 {
-                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
                     return true;
                 }
@@ -122,10 +123,10 @@ namespace Chess_Application
                 triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
                 if (triggersCheck)
                 {
-                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
                     return true;
                 }
@@ -133,18 +134,18 @@ namespace Chess_Application
                 triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
                 if (triggersCheck)
                 {
-                    chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
                     return true;
                 }
 
-                chessBoard[origRow, origColumn].culoare = tempOrigColor;
-                chessBoard[origRow, origColumn].tipPiesa = tempOrigPiece;
-                chessBoard[destinationRow, destinationColumn].culoare = tempDestColor;
-                chessBoard[destinationRow, destinationColumn].tipPiesa = tempDestPiece;
+                chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
+                chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
+                chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
+                chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
             }
 
             return false;
@@ -154,13 +155,13 @@ namespace Chess_Application
         {
             Box pieceCell = chessBoard[row, column];
 
-            if (pieceCell.culoare == Constants.PIECE_COLOR_WHITE)
+            if (pieceCell.Piece.culoare == Constants.PIECE_COLOR_WHITE)
             {
                 if (chessBoard[row + 1, column - 1] != null)
                 {
-                    if (chessBoard[row + 1, column - 1].culoare == Constants.PIECE_COLOR_BLACK)
+                    if (chessBoard[row + 1, column - 1].Piece.culoare == Constants.PIECE_COLOR_BLACK)
                     {
-                        if (chessBoard[row + 1, column - 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        if (chessBoard[row + 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
                         {
                             return true;
                         }
@@ -169,9 +170,9 @@ namespace Chess_Application
 
                 if (chessBoard[row + 1, column + 1] != null)
                 {
-                    if (chessBoard[row + 1, column + 1].culoare == Constants.PIECE_COLOR_BLACK)
+                    if (chessBoard[row + 1, column + 1].Piece.culoare == Constants.PIECE_COLOR_BLACK)
                     {
-                        if (chessBoard[row + 1, column + 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        if (chessBoard[row + 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
                         {
                             return true;
                         }
@@ -179,13 +180,13 @@ namespace Chess_Application
                 }
             }
 
-            if (pieceCell.culoare == Constants.PIECE_COLOR_BLACK)
+            if (pieceCell.Piece.culoare == Constants.PIECE_COLOR_BLACK)
             {
                 if (chessBoard[row - 1, column - 1] != null)
                 {
-                    if (chessBoard[row - 1, column - 1].culoare == Constants.PIECE_COLOR_WHITE)
+                    if (chessBoard[row - 1, column - 1].Piece.culoare == Constants.PIECE_COLOR_WHITE)
                     {
-                        if (chessBoard[row - 1, column - 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        if (chessBoard[row - 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
                         {
                             return true;
                         }
@@ -194,9 +195,9 @@ namespace Chess_Application
 
                 if (chessBoard[row - 1, column + 1] != null)
                 {
-                    if (chessBoard[row - 1, column + 1].culoare == Constants.PIECE_COLOR_WHITE)
+                    if (chessBoard[row - 1, column + 1].Piece.culoare == Constants.PIECE_COLOR_WHITE)
                     {
-                        if (chessBoard[row - 1, column + 1].tipPiesa == Constants.PIECE_TYPE_PAWN)
+                        if (chessBoard[row - 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
                         {
                             return true;
                         }
@@ -213,9 +214,9 @@ namespace Chess_Application
 
             if (chessBoard[row + 1, column - 1] != null)
             {
-                if (chessBoard[row + 1, column - 1].culoare != pieceCell.culoare)
+                if (chessBoard[row + 1, column - 1].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row + 1, column - 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row + 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -224,9 +225,9 @@ namespace Chess_Application
 
             if (chessBoard[row + 1, column + 1] != null)
             {
-                if (chessBoard[row + 1, column + 1].culoare != pieceCell.culoare)
+                if (chessBoard[row + 1, column + 1].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row + 1, column + 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row + 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -235,9 +236,9 @@ namespace Chess_Application
 
             if (chessBoard[row + 1, column] != null)
             {
-                if (chessBoard[row + 1, column].culoare != pieceCell.culoare)
+                if (chessBoard[row + 1, column].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row + 1, column].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row + 1, column].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -246,9 +247,9 @@ namespace Chess_Application
 
             if (chessBoard[row, column - 1] != null)
             {
-                if (chessBoard[row, column - 1].culoare != pieceCell.culoare)
+                if (chessBoard[row, column - 1].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row, column - 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -257,9 +258,9 @@ namespace Chess_Application
 
             if (chessBoard[row, column + 1] != null)
             {
-                if (chessBoard[row, column + 1].culoare != pieceCell.culoare)
+                if (chessBoard[row, column + 1].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row, column + 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -268,9 +269,9 @@ namespace Chess_Application
 
             if (chessBoard[row - 1, column - 1] != null)
             {
-                if (chessBoard[row - 1, column - 1].culoare != pieceCell.culoare)
+                if (chessBoard[row - 1, column - 1].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row - 1, column - 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row - 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -279,9 +280,9 @@ namespace Chess_Application
 
             if (chessBoard[row - 1, column] != null)
             {
-                if (chessBoard[row - 1, column].culoare != pieceCell.culoare)
+                if (chessBoard[row - 1, column].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row - 1, column].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row - 1, column].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -290,9 +291,9 @@ namespace Chess_Application
 
             if (chessBoard[row - 1, column + 1] != null)
             {
-                if (chessBoard[row - 1, column + 1].culoare != pieceCell.culoare)
+                if (chessBoard[row - 1, column + 1].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row - 1, column + 1].tipPiesa == Constants.PIECE_TYPE_KING)
+                    if (chessBoard[row - 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
                     {
                         return true;
                     }
@@ -308,7 +309,7 @@ namespace Chess_Application
 
             if (row < 8 && column < 7)
             {
-                if (chessBoard[row + 1, column + 2].culoare != pieceCell.culoare && chessBoard[row + 1, column + 2].tipPiesa == 3)
+                if (chessBoard[row + 1, column + 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 1, column + 2].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -316,7 +317,7 @@ namespace Chess_Application
 
             if (row < 8 && column > 2)
             {
-                if (chessBoard[row + 1, column - 2].culoare != pieceCell.culoare && chessBoard[row + 1, column - 2].tipPiesa == 3)
+                if (chessBoard[row + 1, column - 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 1, column - 2].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -325,7 +326,7 @@ namespace Chess_Application
             //-----
             if (row < 7 && column < 8)
             {
-                if (chessBoard[row + 2, column + 1].culoare != pieceCell.culoare && chessBoard[row + 2, column + 1].tipPiesa == 3)
+                if (chessBoard[row + 2, column + 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 2, column + 1].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -333,7 +334,7 @@ namespace Chess_Application
 
             if (row < 7 && column > 1)
             {
-                if (chessBoard[row + 2, column - 1].culoare != pieceCell.culoare && chessBoard[row + 2, column - 1].tipPiesa == 3)
+                if (chessBoard[row + 2, column - 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 2, column - 1].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -342,7 +343,7 @@ namespace Chess_Application
             //-----
             if (row > 1 && column < 7)
             {
-                if (chessBoard[row - 1, column + 2].culoare != pieceCell.culoare && chessBoard[row - 1, column + 2].tipPiesa == 3)
+                if (chessBoard[row - 1, column + 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 1, column + 2].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -350,7 +351,7 @@ namespace Chess_Application
 
             if (row > 1 && column > 2)
             {
-                if (chessBoard[row - 1, column - 2].culoare != pieceCell.culoare && chessBoard[row - 1, column - 2].tipPiesa == 3)
+                if (chessBoard[row - 1, column - 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 1, column - 2].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -359,7 +360,7 @@ namespace Chess_Application
             //-----             
             if (row > 2 && column < 8)
             {
-                if (chessBoard[row - 2, column + 1].culoare != pieceCell.culoare && chessBoard[row - 2, column + 1].tipPiesa == 3)
+                if (chessBoard[row - 2, column + 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 2, column + 1].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -367,7 +368,7 @@ namespace Chess_Application
 
             if (row > 2 && column > 1)
             {
-                if (chessBoard[row - 2, column - 1].culoare != pieceCell.culoare && chessBoard[row - 2, column - 1].tipPiesa == 3)
+                if (chessBoard[row - 2, column - 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 2, column - 1].Piece.tipPiesa == 3)
                 {
                     return true;
                 }
@@ -382,12 +383,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -395,12 +396,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -408,12 +409,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -421,12 +422,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 4)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -441,22 +442,22 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
-                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row, secondaryColumn].tipPiesa == Constants.PIECE_TYPE_ROOK)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -464,22 +465,22 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
-                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row, secondaryColumn].tipPiesa == Constants.PIECE_TYPE_ROOK)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -487,22 +488,22 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
-                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[secondaryRow, column].tipPiesa == Constants.PIECE_TYPE_ROOK)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -510,22 +511,22 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
-                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[secondaryRow, column].tipPiesa == Constants.PIECE_TYPE_ROOK)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -540,12 +541,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -553,12 +554,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -566,12 +567,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -579,12 +580,12 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != pieceCell.culoare && chessBoard[secondaryRow, secondaryColumn].tipPiesa == 5)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
                 {
                     return true;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
                 {
                     break;
                 }
@@ -594,22 +595,22 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
-                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row, secondaryColumn].tipPiesa == 5)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == 5)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -617,22 +618,22 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
-                if (chessBoard[row, secondaryColumn].culoare != pieceCell.culoare)
+                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[row, secondaryColumn].tipPiesa == 5)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == 5)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[row, secondaryColumn].tipPiesa != 2 && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].tipPiesa != 0)
+                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -640,22 +641,22 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
-                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[secondaryRow, column].tipPiesa == 5)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == 5)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                 {
                     break;
                 }
@@ -663,22 +664,22 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
-                if (chessBoard[secondaryRow, column].culoare != pieceCell.culoare)
+                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
                 {
-                    if (chessBoard[secondaryRow, column].tipPiesa == 5)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == 5)
                     {
                         return true;
                     }
 
                     // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[secondaryRow, column].tipPiesa != 2 && chessBoard[secondaryRow, column].tipPiesa != 0)
+                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                     {
                         break;
                     }
                 }
 
                 // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].tipPiesa != 0)
+                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
                 {
                     break;
                 }

@@ -19,12 +19,29 @@ namespace Chess_Application
     {
         public string nume;
         public bool poateFaceMiscari = false;
-        public ChessPiece piesa;
-        public int tipPiesa = 0;
-        public int culoare = 0;
+        ChessPiece _Piece;
         public PictureBox imagineLocatie;
 
         #region Properties
+
+        public ChessPiece Piece
+        {
+            get
+            {
+                return _Piece;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _Piece = value;
+                }
+                else
+                {
+                    _Piece = new ChessPiece();
+                }
+            }
+        }
 
         public short Row { get; }
 
@@ -55,14 +72,14 @@ namespace Chess_Application
             Column = (short)nume[1];
             Column -= (short)'1';
             Column += 1;
+
+            Piece = null;
         }
 
         // Used for boxes with a chess piece on them
         public Box(ChessPiece piece, PictureBox pictureBox)
         {
-            piesa = piece;
-            culoare = piece.culoare;
-            tipPiesa = piece.tipPiesa;
+            Piece = piece;
             imagineLocatie = pictureBox;
             pictureBox.BackgroundImage = piece.imaginePiesa.BackgroundImage;
             nume = pictureBox.Name;

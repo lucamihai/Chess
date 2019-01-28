@@ -33,7 +33,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].culoare == 2)
+                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece.culoare == 2)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column + 1) )
                     {
@@ -42,7 +42,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].culoare == 2)
+                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece.culoare == 2)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column - 1) )
                     {
@@ -77,7 +77,7 @@ namespace Chess_Application
                     }                   
                 }
 
-                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].culoare == 1)
+                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece.culoare == 1)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column + 1) )
                     {
@@ -86,7 +86,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].culoare == 1)
+                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece.culoare == 1)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column - 1) )
                     {
