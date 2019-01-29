@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Chess_Application.Classes;
 
@@ -15,6 +16,8 @@ namespace Chess_Application
 
         public ChessPiece()
         {
+            imaginePiesa = new PictureBox();
+
             imagineMicaPiesa = new PictureBox();
             imagineMicaPiesa.Image = new Bitmap(25, 25);
         }
@@ -25,6 +28,16 @@ namespace Chess_Application
             tipPiesa = type;
             imaginePiesa = pct;
         }
+
+        public ChessPiece(ChessPiece chessPiece)
+        {
+            if (chessPiece != null) { }
+            culoare = chessPiece.culoare;
+            tipPiesa = chessPiece.tipPiesa;
+            imaginePiesa = chessPiece.imaginePiesa;
+            imagineMicaPiesa = chessPiece.imagineMicaPiesa;
+        }
+
 
         /// <summary>
         /// Determines where the piece can move. If boxes where the piece could be moved are found, will mark them as available with MarkAsAvailable().
@@ -63,89 +76,38 @@ namespace Chess_Application
 
 
                 // Back up origin and destination data
-                int tempOrigColor = chessBoard[origRow, origColumn].Piece.culoare;
-                int tempOrigPiece = chessBoard[origRow, origColumn].Piece.tipPiesa;
-                int tempDestColor = chessBoard[destinationRow, destinationColumn].Piece.culoare;
-                int tempDestPiece = chessBoard[destinationRow, destinationColumn].Piece.tipPiesa;
+                ChessPiece originChessPiece = chessBoard[origRow, origColumn].Piece;
+                ChessPiece destinationChessPiece = chessBoard[destinationRow, destinationColumn].Piece;
 
                 // Pretend the move was made
-                chessBoard[origRow, origColumn].Piece.culoare = Constants.PIECE_COLOR_NONE;
-                chessBoard[origRow, origColumn].Piece.tipPiesa = Constants.PIECE_TYPE_NONE;
-                chessBoard[destinationRow, destinationColumn].Piece.culoare = tempOrigColor;
-                chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempOrigPiece;
+                chessBoard[origRow, origColumn].Piece = null;
+                chessBoard[destinationRow, destinationColumn].Piece = originChessPiece;
 
                 bool triggersCheck = false;
 
-                triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
-                if (triggersCheck)
-                {
-                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
+                if (!triggersCheck)
+                    triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
 
-                    return true;
-                }
+                if (!triggersCheck)
+                    triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
 
-                triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
-                if (triggersCheck)
-                {
-                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
+                if (!triggersCheck)
+                    triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
 
-                    return true;
-                }
+                if (!triggersCheck)
+                    triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
 
-                triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
-                if (triggersCheck)
-                {
-                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
+                if (!triggersCheck)
+                    triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
 
-                    return true;
-                }
+                if (!triggersCheck)
+                    triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
 
-                triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
-                if (triggersCheck)
-                {
-                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
 
-                    return true;
-                }
+                chessBoard[origRow, origColumn].Piece = originChessPiece;
+                chessBoard[destinationRow, destinationColumn].Piece = destinationChessPiece;
 
-                triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
-                if (triggersCheck)
-                {
-                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
-
-                    return true;
-                }
-
-                triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
-                if (triggersCheck)
-                {
-                    chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                    chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                    chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                    chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
-
-                    return true;
-                }
-
-                chessBoard[origRow, origColumn].Piece.culoare = tempOrigColor;
-                chessBoard[origRow, origColumn].Piece.tipPiesa = tempOrigPiece;
-                chessBoard[destinationRow, destinationColumn].Piece.culoare = tempDestColor;
-                chessBoard[destinationRow, destinationColumn].Piece.tipPiesa = tempDestPiece;
+                return triggersCheck;
             }
 
             return false;
@@ -153,242 +115,210 @@ namespace Chess_Application
 
         protected bool IsThreatenedByPawns(Box[,] chessBoard, int row, int column)
         {
-            Box pieceCell = chessBoard[row, column];
+            Box currentLocation = chessBoard[row, column];
+            bool threatened = false;
 
-            if (pieceCell.Piece.culoare == Constants.PIECE_COLOR_WHITE)
+            if (currentLocation.Piece.culoare == Constants.PIECE_COLOR_WHITE)
             {
-                if (chessBoard[row + 1, column - 1] != null)
-                {
-                    if (chessBoard[row + 1, column - 1].Piece.culoare == Constants.PIECE_COLOR_BLACK)
-                    {
-                        if (chessBoard[row + 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                if (!threatened)
+                    threatened = LocationContainsPiece<Pawn>(chessBoard[row + 1, column - 1], Constants.PIECE_COLOR_BLACK);
 
-                if (chessBoard[row + 1, column + 1] != null)
-                {
-                    if (chessBoard[row + 1, column + 1].Piece.culoare == Constants.PIECE_COLOR_BLACK)
-                    {
-                        if (chessBoard[row + 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                if (!threatened)
+                    threatened = LocationContainsPiece<Pawn>(chessBoard[row + 1, column + 1], Constants.PIECE_COLOR_BLACK);
             }
 
-            if (pieceCell.Piece.culoare == Constants.PIECE_COLOR_BLACK)
+            if (currentLocation.Piece.culoare == Constants.PIECE_COLOR_BLACK)
             {
-                if (chessBoard[row - 1, column - 1] != null)
-                {
-                    if (chessBoard[row - 1, column - 1].Piece.culoare == Constants.PIECE_COLOR_WHITE)
-                    {
-                        if (chessBoard[row - 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                if (!threatened)
+                    threatened = LocationContainsPiece<Pawn>(chessBoard[row - 1, column - 1], Constants.PIECE_COLOR_WHITE);
 
-                if (chessBoard[row - 1, column + 1] != null)
-                {
-                    if (chessBoard[row - 1, column + 1].Piece.culoare == Constants.PIECE_COLOR_WHITE)
-                    {
-                        if (chessBoard[row - 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                if (!threatened)
+                    threatened = LocationContainsPiece<Pawn>(chessBoard[row - 1, column + 1], Constants.PIECE_COLOR_WHITE);
             }
 
-            return false;
+            return threatened;
         }
 
         protected bool IsThreatenedByKing(Box[,] chessBoard, int row, int column)
         {
-            Box pieceCell = chessBoard[row, column];
+            Box currentLocation = chessBoard[row, column];
+            
+            bool threatened = false;
 
-            if (chessBoard[row + 1, column - 1] != null)
+            bool containsKing = false;
+            Box locationToBeInspected;
+
+            if (!threatened)
             {
-                if (chessBoard[row + 1, column - 1].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row + 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row + 1, column - 1];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row + 1, column + 1] != null)
+            if (!threatened)
             {
-                if (chessBoard[row + 1, column + 1].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row + 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row + 1, column + 1];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+            }
+            
+            if (!threatened)
+            {
+                locationToBeInspected = chessBoard[row + 1, column];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row + 1, column] != null)
+            if (!threatened)
             {
-                if (chessBoard[row + 1, column].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row + 1, column].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row, column - 1];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row, column - 1] != null)
+            if (!threatened)
             {
-                if (chessBoard[row, column - 1].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row, column + 1];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row, column + 1] != null)
+            if (!threatened)
             {
-                if (chessBoard[row, column + 1].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row - 1, column - 1];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row - 1, column - 1] != null)
+            if (!threatened)
             {
-                if (chessBoard[row - 1, column - 1].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row - 1, column - 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row - 1, column];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row - 1, column] != null)
+            if (!threatened)
             {
-                if (chessBoard[row - 1, column].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row - 1, column].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
+                locationToBeInspected = chessBoard[row - 1, column + 1];
+                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
             }
 
-            if (chessBoard[row - 1, column + 1] != null)
-            {
-                if (chessBoard[row - 1, column + 1].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row - 1, column + 1].Piece.tipPiesa == Constants.PIECE_TYPE_KING)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
+            return threatened;
         }
 
         protected bool IsThreatenedByKnights(Box[,] chessBoard, int row, int column)
         {
-            Box pieceCell = chessBoard[row, column];
+            Box currentLocation = chessBoard[row, column];
+            bool threatened = false;
+            bool containsKnight = false;
+            Box locationToBeInspected;
 
-            if (row < 8 && column < 7)
+            if (!threatened)
             {
-                if (chessBoard[row + 1, column + 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 1, column + 2].Piece.tipPiesa == 3)
+                if (row < 8 && column < 7)
                 {
-                    return true;
+                    locationToBeInspected = chessBoard[row + 1, column + 2];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
                 }
             }
 
-            if (row < 8 && column > 2)
+            if (!threatened)
             {
-                if (chessBoard[row + 1, column - 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 1, column - 2].Piece.tipPiesa == 3)
+                if (row < 8 && column > 2)
                 {
-                    return true;
-                }
-            }
-
-            //-----
-            if (row < 7 && column < 8)
-            {
-                if (chessBoard[row + 2, column + 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 2, column + 1].Piece.tipPiesa == 3)
-                {
-                    return true;
-                }
-            }
-
-            if (row < 7 && column > 1)
-            {
-                if (chessBoard[row + 2, column - 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row + 2, column - 1].Piece.tipPiesa == 3)
-                {
-                    return true;
+                    locationToBeInspected = chessBoard[row + 1, column - 2];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
                 }
             }
 
             //-----
-            if (row > 1 && column < 7)
+            if (!threatened)
             {
-                if (chessBoard[row - 1, column + 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 1, column + 2].Piece.tipPiesa == 3)
+                if (row < 7 && column < 8)
                 {
-                    return true;
+                    locationToBeInspected = chessBoard[row + 2, column + 1];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
                 }
             }
 
-            if (row > 1 && column > 2)
+            if (!threatened)
             {
-                if (chessBoard[row - 1, column - 2].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 1, column - 2].Piece.tipPiesa == 3)
+                if (row < 7 && column > 1)
                 {
-                    return true;
+                    locationToBeInspected = chessBoard[row + 2, column - 1];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
                 }
             }
 
-            //-----             
-            if (row > 2 && column < 8)
+            //-----
+            if (!threatened)
             {
-                if (chessBoard[row - 2, column + 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 2, column + 1].Piece.tipPiesa == 3)
+                if (row > 1 && column < 7)
                 {
-                    return true;
+                    locationToBeInspected = chessBoard[row - 1, column + 2];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
                 }
             }
 
-            if (row > 2 && column > 1)
+            if (!threatened)
             {
-                if (chessBoard[row - 2, column - 1].Piece.culoare != pieceCell.Piece.culoare && chessBoard[row - 2, column - 1].Piece.tipPiesa == 3)
+                if (row > 1 && column > 2)
                 {
-                    return true;
+                    locationToBeInspected = chessBoard[row - 1, column - 2];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
                 }
             }
 
-            return false;
+            //----- 
+            if (!threatened)
+            {
+                if (row > 2 && column < 8)
+                {
+                    locationToBeInspected = chessBoard[row - 2, column + 1];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+                }
+            }
+
+            if (!threatened)
+            {
+                if (row > 2 && column > 1)
+                {
+                    locationToBeInspected = chessBoard[row - 2, column - 1];
+                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+                }
+            }
+
+            return threatened;
         }
 
         protected bool IsThreatenedByBishops(Box[,] chessBoard, int row, int column)
         {
-            Box pieceCell = chessBoard[row, column];
+            Box currentLocation = chessBoard[row, column];
+            bool threatened = false;
+            bool containsBishop = false;
+            Box locationToBeInspected;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsBishop && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsBishop && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -396,12 +326,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsBishop && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsBishop && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -409,12 +343,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsBishop && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsBishop && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -422,42 +360,43 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 4)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsBishop && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsBishop && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
             }
 
-            return false;
+            return threatened;
         }
 
         protected bool IsThreatenedByRooks(Box[,] chessBoard, int row, int column)
         {
-            Box pieceCell = chessBoard[row, column];
+            Box currentLocation = chessBoard[row, column];
+            bool threatened = false;
+            bool containsRook = false;
+            Box locationToBeInspected;
 
             for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
-                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[row, secondaryColumn];
+                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsRook && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
+                if (!containsRook && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -465,22 +404,16 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
-                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[row, secondaryColumn];
+                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsRook && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
+                if (!containsRook && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -488,22 +421,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
-                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[secondaryRow, column];
+                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsRook && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
+                if (!containsRook && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -511,42 +438,43 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
-                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == Constants.PIECE_TYPE_ROOK)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[secondaryRow, column];
+                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the piece
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsRook && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color was found, further rooks can't threaten the piece
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
+                if (!containsRook && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
             }
 
-            return false;
+            return threatened;
         }
 
         protected bool IsThreatenedByQueen(Box[,] chessBoard, int row, int column)
         {
-            Box pieceCell = chessBoard[row, column];
+            Box currentLocation = chessBoard[row, column];
+            bool threatened = false;
+            bool containsQueen = false;
+            Box locationToBeInspected;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -554,12 +482,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -567,12 +499,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -580,12 +516,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare && chessBoard[secondaryRow, secondaryColumn].Piece.tipPiesa == 5)
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
+
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
                 {
-                    return true;
+                    break;
                 }
 
-                if (chessBoard[secondaryRow, secondaryColumn].Piece.culoare != 0 && chessBoard[secondaryRow, secondaryColumn] != pieceCell)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -595,22 +535,16 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
-                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == 5)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[row, secondaryColumn];
+                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -618,22 +552,16 @@ namespace Chess_Application
 
             for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
-                if (chessBoard[row, secondaryColumn].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa == 5)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[row, secondaryColumn];
+                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[row, secondaryColumn].Piece.tipPiesa != 2 && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[row, secondaryColumn] != pieceCell && chessBoard[row, secondaryColumn].Piece.tipPiesa != 0)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -641,22 +569,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
-                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == 5)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[secondaryRow, column];
+                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -664,22 +586,16 @@ namespace Chess_Application
 
             for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
-                if (chessBoard[secondaryRow, column].Piece.culoare != pieceCell.Piece.culoare)
-                {
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa == 5)
-                    {
-                        return true;
-                    }
+                locationToBeInspected = chessBoard[secondaryRow, column];
+                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
-                    // If other piece was found, further rooks can't threaten the king
-                    if (chessBoard[secondaryRow, column].Piece.tipPiesa != 2 && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
-                    {
-                        break;
-                    }
+                if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
+                {
+                    break;
                 }
 
-                // If a piece of the same color as the king's was found, further rooks can't threaten the king
-                else if (chessBoard[secondaryRow, column] != pieceCell && chessBoard[secondaryRow, column].Piece.tipPiesa != 0)
+                if (!containsQueen && locationToBeInspected.Piece != null)
                 {
                     break;
                 }
@@ -688,6 +604,25 @@ namespace Chess_Application
             return false;
         }
 
+        protected bool LocationContainsPiece<TYPE>(Box location, int color = 0)
+        {
+            if (location != null)
+            {
+                ChessPiece piece = location.Piece;
+                if (piece != null)
+                {
+                    if (piece is TYPE)
+                    {
+                        if (piece.culoare == color || color == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
 

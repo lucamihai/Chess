@@ -19,29 +19,11 @@ namespace Chess_Application
     {
         public string nume;
         public bool poateFaceMiscari = false;
-        ChessPiece _Piece;
         public PictureBox imagineLocatie;
 
         #region Properties
 
-        public ChessPiece Piece
-        {
-            get
-            {
-                return _Piece;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    _Piece = value;
-                }
-                else
-                {
-                    _Piece = new ChessPiece();
-                }
-            }
-        }
+        public ChessPiece Piece{ get; set; }
 
         public short Row { get; }
 

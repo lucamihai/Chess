@@ -19,12 +19,14 @@ namespace Chess_Application
             imagineMicaPiesa = pm;
             tipPiesa = 1;
         }
+        
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
+            Box locationToBeInspected;
             // White pawn
             if (culoare == 1)
             {
-                if (chessBoard[row + 1, column] != null && chessBoard[row + 1, column].imagineLocatie.BackgroundImage == null)
+                if (chessBoard[row + 1, column] != null && chessBoard[row + 1, column].Piece == null)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column) )
                     {
@@ -33,7 +35,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece.culoare == 2)
+                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece != null && chessBoard[row + 1, column + 1].Piece.culoare == 2)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column + 1) )
                     {
@@ -42,7 +44,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece.culoare == 2)
+                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece != null && chessBoard[row + 1, column - 1].Piece.culoare == 2)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column - 1) )
                     {
@@ -54,7 +56,7 @@ namespace Chess_Application
                 // Check if pawn can make 2 steps forward
                 if (row == 2 && chessBoard[row + 2, column] != null )
                 {
-                    if (chessBoard[row + 2, column].imagineLocatie.BackgroundImage == null && chessBoard[row + 1, column].imagineLocatie.BackgroundImage == null)
+                    if (chessBoard[row + 2, column].Piece == null && chessBoard[row + 1, column].Piece == null)
                     {
                         if (!TriggersCheck(chessBoard, row, column, row + 2, column))
                         {
@@ -68,7 +70,7 @@ namespace Chess_Application
             // Black pawn
             if (culoare == 2)
             {
-                if (chessBoard[row - 1, column] != null && chessBoard[row - 1, column].imagineLocatie.BackgroundImage == null)
+                if (chessBoard[row - 1, column] != null && chessBoard[row - 1, column].Piece == null)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column) )
                     {
@@ -77,7 +79,7 @@ namespace Chess_Application
                     }                   
                 }
 
-                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece.culoare == 1)
+                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece != null && chessBoard[row - 1, column + 1].Piece.culoare == 1)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column + 1) )
                     {
@@ -86,7 +88,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece.culoare == 1)
+                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece != null && chessBoard[row - 1, column - 1].Piece.culoare == 1)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column - 1) )
                     {
@@ -98,7 +100,7 @@ namespace Chess_Application
                 // Check if pawn can make 2 steps forward
                 if (row == 7 && chessBoard[row - 2, column] != null)
                 {
-                    if (chessBoard[row - 2, column].imagineLocatie.BackgroundImage == null && chessBoard[row - 1, column].imagineLocatie.BackgroundImage == null)
+                    if (chessBoard[row - 2, column].Piece == null && chessBoard[row - 1, column].Piece == null)
                     {
                         if (!TriggersCheck(chessBoard, row, column, row - 2, column))
                         {
