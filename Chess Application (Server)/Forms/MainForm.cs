@@ -777,7 +777,7 @@ namespace Chess_Application
         {
             AddMoveHistoryEntry(origin, destination);
 
-            if (destination.Piece.tipPiesa != 0)
+            if (destination.Piece != null)
             {
                 UpdateCapturedPiecesCounter(destination);
             }
@@ -832,7 +832,7 @@ namespace Chess_Application
             AddMoveHistoryEntry(origin, destination);
 
             // If the destionation has a piece, it will be removed => increase the counter of the captured piece type
-            if (destination.Piece.tipPiesa != 0)
+            if (destination.Piece != null)
             {
                 UpdateCapturedPiecesCounter(destination);
             }
@@ -1206,7 +1206,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (ChessBoard[i, j].Piece.culoare == 1 && ChessBoard[i, j].Piece != null)
+                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.culoare == 1)
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
@@ -1229,7 +1229,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (ChessBoard[i, j].Piece.culoare == 2 && ChessBoard[i, j].Piece != null)
+                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.culoare == 2)
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 

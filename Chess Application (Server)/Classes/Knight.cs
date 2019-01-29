@@ -28,7 +28,18 @@ namespace Chess_Application
                 destinationRow = row + 1;
                 destinationColumn = column + 2;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -43,7 +54,18 @@ namespace Chess_Application
                 destinationRow = row + 1;
                 destinationColumn = column - 2;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -58,7 +80,18 @@ namespace Chess_Application
                 destinationRow = row + 2;
                 destinationColumn = column + 1;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -73,7 +106,18 @@ namespace Chess_Application
                 destinationRow = row + 2;
                 destinationColumn = column - 1;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -88,7 +132,18 @@ namespace Chess_Application
                 destinationRow = row - 1;
                 destinationColumn = column + 2;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -103,7 +158,18 @@ namespace Chess_Application
                 destinationRow = row - 1;
                 destinationColumn = column - 2;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -118,7 +184,18 @@ namespace Chess_Application
                 destinationRow = row - 2;
                 destinationColumn = column + 1;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
@@ -133,7 +210,18 @@ namespace Chess_Application
                 destinationRow = row - 2;
                 destinationColumn = column - 1;
 
-                if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                if (chessBoard[destinationRow, destinationColumn].Piece != null)
+                {
+                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    {
+                        if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
+                        {
+                            chessBoard[destinationRow, destinationColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
+                    }
+                }
+                else
                 {
                     if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                     {
