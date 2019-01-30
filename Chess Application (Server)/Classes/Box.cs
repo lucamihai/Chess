@@ -17,10 +17,11 @@ namespace Chess_Application
 {
     public class Box
     {
-        public string nume;
-        public PictureBox imagineLocatie;
+        public PictureBox pictureBox;
 
         #region Properties
+
+        public string Name { get; set; }
 
         public ChessPiece Piece{ get; set; }
 
@@ -41,7 +42,7 @@ namespace Chess_Application
 
                 if (_Available && MainForm.modInceptator)
                 {
-                    imagineLocatie.BackColor = Color.Green;
+                    pictureBox.BackColor = Color.Green;
                 }
             }
         }
@@ -55,29 +56,29 @@ namespace Chess_Application
 
         public Box(PictureBox pictureBox, ChessPiece piece = null)
         {
-            nume = pictureBox.Name;
-            nume = nume.Substring(1);
-            nume = Utilities.GetReversedString(nume);
+            Name = pictureBox.Name;
+            Name = Name.Substring(1);
+            Name = Utilities.GetReversedString(Name);
 
-            Row = (short)nume[0];
+            Row = (short)Name[0];
             Row -= (short)'A';
             Row += 1;
 
-            Column = (short)nume[1];
+            Column = (short)Name[1];
             Column -= (short)'1';
             Column += 1;
 
             Piece = piece;
 
-            imagineLocatie = pictureBox;
-            imagineLocatie.BackgroundImage = (Piece != null) ? piece.PictureBox.BackgroundImage : null;
+            this.pictureBox = pictureBox;
+            this.pictureBox.BackgroundImage = (Piece != null) ? piece.PictureBox.BackgroundImage : null;
 
             Available = false;
         }
 
         public void RemovePieceImage()
         {
-            imagineLocatie.BackgroundImage = null;
+            pictureBox.BackgroundImage = null;
         }
     }
 }

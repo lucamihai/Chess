@@ -158,7 +158,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    ChessBoard[i, j].imagineLocatie.Click += BoxClick;
+                    ChessBoard[i, j].pictureBox.Click += BoxClick;
                 }
             }
 
@@ -782,7 +782,7 @@ namespace Chess_Application
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            string message = string.Format("#{0} {1}", origin.nume, destination.nume);
+            string message = string.Format("#{0} {1}", origin.Name, destination.Name);
             SendMessage(message);
 
             PerformMove(origin, destination);
@@ -869,35 +869,33 @@ namespace Chess_Application
         void PerformMove(Box origin, Box destination)
         {
             destination.Piece = origin.Piece;
-            destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
+            destination.pictureBox.BackgroundImage = origin.pictureBox.BackgroundImage;
 
             origin.Piece = null;
-            origin.RemovePieceImage();
+            //origin.RemovePieceImage();
         }
 
         #endregion
 
         void AddMoveHistoryEntry(Box origin, Box destination)
         {
-            // If the destination has a piece, add its image to the entry
             if (destination.Piece != null)
             {
                 listaMiscari.Rows.Add(
                     moveNumber++,
-                    origin.nume + " -> " + destination.nume,
+                    origin.Name + " -> " + destination.Name,
                     origin.Piece.ImageSmall,
                     destination.Piece.ImageSmall
                 );
             }
 
-            // If the destination doesn't have a piece, add an empty image
             if (destination.Piece == null)
             {
                 Bitmap emptyImage = new Bitmap(25, 25);
 
                 listaMiscari.Rows.Add(
                     moveNumber++,
-                    origin.nume + " -> " + destination.nume,
+                    origin.Name + " -> " + destination.Name,
                     origin.Piece.ImageSmall,
                     emptyImage
                 );
@@ -975,13 +973,13 @@ namespace Chess_Application
         {
             if (destination.Piece.Color == Constants.PIECE_COLOR_WHITE)
             {
-                pozitieRegeAlb.X = destination.nume[0] - 64;
-                pozitieRegeAlb.Y = destination.nume[1] - 48;
+                pozitieRegeAlb.X = destination.Name[0] - 64;
+                pozitieRegeAlb.Y = destination.Name[1] - 48;
             }
             if (destination.Piece.Color == Constants.PIECE_COLOR_BLACK)
             {
-                pozitieRegeNegru.X = destination.nume[0] - 64;
-                pozitieRegeNegru.Y = destination.nume[1] - 48;
+                pozitieRegeNegru.X = destination.Name[0] - 64;
+                pozitieRegeNegru.Y = destination.Name[1] - 48;
             }
         }
 
@@ -990,12 +988,12 @@ namespace Chess_Application
             // If a white pawn has reached the last line
             if (randMutare == Constants.TURN_WHITE)
             {
-                if (destination.nume.Contains('H') && destination.Piece is Pawn)
+                if (destination.Name.Contains('H') && destination.Piece is Pawn)
                 {
                     if (counterCapturedRooksWhite + counterCapturedKnightsWhite + counterCapturedBishopsWhite + counterCapturedQueenWhite > 0)
                     {
                         retakeRow = 8;
-                        retakeColumn = destination.nume[1] - 48;
+                        retakeColumn = destination.Name[1] - 48;
                         currentPlayerMustSelect = true;
 
                         SendMessage("#selectie");
@@ -1007,12 +1005,12 @@ namespace Chess_Application
             // If a black pawn has reached the last line
             if (randMutare == Constants.TURN_BLACK)
             {
-                if (destination.nume.Contains('A') && destination.Piece is Pawn)
+                if (destination.Name.Contains('A') && destination.Piece is Pawn)
                 {
                     if (counterCapturedRooksBlack + counterCapturedKnightsBlack + counterCapturedBishopsBlack + counterCapturedQueenBlack > 0)
                     {
                         retakeRow = 1;
-                        retakeColumn = destination.nume[1] - 48;
+                        retakeColumn = destination.Name[1] - 48;
                         currentPlayerMustSelect = true;
 
                         SendMessage("#selectie");
@@ -1058,7 +1056,7 @@ namespace Chess_Application
         void RetakePiece(Box origin, Box destination)
         {
             destination.Piece = origin.Piece;
-            destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
+            destination.pictureBox.BackgroundImage = origin.pictureBox.BackgroundImage;
 
             textBox1.AppendText("O piesa a fost selectata" + Environment.NewLine);
         }
@@ -1258,11 +1256,11 @@ namespace Chess_Application
                 {
                     if ( (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1) )
                     {
-                        ChessBoard[i, j].imagineLocatie.BackColor = BoxColorDark;
+                        ChessBoard[i, j].pictureBox.BackColor = BoxColorDark;
                     }
                     else
                     {
-                        ChessBoard[i, j].imagineLocatie.BackColor = BoxColorLight;
+                        ChessBoard[i, j].pictureBox.BackColor = BoxColorLight;
                     }
                 }
             }
