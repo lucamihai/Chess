@@ -872,11 +872,7 @@ namespace Chess_Application
         {
             destination.Piece = origin.Piece;
             destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
-            destination.Piece.tipPiesa = origin.Piece.tipPiesa;
-            destination.Piece.culoare = origin.Piece.culoare;
 
-            origin.Piece.culoare = 0;
-            origin.Piece.tipPiesa = 0;
             origin.Piece = null;
             origin.RemovePieceImage();
         }

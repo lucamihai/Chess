@@ -22,79 +22,133 @@ namespace Chess_Application
 
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
+            Box startLocation = chessBoard[row, column];
+            Box locationToBeInspected;
             // Check movement to the south - west
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
-                if (chessBoard[row, column].Piece.culoare != chessBoard[secondaryRow, secondaryColumn].Piece.culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn)) 
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+
+                if (locationToBeInspected.Piece == null)
                 {
-                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    chessBoard[row, column].poateFaceMiscari = true;
+                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    {
+                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
                 }
 
-                // If a piece was found
-                if (chessBoard[secondaryRow - 1, secondaryColumn - 1] != null)
+                if (locationToBeInspected.Piece != null)
                 {
-                    if (chessBoard[secondaryRow - 1, secondaryColumn - 1].Piece.culoare != 0)
+                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
                     {
-                        break;
+                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        {
+                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
                     }
+
+                    break;
                 }
             }
 
             // Check movement to the north - east
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
-                if (chessBoard[row, column].Piece.culoare != chessBoard[secondaryRow, secondaryColumn].Piece.culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+
+                if (locationToBeInspected.Piece == null)
                 {
-                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    chessBoard[row, column].poateFaceMiscari = true;
+                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    {
+                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
                 }
 
-                // If a piece was found
-                if (chessBoard[secondaryRow + 1, secondaryColumn + 1] != null)
+                if (locationToBeInspected.Piece != null)
                 {
-                    if (chessBoard[secondaryRow + 1, secondaryColumn + 1].Piece.culoare != 0)
+                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
                     {
-                        break;
+                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        {
+                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
                     }
+
+                    break;
                 }
             }
 
             // Check movement to the north - west
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
-                if (chessBoard[row, column].Piece.culoare != chessBoard[secondaryRow, secondaryColumn].Piece.culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+
+                if (locationToBeInspected.Piece == null)
                 {
-                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    chessBoard[row, column].poateFaceMiscari = true;
+                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    {
+                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
                 }
 
-                // If a piece was found
-                if (chessBoard[secondaryRow + 1, secondaryColumn - 1] != null)
+                if (locationToBeInspected.Piece != null)
                 {
-                    if (chessBoard[secondaryRow + 1, secondaryColumn - 1].Piece.culoare != 0)
+                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
                     {
-                        break;
+                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        {
+                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
                     }
+
+                    break;
                 }
             }
 
             // Check movement to the south - east
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
-                if (chessBoard[row, column].Piece.culoare != chessBoard[secondaryRow, secondaryColumn].Piece.culoare && !TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
+                locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
+
+                if (locationToBeInspected.Piece == null)
                 {
-                    chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                    chessBoard[row, column].poateFaceMiscari = true;
+                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    {
+                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                        chessBoard[row, column].poateFaceMiscari = true;
+                    }
                 }
 
-                // If a piece was found
-                if (chessBoard[secondaryRow - 1, secondaryColumn + 1] != null)
+                if (locationToBeInspected.Piece != null)
                 {
-                    if (chessBoard[secondaryRow - 1, secondaryColumn + 1].Piece.culoare != 0)
+                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
                     {
-                        break;
+                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        {
+                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
+                            chessBoard[row, column].poateFaceMiscari = true;
+                        }
                     }
+
+                    break;
                 }
             }
         }
