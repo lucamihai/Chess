@@ -12,11 +12,10 @@ namespace Chess_Application
 {
     public class Bishop : ChessPiece
     {
-        public Bishop(int c, PictureBox p, PictureBox pm)
+        public Bishop(int c, PictureBox p)
         {
             Color = c;
-            imaginePiesa = p;
-            imagineMicaPiesa = pm;
+            PictureBox = p;
         }
 
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)

@@ -16,14 +16,11 @@ namespace Chess_Application
 {
     public class King : ChessPiece
     {
-        public King(int c, PictureBox p, PictureBox pm)
+        public King(int c, PictureBox p)
         {
             Color = c;
-            imaginePiesa = p;
-            imagineMicaPiesa = pm;
+            PictureBox = p;
         }
-
-        public King(ChessPiece chessPiece) : base(chessPiece) { }
 
         public override void CheckPossibilities(int i, int j, Box[,] chessBoard)
         {

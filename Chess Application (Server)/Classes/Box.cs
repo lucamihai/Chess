@@ -70,7 +70,7 @@ namespace Chess_Application
             Piece = piece;
 
             imagineLocatie = pictureBox;
-            imagineLocatie.BackgroundImage = (Piece != null) ? piece.imaginePiesa.BackgroundImage : null;
+            imagineLocatie.BackgroundImage = (Piece != null) ? piece.PictureBox.BackgroundImage : null;
 
             Available = false;
         }

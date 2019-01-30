@@ -111,42 +111,42 @@ namespace Chess_Application
 
             #region Initialize chess pieces
 
-            whiteRook1 = new Rook(1, pbTuraAlb, pbTuraAlbMic);
-            whiteRook2 = new Rook(1, pbTuraAlb, pbTuraAlbMic);
-            whiteKnight1 = new Knight(1, pbCalAlb, pbCalAlbMic);
-            whiteKnight2 = new Knight(1, pbCalAlb, pbCalAlbMic);
-            whiteBishop1 = new Bishop(1, pbNebunAlb, pbNebunAlbMic);
-            whiteBishop2 = new Bishop(1, pbNebunAlb, pbNebunAlbMic);
-            whiteQueen = new Queen(1, pbReginaAlb, pbReginaAlbMic);
-            whiteKing = new King(1, pbRegeAlb, pbRegeAlbMic);
+            whiteRook1 = new Rook(1, pbTuraAlb);
+            whiteRook2 = new Rook(1, pbTuraAlb);
+            whiteKnight1 = new Knight(1, pbCalAlb);
+            whiteKnight2 = new Knight(1, pbCalAlb);
+            whiteBishop1 = new Bishop(1, pbNebunAlb);
+            whiteBishop2 = new Bishop(1, pbNebunAlb);
+            whiteQueen = new Queen(1, pbReginaAlb);
+            whiteKing = new King(1, pbRegeAlb);
 
-            whitePawn1 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn2 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn3 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn4 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn5 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn6 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn7 = new Pawn(1, pbPionAlb, pbPionAlbMic);
-            whitePawn8 = new Pawn(1, pbPionAlb, pbPionAlbMic);
+            whitePawn1 = new Pawn(1, pbPionAlb);
+            whitePawn2 = new Pawn(1, pbPionAlb);
+            whitePawn3 = new Pawn(1, pbPionAlb);
+            whitePawn4 = new Pawn(1, pbPionAlb);
+            whitePawn5 = new Pawn(1, pbPionAlb);
+            whitePawn6 = new Pawn(1, pbPionAlb);
+            whitePawn7 = new Pawn(1, pbPionAlb);
+            whitePawn8 = new Pawn(1, pbPionAlb);
 
             
-            blackRook1 = new Rook(2, pbTuraNegru, pbTuraNegruMic);
-            blackRook2 = new Rook(2, pbTuraNegru, pbTuraNegruMic);
-            blackKnight1 = new Knight(2, pbCalNegru, pbCalNegruMic);
-            blackKnight2 = new Knight(2, pbCalNegru, pbCalNegruMic);
-            blackBishop1 = new Bishop(2, pbNebunNegru, pbNebunNegruMic);
-            blackBishop2 = new Bishop(2, pbNebunNegru, pbNebunNegruMic);
-            blackQueen = new Queen(2, pbReginaNegru, pbReginaNegruMic);
-            blackKing = new King(2, pbRegeNegru, pbRegeNegruMic);
+            blackRook1 = new Rook(2, pbTuraNegru);
+            blackRook2 = new Rook(2, pbTuraNegru);
+            blackKnight1 = new Knight(2, pbCalNegru);
+            blackKnight2 = new Knight(2, pbCalNegru);
+            blackBishop1 = new Bishop(2, pbNebunNegru);
+            blackBishop2 = new Bishop(2, pbNebunNegru);
+            blackQueen = new Queen(2, pbReginaNegru);
+            blackKing = new King(2, pbRegeNegru);
 
-            blackPawn1 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn2 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn3 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn4 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn5 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn6 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn7 = new Pawn(2, pbPionNegru, pbPionNegruMic);
-            blackPawn8 = new Pawn(2, pbPionNegru, pbPionNegruMic);
+            blackPawn1 = new Pawn(2, pbPionNegru);
+            blackPawn2 = new Pawn(2, pbPionNegru);
+            blackPawn3 = new Pawn(2, pbPionNegru);
+            blackPawn4 = new Pawn(2, pbPionNegru);
+            blackPawn5 = new Pawn(2, pbPionNegru);
+            blackPawn6 = new Pawn(2, pbPionNegru);
+            blackPawn7 = new Pawn(2, pbPionNegru);
+            blackPawn8 = new Pawn(2, pbPionNegru);
 
             #endregion
 
@@ -885,8 +885,8 @@ namespace Chess_Application
                 listaMiscari.Rows.Add(
                     moveNumber++,
                     origin.nume + " -> " + destination.nume,
-                    origin.Piece.imagineMicaPiesa.Image,
-                    destination.Piece.imagineMicaPiesa.Image
+                    origin.Piece.ImageSmall,
+                    destination.Piece.ImageSmall
                 );
             }
 
@@ -898,7 +898,7 @@ namespace Chess_Application
                 listaMiscari.Rows.Add(
                     moveNumber++,
                     origin.nume + " -> " + destination.nume,
-                    origin.Piece.imagineMicaPiesa.Image,
+                    origin.Piece.ImageSmall,
                     emptyImage
                 );
             }
@@ -1310,13 +1310,13 @@ namespace Chess_Application
             }
 
             // First click on a box with a chess piece
-            if (clickCounter == 0 && clickedBox.BackgroundImage != null && randMutare == clickedBoxObject.Piece.Color && rand)
+            if (clickCounter == 0 && clickedBoxObject.Piece != null && randMutare == clickedBoxObject.Piece.Color && rand)
             {
                 short row = clickedBoxObject.Row;
                 short column = clickedBoxObject.Column;
 
                 clickedBoxObject.Piece.CheckPossibilities(row, column, ChessBoard);
-                if (clickedBoxObject.Piece.CanMove == true)
+                if (clickedBoxObject.Piece.CanMove)
                 {
                     orig = clickedBoxObject;
                     clickCounter++;

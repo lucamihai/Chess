@@ -8,31 +8,43 @@ namespace Chess_Application
 {
     public class ChessPiece
     {
-        public int Color { get; protected set; }     // 1 - white, 2 - black;
+        // 1 - white, 2 - black;
+        public int Color { get; protected set; } 
+
         public bool CanMove { get; set; } = false;
 
-        public PictureBox imaginePiesa;
-        public PictureBox imagineMicaPiesa;
+        public Image ImageSmall { get; private set; }
+
+        PictureBox _PictureBox;
+        public PictureBox PictureBox
+        {
+            get
+            {
+                return _PictureBox;
+            }
+            set
+            {
+                _PictureBox = value;
+
+                if (_PictureBox != null && _PictureBox.BackgroundImage != null)
+                {
+                    ImageSmall = Utilities.ResizeImage(_PictureBox.BackgroundImage, 25, 25);
+                }
+            }
+        }
+
 
         public ChessPiece()
         {
-            imaginePiesa = new PictureBox();
+            PictureBox = new PictureBox();
 
-            imagineMicaPiesa = new PictureBox();
-            imagineMicaPiesa.Image = new Bitmap(25, 25);
+            ImageSmall = new Bitmap(25, 25);
         }
 
-        public ChessPiece(int color, PictureBox pct)
+        public ChessPiece(int color, PictureBox chessPiecePictureBox)
         {
             Color = color;
-            imaginePiesa = pct;
-        }
-
-        public ChessPiece(ChessPiece chessPiece)
-        {
-            Color = chessPiece.Color;
-            imaginePiesa = chessPiece.imaginePiesa;
-            imagineMicaPiesa = chessPiece.imagineMicaPiesa;
+            PictureBox = chessPiecePictureBox;
         }
 
 
@@ -118,19 +130,19 @@ namespace Chess_Application
             if (currentLocation.Piece.Color == Constants.PIECE_COLOR_WHITE)
             {
                 if (!threatened)
-                    threatened = LocationContainsPiece<Pawn>(chessBoard[row + 1, column - 1], Constants.PIECE_COLOR_BLACK);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column - 1], Constants.PIECE_COLOR_BLACK);
 
                 if (!threatened)
-                    threatened = LocationContainsPiece<Pawn>(chessBoard[row + 1, column + 1], Constants.PIECE_COLOR_BLACK);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column + 1], Constants.PIECE_COLOR_BLACK);
             }
 
             if (currentLocation.Piece.Color == Constants.PIECE_COLOR_BLACK)
             {
                 if (!threatened)
-                    threatened = LocationContainsPiece<Pawn>(chessBoard[row - 1, column - 1], Constants.PIECE_COLOR_WHITE);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column - 1], Constants.PIECE_COLOR_WHITE);
 
                 if (!threatened)
-                    threatened = LocationContainsPiece<Pawn>(chessBoard[row - 1, column + 1], Constants.PIECE_COLOR_WHITE);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column + 1], Constants.PIECE_COLOR_WHITE);
             }
 
             return threatened;
@@ -148,56 +160,56 @@ namespace Chess_Application
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row + 1, column - 1];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row + 1, column + 1];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
             
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row + 1, column];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row, column - 1];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row, column + 1];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row - 1, column - 1];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row - 1, column];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
                 locationToBeInspected = chessBoard[row - 1, column + 1];
-                containsKing = LocationContainsPiece<King>(locationToBeInspected);
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
@@ -216,7 +228,7 @@ namespace Chess_Application
                 if (row < 8 && column < 7)
                 {
                     locationToBeInspected = chessBoard[row + 1, column + 2];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -226,7 +238,7 @@ namespace Chess_Application
                 if (row < 8 && column > 2)
                 {
                     locationToBeInspected = chessBoard[row + 1, column - 2];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -238,7 +250,7 @@ namespace Chess_Application
                 if (row < 7 && column < 8)
                 {
                     locationToBeInspected = chessBoard[row + 2, column + 1];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -248,7 +260,7 @@ namespace Chess_Application
                 if (row < 7 && column > 1)
                 {
                     locationToBeInspected = chessBoard[row + 2, column - 1];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -260,7 +272,7 @@ namespace Chess_Application
                 if (row > 1 && column < 7)
                 {
                     locationToBeInspected = chessBoard[row - 1, column + 2];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -270,7 +282,7 @@ namespace Chess_Application
                 if (row > 1 && column > 2)
                 {
                     locationToBeInspected = chessBoard[row - 1, column - 2];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -282,7 +294,7 @@ namespace Chess_Application
                 if (row > 2 && column < 8)
                 {
                     locationToBeInspected = chessBoard[row - 2, column + 1];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -292,7 +304,7 @@ namespace Chess_Application
                 if (row > 2 && column > 1)
                 {
                     locationToBeInspected = chessBoard[row - 2, column - 1];
-                    containsKnight = LocationContainsPiece<Knight>(locationToBeInspected);
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
             }
@@ -314,7 +326,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -335,7 +347,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -356,7 +368,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -377,7 +389,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -408,7 +420,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[row, secondaryColumn];
-                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -429,7 +441,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[row, secondaryColumn];
-                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -450,7 +462,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, column];
-                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -471,7 +483,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, column];
-                containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -502,7 +514,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -523,7 +535,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -544,7 +556,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -565,7 +577,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -586,7 +598,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[row, secondaryColumn];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -607,7 +619,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[row, secondaryColumn];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -628,7 +640,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, column];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -649,7 +661,7 @@ namespace Chess_Application
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, column];
-                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
                 if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
@@ -664,26 +676,6 @@ namespace Chess_Application
             }
 
             return threatened;
-        }
-
-        protected bool LocationContainsPiece<TYPE>(Box location, int color = 0)
-        {
-            if (location != null)
-            {
-                ChessPiece piece = location.Piece;
-                if (piece != null)
-                {
-                    if (piece is TYPE)
-                    {
-                        if (piece.Color == color || color == 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }
