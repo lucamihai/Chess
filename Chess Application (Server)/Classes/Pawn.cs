@@ -29,8 +29,8 @@ namespace Chess_Application
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column) )
                     {
-                        chessBoard[row + 1, column].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        chessBoard[row + 1, column].Available = true;
+                        chessBoard[row, column].Piece.CanMove = true;
                     }
                 }
 
@@ -38,8 +38,8 @@ namespace Chess_Application
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column + 1) )
                     {
-                        chessBoard[row + 1, column + 1].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        chessBoard[row + 1, column + 1].Available = true;
+                        chessBoard[row, column].Piece.CanMove = true;
                     }
                 }
 
@@ -47,8 +47,8 @@ namespace Chess_Application
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column - 1) )
                     {
-                        chessBoard[row + 1, column - 1].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        chessBoard[row + 1, column - 1].Available = true;
+                        chessBoard[row, column].Piece.CanMove = true;
                     }
                 }
 
@@ -59,8 +59,8 @@ namespace Chess_Application
                     {
                         if (!TriggersCheck(chessBoard, row, column, row + 2, column))
                         {
-                            chessBoard[row + 2, column].MarkAsAvailable();
-                            chessBoard[row, column].poateFaceMiscari = true;
+                            chessBoard[row + 2, column].Available = true;
+                            chessBoard[row, column].Piece.CanMove = true;
                         }
                     }
                 }
@@ -73,8 +73,8 @@ namespace Chess_Application
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column) )
                     {
-                        chessBoard[row - 1, column].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        chessBoard[row - 1, column].Available = true;
+                        chessBoard[row, column].Piece.CanMove = true;
                     }                   
                 }
 
@@ -82,8 +82,8 @@ namespace Chess_Application
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column + 1) )
                     {
-                        chessBoard[row - 1, column + 1].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        chessBoard[row - 1, column + 1].Available = true;
+                        chessBoard[row, column].Piece.CanMove = true;
                     }
                 }
 
@@ -91,8 +91,8 @@ namespace Chess_Application
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column - 1) )
                     {
-                        chessBoard[row - 1, column - 1].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        chessBoard[row - 1, column - 1].Available = true;
+                        chessBoard[row, column].Piece.CanMove = true;
                     }
                 }
 
@@ -103,8 +103,8 @@ namespace Chess_Application
                     {
                         if (!TriggersCheck(chessBoard, row, column, row - 2, column))
                         {
-                            chessBoard[row - 2, column].MarkAsAvailable();
-                            chessBoard[row, column].poateFaceMiscari = true;
+                            chessBoard[row - 2, column].Available = true;
+                            chessBoard[row, column].Piece.CanMove = true;
                         }
                     }
                 }

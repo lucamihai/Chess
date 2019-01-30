@@ -177,22 +177,22 @@ namespace Chess_Application
 
             #region Reset boxes with chess pieces on them
 
-            A1 = new Box(whiteRook1, _1A); H1 = new Box(blackRook1, _1H);
-            A2 = new Box(whiteKnight1, _2A); H2 = new Box(blackKnight1, _2H);
-            A3 = new Box(whiteBishop1, _3A); H3 = new Box(blackBishop1, _3H);
-            A4 = new Box(whiteQueen, _4A); H4 = new Box(blackKing, _4H);
-            A5 = new Box(whiteKing, _5A); H5 = new Box(blackQueen, _5H);
-            A6 = new Box(whiteBishop2, _6A); H6 = new Box(blackBishop2, _6H);
-            A7 = new Box(whiteKnight2, _7A); H7 = new Box(blackKnight2, _7H);
-            A8 = new Box(whiteRook2, _8A); H8 = new Box(blackRook2, _8H);
-            B1 = new Box(whitePawn1, _1B); G1 = new Box(blackPawn1, _1G);
-            B2 = new Box(whitePawn2, _2B); G2 = new Box(blackPawn2, _2G);
-            B3 = new Box(whitePawn3, _3B); G3 = new Box(blackPawn3, _3G);
-            B4 = new Box(whitePawn4, _4B); G4 = new Box(blackPawn4, _4G);
-            B5 = new Box(whitePawn5, _5B); G5 = new Box(blackPawn5, _5G);
-            B6 = new Box(whitePawn6, _6B); G6 = new Box(blackPawn6, _6G);
-            B7 = new Box(whitePawn7, _7B); G7 = new Box(blackPawn7, _7G);
-            B8 = new Box(whitePawn8, _8B); G8 = new Box(blackPawn8, _8G);
+            A1 = new Box(_1A, whiteRook1); H1 = new Box(_1H, blackRook1);
+            A2 = new Box(_2A, whiteKnight1); H2 = new Box(_2H, blackKnight1);
+            A3 = new Box(_3A, whiteBishop1); H3 = new Box(_3H, blackBishop1);
+            A4 = new Box(_4A, whiteQueen); H4 = new Box(_4H, blackKing);
+            A5 = new Box(_5A, whiteKing); H5 = new Box(_5H, blackQueen);
+            A6 = new Box(_6A, whiteBishop2); H6 = new Box(_6H, blackBishop2);
+            A7 = new Box(_7A, whiteKnight2); H7 = new Box(_7H, blackKnight2);
+            A8 = new Box(_8A, whiteRook2); H8 = new Box(_8H, blackRook2);
+            B1 = new Box(_1B, whitePawn1); G1 = new Box(_1G, blackPawn1);
+            B2 = new Box(_2B, whitePawn2); G2 = new Box(_2G, blackPawn2);
+            B3 = new Box(_3B, whitePawn3); G3 = new Box(_3G, blackPawn3);
+            B4 = new Box(_4B, whitePawn4); G4 = new Box(_4G, blackPawn4);
+            B5 = new Box(_5B, whitePawn5); G5 = new Box(_5G, blackPawn5);
+            B6 = new Box(_6B, whitePawn6); G6 = new Box(_6G, blackPawn6);
+            B7 = new Box(_7B, whitePawn7); G7 = new Box(_7G, blackPawn7);
+            B8 = new Box(_8B, whitePawn8); G8 = new Box(_8G, blackPawn8);
 
             #endregion
 
@@ -211,17 +211,17 @@ namespace Chess_Application
 
             #region Reset capture boxes
 
-            capturedPawnsWhite = new Box(whitePawn1, pbPioniAlbiLuati);
-            capturedRooksWhite = new Box(whiteRook1, pbTureAlbeLuate);
-            capturedKnightsWhite = new Box(whiteKnight1, pbCaiAlbiLuati);
-            capturedBishopsWhite = new Box(whiteBishop1, pbNebuniAlbiLuati);
-            capturedQueenWhite = new Box(whiteQueen, pbReginaAlbaLuata);
+            capturedPawnsWhite = new Box(pbPioniAlbiLuati, whitePawn1);
+            capturedRooksWhite = new Box(pbTureAlbeLuate, whiteRook1);
+            capturedKnightsWhite = new Box(pbCaiAlbiLuati, whiteKnight1);
+            capturedBishopsWhite = new Box(pbNebuniAlbiLuati, whiteBishop1);
+            capturedQueenWhite = new Box(pbReginaAlbaLuata, whiteQueen);
 
-            capturedPawnsBlack = new Box(blackPawn1, pbPioniNegriLuati);
-            capturedRooksBlack = new Box(blackRook1, pbTureNegreLuate);
-            capturedKnightsBlack = new Box(blackKnight1, pbCaiNegriLuati);
-            capturedBishopsBlack = new Box(blackBishop1, pbNebuniNegriLuati);
-            capturedQueenBlack = new Box(blackQueen, pbReginaNeagraLuata);
+            capturedPawnsBlack = new Box(pbPioniNegriLuati, blackPawn1);
+            capturedRooksBlack = new Box(pbTureNegreLuate, blackRook1);
+            capturedKnightsBlack = new Box(pbCaiNegriLuati, blackKnight1);
+            capturedBishopsBlack = new Box(pbNebuniNegriLuati, blackBishop1);
+            capturedQueenBlack = new Box(pbReginaNeagraLuata, blackQueen);
 
             #endregion
 
@@ -796,8 +796,6 @@ namespace Chess_Application
 
             NextTurn();
             SetAllBoxesAsUnavailable(ChessBoard);
-
-            clickCounter = 0;
             ResetBoxesColors(ChessBoard);
 
             rand = false;
@@ -1216,10 +1214,10 @@ namespace Chess_Application
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
-                        if (ChessBoard[i, j].poateFaceMiscari == true)
+                        if (ChessBoard[i, j].Piece.CanMove == true)
                         {
                             ResetBoxesColors(ChessBoard);
-                            ChessBoard[i, j].poateFaceMiscari = false;                           
+                            ChessBoard[i, j].Piece.CanMove = false;                           
                             return false;
                         }
                     }
@@ -1239,10 +1237,10 @@ namespace Chess_Application
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
-                        if (ChessBoard[i, j].poateFaceMiscari == true)
+                        if (ChessBoard[i, j].Piece.CanMove == true)
                         {
                             ResetBoxesColors(ChessBoard);
-                            ChessBoard[i, j].poateFaceMiscari = false;                           
+                            ChessBoard[i, j].Piece.CanMove = false;                           
                             return false;
                         }
                     }
@@ -1290,7 +1288,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    ChessBoard[i, j].MarkAsUnavailable();
+                    ChessBoard[i, j].Available = false;
                 }
             }           
         }
@@ -1318,7 +1316,7 @@ namespace Chess_Application
                 short column = clickedBoxObject.Column;
 
                 clickedBoxObject.Piece.CheckPossibilities(row, column, ChessBoard);
-                if (clickedBoxObject.poateFaceMiscari == true)
+                if (clickedBoxObject.Piece.CanMove == true)
                 {
                     orig = clickedBoxObject;
                     clickCounter++;
@@ -1333,7 +1331,6 @@ namespace Chess_Application
                 if (clickedBoxObject == orig)
                 {
                     SetAllBoxesAsUnavailable(ChessBoard);
-                    clickCounter = 0;
                     ResetBoxesColors(ChessBoard);
                 }
 
@@ -1342,6 +1339,8 @@ namespace Chess_Application
                 {
                     MovePiece(orig, clickedBoxObject);
                 }
+
+                clickCounter = 0;
             }
         }
 

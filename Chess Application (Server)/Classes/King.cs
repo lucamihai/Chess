@@ -43,57 +43,57 @@ namespace Chess_Application
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y - 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y + 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X, kingPosition.Y - 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X, kingPosition.Y + 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X - 1, kingPosition.Y - 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X - 1, kingPosition.Y);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
 
             newKingPosition = new Point(kingPosition.X - 1, kingPosition.Y + 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
-                chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
-                chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
+                chessBoard[newKingPosition.X, newKingPosition.Y].Available = true;
+                chessBoard[kingPosition.X, kingPosition.Y].Piece.CanMove = true;
             }
         }
 

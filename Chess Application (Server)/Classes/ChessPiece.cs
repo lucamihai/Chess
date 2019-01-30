@@ -9,6 +9,7 @@ namespace Chess_Application
     public class ChessPiece
     {
         public int Color { get; protected set; }     // 1 - white, 2 - black;
+        public bool CanMove { get; set; } = false;
 
         public PictureBox imaginePiesa;
         public PictureBox imagineMicaPiesa;
