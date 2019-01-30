@@ -14,10 +14,9 @@ namespace Chess_Application
     {
         public Knight(int c, PictureBox p, PictureBox pm)
         {
-            culoare = c;
+            Color = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
-            tipPiesa = 3;
         }
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
@@ -30,7 +29,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -56,7 +55,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -82,7 +81,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -108,7 +107,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -134,7 +133,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -160,7 +159,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -186,7 +185,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {
@@ -212,7 +211,7 @@ namespace Chess_Application
 
                 if (chessBoard[destinationRow, destinationColumn].Piece != null)
                 {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.culoare != chessBoard[row, column].Piece.culoare)
+                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, destinationRow, destinationColumn))
                         {

@@ -15,10 +15,9 @@ namespace Chess_Application
        
         public Queen(int c, PictureBox p, PictureBox pm)
         {
-            culoare = c;
+            Color = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
-            tipPiesa = 5;
         }
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
@@ -53,7 +52,7 @@ namespace Chess_Application
                 }
                 else
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                         {
@@ -84,7 +83,7 @@ namespace Chess_Application
                 }
                 else
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, row, secondaryColumn))
                         {
@@ -115,7 +114,7 @@ namespace Chess_Application
                 }
                 else
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, column))
                         {
@@ -146,7 +145,7 @@ namespace Chess_Application
                 }
                 else
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, column))
                         {
@@ -182,7 +181,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece != null)
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
@@ -214,7 +213,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece != null)
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
@@ -246,7 +245,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece != null)
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
@@ -278,7 +277,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece != null)
                 {
-                    if (locationToBeInspected.Piece.culoare != startLocation.Piece.culoare)
+                    if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {

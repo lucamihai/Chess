@@ -14,17 +14,16 @@ namespace Chess_Application
     {
         public Pawn(int c, PictureBox p, PictureBox pm)
         {
-            culoare = c;
+            Color = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
-            tipPiesa = 1;
         }
         
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
             Box locationToBeInspected;
             // White pawn
-            if (culoare == 1)
+            if (Color == 1)
             {
                 if (chessBoard[row + 1, column] != null && chessBoard[row + 1, column].Piece == null)
                 {
@@ -35,7 +34,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece != null && chessBoard[row + 1, column + 1].Piece.culoare == 2)
+                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece != null && chessBoard[row + 1, column + 1].Piece.Color == 2)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column + 1) )
                     {
@@ -44,7 +43,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece != null && chessBoard[row + 1, column - 1].Piece.culoare == 2)
+                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece != null && chessBoard[row + 1, column - 1].Piece.Color == 2)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column - 1) )
                     {
@@ -68,7 +67,7 @@ namespace Chess_Application
             }
 
             // Black pawn
-            if (culoare == 2)
+            if (Color == 2)
             {
                 if (chessBoard[row - 1, column] != null && chessBoard[row - 1, column].Piece == null)
                 {
@@ -79,7 +78,7 @@ namespace Chess_Application
                     }                   
                 }
 
-                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece != null && chessBoard[row - 1, column + 1].Piece.culoare == 1)
+                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece != null && chessBoard[row - 1, column + 1].Piece.Color == 1)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column + 1) )
                     {
@@ -88,7 +87,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece != null && chessBoard[row - 1, column - 1].Piece.culoare == 1)
+                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece != null && chessBoard[row - 1, column - 1].Piece.Color == 1)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column - 1) )
                     {

@@ -18,11 +18,12 @@ namespace Chess_Application
     {
         public King(int c, PictureBox p, PictureBox pm)
         {
-            culoare = c;
+            Color = c;
             imaginePiesa = p;
             imagineMicaPiesa = pm;
-            tipPiesa = 6;
         }
+
+        public King(ChessPiece chessPiece) : base(chessPiece) { }
 
         public override void CheckPossibilities(int i, int j, Box[,] chessBoard)
         {
@@ -38,7 +39,6 @@ namespace Chess_Application
             }
              
             Point newKingPosition;
-            int kingColor = chessBoard[kingPosition.X, kingPosition.Y].Piece.culoare;
 
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y - 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
@@ -95,8 +95,6 @@ namespace Chess_Application
                 chessBoard[newKingPosition.X, newKingPosition.Y].MarkAsAvailable();
                 chessBoard[kingPosition.X, kingPosition.Y].poateFaceMiscari = true;
             }
-
-            chessBoard[kingPosition.X, kingPosition.Y].Piece.culoare = kingColor;
         }
 
 
@@ -121,9 +119,10 @@ namespace Chess_Application
             
             if (locationKingDestination.Piece != null)
             {
-                if (locationKingDestination.Piece.culoare != locationKingSource.Piece.culoare)
+                if (locationKingDestination.Piece.Color != locationKingSource.Piece.Color)
                 {
                     // Pretend the king was moved to the destination
+                    ChessPiece chessPieceBackup = chessBoard[destination.X, destination.Y].Piece;
                     chessBoard[destination.X, destination.Y].Piece = chessBoard[source.X, source.Y].Piece;
                     chessBoard[source.X, source.Y].Piece = null;
 
@@ -134,7 +133,7 @@ namespace Chess_Application
 
                     // Restore states of the king and of the destination
                     chessBoard[source.X, source.Y].Piece = chessBoard[destination.X, destination.Y].Piece;
-                    chessBoard[destination.X, destination.Y].Piece = null;
+                    chessBoard[destination.X, destination.Y].Piece = chessPieceBackup;
                 }
             }
             else

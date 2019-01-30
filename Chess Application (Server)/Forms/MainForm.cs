@@ -787,7 +787,7 @@ namespace Chess_Application
 
             PerformMove(origin, destination);
 
-            if (destination.Piece.tipPiesa == 6)
+            if (destination.Piece is King)
             {
                 UpdateKingPosition(destination);
             }
@@ -840,7 +840,7 @@ namespace Chess_Application
             PerformMove(origin, destination);
 
             // If, the king was moved, update its coordinates
-            if (destination.Piece.tipPiesa == 6)
+            if (destination.Piece is King)
             {
                 UpdateKingPosition(destination);
             }
@@ -916,59 +916,71 @@ namespace Chess_Application
 
         void UpdateCapturedPiecesCounter(Box destination)
         {
-            if (destination.Piece.culoare == Constants.PIECE_COLOR_WHITE)
+            if (destination.Piece.Color == Constants.PIECE_COLOR_WHITE)
             {
-                switch (destination.Piece.tipPiesa)
+                if (destination.Piece is Pawn)
                 {
-                    case Constants.PIECE_TYPE_PAWN:
-                        labelCPA.Text = (++counterCapturedPawnsWhite).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_ROOK:
-                        labelCounterCapturedRooksWhite.Text = (++counterCapturedRooksWhite).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_KNIGHT:
-                        labelCounterCapturedKnightsWhite.Text = (++counterCapturedKnightsWhite).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_BISHOP:
-                        labelCounterCapturedBishopsWhite.Text = (++counterCapturedBishopsWhite).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_QUEEN:
-                        labelCounterCapturedQueenWhite.Text = (++counterCapturedQueenWhite).ToString();
-                        break;
+                    labelCPA.Text = (++counterCapturedPawnsWhite).ToString();
+                }
+
+                if (destination.Piece is Rook)
+                {
+                    labelCounterCapturedRooksWhite.Text = (++counterCapturedRooksWhite).ToString();
+                }
+
+                if (destination.Piece is Knight)
+                {
+                    labelCounterCapturedKnightsWhite.Text = (++counterCapturedKnightsWhite).ToString();
+                }
+
+                if (destination.Piece is Bishop)
+                {
+                    labelCounterCapturedBishopsWhite.Text = (++counterCapturedBishopsWhite).ToString();
+                }
+
+                if (destination.Piece is Queen)
+                {
+                    labelCounterCapturedQueenWhite.Text = (++counterCapturedQueenWhite).ToString();
                 }
             }
 
-            if (destination.Piece.culoare == Constants.PIECE_COLOR_BLACK)
+            if (destination.Piece.Color == Constants.PIECE_COLOR_BLACK)
             {
-                switch (destination.Piece.tipPiesa)
+                if (destination.Piece is Pawn)
                 {
-                    case Constants.PIECE_TYPE_PAWN:
-                        labelCPN.Text = (++counterCapturedPawnsBlack).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_ROOK:
-                        labelCounterCapturedRooksBlack.Text = (++counterCapturedRooksBlack).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_KNIGHT:
-                        labelCounterCapturedKnightsBlack.Text = (++counterCapturedKnightsBlack).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_BISHOP:
-                        labelCounterCapturedBishopsBlack.Text = (++counterCapturedBishopsBlack).ToString();
-                        break;
-                    case Constants.PIECE_TYPE_QUEEN:
-                        labelCounterCapturedQueenBlack.Text = (++counterCapturedQueenBlack).ToString();
-                        break;
+                    labelCPN.Text = (++counterCapturedPawnsBlack).ToString();
+                }
+
+                if (destination.Piece is Rook)
+                {
+                    labelCounterCapturedRooksBlack.Text = (++counterCapturedRooksBlack).ToString();
+                }
+
+                if (destination.Piece is Knight)
+                {
+                    labelCounterCapturedKnightsBlack.Text = (++counterCapturedKnightsBlack).ToString();
+                }
+
+                if (destination.Piece is Bishop)
+                {
+                    labelCounterCapturedBishopsBlack.Text = (++counterCapturedBishopsBlack).ToString();
+                }
+
+                if (destination.Piece is Queen)
+                {
+                    labelCounterCapturedQueenBlack.Text = (++counterCapturedQueenBlack).ToString();
                 }
             }
         }
 
         void UpdateKingPosition(Box destination)
         {
-            if (destination.Piece.culoare == Constants.PIECE_COLOR_WHITE)
+            if (destination.Piece.Color == Constants.PIECE_COLOR_WHITE)
             {
                 pozitieRegeAlb.X = destination.nume[0] - 64;
                 pozitieRegeAlb.Y = destination.nume[1] - 48;
             }
-            if (destination.Piece.culoare == Constants.PIECE_COLOR_BLACK)
+            if (destination.Piece.Color == Constants.PIECE_COLOR_BLACK)
             {
                 pozitieRegeNegru.X = destination.nume[0] - 64;
                 pozitieRegeNegru.Y = destination.nume[1] - 48;
@@ -980,7 +992,7 @@ namespace Chess_Application
             // If a white pawn has reached the last line
             if (randMutare == Constants.TURN_WHITE)
             {
-                if (destination.nume.Contains('H') && destination.Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
+                if (destination.nume.Contains('H') && destination.Piece is Pawn)
                 {
                     if (counterCapturedRooksWhite + counterCapturedKnightsWhite + counterCapturedBishopsWhite + counterCapturedQueenWhite > 0)
                     {
@@ -997,7 +1009,7 @@ namespace Chess_Application
             // If a black pawn has reached the last line
             if (randMutare == Constants.TURN_BLACK)
             {
-                if (destination.nume.Contains('A') && destination.Piece.tipPiesa == Constants.PIECE_TYPE_PAWN)
+                if (destination.nume.Contains('A') && destination.Piece is Pawn)
                 {
                     if (counterCapturedRooksBlack + counterCapturedKnightsBlack + counterCapturedBishopsBlack + counterCapturedQueenBlack > 0)
                     {
@@ -1049,8 +1061,6 @@ namespace Chess_Application
         {
             destination.Piece = origin.Piece;
             destination.imagineLocatie.BackgroundImage = origin.imagineLocatie.BackgroundImage;
-            destination.Piece.tipPiesa = origin.Piece.tipPiesa;
-            destination.Piece.culoare = origin.Piece.culoare;
 
             textBox1.AppendText("O piesa a fost selectata" + Environment.NewLine);
         }
@@ -1202,7 +1212,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.culoare == 1)
+                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == 1)
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
@@ -1225,7 +1235,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.culoare == 2)
+                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == 2)
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
@@ -1302,7 +1312,7 @@ namespace Chess_Application
             }
 
             // First click on a box with a chess piece
-            if (clickCounter == 0 && clickedBox.BackgroundImage != null && randMutare == clickedBoxObject.Piece.culoare && rand)
+            if (clickCounter == 0 && clickedBox.BackgroundImage != null && randMutare == clickedBoxObject.Piece.Color && rand)
             {
                 short row = clickedBoxObject.Row;
                 short column = clickedBoxObject.Column;
