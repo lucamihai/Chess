@@ -24,6 +24,7 @@ namespace Chess_Application
         {
             Box startLocation = chessBoard[row, column];
             Box locationToBeInspected;
+
             // Check movement to the south - west
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
@@ -36,8 +37,8 @@ namespace Chess_Application
                 {
                     if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
-                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        locationToBeInspected.MarkAsAvailable();
+                        startLocation.poateFaceMiscari = true;
                     }
                 }
 
@@ -47,8 +48,8 @@ namespace Chess_Application
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
-                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                            chessBoard[row, column].poateFaceMiscari = true;
+                            locationToBeInspected.MarkAsAvailable();
+                            startLocation.poateFaceMiscari = true;
                         }
                     }
 
@@ -68,8 +69,8 @@ namespace Chess_Application
                 {
                     if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
-                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        locationToBeInspected.MarkAsAvailable();
+                        startLocation.poateFaceMiscari = true;
                     }
                 }
 
@@ -79,8 +80,8 @@ namespace Chess_Application
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
-                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                            chessBoard[row, column].poateFaceMiscari = true;
+                            locationToBeInspected.MarkAsAvailable();
+                            startLocation.poateFaceMiscari = true;
                         }
                     }
 
@@ -100,8 +101,8 @@ namespace Chess_Application
                 {
                     if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
-                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        locationToBeInspected.MarkAsAvailable();
+                        startLocation.poateFaceMiscari = true;
                     }
                 }
 
@@ -111,8 +112,8 @@ namespace Chess_Application
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
-                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                            chessBoard[row, column].poateFaceMiscari = true;
+                            locationToBeInspected.MarkAsAvailable();
+                            startLocation.poateFaceMiscari = true;
                         }
                     }
 
@@ -132,8 +133,8 @@ namespace Chess_Application
                 {
                     if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
-                        chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                        chessBoard[row, column].poateFaceMiscari = true;
+                        locationToBeInspected.MarkAsAvailable();
+                        startLocation.poateFaceMiscari = true;
                     }
                 }
 
@@ -143,8 +144,8 @@ namespace Chess_Application
                     {
                         if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
-                            chessBoard[secondaryRow, secondaryColumn].MarkAsAvailable();
-                            chessBoard[row, column].poateFaceMiscari = true;
+                            locationToBeInspected.MarkAsAvailable();
+                            startLocation.poateFaceMiscari = true;
                         }
                     }
 
