@@ -235,6 +235,7 @@ namespace Chess_Application
             }
 
             //-----
+
             if (!threatened)
             {
                 if (row < 7 && column < 8)
@@ -256,6 +257,7 @@ namespace Chess_Application
             }
 
             //-----
+
             if (!threatened)
             {
                 if (row > 1 && column < 7)
@@ -277,6 +279,7 @@ namespace Chess_Application
             }
 
             //----- 
+
             if (!threatened)
             {
                 if (row > 2 && column < 8)
@@ -307,8 +310,12 @@ namespace Chess_Application
             bool containsBishop = false;
             Box locationToBeInspected;
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
+            // South - west
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
                 containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -324,8 +331,12 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
+            // North - east
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
                 containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -341,8 +352,12 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
+            // North - west
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
                 containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -358,8 +373,12 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
+            // South - east
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
                 containsBishop = LocationContainsPiece<Bishop>(locationToBeInspected);
                 threatened = (containsBishop && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -385,8 +404,12 @@ namespace Chess_Application
             bool containsRook = false;
             Box locationToBeInspected;
 
-            for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
+            // West
+            for (int secondaryColumn = column; secondaryColumn >= 1 && !threatened; secondaryColumn--)
             {
+                if (secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[row, secondaryColumn];
                 containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -402,8 +425,12 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
+            // East
+            for (int secondaryColumn = column; secondaryColumn <= 8 && !threatened; secondaryColumn++)
             {
+                if (secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[row, secondaryColumn];
                 containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -419,8 +446,12 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
+            // South
+            for (int secondaryRow = row; secondaryRow >= 1 && !threatened; secondaryRow--)
             {
+                if (secondaryRow == row)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, column];
                 containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -436,8 +467,12 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
+            // North
+            for (int secondaryRow = row; secondaryRow <= 8 && !threatened; secondaryRow++)
             {
+                if (secondaryRow == row)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, column];
                 containsRook = LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
@@ -463,10 +498,14 @@ namespace Chess_Application
             bool containsQueen = false;
             Box locationToBeInspected;
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
+            // South - west
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -480,10 +519,14 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
+            // North - east
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -497,10 +540,14 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
+            // North - west
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -514,10 +561,14 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
+            // South - east
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
             {
+                if (secondaryRow == row && secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
-                containsQueen = LocationContainsPiece<Bishop>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -531,12 +582,14 @@ namespace Chess_Application
                 }
             }
 
-            // -----
-
-            for (int secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
+            // West
+            for (int secondaryColumn = column; secondaryColumn >= 1 && !threatened; secondaryColumn--)
             {
+                if (secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[row, secondaryColumn];
-                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -550,10 +603,14 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
+            // East
+            for (int secondaryColumn = column; secondaryColumn <= 8 && !threatened; secondaryColumn++)
             {
+                if (secondaryColumn == column)
+                    continue;
+
                 locationToBeInspected = chessBoard[row, secondaryColumn];
-                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -567,10 +624,14 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
+            // South
+            for (int secondaryRow = row; secondaryRow >= 1 && !threatened; secondaryRow--)
             {
+                if (secondaryRow == row)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, column];
-                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -584,10 +645,14 @@ namespace Chess_Application
                 }
             }
 
-            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
+            // North
+            for (int secondaryRow = row; secondaryRow <= 8 && !threatened; secondaryRow++)
             {
+                if (secondaryRow == row)
+                    continue;
+
                 locationToBeInspected = chessBoard[secondaryRow, column];
-                containsQueen = LocationContainsPiece<Rook>(locationToBeInspected);
+                containsQueen = LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.culoare != currentLocation.Piece.culoare);
 
                 if (containsQueen && locationToBeInspected.Piece.culoare == currentLocation.Piece.culoare)
@@ -601,7 +666,7 @@ namespace Chess_Application
                 }
             }
 
-            return false;
+            return threatened;
         }
 
         protected bool LocationContainsPiece<TYPE>(Box location, int color = 0)

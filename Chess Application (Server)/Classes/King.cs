@@ -114,28 +114,44 @@ namespace Chess_Application
                 return false;
             }
 
-            bool isPossible = false;
+            bool isPossible = false;;
 
-            // Remember the colors of the king and of the destination
-            int kingColor = chessBoard[source.X, source.Y].Piece.culoare;
-            int destinationColor = chessBoard[destination.X, destination.Y].Piece.culoare;
-
-
-            // Pretend the king was moved to the destination
-            chessBoard[source.X, source.Y].Piece.culoare = 0;
-            chessBoard[source.X, source.Y].Piece.tipPiesa = 0;
-            chessBoard[destination.X, destination.Y].Piece.culoare = kingColor;
-
-            if (!IsInCheck(chessBoard, destination.X, destination.Y))
+            Box locationKingSource = chessBoard[source.X, source.Y];
+            Box locationKingDestination = chessBoard[destination.X, destination.Y];
+            
+            if (locationKingDestination.Piece != null)
             {
-                isPossible = (destinationColor != kingColor);
+                if (locationKingDestination.Piece.culoare != locationKingSource.Piece.culoare)
+                {
+                    // Pretend the king was moved to the destination
+                    chessBoard[destination.X, destination.Y].Piece = chessBoard[source.X, source.Y].Piece;
+                    chessBoard[source.X, source.Y].Piece = null;
+
+                    if (!IsInCheck(chessBoard, destination.X, destination.Y))
+                    {
+                        isPossible = true;
+                    }
+
+                    // Restore states of the king and of the destination
+                    chessBoard[source.X, source.Y].Piece = chessBoard[destination.X, destination.Y].Piece;
+                    chessBoard[destination.X, destination.Y].Piece = null;
+                }
             }
+            else
+            {
+                // Pretend the king was moved to the destination
+                chessBoard[destination.X, destination.Y].Piece = chessBoard[source.X, source.Y].Piece;
+                chessBoard[source.X, source.Y].Piece = null;
 
-            // Restore states of the king and of the destination
-            chessBoard[source.X, source.Y].Piece.culoare = kingColor;
-            chessBoard[source.X, source.Y].Piece.tipPiesa = 6;
-            chessBoard[destination.X, destination.Y].Piece.culoare = destinationColor;
+                if (!IsInCheck(chessBoard, destination.X, destination.Y))
+                {
+                    isPossible = true;
+                }
 
+                // Restore states of the king and of the destination
+                chessBoard[source.X, source.Y].Piece = chessBoard[destination.X, destination.Y].Piece;
+                chessBoard[destination.X, destination.Y].Piece = null;
+            }
 
             return isPossible;
         }
