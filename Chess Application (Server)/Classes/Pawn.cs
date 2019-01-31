@@ -6,23 +6,32 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
-
+using Chess_Application.Classes;
+using Chess_Application.Enums;
 
 namespace Chess_Application
 {
     public class Pawn : ChessPiece
     {
-        public Pawn(int c, PictureBox p)
+        public Pawn(PieceColor c)
         {
             Color = c;
-            PictureBox = p;
+
+            if (c == PieceColor.White)
+            {
+                Image = Chess_Application.Properties.Resources.WhitePawn;
+            }
+            else
+            {
+                Image = Chess_Application.Properties.Resources.BlackPawn;
+            }
         }
         
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
             Box locationToBeInspected;
             // White pawn
-            if (Color == 1)
+            if (Color == PieceColor.White)
             {
                 if (chessBoard[row + 1, column] != null && chessBoard[row + 1, column].Piece == null)
                 {
@@ -33,7 +42,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece != null && chessBoard[row + 1, column + 1].Piece.Color == 2)
+                if (row < 8 && column < 8 && chessBoard[row + 1, column + 1].Piece != null && chessBoard[row + 1, column + 1].Piece.Color == PieceColor.Black)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column + 1) )
                     {
@@ -42,7 +51,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece != null && chessBoard[row + 1, column - 1].Piece.Color == 2)
+                if (row < 8 && column > 1 && chessBoard[row + 1, column - 1].Piece != null && chessBoard[row + 1, column - 1].Piece.Color == PieceColor.Black)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row + 1, column - 1) )
                     {
@@ -66,7 +75,7 @@ namespace Chess_Application
             }
 
             // Black pawn
-            if (Color == 2)
+            if (Color == PieceColor.Black)
             {
                 if (chessBoard[row - 1, column] != null && chessBoard[row - 1, column].Piece == null)
                 {
@@ -77,7 +86,7 @@ namespace Chess_Application
                     }                   
                 }
 
-                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece != null && chessBoard[row - 1, column + 1].Piece.Color == 1)
+                if (row > 1 && column < 8 && chessBoard[row - 1, column + 1].Piece != null && chessBoard[row - 1, column + 1].Piece.Color == PieceColor.White)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column + 1) )
                     {
@@ -86,7 +95,7 @@ namespace Chess_Application
                     }
                 }
 
-                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece != null && chessBoard[row - 1, column - 1].Piece.Color == 1)
+                if (row > 1 && column > 1 && chessBoard[row - 1, column - 1].Piece != null && chessBoard[row - 1, column - 1].Piece.Color == PieceColor.White)
                 {
                     if ( !TriggersCheck(chessBoard, row, column, row - 1, column - 1) )
                     {

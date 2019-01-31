@@ -8,6 +8,8 @@ using System.Net.Sockets;
 using System.IO;
 using System.Threading;
 using Chess_Application.Classes;
+using Chess_Application.Enums;
+using System.Drawing.Imaging;
 
 namespace Chess_Application
 {
@@ -35,8 +37,8 @@ namespace Chess_Application
         bool currentPlayerMustSelect = false;
         bool opponentMustSelect = false;
 
-        public static int randMutare = 1;
-        public static int randMutareClient = 2;
+        public static Turn randMutare = Turn.White;
+        public static Turn randMutareClient = Turn.Black;
 
         int counterCapturedPawnsWhite, counterCapturedRooksWhite, counterCapturedKnightsWhite, counterCapturedBishopsWhite, counterCapturedQueenWhite;
         int counterCapturedPawnsBlack, counterCapturedRooksBlack, counterCapturedKnightsBlack, counterCapturedBishopsBlack, counterCapturedQueenBlack;
@@ -111,42 +113,42 @@ namespace Chess_Application
 
             #region Initialize chess pieces
 
-            whiteRook1 = new Rook(1, pbTuraAlb);
-            whiteRook2 = new Rook(1, pbTuraAlb);
-            whiteKnight1 = new Knight(1, pbCalAlb);
-            whiteKnight2 = new Knight(1, pbCalAlb);
-            whiteBishop1 = new Bishop(1, pbNebunAlb);
-            whiteBishop2 = new Bishop(1, pbNebunAlb);
-            whiteQueen = new Queen(1, pbReginaAlb);
-            whiteKing = new King(1, pbRegeAlb);
+            whiteRook1 = new Rook(PieceColor.White);
+            whiteRook2 = new Rook(PieceColor.White);
+            whiteKnight1 = new Knight(PieceColor.White);
+            whiteKnight2 = new Knight(PieceColor.White);
+            whiteBishop1 = new Bishop(PieceColor.White);
+            whiteBishop2 = new Bishop(PieceColor.White);
+            whiteQueen = new Queen(PieceColor.White);
+            whiteKing = new King(PieceColor.White);
 
-            whitePawn1 = new Pawn(1, pbPionAlb);
-            whitePawn2 = new Pawn(1, pbPionAlb);
-            whitePawn3 = new Pawn(1, pbPionAlb);
-            whitePawn4 = new Pawn(1, pbPionAlb);
-            whitePawn5 = new Pawn(1, pbPionAlb);
-            whitePawn6 = new Pawn(1, pbPionAlb);
-            whitePawn7 = new Pawn(1, pbPionAlb);
-            whitePawn8 = new Pawn(1, pbPionAlb);
+            whitePawn1 = new Pawn(PieceColor.White);
+            whitePawn2 = new Pawn(PieceColor.White);
+            whitePawn3 = new Pawn(PieceColor.White);
+            whitePawn4 = new Pawn(PieceColor.White);
+            whitePawn5 = new Pawn(PieceColor.White);
+            whitePawn6 = new Pawn(PieceColor.White);
+            whitePawn7 = new Pawn(PieceColor.White);
+            whitePawn8 = new Pawn(PieceColor.White);
 
             
-            blackRook1 = new Rook(2, pbTuraNegru);
-            blackRook2 = new Rook(2, pbTuraNegru);
-            blackKnight1 = new Knight(2, pbCalNegru);
-            blackKnight2 = new Knight(2, pbCalNegru);
-            blackBishop1 = new Bishop(2, pbNebunNegru);
-            blackBishop2 = new Bishop(2, pbNebunNegru);
-            blackQueen = new Queen(2, pbReginaNegru);
-            blackKing = new King(2, pbRegeNegru);
+            blackRook1 = new Rook(PieceColor.Black);
+            blackRook2 = new Rook(PieceColor.Black);
+            blackKnight1 = new Knight(PieceColor.Black);
+            blackKnight2 = new Knight(PieceColor.Black);
+            blackBishop1 = new Bishop(PieceColor.Black);
+            blackBishop2 = new Bishop(PieceColor.Black);
+            blackQueen = new Queen(PieceColor.Black);
+            blackKing = new King(PieceColor.Black);
 
-            blackPawn1 = new Pawn(2, pbPionNegru);
-            blackPawn2 = new Pawn(2, pbPionNegru);
-            blackPawn3 = new Pawn(2, pbPionNegru);
-            blackPawn4 = new Pawn(2, pbPionNegru);
-            blackPawn5 = new Pawn(2, pbPionNegru);
-            blackPawn6 = new Pawn(2, pbPionNegru);
-            blackPawn7 = new Pawn(2, pbPionNegru);
-            blackPawn8 = new Pawn(2, pbPionNegru);
+            blackPawn1 = new Pawn(PieceColor.Black);
+            blackPawn2 = new Pawn(PieceColor.Black);
+            blackPawn3 = new Pawn(PieceColor.Black);
+            blackPawn4 = new Pawn(PieceColor.Black);
+            blackPawn5 = new Pawn(PieceColor.Black);
+            blackPawn6 = new Pawn(PieceColor.Black);
+            blackPawn7 = new Pawn(PieceColor.Black);
+            blackPawn8 = new Pawn(PieceColor.Black);
 
             #endregion
 
@@ -324,14 +326,14 @@ namespace Chess_Application
 
             clickCounter = 0;
 
-            if (randMutareClient == 2)
+            if (randMutareClient == Turn.Black)
             {
-                randMutare = 1;
+                randMutare = Turn.White;
                 rand = true;
             }
             else
             {
-                randMutare = 2;
+                randMutare = Turn.Black;
                 rand = false;
             }
 
@@ -439,10 +441,10 @@ namespace Chess_Application
                                 string colorsString = receivedData.Substring(8);
                                 string[] colors = colorsString.Split(' ');
 
-                                randMutare       = Convert.ToInt32(colors[0]);
-                                randMutareClient = Convert.ToInt32(colors[1]);
+                                randMutare       = (Turn)Convert.ToInt32(colors[0]);
+                                randMutareClient = (Turn)Convert.ToInt32(colors[1]);
 
-                                rand = (randMutare == 1) ? true : false;
+                                rand = (randMutare == Turn.White) ? true : false;
                             }
 
                             // Client requested a new game
@@ -632,16 +634,16 @@ namespace Chess_Application
             // Player will be controlling white, will have first move
             if (a == 1)
             {
-                randMutare = 1;
-                randMutareClient = 2;
+                randMutare = Turn.White;
+                randMutareClient = Turn.Black;
                 rand = true;
             }
 
             // Player will be controlling black, will have second move
             else
             {
-                randMutare = 2;
-                randMutareClient = 1;
+                randMutare = Turn.Black;
+                randMutareClient = Turn.White;
                 rand = false;
             }
 
@@ -801,7 +803,7 @@ namespace Chess_Application
             rand = false;
             randMutare = randMutareClient;
 
-            if (randMutare == Constants.TURN_WHITE)
+            if (randMutare == Turn.White)
             {
                 labelRand.Text = "White's turn";
             }
@@ -845,14 +847,14 @@ namespace Chess_Application
 
             rand = true;
 
-            if (randMutareClient == Constants.TURN_BLACK)
+            if (randMutareClient == Turn.Black)
             {
-                randMutare = 1;
+                randMutare = Turn.White;
                 labelRand.Text = "White's turn";
             }
             else
             {
-                randMutare = 2;
+                randMutare = Turn.Black;
                 labelRand.Text = "Black's turn";
             }
 
@@ -872,7 +874,7 @@ namespace Chess_Application
             destination.pictureBox.BackgroundImage = origin.pictureBox.BackgroundImage;
 
             origin.Piece = null;
-            //origin.RemovePieceImage();
+            origin.RemovePieceImage();
         }
 
         #endregion
@@ -912,7 +914,7 @@ namespace Chess_Application
 
         void UpdateCapturedPiecesCounter(Box destination)
         {
-            if (destination.Piece.Color == Constants.PIECE_COLOR_WHITE)
+            if (destination.Piece.Color == PieceColor.White)
             {
                 if (destination.Piece is Pawn)
                 {
@@ -940,7 +942,7 @@ namespace Chess_Application
                 }
             }
 
-            if (destination.Piece.Color == Constants.PIECE_COLOR_BLACK)
+            if (destination.Piece.Color == PieceColor.Black)
             {
                 if (destination.Piece is Pawn)
                 {
@@ -971,12 +973,12 @@ namespace Chess_Application
 
         void UpdateKingPosition(Box destination)
         {
-            if (destination.Piece.Color == Constants.PIECE_COLOR_WHITE)
+            if (destination.Piece.Color == PieceColor.White)
             {
                 pozitieRegeAlb.X = destination.Name[0] - 64;
                 pozitieRegeAlb.Y = destination.Name[1] - 48;
             }
-            if (destination.Piece.Color == Constants.PIECE_COLOR_BLACK)
+            if (destination.Piece.Color == PieceColor.Black)
             {
                 pozitieRegeNegru.X = destination.Name[0] - 64;
                 pozitieRegeNegru.Y = destination.Name[1] - 48;
@@ -986,7 +988,7 @@ namespace Chess_Application
         void BeginPieceRecapturingIfPawnReachedTheEnd(Box destination)
         {
             // If a white pawn has reached the last line
-            if (randMutare == Constants.TURN_WHITE)
+            if (randMutare == Turn.White)
             {
                 if (destination.Name.Contains('H') && destination.Piece is Pawn)
                 {
@@ -1003,7 +1005,7 @@ namespace Chess_Application
             }
 
             // If a black pawn has reached the last line
-            if (randMutare == Constants.TURN_BLACK)
+            if (randMutare == Turn.Black)
             {
                 if (destination.Name.Contains('A') && destination.Piece is Pawn)
                 {
@@ -1208,7 +1210,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == 1)
+                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.White)
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
@@ -1231,7 +1233,7 @@ namespace Chess_Application
             {
                 for (int j = 1; j <= 8; j++)
                 {
-                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == 2)
+                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.Black)
                     {
                         ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
 
@@ -1270,9 +1272,9 @@ namespace Chess_Application
         {
             randMutare++;
 
-            if (randMutare > 2)
+            if (randMutare > Turn.Black)
             {
-                randMutare = 1;
+                randMutare = Turn.White;
             }
         }
 
@@ -1308,7 +1310,7 @@ namespace Chess_Application
             }
 
             // First click on a box with a chess piece
-            if (clickCounter == 0 && clickedBoxObject.Piece != null && randMutare == clickedBoxObject.Piece.Color && rand)
+            if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)randMutare == (int)clickedBoxObject.Piece.Color && rand)
             {
                 short row = clickedBoxObject.Row;
                 short column = clickedBoxObject.Column;

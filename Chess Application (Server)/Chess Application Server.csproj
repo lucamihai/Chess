@@ -59,38 +59,34 @@
     <Compile Include="Classes\Bishop.cs" />
     <Compile Include="Classes\ChessPiece.cs" />
     <Compile Include="Classes\Utilities.cs" />
+    <Compile Include="Enums\PieceColor.cs" />
+    <Compile Include="Enums\Turn.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Pawn.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\King.cs" />
+    <Compile Include="Classes\Queen.cs" />
+    <Compile Include="Classes\Rook.cs" />
     <Compile Include="UserControls\MainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Pawn.cs" />
     <Compile Include="UserControls\Options.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\King.cs" />
-    <Compile Include="Classes\Queen.cs" />
-    <Compile Include="Classes\Rook.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MainMenu.resx">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Options.resx">
-      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -102,6 +98,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -122,6 +124,18 @@
     <None Include="Resources\MoveSound2.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\WhiteRook.png" />
+    <None Include="Resources\WhiteQueen.png" />
+    <None Include="Resources\WhitePawn.png" />
+    <None Include="Resources\WhiteKnight.png" />
+    <None Include="Resources\WhiteKing.png" />
+    <None Include="Resources\WhiteBishop.png" />
+    <None Include="Resources\BlackBishop.png" />
+    <None Include="Resources\BlackKing.png" />
+    <None Include="Resources\BlackKnight.png" />
+    <None Include="Resources\BlackPawn.png" />
+    <None Include="Resources\BlackQueen.png" />
+    <None Include="Resources\BlackRook.png" />
     <Content Include="Resources\Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,50 +2,36 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Chess_Application.Classes;
-
+using Chess_Application.Enums;
 
 namespace Chess_Application
 {
     public class ChessPiece
     {
         // 1 - white, 2 - black;
-        public int Color { get; protected set; } 
+        public PieceColor Color { get; protected set; } 
 
         public bool CanMove { get; set; } = false;
 
-        public Image ImageSmall { get; private set; }
-
-        PictureBox _PictureBox;
-        public PictureBox PictureBox
+        Image _Image;
+        public Image Image
         {
             get
             {
-                return _PictureBox;
+                return _Image;
             }
             set
             {
-                _PictureBox = value;
+                _Image = value;
 
-                if (_PictureBox != null && _PictureBox.BackgroundImage != null)
+                if (_Image != null)
                 {
-                    ImageSmall = Utilities.ResizeImage(_PictureBox.BackgroundImage, 25, 25);
+                    ImageSmall = Utilities.ResizeImage(_Image, 25, 25);
                 }
             }
         }
 
-
-        public ChessPiece()
-        {
-            PictureBox = new PictureBox();
-
-            ImageSmall = new Bitmap(25, 25);
-        }
-
-        public ChessPiece(int color, PictureBox chessPiecePictureBox)
-        {
-            Color = color;
-            PictureBox = chessPiecePictureBox;
-        }
+        public Image ImageSmall { get; protected set; }
 
 
         /// <summary>
@@ -54,10 +40,7 @@ namespace Chess_Application
         /// <param name="row">Row of the piece</param>
         /// <param name="column">Column of the piece</param>
         /// <param name="chessBoard">Chess board (Boxes matrix)</param>
-        public virtual void CheckPossibilities(int row, int column, Box[,] chessBoard)
-        {
-
-        }
+        public virtual void CheckPossibilities(int row, int column, Box[,] chessBoard){ }
 
         
         /// <summary>
@@ -74,7 +57,7 @@ namespace Chess_Application
             if (!(chessBoard[origRow, origColumn].Piece is King))
             {
                 Point kingPosition;
-                if (MainForm.randMutare == Constants.TURN_WHITE)
+                if (MainForm.randMutare == Turn.White)
                 {
                     kingPosition = MainForm.pozitieRegeAlb;
                 }
@@ -127,22 +110,22 @@ namespace Chess_Application
             Box currentLocation = chessBoard[row, column];
             bool threatened = false;
 
-            if (currentLocation.Piece.Color == Constants.PIECE_COLOR_WHITE)
+            if (currentLocation.Piece.Color == PieceColor.White)
             {
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column - 1], Constants.PIECE_COLOR_BLACK);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column - 1], PieceColor.Black);
 
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column + 1], Constants.PIECE_COLOR_BLACK);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column + 1], PieceColor.Black);
             }
 
-            if (currentLocation.Piece.Color == Constants.PIECE_COLOR_BLACK)
+            if (currentLocation.Piece.Color == PieceColor.Black)
             {
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column - 1], Constants.PIECE_COLOR_WHITE);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column - 1], PieceColor.White);
 
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column + 1], Constants.PIECE_COLOR_WHITE);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column + 1], PieceColor.White);
             }
 
             return threatened;

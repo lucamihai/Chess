@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chess_Application.Enums;
 
 namespace Chess_Application.Classes
 {
@@ -18,7 +19,7 @@ namespace Chess_Application.Classes
             return new string(stringCharacters);
         }
 
-        public static bool LocationContainsPiece<TYPE>(Box location, int color = 0)
+        public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = 0)
         {
             if (location != null)
             {

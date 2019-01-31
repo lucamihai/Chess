@@ -6,17 +6,26 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
-
+using Chess_Application.Classes;
+using Chess_Application.Enums;
 
 namespace Chess_Application
 {
     public class Queen : ChessPiece
     {
        
-        public Queen(int c, PictureBox p)
+        public Queen(PieceColor c)
         {
             Color = c;
-            PictureBox = p;
+
+            if (c == PieceColor.White)
+            {
+                Image = Chess_Application.Properties.Resources.WhiteQueen;
+            }
+            else
+            {
+                Image = Chess_Application.Properties.Resources.BlackQueen;
+            }
         }
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {

@@ -6,16 +6,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
-
+using Chess_Application.Classes;
+using Chess_Application.Enums;
 
 namespace Chess_Application
 {
     public class Bishop : ChessPiece
     {
-        public Bishop(int c, PictureBox p)
+        public Bishop(PieceColor c)
         {
             Color = c;
-            PictureBox = p;
+
+            if (c == PieceColor.White)
+            {
+                Image = Chess_Application.Properties.Resources.WhiteBishop;
+            }
+            else
+            {
+                Image = Chess_Application.Properties.Resources.BlackBishop;
+            }
         }
 
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)

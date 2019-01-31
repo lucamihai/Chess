@@ -71,7 +71,7 @@ namespace Chess_Application
             Piece = piece;
 
             this.pictureBox = pictureBox;
-            this.pictureBox.BackgroundImage = (Piece != null) ? piece.PictureBox.BackgroundImage : null;
+            this.pictureBox.BackgroundImage = (Piece != null) ? piece.Image : null;
 
             Available = false;
         }
