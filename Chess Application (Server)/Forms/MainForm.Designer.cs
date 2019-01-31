@@ -124,19 +124,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.panelPiese = new System.Windows.Forms.Panel();
-            this.pbPionNegru = new System.Windows.Forms.PictureBox();
-            this.pbTuraAlb = new System.Windows.Forms.PictureBox();
-            this.pbTuraNegru = new System.Windows.Forms.PictureBox();
-            this.pbCalAlb = new System.Windows.Forms.PictureBox();
-            this.pbCalNegru = new System.Windows.Forms.PictureBox();
-            this.pbRegeNegru = new System.Windows.Forms.PictureBox();
-            this.pbReginaAlb = new System.Windows.Forms.PictureBox();
-            this.pbReginaNegru = new System.Windows.Forms.PictureBox();
-            this.pbRegeAlb = new System.Windows.Forms.PictureBox();
-            this.pbNebunNegru = new System.Windows.Forms.PictureBox();
-            this.pbNebunAlb = new System.Windows.Forms.PictureBox();
-            this.pbPionAlb = new System.Windows.Forms.PictureBox();
             this.listaMiscari = new System.Windows.Forms.DataGridView();
             this.counter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -237,19 +224,6 @@
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panelPiese.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPionNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCalAlb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCalNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRegeNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRegeAlb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegru)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPioniAlbiLuati)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbaLuata)).BeginInit();
@@ -1263,146 +1237,6 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "1";
             // 
-            // panelPiese
-            // 
-            this.panelPiese.Controls.Add(this.pbPionNegru);
-            this.panelPiese.Controls.Add(this.pbTuraAlb);
-            this.panelPiese.Controls.Add(this.pbTuraNegru);
-            this.panelPiese.Controls.Add(this.pbCalAlb);
-            this.panelPiese.Controls.Add(this.pbCalNegru);
-            this.panelPiese.Controls.Add(this.pbRegeNegru);
-            this.panelPiese.Controls.Add(this.pbReginaAlb);
-            this.panelPiese.Controls.Add(this.pbReginaNegru);
-            this.panelPiese.Controls.Add(this.pbRegeAlb);
-            this.panelPiese.Controls.Add(this.pbNebunNegru);
-            this.panelPiese.Controls.Add(this.pbNebunAlb);
-            this.panelPiese.Controls.Add(this.pbPionAlb);
-            this.panelPiese.Location = new System.Drawing.Point(30, 173);
-            this.panelPiese.Name = "panelPiese";
-            this.panelPiese.Size = new System.Drawing.Size(140, 606);
-            this.panelPiese.TabIndex = 15;
-            this.panelPiese.Visible = false;
-            // 
-            // pbPionNegru
-            // 
-            this.pbPionNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbPionNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbPionNegru.BackgroundImage")));
-            this.pbPionNegru.Location = new System.Drawing.Point(70, 0);
-            this.pbPionNegru.Name = "pbPionNegru";
-            this.pbPionNegru.Size = new System.Drawing.Size(64, 64);
-            this.pbPionNegru.TabIndex = 11;
-            this.pbPionNegru.TabStop = false;
-            // 
-            // pbTuraAlb
-            // 
-            this.pbTuraAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbTuraAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbTuraAlb.BackgroundImage")));
-            this.pbTuraAlb.Location = new System.Drawing.Point(0, 64);
-            this.pbTuraAlb.Name = "pbTuraAlb";
-            this.pbTuraAlb.Size = new System.Drawing.Size(64, 64);
-            this.pbTuraAlb.TabIndex = 10;
-            this.pbTuraAlb.TabStop = false;
-            // 
-            // pbTuraNegru
-            // 
-            this.pbTuraNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbTuraNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbTuraNegru.BackgroundImage")));
-            this.pbTuraNegru.Location = new System.Drawing.Point(70, 64);
-            this.pbTuraNegru.Name = "pbTuraNegru";
-            this.pbTuraNegru.Size = new System.Drawing.Size(64, 64);
-            this.pbTuraNegru.TabIndex = 9;
-            this.pbTuraNegru.TabStop = false;
-            // 
-            // pbCalAlb
-            // 
-            this.pbCalAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbCalAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCalAlb.BackgroundImage")));
-            this.pbCalAlb.Location = new System.Drawing.Point(0, 128);
-            this.pbCalAlb.Name = "pbCalAlb";
-            this.pbCalAlb.Size = new System.Drawing.Size(64, 64);
-            this.pbCalAlb.TabIndex = 8;
-            this.pbCalAlb.TabStop = false;
-            // 
-            // pbCalNegru
-            // 
-            this.pbCalNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbCalNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCalNegru.BackgroundImage")));
-            this.pbCalNegru.Location = new System.Drawing.Point(70, 128);
-            this.pbCalNegru.Name = "pbCalNegru";
-            this.pbCalNegru.Size = new System.Drawing.Size(64, 64);
-            this.pbCalNegru.TabIndex = 7;
-            this.pbCalNegru.TabStop = false;
-            // 
-            // pbRegeNegru
-            // 
-            this.pbRegeNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbRegeNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRegeNegru.BackgroundImage")));
-            this.pbRegeNegru.Location = new System.Drawing.Point(70, 320);
-            this.pbRegeNegru.Name = "pbRegeNegru";
-            this.pbRegeNegru.Size = new System.Drawing.Size(64, 64);
-            this.pbRegeNegru.TabIndex = 6;
-            this.pbRegeNegru.TabStop = false;
-            // 
-            // pbReginaAlb
-            // 
-            this.pbReginaAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbReginaAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbReginaAlb.BackgroundImage")));
-            this.pbReginaAlb.Location = new System.Drawing.Point(0, 256);
-            this.pbReginaAlb.Name = "pbReginaAlb";
-            this.pbReginaAlb.Size = new System.Drawing.Size(64, 64);
-            this.pbReginaAlb.TabIndex = 5;
-            this.pbReginaAlb.TabStop = false;
-            // 
-            // pbReginaNegru
-            // 
-            this.pbReginaNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbReginaNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbReginaNegru.BackgroundImage")));
-            this.pbReginaNegru.Location = new System.Drawing.Point(70, 256);
-            this.pbReginaNegru.Name = "pbReginaNegru";
-            this.pbReginaNegru.Size = new System.Drawing.Size(64, 64);
-            this.pbReginaNegru.TabIndex = 4;
-            this.pbReginaNegru.TabStop = false;
-            // 
-            // pbRegeAlb
-            // 
-            this.pbRegeAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbRegeAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRegeAlb.BackgroundImage")));
-            this.pbRegeAlb.Location = new System.Drawing.Point(0, 320);
-            this.pbRegeAlb.Name = "pbRegeAlb";
-            this.pbRegeAlb.Size = new System.Drawing.Size(64, 64);
-            this.pbRegeAlb.TabIndex = 3;
-            this.pbRegeAlb.TabStop = false;
-            // 
-            // pbNebunNegru
-            // 
-            this.pbNebunNegru.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbNebunNegru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbNebunNegru.BackgroundImage")));
-            this.pbNebunNegru.Location = new System.Drawing.Point(70, 192);
-            this.pbNebunNegru.Name = "pbNebunNegru";
-            this.pbNebunNegru.Size = new System.Drawing.Size(64, 64);
-            this.pbNebunNegru.TabIndex = 2;
-            this.pbNebunNegru.TabStop = false;
-            // 
-            // pbNebunAlb
-            // 
-            this.pbNebunAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbNebunAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbNebunAlb.BackgroundImage")));
-            this.pbNebunAlb.Location = new System.Drawing.Point(0, 192);
-            this.pbNebunAlb.Name = "pbNebunAlb";
-            this.pbNebunAlb.Size = new System.Drawing.Size(64, 64);
-            this.pbNebunAlb.TabIndex = 1;
-            this.pbNebunAlb.TabStop = false;
-            // 
-            // pbPionAlb
-            // 
-            this.pbPionAlb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbPionAlb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbPionAlb.BackgroundImage")));
-            this.pbPionAlb.Location = new System.Drawing.Point(0, 0);
-            this.pbPionAlb.Name = "pbPionAlb";
-            this.pbPionAlb.Size = new System.Drawing.Size(64, 64);
-            this.pbPionAlb.TabIndex = 0;
-            this.pbPionAlb.TabStop = false;
-            // 
             // listaMiscari
             // 
             this.listaMiscari.AllowUserToAddRows = false;
@@ -1768,7 +1602,6 @@
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listaMiscari);
-            this.Controls.Add(this.panelPiese);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
@@ -1854,19 +1687,6 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panelPiese.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPionNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTuraAlb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTuraNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCalAlb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCalNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRegeNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRegeAlb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebunNegru)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebunAlb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPionAlb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPioniAlbiLuati)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbaLuata)).EndInit();
@@ -1973,19 +1793,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panelPiese;
-        private System.Windows.Forms.PictureBox pbPionNegru;
-        private System.Windows.Forms.PictureBox pbTuraAlb;
-        private System.Windows.Forms.PictureBox pbTuraNegru;
-        private System.Windows.Forms.PictureBox pbCalAlb;
-        private System.Windows.Forms.PictureBox pbCalNegru;
-        private System.Windows.Forms.PictureBox pbRegeNegru;
-        private System.Windows.Forms.PictureBox pbReginaAlb;
-        private System.Windows.Forms.PictureBox pbReginaNegru;
-        private System.Windows.Forms.PictureBox pbRegeAlb;
-        private System.Windows.Forms.PictureBox pbNebunNegru;
-        private System.Windows.Forms.PictureBox pbNebunAlb;
-        private System.Windows.Forms.PictureBox pbPionAlb;
         //private Meniu meniu1;
         //private Optiuni optiuni;
         private System.Windows.Forms.DataGridView listaMiscari;
