@@ -132,30 +132,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.pbPioniAlbiLuati = new System.Windows.Forms.PictureBox();
-            this.pbReginaAlbaLuata = new System.Windows.Forms.PictureBox();
-            this.pbNebuniAlbiLuati = new System.Windows.Forms.PictureBox();
-            this.pbCaiAlbiLuati = new System.Windows.Forms.PictureBox();
-            this.pbTureAlbeLuate = new System.Windows.Forms.PictureBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.labelCounterCapturedQueenBlack = new System.Windows.Forms.Label();
-            this.labelCounterCapturedBishopsBlack = new System.Windows.Forms.Label();
-            this.labelCounterCapturedKnightsBlack = new System.Windows.Forms.Label();
-            this.labelCounterCapturedRooksBlack = new System.Windows.Forms.Label();
-            this.labelCPN = new System.Windows.Forms.Label();
-            this.pbTureNegreLuate = new System.Windows.Forms.PictureBox();
-            this.pbCaiNegriLuati = new System.Windows.Forms.PictureBox();
-            this.pbNebuniNegriLuati = new System.Windows.Forms.PictureBox();
-            this.pbReginaNeagraLuata = new System.Windows.Forms.PictureBox();
-            this.pbPioniNegriLuati = new System.Windows.Forms.PictureBox();
             this.label18 = new System.Windows.Forms.Label();
             this.labelRand = new System.Windows.Forms.Label();
-            this.labelCPA = new System.Windows.Forms.Label();
-            this.labelCounterCapturedRooksWhite = new System.Windows.Forms.Label();
-            this.labelCounterCapturedKnightsWhite = new System.Windows.Forms.Label();
-            this.labelCounterCapturedBishopsWhite = new System.Windows.Forms.Label();
-            this.labelCounterCapturedQueenWhite = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.panelCapturedWhitePieces = new System.Windows.Forms.Panel();
+            this.panelCapturedBlackPieces = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -225,16 +207,6 @@
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPioniAlbiLuati)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbaLuata)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniAlbiLuati)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaiAlbiLuati)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTureAlbeLuate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTureNegreLuate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaiNegriLuati)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniNegriLuati)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNeagraLuata)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPioniNegriLuati)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -1321,61 +1293,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.SendChatMessage);
             // 
-            // pbPioniAlbiLuati
-            // 
-            this.pbPioniAlbiLuati.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbPioniAlbiLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbPioniAlbiLuati.Image")));
-            this.pbPioniAlbiLuati.Location = new System.Drawing.Point(335, 78);
-            this.pbPioniAlbiLuati.Name = "pbPioniAlbiLuati";
-            this.pbPioniAlbiLuati.Size = new System.Drawing.Size(64, 64);
-            this.pbPioniAlbiLuati.TabIndex = 26;
-            this.pbPioniAlbiLuati.TabStop = false;
-            this.pbPioniAlbiLuati.Click += new System.EventHandler(this.pbPioniAlbiLuati_Click);
-            // 
-            // pbReginaAlbaLuata
-            // 
-            this.pbReginaAlbaLuata.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbReginaAlbaLuata.Image = ((System.Drawing.Image)(resources.GetObject("pbReginaAlbaLuata.Image")));
-            this.pbReginaAlbaLuata.Location = new System.Drawing.Point(591, 78);
-            this.pbReginaAlbaLuata.Name = "pbReginaAlbaLuata";
-            this.pbReginaAlbaLuata.Size = new System.Drawing.Size(64, 64);
-            this.pbReginaAlbaLuata.TabIndex = 27;
-            this.pbReginaAlbaLuata.TabStop = false;
-            this.pbReginaAlbaLuata.Click += new System.EventHandler(this.pbReginaAlbaLuata_Click);
-            // 
-            // pbNebuniAlbiLuati
-            // 
-            this.pbNebuniAlbiLuati.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbNebuniAlbiLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbNebuniAlbiLuati.Image")));
-            this.pbNebuniAlbiLuati.Location = new System.Drawing.Point(527, 78);
-            this.pbNebuniAlbiLuati.Name = "pbNebuniAlbiLuati";
-            this.pbNebuniAlbiLuati.Size = new System.Drawing.Size(64, 64);
-            this.pbNebuniAlbiLuati.TabIndex = 28;
-            this.pbNebuniAlbiLuati.TabStop = false;
-            this.pbNebuniAlbiLuati.Click += new System.EventHandler(this.pbNebuniAlbiLuati_Click);
-            // 
-            // pbCaiAlbiLuati
-            // 
-            this.pbCaiAlbiLuati.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbCaiAlbiLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbCaiAlbiLuati.Image")));
-            this.pbCaiAlbiLuati.Location = new System.Drawing.Point(463, 78);
-            this.pbCaiAlbiLuati.Name = "pbCaiAlbiLuati";
-            this.pbCaiAlbiLuati.Size = new System.Drawing.Size(64, 64);
-            this.pbCaiAlbiLuati.TabIndex = 29;
-            this.pbCaiAlbiLuati.TabStop = false;
-            this.pbCaiAlbiLuati.Click += new System.EventHandler(this.pbCaiAlbiLuati_Click);
-            // 
-            // pbTureAlbeLuate
-            // 
-            this.pbTureAlbeLuate.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbTureAlbeLuate.Image = ((System.Drawing.Image)(resources.GetObject("pbTureAlbeLuate.Image")));
-            this.pbTureAlbeLuate.Location = new System.Drawing.Point(399, 78);
-            this.pbTureAlbeLuate.Name = "pbTureAlbeLuate";
-            this.pbTureAlbeLuate.Size = new System.Drawing.Size(64, 64);
-            this.pbTureAlbeLuate.TabIndex = 30;
-            this.pbTureAlbeLuate.TabStop = false;
-            this.pbTureAlbeLuate.Click += new System.EventHandler(this.pbTureAlbeLuate_Click);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -1384,110 +1301,6 @@
             this.label17.Size = new System.Drawing.Size(66, 13);
             this.label17.TabIndex = 31;
             this.label17.Text = "Spoils o\' war";
-            // 
-            // labelCounterCapturedQueenBlack
-            // 
-            this.labelCounterCapturedQueenBlack.AutoSize = true;
-            this.labelCounterCapturedQueenBlack.Location = new System.Drawing.Point(616, 811);
-            this.labelCounterCapturedQueenBlack.Name = "labelCounterCapturedQueenBlack";
-            this.labelCounterCapturedQueenBlack.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedQueenBlack.TabIndex = 46;
-            this.labelCounterCapturedQueenBlack.Text = "label22";
-            this.labelCounterCapturedQueenBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCounterCapturedBishopsBlack
-            // 
-            this.labelCounterCapturedBishopsBlack.AutoSize = true;
-            this.labelCounterCapturedBishopsBlack.Location = new System.Drawing.Point(554, 811);
-            this.labelCounterCapturedBishopsBlack.Name = "labelCounterCapturedBishopsBlack";
-            this.labelCounterCapturedBishopsBlack.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedBishopsBlack.TabIndex = 45;
-            this.labelCounterCapturedBishopsBlack.Text = "label21";
-            this.labelCounterCapturedBishopsBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCounterCapturedKnightsBlack
-            // 
-            this.labelCounterCapturedKnightsBlack.AutoSize = true;
-            this.labelCounterCapturedKnightsBlack.Location = new System.Drawing.Point(489, 811);
-            this.labelCounterCapturedKnightsBlack.Name = "labelCounterCapturedKnightsBlack";
-            this.labelCounterCapturedKnightsBlack.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedKnightsBlack.TabIndex = 44;
-            this.labelCounterCapturedKnightsBlack.Text = "label20";
-            this.labelCounterCapturedKnightsBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCounterCapturedRooksBlack
-            // 
-            this.labelCounterCapturedRooksBlack.AutoSize = true;
-            this.labelCounterCapturedRooksBlack.Location = new System.Drawing.Point(426, 811);
-            this.labelCounterCapturedRooksBlack.Name = "labelCounterCapturedRooksBlack";
-            this.labelCounterCapturedRooksBlack.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedRooksBlack.TabIndex = 43;
-            this.labelCounterCapturedRooksBlack.Text = "label19";
-            this.labelCounterCapturedRooksBlack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCPN
-            // 
-            this.labelCPN.AutoSize = true;
-            this.labelCPN.Location = new System.Drawing.Point(360, 811);
-            this.labelCPN.Name = "labelCPN";
-            this.labelCPN.Size = new System.Drawing.Size(41, 13);
-            this.labelCPN.TabIndex = 42;
-            this.labelCPN.Text = "label18";
-            this.labelCPN.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // pbTureNegreLuate
-            // 
-            this.pbTureNegreLuate.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbTureNegreLuate.Image = ((System.Drawing.Image)(resources.GetObject("pbTureNegreLuate.Image")));
-            this.pbTureNegreLuate.Location = new System.Drawing.Point(399, 744);
-            this.pbTureNegreLuate.Name = "pbTureNegreLuate";
-            this.pbTureNegreLuate.Size = new System.Drawing.Size(64, 64);
-            this.pbTureNegreLuate.TabIndex = 41;
-            this.pbTureNegreLuate.TabStop = false;
-            this.pbTureNegreLuate.Click += new System.EventHandler(this.pbTureNegreLuate_Click);
-            // 
-            // pbCaiNegriLuati
-            // 
-            this.pbCaiNegriLuati.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbCaiNegriLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbCaiNegriLuati.Image")));
-            this.pbCaiNegriLuati.Location = new System.Drawing.Point(463, 744);
-            this.pbCaiNegriLuati.Name = "pbCaiNegriLuati";
-            this.pbCaiNegriLuati.Size = new System.Drawing.Size(64, 64);
-            this.pbCaiNegriLuati.TabIndex = 40;
-            this.pbCaiNegriLuati.TabStop = false;
-            this.pbCaiNegriLuati.Click += new System.EventHandler(this.pbCaiNegriLuati_Click);
-            // 
-            // pbNebuniNegriLuati
-            // 
-            this.pbNebuniNegriLuati.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbNebuniNegriLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbNebuniNegriLuati.Image")));
-            this.pbNebuniNegriLuati.Location = new System.Drawing.Point(527, 744);
-            this.pbNebuniNegriLuati.Name = "pbNebuniNegriLuati";
-            this.pbNebuniNegriLuati.Size = new System.Drawing.Size(64, 64);
-            this.pbNebuniNegriLuati.TabIndex = 39;
-            this.pbNebuniNegriLuati.TabStop = false;
-            this.pbNebuniNegriLuati.Click += new System.EventHandler(this.pbNebuniNegriLuati_Click);
-            // 
-            // pbReginaNeagraLuata
-            // 
-            this.pbReginaNeagraLuata.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbReginaNeagraLuata.Image = ((System.Drawing.Image)(resources.GetObject("pbReginaNeagraLuata.Image")));
-            this.pbReginaNeagraLuata.Location = new System.Drawing.Point(591, 744);
-            this.pbReginaNeagraLuata.Name = "pbReginaNeagraLuata";
-            this.pbReginaNeagraLuata.Size = new System.Drawing.Size(64, 64);
-            this.pbReginaNeagraLuata.TabIndex = 38;
-            this.pbReginaNeagraLuata.TabStop = false;
-            this.pbReginaNeagraLuata.Click += new System.EventHandler(this.pbReginaNeagraLuata_Click);
-            // 
-            // pbPioniNegriLuati
-            // 
-            this.pbPioniNegriLuati.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pbPioniNegriLuati.Image = ((System.Drawing.Image)(resources.GetObject("pbPioniNegriLuati.Image")));
-            this.pbPioniNegriLuati.Location = new System.Drawing.Point(335, 744);
-            this.pbPioniNegriLuati.Name = "pbPioniNegriLuati";
-            this.pbPioniNegriLuati.Size = new System.Drawing.Size(64, 64);
-            this.pbPioniNegriLuati.TabIndex = 37;
-            this.pbPioniNegriLuati.TabStop = false;
             // 
             // label18
             // 
@@ -1508,56 +1321,6 @@
             this.labelRand.TabIndex = 49;
             this.labelRand.Text = "Randul pieselor albe";
             // 
-            // labelCPA
-            // 
-            this.labelCPA.AutoSize = true;
-            this.labelCPA.Location = new System.Drawing.Point(361, 145);
-            this.labelCPA.Name = "labelCPA";
-            this.labelCPA.Size = new System.Drawing.Size(41, 13);
-            this.labelCPA.TabIndex = 32;
-            this.labelCPA.Text = "label18";
-            this.labelCPA.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelCounterCapturedRooksWhite
-            // 
-            this.labelCounterCapturedRooksWhite.AutoSize = true;
-            this.labelCounterCapturedRooksWhite.Location = new System.Drawing.Point(424, 145);
-            this.labelCounterCapturedRooksWhite.Name = "labelCounterCapturedRooksWhite";
-            this.labelCounterCapturedRooksWhite.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedRooksWhite.TabIndex = 33;
-            this.labelCounterCapturedRooksWhite.Text = "label19";
-            this.labelCounterCapturedRooksWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCounterCapturedKnightsWhite
-            // 
-            this.labelCounterCapturedKnightsWhite.AutoSize = true;
-            this.labelCounterCapturedKnightsWhite.Location = new System.Drawing.Point(486, 145);
-            this.labelCounterCapturedKnightsWhite.Name = "labelCounterCapturedKnightsWhite";
-            this.labelCounterCapturedKnightsWhite.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedKnightsWhite.TabIndex = 34;
-            this.labelCounterCapturedKnightsWhite.Text = "label20";
-            this.labelCounterCapturedKnightsWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCounterCapturedBishopsWhite
-            // 
-            this.labelCounterCapturedBishopsWhite.AutoSize = true;
-            this.labelCounterCapturedBishopsWhite.Location = new System.Drawing.Point(553, 145);
-            this.labelCounterCapturedBishopsWhite.Name = "labelCounterCapturedBishopsWhite";
-            this.labelCounterCapturedBishopsWhite.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedBishopsWhite.TabIndex = 35;
-            this.labelCounterCapturedBishopsWhite.Text = "label21";
-            this.labelCounterCapturedBishopsWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelCounterCapturedQueenWhite
-            // 
-            this.labelCounterCapturedQueenWhite.AutoSize = true;
-            this.labelCounterCapturedQueenWhite.Location = new System.Drawing.Point(616, 145);
-            this.labelCounterCapturedQueenWhite.Name = "labelCounterCapturedQueenWhite";
-            this.labelCounterCapturedQueenWhite.Size = new System.Drawing.Size(41, 13);
-            this.labelCounterCapturedQueenWhite.TabIndex = 36;
-            this.labelCounterCapturedQueenWhite.Text = "label22";
-            this.labelCounterCapturedQueenWhite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -1568,36 +1331,32 @@
             this.label19.TabIndex = 50;
             this.label19.Text = "Istoric miscari";
             // 
+            // panelCapturedWhitePieces
+            // 
+            this.panelCapturedWhitePieces.Location = new System.Drawing.Point(324, 79);
+            this.panelCapturedWhitePieces.Name = "panelCapturedWhitePieces";
+            this.panelCapturedWhitePieces.Size = new System.Drawing.Size(320, 88);
+            this.panelCapturedWhitePieces.TabIndex = 51;
+            // 
+            // panelCapturedBlackPieces
+            // 
+            this.panelCapturedBlackPieces.Location = new System.Drawing.Point(324, 744);
+            this.panelCapturedBlackPieces.Name = "panelCapturedBlackPieces";
+            this.panelCapturedBlackPieces.Size = new System.Drawing.Size(320, 88);
+            this.panelCapturedBlackPieces.TabIndex = 52;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 836);
+            this.Controls.Add(this.panelCapturedBlackPieces);
+            this.Controls.Add(this.panelCapturedWhitePieces);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.labelRand);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.labelCounterCapturedQueenBlack);
-            this.Controls.Add(this.labelCounterCapturedBishopsBlack);
-            this.Controls.Add(this.labelCounterCapturedKnightsBlack);
-            this.Controls.Add(this.labelCounterCapturedRooksBlack);
-            this.Controls.Add(this.labelCPN);
-            this.Controls.Add(this.pbTureNegreLuate);
-            this.Controls.Add(this.pbCaiNegriLuati);
-            this.Controls.Add(this.pbNebuniNegriLuati);
-            this.Controls.Add(this.pbReginaNeagraLuata);
-            this.Controls.Add(this.pbPioniNegriLuati);
-            this.Controls.Add(this.labelCounterCapturedQueenWhite);
-            this.Controls.Add(this.labelCounterCapturedBishopsWhite);
-            this.Controls.Add(this.labelCounterCapturedKnightsWhite);
-            this.Controls.Add(this.labelCounterCapturedRooksWhite);
-            this.Controls.Add(this.labelCPA);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.pbTureAlbeLuate);
-            this.Controls.Add(this.pbCaiAlbiLuati);
-            this.Controls.Add(this.pbNebuniAlbiLuati);
-            this.Controls.Add(this.pbReginaAlbaLuata);
-            this.Controls.Add(this.pbPioniAlbiLuati);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
@@ -1688,16 +1447,6 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPioniAlbiLuati)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaAlbaLuata)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniAlbiLuati)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaiAlbiLuati)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTureAlbeLuate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTureNegreLuate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaiNegriLuati)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNebuniNegriLuati)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbReginaNeagraLuata)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPioniNegriLuati)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1805,34 +1554,16 @@
         private System.Windows.Forms.ToolStripMenuItem sunetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pbPioniAlbiLuati;
-        private System.Windows.Forms.PictureBox pbReginaAlbaLuata;
-        private System.Windows.Forms.PictureBox pbNebuniAlbiLuati;
-        private System.Windows.Forms.PictureBox pbCaiAlbiLuati;
-        private System.Windows.Forms.PictureBox pbTureAlbeLuate;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label labelCounterCapturedQueenBlack;
-        private System.Windows.Forms.Label labelCounterCapturedBishopsBlack;
-        private System.Windows.Forms.Label labelCounterCapturedKnightsBlack;
-        private System.Windows.Forms.Label labelCounterCapturedRooksBlack;
-        private System.Windows.Forms.Label labelCPN;
-        private System.Windows.Forms.PictureBox pbTureNegreLuate;
-        private System.Windows.Forms.PictureBox pbCaiNegriLuati;
-        private System.Windows.Forms.PictureBox pbNebuniNegriLuati;
-        private System.Windows.Forms.PictureBox pbReginaNeagraLuata;
-        private System.Windows.Forms.PictureBox pbPioniNegriLuati;
         private System.Windows.Forms.Label label18;
         public System.Windows.Forms.Label labelRand;
-        private System.Windows.Forms.Label labelCPA;
-        private System.Windows.Forms.Label labelCounterCapturedRooksWhite;
-        private System.Windows.Forms.Label labelCounterCapturedKnightsWhite;
-        private System.Windows.Forms.Label labelCounterCapturedBishopsWhite;
-        private System.Windows.Forms.Label labelCounterCapturedQueenWhite;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.DataGridViewTextBoxColumn counter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
         private System.Windows.Forms.DataGridViewImageColumn Piesa1;
         private System.Windows.Forms.DataGridViewImageColumn Piesa2;
+        private System.Windows.Forms.Panel panelCapturedWhitePieces;
+        private System.Windows.Forms.Panel panelCapturedBlackPieces;
     }
 }
 

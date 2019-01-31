@@ -29,14 +29,6 @@ namespace Chess_Application
         }
         public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
         {
-            for (int m = 1; m <= 8; m++)
-            {
-                for (int n = 1; m <= 8; m++)
-                {
-                    chessBoard[m, n].Available = false;
-                }
-            }
-
             Box locationToBeInspected;
             Box startLocation = chessBoard[row, column];
 

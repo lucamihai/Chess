@@ -72,6 +72,12 @@
     <Compile Include="Classes\King.cs" />
     <Compile Include="Classes\Queen.cs" />
     <Compile Include="Classes\Rook.cs" />
+    <Compile Include="UserControls\CapturedPieceBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CapturedPieceBox.Designer.cs">
+      <DependentUpon>CapturedPieceBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +103,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\CapturedPieceBox.resx">
+      <DependentUpon>CapturedPieceBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +144,7 @@
     <None Include="Resources\BlackPawn.png" />
     <None Include="Resources\BlackQueen.png" />
     <None Include="Resources\BlackRook.png" />
+    <None Include="Resources\BoxBorder.png" />
     <Content Include="Resources\Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

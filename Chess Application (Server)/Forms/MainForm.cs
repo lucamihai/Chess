@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using Chess_Application.Classes;
 using Chess_Application.Enums;
+using Chess_Application.UserControls;
 using System.Drawing.Imaging;
 
 namespace Chess_Application
@@ -40,9 +41,6 @@ namespace Chess_Application
         public static Turn randMutare = Turn.White;
         public static Turn randMutareClient = Turn.Black;
 
-        int counterCapturedPawnsWhite, counterCapturedRooksWhite, counterCapturedKnightsWhite, counterCapturedBishopsWhite, counterCapturedQueenWhite;
-        int counterCapturedPawnsBlack, counterCapturedRooksBlack, counterCapturedKnightsBlack, counterCapturedBishopsBlack, counterCapturedQueenBlack;
-
         string username = "Server";
         string usernameClient = "Client";
 
@@ -66,8 +64,8 @@ namespace Chess_Application
         Box C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
         Box E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
 
-        Box capturedPawnsWhite, capturedRooksWhite, capturedKnightsWhite, capturedBishopsWhite, capturedQueenWhite;
-        Box capturedPawnsBlack, capturedRooksBlack, capturedKnightsBlack, capturedBishopsBlack, capturedQueenBlack;
+        CapturedPieceBox capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
+        CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
 
         Box[,] ChessBoard;
 
@@ -81,7 +79,6 @@ namespace Chess_Application
         Thread networkThread;
         NetworkStream streamServer;
         bool isNetworkThreadRunning;
-
 
         public MainForm()
         {
@@ -152,6 +149,58 @@ namespace Chess_Application
 
             #endregion
 
+            #region Prepare captured pieces panel (Spoils o' war)
+
+            capturedWhitePawns = new CapturedPieceBox(new Pawn(PieceColor.White));
+            capturedWhiteRooks = new CapturedPieceBox(new Rook(PieceColor.White));
+            capturedWhiteKnights = new CapturedPieceBox(new Knight(PieceColor.White));
+            capturedWhiteBishops = new CapturedPieceBox(new Bishop(PieceColor.White));
+            capturedWhiteQueen = new CapturedPieceBox(new Queen(PieceColor.White));
+
+            capturedBlackPawns = new CapturedPieceBox(new Pawn(PieceColor.Black));
+            capturedBlackRooks = new CapturedPieceBox(new Rook(PieceColor.Black));
+            capturedBlackKnights = new CapturedPieceBox(new Knight(PieceColor.Black));
+            capturedBlackBishops = new CapturedPieceBox(new Bishop(PieceColor.Black));
+            capturedBlackQueen = new CapturedPieceBox(new Queen(PieceColor.Black));
+
+            panelCapturedWhitePieces.Controls.Add(capturedWhitePawns);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteRooks);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteKnights);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteBishops);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteQueen);
+
+            panelCapturedBlackPieces.Controls.Add(capturedBlackPawns);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackRooks);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackKnights);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackBishops);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackQueen);
+
+            capturedWhitePawns.Location = new Point(0, 0);
+            capturedWhiteRooks.Location = new Point(64, 0);
+            capturedWhiteKnights.Location = new Point(128, 0);
+            capturedWhiteBishops.Location = new Point(192, 0);
+            capturedWhiteQueen.Location = new Point(256, 0);
+
+            capturedBlackPawns.Location = new Point(0, 0);
+            capturedBlackRooks.Location = new Point(64, 0);
+            capturedBlackKnights.Location = new Point(128, 0);
+            capturedBlackBishops.Location = new Point(192, 0);
+            capturedBlackQueen.Location = new Point(256, 0);
+
+            capturedWhitePawns.Click += CapturedPieceBoxClick;
+            capturedWhiteRooks.Click += CapturedPieceBoxClick;
+            capturedWhiteKnights.Click += CapturedPieceBoxClick;
+            capturedWhiteBishops.Click += CapturedPieceBoxClick;
+            capturedWhiteQueen.Click += CapturedPieceBoxClick;
+
+            capturedBlackPawns.Click += CapturedPieceBoxClick;
+            capturedBlackRooks.Click += CapturedPieceBoxClick;
+            capturedBlackKnights.Click += CapturedPieceBoxClick;
+            capturedBlackBishops.Click += CapturedPieceBoxClick;
+            capturedBlackQueen.Click += CapturedPieceBoxClick;
+
+            #endregion
+
             NewGame();
 
             #region Assign click event to chessboard pictureboxes
@@ -211,34 +260,83 @@ namespace Chess_Application
 
             #endregion
 
-            #region Reset capture boxes
-
-            capturedPawnsWhite = new Box(pbPioniAlbiLuati, whitePawn1);
-            capturedRooksWhite = new Box(pbTureAlbeLuate, whiteRook1);
-            capturedKnightsWhite = new Box(pbCaiAlbiLuati, whiteKnight1);
-            capturedBishopsWhite = new Box(pbNebuniAlbiLuati, whiteBishop1);
-            capturedQueenWhite = new Box(pbReginaAlbaLuata, whiteQueen);
-
-            capturedPawnsBlack = new Box(pbPioniNegriLuati, blackPawn1);
-            capturedRooksBlack = new Box(pbTureNegreLuate, blackRook1);
-            capturedKnightsBlack = new Box(pbCaiNegriLuati, blackKnight1);
-            capturedBishopsBlack = new Box(pbNebuniNegriLuati, blackBishop1);
-            capturedQueenBlack = new Box(pbReginaNeagraLuata, blackQueen);
-
-            #endregion
+            
 
             #region Prepare the ChessBoard boxes matrix
 
             ChessBoard = new Box[10, 10];
 
-            ChessBoard[1, 1] = A1; ChessBoard[1, 2] = A2; ChessBoard[1, 3] = A3; ChessBoard[1, 4] = A4; ChessBoard[1, 5] = A5; ChessBoard[1, 6] = A6; ChessBoard[1, 7] = A7; ChessBoard[1, 8] = A8;
-            ChessBoard[2, 1] = B1; ChessBoard[2, 2] = B2; ChessBoard[2, 3] = B3; ChessBoard[2, 4] = B4; ChessBoard[2, 5] = B5; ChessBoard[2, 6] = B6; ChessBoard[2, 7] = B7; ChessBoard[2, 8] = B8;
-            ChessBoard[3, 1] = C1; ChessBoard[3, 2] = C2; ChessBoard[3, 3] = C3; ChessBoard[3, 4] = C4; ChessBoard[3, 5] = C5; ChessBoard[3, 6] = C6; ChessBoard[3, 7] = C7; ChessBoard[3, 8] = C8;
-            ChessBoard[4, 1] = D1; ChessBoard[4, 2] = D2; ChessBoard[4, 3] = D3; ChessBoard[4, 4] = D4; ChessBoard[4, 5] = D5; ChessBoard[4, 6] = D6; ChessBoard[4, 7] = D7; ChessBoard[4, 8] = D8;
-            ChessBoard[5, 1] = E1; ChessBoard[5, 2] = E2; ChessBoard[5, 3] = E3; ChessBoard[5, 4] = E4; ChessBoard[5, 5] = E5; ChessBoard[5, 6] = E6; ChessBoard[5, 7] = E7; ChessBoard[5, 8] = E8;
-            ChessBoard[6, 1] = F1; ChessBoard[6, 2] = F2; ChessBoard[6, 3] = F3; ChessBoard[6, 4] = F4; ChessBoard[6, 5] = F5; ChessBoard[6, 6] = F6; ChessBoard[6, 7] = F7; ChessBoard[6, 8] = F8;
-            ChessBoard[7, 1] = G1; ChessBoard[7, 2] = G2; ChessBoard[7, 3] = G3; ChessBoard[7, 4] = G4; ChessBoard[7, 5] = G5; ChessBoard[7, 6] = G6; ChessBoard[7, 7] = G7; ChessBoard[7, 8] = G8;
-            ChessBoard[8, 1] = H1; ChessBoard[8, 2] = H2; ChessBoard[8, 3] = H3; ChessBoard[8, 4] = H4; ChessBoard[8, 5] = H5; ChessBoard[8, 6] = H6; ChessBoard[8, 7] = H7; ChessBoard[8, 8] = H8;
+            ChessBoard[1, 1] = A1;
+            ChessBoard[1, 2] = A2;
+            ChessBoard[1, 3] = A3;
+            ChessBoard[1, 4] = A4;
+            ChessBoard[1, 5] = A5;
+            ChessBoard[1, 6] = A6;
+            ChessBoard[1, 7] = A7;
+            ChessBoard[1, 8] = A8;
+
+            ChessBoard[2, 1] = B1;
+            ChessBoard[2, 2] = B2;
+            ChessBoard[2, 3] = B3;
+            ChessBoard[2, 4] = B4;
+            ChessBoard[2, 5] = B5;
+            ChessBoard[2, 6] = B6;
+            ChessBoard[2, 7] = B7;
+            ChessBoard[2, 8] = B8;
+
+            ChessBoard[3, 1] = C1;
+            ChessBoard[3, 2] = C2;
+            ChessBoard[3, 3] = C3;
+            ChessBoard[3, 4] = C4;
+            ChessBoard[3, 5] = C5;
+            ChessBoard[3, 6] = C6;
+            ChessBoard[3, 7] = C7;
+            ChessBoard[3, 8] = C8;
+
+            ChessBoard[4, 1] = D1;
+            ChessBoard[4, 2] = D2;
+            ChessBoard[4, 3] = D3;
+            ChessBoard[4, 4] = D4;
+            ChessBoard[4, 5] = D5;
+            ChessBoard[4, 6] = D6;
+            ChessBoard[4, 7] = D7;
+            ChessBoard[4, 8] = D8;
+
+            ChessBoard[5, 1] = E1;
+            ChessBoard[5, 2] = E2;
+            ChessBoard[5, 3] = E3;
+            ChessBoard[5, 4] = E4;
+            ChessBoard[5, 5] = E5;
+            ChessBoard[5, 6] = E6;
+            ChessBoard[5, 7] = E7;
+            ChessBoard[5, 8] = E8;
+
+            ChessBoard[6, 1] = F1;
+            ChessBoard[6, 2] = F2;
+            ChessBoard[6, 3] = F3;
+            ChessBoard[6, 4] = F4;
+            ChessBoard[6, 5] = F5;
+            ChessBoard[6, 6] = F6;
+            ChessBoard[6, 7] = F7;
+            ChessBoard[6, 8] = F8;
+
+            ChessBoard[7, 1] = G1;
+            ChessBoard[7, 2] = G2;
+            ChessBoard[7, 3] = G3;
+            ChessBoard[7, 4] = G4;
+            ChessBoard[7, 5] = G5;
+            ChessBoard[7, 6] = G6;
+            ChessBoard[7, 7] = G7;
+            ChessBoard[7, 8] = G8;
+
+            ChessBoard[8, 1] = H1;
+            ChessBoard[8, 2] = H2;
+            ChessBoard[8, 3] = H3;
+            ChessBoard[8, 4] = H4;
+            ChessBoard[8, 5] = H5;
+            ChessBoard[8, 6] = H6;
+            ChessBoard[8, 7] = H7;
+            ChessBoard[8, 8] = H8;
 
             #endregion
 
@@ -345,32 +443,19 @@ namespace Chess_Application
 
             SetAllBoxesAsUnavailable(ChessBoard);
 
-            #region Reset captured pieces count and labels
+            #region Reset captured pieces
 
-            counterCapturedPawnsWhite  = 0;
-            counterCapturedRooksWhite   = 0;
-            counterCapturedKnightsWhite    = 0;
-            counterCapturedBishopsWhite = 0;
-            counterCapturedQueenWhite = 0;
+            capturedWhitePawns.Count = 0;
+            capturedWhiteRooks.Count = 0;
+            capturedWhiteKnights.Count = 0;
+            capturedWhiteBishops.Count = 0;
+            capturedWhiteQueen.Count = 0;
 
-            labelCPA.Text = "0";
-            labelCounterCapturedRooksWhite.Text = "0";
-            labelCounterCapturedKnightsWhite.Text = "0";
-            labelCounterCapturedBishopsWhite.Text = "0";
-            labelCounterCapturedQueenWhite.Text = "0";
-
-
-            counterCapturedPawnsBlack = 0;
-            counterCapturedRooksBlack = 0;
-            counterCapturedKnightsBlack = 0;
-            counterCapturedBishopsBlack = 0;
-            counterCapturedQueenBlack = 0;
-
-            labelCPN.Text = "0";
-            labelCounterCapturedRooksBlack.Text = "0";
-            labelCounterCapturedKnightsBlack.Text = "0";
-            labelCounterCapturedBishopsBlack.Text = "0";
-            labelCounterCapturedQueenBlack.Text = "0";
+            capturedBlackPawns.Count = 0;
+            capturedBlackRooks.Count = 0;
+            capturedBlackKnights.Count = 0;
+            capturedBlackBishops.Count = 0;
+            capturedBlackQueen.Count = 0;
 
             #endregion
         }
@@ -499,41 +584,37 @@ namespace Chess_Application
                                 {
                                     if (retakenPieceType == 'T')
                                     {
-                                        RetakePiece(capturedRooksWhite, ChessBoard[row, column]);
-                                        counterCapturedRooksWhite--;
+                                        RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedRooksWhite.Text = counterCapturedRooksWhite.ToString(); }
+                                            () => { capturedWhiteRooks.Count--; }
                                         );
                                     }
 
                                     if (retakenPieceType == 'C')
                                     {
-                                        RetakePiece(capturedKnightsWhite, ChessBoard[row, column]);
-                                        counterCapturedKnightsWhite--;
+                                        RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedKnightsWhite.Text = counterCapturedKnightsWhite.ToString(); }
+                                            () => { capturedWhiteKnights.Count--; }
                                         );
                                     }
 
                                     if (retakenPieceType == 'N')
                                     {
-                                        RetakePiece(capturedBishopsWhite, ChessBoard[row, column]);
-                                        counterCapturedBishopsWhite--;
+                                        RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedBishopsWhite.Text = counterCapturedBishopsWhite.ToString(); }
+                                            () => { capturedWhiteBishops.Count--; }
                                         );
                                     }
 
                                     if (retakenPieceType == 'R')
                                     {
-                                        RetakePiece(capturedQueenWhite, ChessBoard[row, column]);
-                                        counterCapturedQueenWhite--;
+                                        RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedQueenWhite.Text = counterCapturedQueenWhite.ToString(); }
+                                            () => { capturedWhiteQueen.Count--; }
                                         );
                                     }
                                 }
@@ -543,41 +624,37 @@ namespace Chess_Application
                                 {
                                     if (retakenPieceType == 'T')
                                     {
-                                        RetakePiece(capturedRooksBlack, ChessBoard[row, column]);
-                                        counterCapturedRooksBlack--;
+                                        RetakeCapturedPiece(capturedBlackRooks, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedRooksBlack.Text = counterCapturedRooksBlack.ToString(); }
+                                            () => { capturedBlackRooks.Count--; }
                                         );
                                     }
 
                                     if (retakenPieceType == 'C')
                                     {
-                                        RetakePiece(capturedKnightsBlack, ChessBoard[row, column]);
-                                        counterCapturedKnightsBlack--;
+                                        RetakeCapturedPiece(capturedBlackKnights, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedKnightsBlack.Text = counterCapturedKnightsBlack.ToString(); }
+                                            () => { capturedBlackKnights.Count--; }
                                         );
                                     }
 
                                     if (retakenPieceType == 'N')
                                     {
-                                        RetakePiece(capturedBishopsBlack, ChessBoard[row, column]);
-                                        counterCapturedBishopsBlack--;
+                                        RetakeCapturedPiece(capturedBlackBishops, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedBishopsBlack.Text = counterCapturedBishopsBlack.ToString(); }
+                                            () => { capturedBlackBishops.Count--; }
                                         );
                                     }
 
                                     if (retakenPieceType == 'R')
                                     {
-                                        RetakePiece(capturedQueenBlack, ChessBoard[row, column]);
-                                        counterCapturedQueenBlack--;
+                                        RetakeCapturedPiece(capturedBlackQueen, ChessBoard[row, column]);
 
                                         updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { labelCounterCapturedQueenBlack.Text = counterCapturedQueenBlack.ToString(); }
+                                            () => { capturedBlackQueen.Count--; }
                                         );
                                     }
                                 }
@@ -918,27 +995,27 @@ namespace Chess_Application
             {
                 if (destination.Piece is Pawn)
                 {
-                    labelCPA.Text = (++counterCapturedPawnsWhite).ToString();
+                    capturedWhitePawns.Count++;
                 }
 
                 if (destination.Piece is Rook)
                 {
-                    labelCounterCapturedRooksWhite.Text = (++counterCapturedRooksWhite).ToString();
+                    capturedWhiteRooks.Count++;
                 }
 
                 if (destination.Piece is Knight)
                 {
-                    labelCounterCapturedKnightsWhite.Text = (++counterCapturedKnightsWhite).ToString();
+                    capturedWhiteKnights.Count++;
                 }
 
                 if (destination.Piece is Bishop)
                 {
-                    labelCounterCapturedBishopsWhite.Text = (++counterCapturedBishopsWhite).ToString();
+                    capturedWhiteBishops.Count++;
                 }
 
                 if (destination.Piece is Queen)
                 {
-                    labelCounterCapturedQueenWhite.Text = (++counterCapturedQueenWhite).ToString();
+                    capturedWhiteQueen.Count++;
                 }
             }
 
@@ -946,27 +1023,27 @@ namespace Chess_Application
             {
                 if (destination.Piece is Pawn)
                 {
-                    labelCPN.Text = (++counterCapturedPawnsBlack).ToString();
+                    capturedBlackPawns.Count++;
                 }
 
                 if (destination.Piece is Rook)
                 {
-                    labelCounterCapturedRooksBlack.Text = (++counterCapturedRooksBlack).ToString();
+                    capturedBlackRooks.Count++;
                 }
 
                 if (destination.Piece is Knight)
                 {
-                    labelCounterCapturedKnightsBlack.Text = (++counterCapturedKnightsBlack).ToString();
+                    capturedBlackKnights.Count++;
                 }
 
                 if (destination.Piece is Bishop)
                 {
-                    labelCounterCapturedBishopsBlack.Text = (++counterCapturedBishopsBlack).ToString();
+                    capturedBlackBishops.Count++;
                 }
 
                 if (destination.Piece is Queen)
                 {
-                    labelCounterCapturedQueenBlack.Text = (++counterCapturedQueenBlack).ToString();
+                    capturedBlackQueen.Count++;
                 }
             }
         }
@@ -992,7 +1069,7 @@ namespace Chess_Application
             {
                 if (destination.Name.Contains('H') && destination.Piece is Pawn)
                 {
-                    if (counterCapturedRooksWhite + counterCapturedKnightsWhite + counterCapturedBishopsWhite + counterCapturedQueenWhite > 0)
+                    if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
                     {
                         retakeRow = 8;
                         retakeColumn = destination.Name[1] - 48;
@@ -1009,7 +1086,7 @@ namespace Chess_Application
             {
                 if (destination.Name.Contains('A') && destination.Piece is Pawn)
                 {
-                    if (counterCapturedRooksBlack + counterCapturedKnightsBlack + counterCapturedBishopsBlack + counterCapturedQueenBlack > 0)
+                    if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
                     {
                         retakeRow = 1;
                         retakeColumn = destination.Name[1] - 48;
@@ -1050,135 +1127,42 @@ namespace Chess_Application
 
         #region Recapturing chess pieces
 
-        /// <summary>
-        /// Used to retake a captured chess piece.
-        /// </summary>
-        /// <param name="origin">Captured chess piece box</param>
-        /// <param name="destination">Box where the captured piece will be placed</param>
-        void RetakePiece(Box origin, Box destination)
+        void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
         {
-            destination.Piece = origin.Piece;
-            destination.pictureBox.BackgroundImage = origin.pictureBox.BackgroundImage;
+            PieceColor capturedPieceColor = capturedPieceBox.ChessPiece.Color;
 
-            textBox1.AppendText("O piesa a fost selectata" + Environment.NewLine);
-        }
-
-        #region White pieces recapturing
-
-        private void pbPioniAlbiLuati_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbTureAlbeLuate_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedRooksWhite != 0)
+            if (capturedPieceBox.ChessPiece is Rook)
             {
-                RetakePiece(capturedRooksWhite, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedRooksWhite.Text = (--counterCapturedRooksWhite).ToString();
+                destination.Piece = new Rook(capturedPieceColor);
+                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
 
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " TA");
-                SendMessage("#final selectie");
+                capturedPieceBox.Count--;
+            }
+
+            if (capturedPieceBox.ChessPiece is Knight)
+            {
+                destination.Piece = new Knight(capturedPieceColor);
+                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
+
+                capturedPieceBox.Count--;
+            }
+
+            if (capturedPieceBox.ChessPiece is Bishop)
+            {
+                destination.Piece = new Bishop(capturedPieceColor);
+                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
+
+                capturedPieceBox.Count--;
+            }
+
+            if (capturedPieceBox.ChessPiece is Queen)
+            {
+                destination.Piece = new Queen(capturedPieceColor);
+                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
+
+                capturedPieceBox.Count--;
             }
         }
-
-        private void pbCaiAlbiLuati_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedKnightsWhite != 0)
-            {
-                RetakePiece(capturedKnightsWhite, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedKnightsWhite.Text = (--counterCapturedKnightsWhite).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " CA");
-                SendMessage("#final selectie");
-            }
-        }
-
-        private void pbNebuniAlbiLuati_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedBishopsWhite != 0)
-            {
-                RetakePiece(capturedBishopsWhite, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedBishopsWhite.Text = (--counterCapturedBishopsWhite).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " NA");
-                SendMessage("#final selectie");
-            }
-        }
-
-        private void pbReginaAlbaLuata_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedQueenWhite != 0)
-            {
-                RetakePiece(capturedQueenWhite, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedQueenWhite.Text = (--counterCapturedQueenWhite).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " RA");
-                SendMessage("#final selectie");
-            }
-        }
-
-        #endregion
-
-        #region Black pieces recapturing
-
-        private void pbTureNegreLuate_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedRooksBlack != 0)
-            {
-                RetakePiece(capturedRooksBlack, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedRooksBlack.Text = (--counterCapturedRooksBlack).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " TN");
-                SendMessage("#final selectie");
-            }
-        }
-
-        private void pbCaiNegriLuati_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedKnightsBlack != 0)
-            {
-                RetakePiece(capturedKnightsBlack, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedKnightsBlack.Text = (--counterCapturedKnightsBlack).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " CN");
-                SendMessage("#final selectie");
-            }
-        }
-
-        private void pbNebuniNegriLuati_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedBishopsBlack != 0)
-            {
-                RetakePiece(capturedBishopsBlack, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedBishopsBlack.Text = (--counterCapturedBishopsBlack).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " NN");
-                SendMessage("#final selectie");
-            }
-        }
-
-        private void pbReginaNeagraLuata_Click(object sender, EventArgs e)
-        {
-            if (currentPlayerMustSelect && counterCapturedQueenBlack != 0)
-            {
-                RetakePiece(capturedQueenBlack, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
-                labelCounterCapturedQueenBlack.Text = (--counterCapturedQueenBlack).ToString();
-
-                SendMessage("#selectat " + retakeRow + " " + retakeColumn + " RN");
-                SendMessage("#final selectie");
-            }
-        }
-
-        #endregion
 
         #endregion
 
@@ -1344,6 +1328,56 @@ namespace Chess_Application
             }
         }
 
+        void CapturedPieceBoxClick(object sender, EventArgs e)
+        {
+            CapturedPieceBox clickedCapturedPieceBox = (CapturedPieceBox)sender;
+
+            if (currentPlayerMustSelect && clickedCapturedPieceBox.Count > 0)
+            {
+                RetakeCapturedPiece(clickedCapturedPieceBox, ChessBoard[retakeRow, retakeColumn]);
+                currentPlayerMustSelect = false;
+
+                ChessPiece recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
+                if (recapturedPiece != null)
+                {
+                    string recaptureMessage = "#selectat " + retakeRow + " " + retakeColumn + " ";
+
+                    if (recapturedPiece is Rook)
+                    {
+                        recaptureMessage += "T";
+                    }
+
+                    if (recapturedPiece is Knight)
+                    {
+                        recaptureMessage += "C";
+                    }
+
+                    if (recapturedPiece is Bishop)
+                    {
+                        recaptureMessage += "N";
+                    }
+
+                    if (recapturedPiece is Queen)
+                    {
+                        recaptureMessage += "R";
+                    }
+
+                    if (recapturedPiece.Color == PieceColor.White)
+                    {
+                        recaptureMessage += "A";
+                    }
+
+                    if (recapturedPiece.Color == PieceColor.Black)
+                    {
+                        recaptureMessage += "N";
+                    }
+
+                    SendMessage(recaptureMessage);
+                    SendMessage("#final selectie");
+                }
+                
+            }
+        }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             try

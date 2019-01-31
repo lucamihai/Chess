@@ -10,7 +10,7 @@ using Chess_Application.Enums;
 
 namespace Chess_Application.Classes
 {
-    class Utilities
+    static class Utilities
     {
         public static string GetReversedString(string stringToBeReversed)
         {
