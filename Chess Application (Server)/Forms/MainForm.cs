@@ -27,19 +27,19 @@ namespace Chess_Application
 
         int clickCounter;
         int moveNumber;
-        bool rand = true;
+        bool isCurrentPlayersTurnToMove = true;
 
         int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
-        public static bool modInceptator = true; // Made static, because it's required elsewhere
+        public static bool markAvailableBoxesAsGreen = true; // Made static, because it's required elsewhere
 
         bool soundEnabled = true;
         bool incepeJocNou = false;
         bool currentPlayerMustSelect = false;
         bool opponentMustSelect = false;
 
-        public static Turn randMutare = Turn.White;
-        public static Turn randMutareClient = Turn.Black;
+        public static Turn currentPlayersTurn = Turn.White;
+        public static Turn opponentsTurn = Turn.Black;
 
         string username = "Server";
         string usernameClient = "Client";
@@ -228,39 +228,84 @@ namespace Chess_Application
 
             #region Reset boxes with chess pieces on them
 
-            A1 = new Box(_1A, whiteRook1); H1 = new Box(_1H, blackRook1);
-            A2 = new Box(_2A, whiteKnight1); H2 = new Box(_2H, blackKnight1);
-            A3 = new Box(_3A, whiteBishop1); H3 = new Box(_3H, blackBishop1);
-            A4 = new Box(_4A, whiteQueen); H4 = new Box(_4H, blackKing);
-            A5 = new Box(_5A, whiteKing); H5 = new Box(_5H, blackQueen);
-            A6 = new Box(_6A, whiteBishop2); H6 = new Box(_6H, blackBishop2);
-            A7 = new Box(_7A, whiteKnight2); H7 = new Box(_7H, blackKnight2);
-            A8 = new Box(_8A, whiteRook2); H8 = new Box(_8H, blackRook2);
-            B1 = new Box(_1B, whitePawn1); G1 = new Box(_1G, blackPawn1);
-            B2 = new Box(_2B, whitePawn2); G2 = new Box(_2G, blackPawn2);
-            B3 = new Box(_3B, whitePawn3); G3 = new Box(_3G, blackPawn3);
-            B4 = new Box(_4B, whitePawn4); G4 = new Box(_4G, blackPawn4);
-            B5 = new Box(_5B, whitePawn5); G5 = new Box(_5G, blackPawn5);
-            B6 = new Box(_6B, whitePawn6); G6 = new Box(_6G, blackPawn6);
-            B7 = new Box(_7B, whitePawn7); G7 = new Box(_7G, blackPawn7);
-            B8 = new Box(_8B, whitePawn8); G8 = new Box(_8G, blackPawn8);
+            A1 = new Box(_1A, whiteRook1);
+            A2 = new Box(_2A, whiteKnight1);
+            A3 = new Box(_3A, whiteBishop1);
+            A4 = new Box(_4A, whiteQueen);
+            A5 = new Box(_5A, whiteKing);
+            A6 = new Box(_6A, whiteBishop2);
+            A7 = new Box(_7A, whiteKnight2);
+            A8 = new Box(_8A, whiteRook2);
+            
+            B1 = new Box(_1B, whitePawn1);
+            B2 = new Box(_2B, whitePawn2);
+            B3 = new Box(_3B, whitePawn3);
+            B4 = new Box(_4B, whitePawn4);
+            B5 = new Box(_5B, whitePawn5);
+            B6 = new Box(_6B, whitePawn6);
+            B7 = new Box(_7B, whitePawn7);
+            B8 = new Box(_8B, whitePawn8);
+            
+
+            G1 = new Box(_1G, blackPawn1);
+            G2 = new Box(_2G, blackPawn2);
+            G3 = new Box(_3G, blackPawn3);
+            G4 = new Box(_4G, blackPawn4);
+            G5 = new Box(_5G, blackPawn5);
+            G6 = new Box(_6G, blackPawn6);
+            G7 = new Box(_7G, blackPawn7);
+            G8 = new Box(_8G, blackPawn8);
+
+            H1 = new Box(_1H, blackRook1);
+            H2 = new Box(_2H, blackKnight1);
+            H3 = new Box(_3H, blackBishop1);
+            H4 = new Box(_4H, blackKing);
+            H5 = new Box(_5H, blackQueen);
+            H6 = new Box(_6H, blackBishop2);
+            H7 = new Box(_7H, blackKnight2);
+            H8 = new Box(_8H, blackRook2);
 
             #endregion
 
             #region Reset boxes without chess pieces on them
 
-            C1 = new Box(_1C); D1 = new Box(_1D); E1 = new Box(_1E); F1 = new Box(_1F);
-            C2 = new Box(_2C); D2 = new Box(_2D); E2 = new Box(_2E); F2 = new Box(_2F);
-            C3 = new Box(_3C); D3 = new Box(_3D); E3 = new Box(_3E); F3 = new Box(_3F);
-            C4 = new Box(_4C); D4 = new Box(_4D); E4 = new Box(_4E); F4 = new Box(_4F);
-            C5 = new Box(_5C); D5 = new Box(_5D); E5 = new Box(_5E); F5 = new Box(_5F);
-            C6 = new Box(_6C); D6 = new Box(_6D); E6 = new Box(_6E); F6 = new Box(_6F);
-            C7 = new Box(_7C); D7 = new Box(_7D); E7 = new Box(_7E); F7 = new Box(_7F);
-            C8 = new Box(_8C); D8 = new Box(_8D); E8 = new Box(_8E); F8 = new Box(_8F);
+            C1 = new Box(_1C);
+            C2 = new Box(_2C);
+            C3 = new Box(_3C);
+            C4 = new Box(_4C);
+            C5 = new Box(_5C);
+            C6 = new Box(_6C);
+            C7 = new Box(_7C);
+            C8 = new Box(_8C);
+
+            D1 = new Box(_1D);
+            D2 = new Box(_2D);
+            D3 = new Box(_3D);
+            D4 = new Box(_4D);
+            D5 = new Box(_5D);
+            D6 = new Box(_6D);
+            D7 = new Box(_7D);
+            D8 = new Box(_8D);
+
+            E1 = new Box(_1E);
+            E2 = new Box(_2E);
+            E3 = new Box(_3E);
+            E4 = new Box(_4E);
+            E5 = new Box(_5E);
+            E6 = new Box(_6E);
+            E7 = new Box(_7E);
+            E8 = new Box(_8E);
+
+            F1 = new Box(_1F);
+            F2 = new Box(_2F);
+            F3 = new Box(_3F);
+            F4 = new Box(_4F);
+            F5 = new Box(_5F);
+            F6 = new Box(_6F);
+            F7 = new Box(_7F);
+            F8 = new Box(_8F);
 
             #endregion
-
-            
 
             #region Prepare the ChessBoard boxes matrix
 
@@ -424,15 +469,15 @@ namespace Chess_Application
 
             clickCounter = 0;
 
-            if (randMutareClient == Turn.Black)
+            if (opponentsTurn == Turn.Black)
             {
-                randMutare = Turn.White;
-                rand = true;
+                currentPlayersTurn = Turn.White;
+                isCurrentPlayersTurnToMove = true;
             }
             else
             {
-                randMutare = Turn.Black;
-                rand = false;
+                currentPlayersTurn = Turn.Black;
+                isCurrentPlayersTurnToMove = false;
             }
 
             pozitieRegeAlb.X = 1;
@@ -526,10 +571,10 @@ namespace Chess_Application
                                 string colorsString = receivedData.Substring(8);
                                 string[] colors = colorsString.Split(' ');
 
-                                randMutare       = (Turn)Convert.ToInt32(colors[0]);
-                                randMutareClient = (Turn)Convert.ToInt32(colors[1]);
+                                currentPlayersTurn       = (Turn)Convert.ToInt32(colors[0]);
+                                opponentsTurn = (Turn)Convert.ToInt32(colors[1]);
 
-                                rand = (randMutare == Turn.White) ? true : false;
+                                isCurrentPlayersTurnToMove = (currentPlayersTurn == Turn.White) ? true : false;
                             }
 
                             // Client requested a new game
@@ -711,17 +756,17 @@ namespace Chess_Application
             // Player will be controlling white, will have first move
             if (a == 1)
             {
-                randMutare = Turn.White;
-                randMutareClient = Turn.Black;
-                rand = true;
+                currentPlayersTurn = Turn.White;
+                opponentsTurn = Turn.Black;
+                isCurrentPlayersTurnToMove = true;
             }
 
             // Player will be controlling black, will have second move
             else
             {
-                randMutare = Turn.Black;
-                randMutareClient = Turn.White;
-                rand = false;
+                currentPlayersTurn = Turn.Black;
+                opponentsTurn = Turn.White;
+                isCurrentPlayersTurnToMove = false;
             }
 
             // Communicate to partner the colors
@@ -795,7 +840,7 @@ namespace Chess_Application
         /// <param name="e"></param>
         private void EnableBeginnerMode(object sender, EventArgs e)
         {
-            modInceptator = true;
+            markAvailableBoxesAsGreen = true;
             activeazaToolStripMenuItem.Available = false;
             dezactiveazaToolStripMenuItem.Available = true;
         }
@@ -807,7 +852,7 @@ namespace Chess_Application
         /// <param name="e"></param>
         private void DisableBeginnerMode(object sender, EventArgs e)
         {
-            modInceptator = false;
+            markAvailableBoxesAsGreen = false;
             activeazaToolStripMenuItem.Available = true;
             dezactiveazaToolStripMenuItem.Available = false;
         }
@@ -877,10 +922,10 @@ namespace Chess_Application
             SetAllBoxesAsUnavailable(ChessBoard);
             ResetBoxesColors(ChessBoard);
 
-            rand = false;
-            randMutare = randMutareClient;
+            isCurrentPlayersTurnToMove = false;
+            currentPlayersTurn = opponentsTurn;
 
-            if (randMutare == Turn.White)
+            if (currentPlayersTurn == Turn.White)
             {
                 labelRand.Text = "White's turn";
             }
@@ -922,16 +967,16 @@ namespace Chess_Application
                 UpdateKingPosition(destination);
             }
 
-            rand = true;
+            isCurrentPlayersTurnToMove = true;
 
-            if (randMutareClient == Turn.Black)
+            if (opponentsTurn == Turn.Black)
             {
-                randMutare = Turn.White;
+                currentPlayersTurn = Turn.White;
                 labelRand.Text = "White's turn";
             }
             else
             {
-                randMutare = Turn.Black;
+                currentPlayersTurn = Turn.Black;
                 labelRand.Text = "Black's turn";
             }
 
@@ -958,27 +1003,14 @@ namespace Chess_Application
 
         void AddMoveHistoryEntry(Box origin, Box destination)
         {
-            if (destination.Piece != null)
-            {
-                listaMiscari.Rows.Add(
-                    moveNumber++,
-                    origin.Name + " -> " + destination.Name,
-                    origin.Piece.ImageSmall,
-                    destination.Piece.ImageSmall
-                );
-            }
+            Image destinationImage = (destination.Piece != null) ? destination.Piece.ImageSmall : new Bitmap(25, 25);
 
-            if (destination.Piece == null)
-            {
-                Bitmap emptyImage = new Bitmap(25, 25);
-
-                listaMiscari.Rows.Add(
-                    moveNumber++,
-                    origin.Name + " -> " + destination.Name,
-                    origin.Piece.ImageSmall,
-                    emptyImage
-                );
-            }
+            listaMiscari.Rows.Add(
+                moveNumber++,
+                origin.Name + " -> " + destination.Name,
+                origin.Piece.ImageSmall,
+                destinationImage
+            );
 
             // When the scroll bar appears, enlarge the width
             if (moveNumber == 7)
@@ -1065,7 +1097,7 @@ namespace Chess_Application
         void BeginPieceRecapturingIfPawnReachedTheEnd(Box destination)
         {
             // If a white pawn has reached the last line
-            if (randMutare == Turn.White)
+            if (currentPlayersTurn == Turn.White)
             {
                 if (destination.Name.Contains('H') && destination.Piece is Pawn)
                 {
@@ -1082,7 +1114,7 @@ namespace Chess_Application
             }
 
             // If a black pawn has reached the last line
-            if (randMutare == Turn.Black)
+            if (currentPlayersTurn == Turn.Black)
             {
                 if (destination.Name.Contains('A') && destination.Piece is Pawn)
                 {
@@ -1254,11 +1286,11 @@ namespace Chess_Application
 
         public void NextTurn()
         {
-            randMutare++;
+            currentPlayersTurn++;
 
-            if (randMutare > Turn.Black)
+            if (currentPlayersTurn > Turn.Black)
             {
-                randMutare = Turn.White;
+                currentPlayersTurn = Turn.White;
             }
         }
 
@@ -1294,7 +1326,7 @@ namespace Chess_Application
             }
 
             // First click on a box with a chess piece
-            if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)randMutare == (int)clickedBoxObject.Piece.Color && rand)
+            if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)currentPlayersTurn == (int)clickedBoxObject.Piece.Color && isCurrentPlayersTurnToMove)
             {
                 short row = clickedBoxObject.Row;
                 short column = clickedBoxObject.Column;

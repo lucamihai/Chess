@@ -40,7 +40,7 @@ namespace Chess_Application
             {
                 _Available = value;
 
-                if (_Available && MainForm.modInceptator)
+                if (_Available && MainForm.markAvailableBoxesAsGreen)
                 {
                     pictureBox.BackColor = Color.Green;
                 }

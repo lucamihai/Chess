@@ -34,7 +34,7 @@ namespace Chess_Application
         {
             Point kingPosition;
 
-            if (MainForm.randMutare == Turn.White)
+            if (MainForm.currentPlayersTurn == Turn.White)
             {
                 kingPosition = MainForm.pozitieRegeAlb;
             }
