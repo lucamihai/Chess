@@ -106,8 +106,6 @@ namespace Chess_Application
 
             menuContainer.BringToFront();
 
-            listaMiscari.ScrollBars = ScrollBars.Vertical;
-
             #region Initialize chess pieces
 
             whiteRook1 = new Rook(PieceColor.White);
@@ -462,8 +460,6 @@ namespace Chess_Application
             Boxes[_8H] = H8;
 
             #endregion
-
-            listaMiscari.Rows.Clear();
 
             ResetBoxesColors(ChessBoard);
 
@@ -899,8 +895,6 @@ namespace Chess_Application
         /// <param name="destinatie"></param>
         void MovePiece(Box origin, Box destination)
         {
-            AddMoveHistoryEntry(origin, destination);
-
             if (destination.Piece != null)
             {
                 UpdateCapturedPiecesCounter(destination);
@@ -909,6 +903,7 @@ namespace Chess_Application
             string message = string.Format("#{0} {1}", origin.Name, destination.Name);
             SendMessage(message);
 
+            ResetBoxesColors(ChessBoard);
             PerformMove(origin, destination);
 
             if (destination.Piece is King)
@@ -951,15 +946,15 @@ namespace Chess_Application
         /// <param name="destination">The box where the selected piece will be moved</param>
         void OpponentMovePiece(Box origin, Box destination)
         {
-            AddMoveHistoryEntry(origin, destination);
-
             // If the destionation has a piece, it will be removed => increase the counter of the captured piece type
             if (destination.Piece != null)
             {
                 UpdateCapturedPiecesCounter(destination);
             }
 
+            ResetBoxesColors(ChessBoard);
             PerformMove(origin, destination);
+            
 
             // If, the king was moved, update its coordinates
             if (destination.Piece is King)
@@ -992,6 +987,8 @@ namespace Chess_Application
 
         void PerformMove(Box origin, Box destination)
         {
+            historyEntries.AddEntry(origin, destination);
+
             destination.Piece = origin.Piece;
             destination.pictureBox.BackgroundImage = origin.pictureBox.BackgroundImage;
 
@@ -1000,26 +997,6 @@ namespace Chess_Application
         }
 
         #endregion
-
-        void AddMoveHistoryEntry(Box origin, Box destination)
-        {
-            Image destinationImage = (destination.Piece != null) ? destination.Piece.ImageSmall : new Bitmap(25, 25);
-
-            listaMiscari.Rows.Add(
-                moveNumber++,
-                origin.Name + " -> " + destination.Name,
-                origin.Piece.ImageSmall,
-                destinationImage
-            );
-
-            // When the scroll bar appears, enlarge the width
-            if (moveNumber == 7)
-            {
-                listaMiscari.Width = listaMiscari.Width + 17;
-            }
-
-            listaMiscari.FirstDisplayedScrollingRowIndex = listaMiscari.RowCount - 1;
-        }
 
         void UpdateCapturedPiecesCounter(Box destination)
         {

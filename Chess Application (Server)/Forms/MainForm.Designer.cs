@@ -124,20 +124,15 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.listaMiscari = new System.Windows.Forms.DataGridView();
-            this.counter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mutare = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Piesa1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Piesa2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbServerDate = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.labelRand = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.panelCapturedWhitePieces = new System.Windows.Forms.Panel();
             this.panelCapturedBlackPieces = new System.Windows.Forms.Panel();
+            this.historyEntries = new Chess_Application.UserControls.History();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._2A)).BeginInit();
@@ -206,7 +201,6 @@
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -1209,63 +1203,6 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "1";
             // 
-            // listaMiscari
-            // 
-            this.listaMiscari.AllowUserToAddRows = false;
-            this.listaMiscari.AllowUserToDeleteRows = false;
-            this.listaMiscari.BackgroundColor = System.Drawing.Color.CadetBlue;
-            this.listaMiscari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.listaMiscari.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.counter,
-            this.Mutare,
-            this.Piesa1,
-            this.Piesa2});
-            this.listaMiscari.Location = new System.Drawing.Point(812, 173);
-            this.listaMiscari.Name = "listaMiscari";
-            this.listaMiscari.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            this.listaMiscari.RowHeadersVisible = false;
-            this.listaMiscari.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listaMiscari.Size = new System.Drawing.Size(183, 156);
-            this.listaMiscari.TabIndex = 20;
-            // 
-            // counter
-            // 
-            this.counter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.counter.HeaderText = "Nr.";
-            this.counter.Name = "counter";
-            this.counter.ReadOnly = true;
-            this.counter.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.counter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.counter.Width = 30;
-            // 
-            // Mutare
-            // 
-            this.Mutare.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Mutare.HeaderText = "Mutare";
-            this.Mutare.Name = "Mutare";
-            this.Mutare.ReadOnly = true;
-            this.Mutare.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Mutare.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Mutare.Width = 80;
-            // 
-            // Piesa1
-            // 
-            this.Piesa1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Piesa1.HeaderText = "p1";
-            this.Piesa1.Name = "Piesa1";
-            this.Piesa1.ReadOnly = true;
-            this.Piesa1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Piesa1.Width = 35;
-            // 
-            // Piesa2
-            // 
-            this.Piesa2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Piesa2.HeaderText = "p2";
-            this.Piesa2.Name = "Piesa2";
-            this.Piesa2.ReadOnly = true;
-            this.Piesa2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Piesa2.Width = 35;
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(812, 460);
@@ -1321,16 +1258,6 @@
             this.labelRand.TabIndex = 49;
             this.labelRand.Text = "Randul pieselor albe";
             // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.label19.Location = new System.Drawing.Point(853, 145);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(90, 16);
-            this.label19.TabIndex = 50;
-            this.label19.Text = "Istoric miscari";
-            // 
             // panelCapturedWhitePieces
             // 
             this.panelCapturedWhitePieces.Location = new System.Drawing.Point(324, 79);
@@ -1345,22 +1272,29 @@
             this.panelCapturedBlackPieces.Size = new System.Drawing.Size(320, 88);
             this.panelCapturedBlackPieces.TabIndex = 52;
             // 
+            // history1
+            // 
+            this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.historyEntries.Location = new System.Drawing.Point(812, 79);
+            this.historyEntries.Name = "history1";
+            this.historyEntries.Size = new System.Drawing.Size(200, 300);
+            this.historyEntries.TabIndex = 53;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 836);
+            this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.panelCapturedBlackPieces);
             this.Controls.Add(this.panelCapturedWhitePieces);
-            this.Controls.Add(this.label19);
             this.Controls.Add(this.labelRand);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbServerDate);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.listaMiscari);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
@@ -1446,7 +1380,6 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.listaMiscari)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1542,9 +1475,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        //private Meniu meniu1;
-        //private Optiuni optiuni;
-        private System.Windows.Forms.DataGridView listaMiscari;
         private System.Windows.Forms.ToolStripMenuItem modIncepatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activeazaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dezactiveazaToolStripMenuItem;
@@ -1557,13 +1487,9 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         public System.Windows.Forms.Label labelRand;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn counter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mutare;
-        private System.Windows.Forms.DataGridViewImageColumn Piesa1;
-        private System.Windows.Forms.DataGridViewImageColumn Piesa2;
         private System.Windows.Forms.Panel panelCapturedWhitePieces;
         private System.Windows.Forms.Panel panelCapturedBlackPieces;
+        private UserControls.History historyEntries;
     }
 }
 

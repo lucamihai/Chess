@@ -26,7 +26,7 @@ namespace Chess_Application
 
                 if (_Image != null)
                 {
-                    ImageSmall = Utilities.ResizeImage(_Image, 25, 25);
+                    ImageSmall = Utilities.ResizeImage(_Image, 32, 32);
                 }
             }
         }
