@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Knight.cs" />
-    <Compile Include="Classes\Box.cs" />
     <Compile Include="Classes\Bishop.cs" />
     <Compile Include="Classes\ChessPiece.cs" />
     <Compile Include="Classes\Utilities.cs" />
@@ -72,6 +71,12 @@
     <Compile Include="Classes\King.cs" />
     <Compile Include="Classes\Queen.cs" />
     <Compile Include="Classes\Rook.cs" />
+    <Compile Include="UserControls\Box.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Box.Designer.cs">
+      <DependentUpon>Box.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CapturedPieceBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +120,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\Box.resx">
+      <DependentUpon>Box.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CapturedPieceBox.resx">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </EmbeddedResource>

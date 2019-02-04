@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chess_Application.Enums;
+using Chess_Application.UserControls;
 
 namespace Chess_Application.Classes
 {

@@ -20,8 +20,6 @@ namespace Chess_Application
         Panel menuContainer;
         MainMenu mainMenu;
 
-        Dictionary <PictureBox, Box> Boxes; 
-
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
 
@@ -111,18 +109,6 @@ namespace Chess_Application
 
             NewGame();
 
-            #region Assign click event to chessboard pictureboxes
-
-            for (int i = 1; i <= 8; i++)
-            {
-                for (int j = 1; j <= 8; j++)
-                {
-                    ChessBoard[i, j].pictureBox.Click += BoxClick;
-                }
-            }
-
-            #endregion
-
             activeazaToolStripMenuItem.Available = false;
             activeazalToolStripMenuItem.Available = false;
         }
@@ -136,81 +122,15 @@ namespace Chess_Application
 
             InitializeChessBoard();
 
-            #region Boxes dictionary
+            #region Assign click event to chessboard pictureboxes
 
-            Boxes = new Dictionary<PictureBox, Box>();
-
-            Boxes[_1A] = A1;
-            Boxes[_2A] = A2;
-            Boxes[_3A] = A3;
-            Boxes[_4A] = A4;
-            Boxes[_5A] = A5;
-            Boxes[_6A] = A6;
-            Boxes[_7A] = A7;
-            Boxes[_8A] = A8;
-
-            Boxes[_1B] = B1;
-            Boxes[_2B] = B2;
-            Boxes[_3B] = B3;
-            Boxes[_4B] = B4;
-            Boxes[_5B] = B5;
-            Boxes[_6B] = B6;
-            Boxes[_7B] = B7;
-            Boxes[_8B] = B8;
-
-            Boxes[_1C] = C1;
-            Boxes[_2C] = C2;
-            Boxes[_3C] = C3;
-            Boxes[_4C] = C4;
-            Boxes[_5C] = C5;
-            Boxes[_6C] = C6;
-            Boxes[_7C] = C7;
-            Boxes[_8C] = C8;
-
-            Boxes[_1D] = D1;
-            Boxes[_2D] = D2;
-            Boxes[_3D] = D3;
-            Boxes[_4D] = D4;
-            Boxes[_5D] = D5;
-            Boxes[_6D] = D6;
-            Boxes[_7D] = D7;
-            Boxes[_8D] = D8;
-
-            Boxes[_1E] = E1;
-            Boxes[_2E] = E2;
-            Boxes[_3E] = E3;
-            Boxes[_4E] = E4;
-            Boxes[_5E] = E5;
-            Boxes[_6E] = E6;
-            Boxes[_7E] = E7;
-            Boxes[_8E] = E8;
-
-            Boxes[_1F] = F1;
-            Boxes[_2F] = F2;
-            Boxes[_3F] = F3;
-            Boxes[_4F] = F4;
-            Boxes[_5F] = F5;
-            Boxes[_6F] = F6;
-            Boxes[_7F] = F7;
-            Boxes[_8F] = F8;
-
-            Boxes[_1G] = G1;
-            Boxes[_2G] = G2;
-            Boxes[_3G] = G3;
-            Boxes[_4G] = G4;
-            Boxes[_5G] = G5;
-            Boxes[_6G] = G6;
-            Boxes[_7G] = G7;
-            Boxes[_8G] = G8;
-
-            Boxes[_1H] = H1;
-            Boxes[_2H] = H2;
-            Boxes[_3H] = H3;
-            Boxes[_4H] = H4;
-            Boxes[_5H] = H5;
-            Boxes[_6H] = H6;
-            Boxes[_7H] = H7;
-            Boxes[_8H] = H8;
+            for (int i = 1; i <= 8; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    ChessBoard[i, j].Click += BoxClick;
+                }
+            }
 
             #endregion
 
@@ -256,79 +176,229 @@ namespace Chess_Application
 
         void ResetBoxes()
         {
-            A1 = new Box(_1A, whiteRook1);
-            A2 = new Box(_2A, whiteKnight1);
-            A3 = new Box(_3A, whiteBishop1);
-            A4 = new Box(_4A, whiteQueen);
-            A5 = new Box(_5A, whiteKing);
-            A6 = new Box(_6A, whiteBishop2);
-            A7 = new Box(_7A, whiteKnight2);
-            A8 = new Box(_8A, whiteRook2);
+            A1 = new Box("A1", whiteRook1);
+            A2 = new Box("A2", whiteKnight1);
+            A3 = new Box("A3", whiteBishop1);
+            A4 = new Box("A4", whiteQueen);
+            A5 = new Box("A5", whiteKing);
+            A6 = new Box("A6", whiteBishop2);
+            A7 = new Box("A7", whiteKnight2);
+            A8 = new Box("A8", whiteRook2);
 
-            B1 = new Box(_1B, whitePawn1);
-            B2 = new Box(_2B, whitePawn2);
-            B3 = new Box(_3B, whitePawn3);
-            B4 = new Box(_4B, whitePawn4);
-            B5 = new Box(_5B, whitePawn5);
-            B6 = new Box(_6B, whitePawn6);
-            B7 = new Box(_7B, whitePawn7);
-            B8 = new Box(_8B, whitePawn8);
+            B1 = new Box("B1", whitePawn1);
+            B2 = new Box("B2", whitePawn2);
+            B3 = new Box("B3", whitePawn3);
+            B4 = new Box("B4", whitePawn4);
+            B5 = new Box("B5", whitePawn5);
+            B6 = new Box("B6", whitePawn6);
+            B7 = new Box("B7", whitePawn7);
+            B8 = new Box("B8", whitePawn8);
 
-            G1 = new Box(_1G, blackPawn1);
-            G2 = new Box(_2G, blackPawn2);
-            G3 = new Box(_3G, blackPawn3);
-            G4 = new Box(_4G, blackPawn4);
-            G5 = new Box(_5G, blackPawn5);
-            G6 = new Box(_6G, blackPawn6);
-            G7 = new Box(_7G, blackPawn7);
-            G8 = new Box(_8G, blackPawn8);
+            G1 = new Box("G1", blackPawn1);
+            G2 = new Box("G2", blackPawn2);
+            G3 = new Box("G3", blackPawn3);
+            G4 = new Box("G4", blackPawn4);
+            G5 = new Box("G5", blackPawn5);
+            G6 = new Box("G6", blackPawn6);
+            G7 = new Box("G7", blackPawn7);
+            G8 = new Box("G8", blackPawn8);
 
-            H1 = new Box(_1H, blackRook1);
-            H2 = new Box(_2H, blackKnight1);
-            H3 = new Box(_3H, blackBishop1);
-            H4 = new Box(_4H, blackKing);
-            H5 = new Box(_5H, blackQueen);
-            H6 = new Box(_6H, blackBishop2);
-            H7 = new Box(_7H, blackKnight2);
-            H8 = new Box(_8H, blackRook2);
+            H1 = new Box("H1", blackRook1);
+            H2 = new Box("H2", blackKnight1);
+            H3 = new Box("H3", blackBishop1);
+            H4 = new Box("H4", blackKing);
+            H5 = new Box("H5", blackQueen);
+            H6 = new Box("H6", blackBishop2);
+            H7 = new Box("H7", blackKnight2);
+            H8 = new Box("H8", blackRook2);
 
             // ------
 
-            C1 = new Box(_1C);
-            C2 = new Box(_2C);
-            C3 = new Box(_3C);
-            C4 = new Box(_4C);
-            C5 = new Box(_5C);
-            C6 = new Box(_6C);
-            C7 = new Box(_7C);
-            C8 = new Box(_8C);
+            C1 = new Box("C1");
+            C2 = new Box("C2");
+            C3 = new Box("C3");
+            C4 = new Box("C4");
+            C5 = new Box("C5");
+            C6 = new Box("C6");
+            C7 = new Box("C7");
+            C8 = new Box("C8");
 
-            D1 = new Box(_1D);
-            D2 = new Box(_2D);
-            D3 = new Box(_3D);
-            D4 = new Box(_4D);
-            D5 = new Box(_5D);
-            D6 = new Box(_6D);
-            D7 = new Box(_7D);
-            D8 = new Box(_8D);
+            D1 = new Box("D1");
+            D2 = new Box("D2");
+            D3 = new Box("D3");
+            D4 = new Box("D4");
+            D5 = new Box("D5");
+            D6 = new Box("D6");
+            D7 = new Box("D7");
+            D8 = new Box("D8");
 
-            E1 = new Box(_1E);
-            E2 = new Box(_2E);
-            E3 = new Box(_3E);
-            E4 = new Box(_4E);
-            E5 = new Box(_5E);
-            E6 = new Box(_6E);
-            E7 = new Box(_7E);
-            E8 = new Box(_8E);
+            E1 = new Box("E1");
+            E2 = new Box("E2");
+            E3 = new Box("E3");
+            E4 = new Box("E4");
+            E5 = new Box("E5");
+            E6 = new Box("E6");
+            E7 = new Box("E7");
+            E8 = new Box("E8");
 
-            F1 = new Box(_1F);
-            F2 = new Box(_2F);
-            F3 = new Box(_3F);
-            F4 = new Box(_4F);
-            F5 = new Box(_5F);
-            F6 = new Box(_6F);
-            F7 = new Box(_7F);
-            F8 = new Box(_8F);
+            F1 = new Box("F1");
+            F2 = new Box("F2");
+            F3 = new Box("F3");
+            F4 = new Box("F4");
+            F5 = new Box("F5");
+            F6 = new Box("F6");
+            F7 = new Box("F7");
+            F8 = new Box("F8");
+
+            // ------
+
+            panelChessBoard.Controls.Clear();
+
+            panelChessBoard.Controls.Add(A1);
+            panelChessBoard.Controls.Add(A2);
+            panelChessBoard.Controls.Add(A3);
+            panelChessBoard.Controls.Add(A4);
+            panelChessBoard.Controls.Add(A5);
+            panelChessBoard.Controls.Add(A6);
+            panelChessBoard.Controls.Add(A7);
+            panelChessBoard.Controls.Add(A8);
+
+            panelChessBoard.Controls.Add(B1);
+            panelChessBoard.Controls.Add(B2);
+            panelChessBoard.Controls.Add(B3);
+            panelChessBoard.Controls.Add(B4);
+            panelChessBoard.Controls.Add(B5);
+            panelChessBoard.Controls.Add(B6);
+            panelChessBoard.Controls.Add(B7);
+            panelChessBoard.Controls.Add(B8);
+
+            panelChessBoard.Controls.Add(C1);
+            panelChessBoard.Controls.Add(C2);
+            panelChessBoard.Controls.Add(C3);
+            panelChessBoard.Controls.Add(C4);
+            panelChessBoard.Controls.Add(C5);
+            panelChessBoard.Controls.Add(C6);
+            panelChessBoard.Controls.Add(C7);
+            panelChessBoard.Controls.Add(C8);
+
+            panelChessBoard.Controls.Add(D1);
+            panelChessBoard.Controls.Add(D2);
+            panelChessBoard.Controls.Add(D3);
+            panelChessBoard.Controls.Add(D4);
+            panelChessBoard.Controls.Add(D5);
+            panelChessBoard.Controls.Add(D6);
+            panelChessBoard.Controls.Add(D7);
+            panelChessBoard.Controls.Add(D8);
+
+            panelChessBoard.Controls.Add(E1);
+            panelChessBoard.Controls.Add(E2);
+            panelChessBoard.Controls.Add(E3);
+            panelChessBoard.Controls.Add(E4);
+            panelChessBoard.Controls.Add(E5);
+            panelChessBoard.Controls.Add(E6);
+            panelChessBoard.Controls.Add(E7);
+            panelChessBoard.Controls.Add(E8);
+
+            panelChessBoard.Controls.Add(F1);
+            panelChessBoard.Controls.Add(F2);
+            panelChessBoard.Controls.Add(F3);
+            panelChessBoard.Controls.Add(F4);
+            panelChessBoard.Controls.Add(F5);
+            panelChessBoard.Controls.Add(F6);
+            panelChessBoard.Controls.Add(F7);
+            panelChessBoard.Controls.Add(F8);
+
+            panelChessBoard.Controls.Add(G1);
+            panelChessBoard.Controls.Add(G2);
+            panelChessBoard.Controls.Add(G3);
+            panelChessBoard.Controls.Add(G4);
+            panelChessBoard.Controls.Add(G5);
+            panelChessBoard.Controls.Add(G6);
+            panelChessBoard.Controls.Add(G7);
+            panelChessBoard.Controls.Add(G8);
+
+            panelChessBoard.Controls.Add(H1);
+            panelChessBoard.Controls.Add(H2);
+            panelChessBoard.Controls.Add(H3);
+            panelChessBoard.Controls.Add(H4);
+            panelChessBoard.Controls.Add(H5);
+            panelChessBoard.Controls.Add(H6);
+            panelChessBoard.Controls.Add(H7);
+            panelChessBoard.Controls.Add(H8);
+
+            // ------
+
+            H1.Location = new Point(0, 0);
+            H2.Location = new Point(64, 0);
+            H3.Location = new Point(128, 0);
+            H4.Location = new Point(192, 0);
+            H5.Location = new Point(256, 0);
+            H6.Location = new Point(320, 0);
+            H7.Location = new Point(384, 0);
+            H8.Location = new Point(448, 0);
+
+            G1.Location = new Point(0, 64);
+            G2.Location = new Point(64, 64);
+            G3.Location = new Point(128, 64);
+            G4.Location = new Point(192, 64);
+            G5.Location = new Point(256, 64);
+            G6.Location = new Point(320, 64);
+            G7.Location = new Point(384, 64);
+            G8.Location = new Point(448, 64);
+
+            F1.Location = new Point(0, 128);
+            F2.Location = new Point(64, 128);
+            F3.Location = new Point(128, 128);
+            F4.Location = new Point(192, 128);
+            F5.Location = new Point(256, 128);
+            F6.Location = new Point(320, 128);
+            F7.Location = new Point(384, 128);
+            F8.Location = new Point(448, 128);
+
+            E1.Location = new Point(0, 192);
+            E2.Location = new Point(64, 192);
+            E3.Location = new Point(128, 192);
+            E4.Location = new Point(192, 192);
+            E5.Location = new Point(256, 192);
+            E6.Location = new Point(320, 192);
+            E7.Location = new Point(384, 192);
+            E8.Location = new Point(448, 192);
+
+            D1.Location = new Point(0, 256);
+            D2.Location = new Point(64, 256);
+            D3.Location = new Point(128, 256);
+            D4.Location = new Point(192, 256);
+            D5.Location = new Point(256, 256);
+            D6.Location = new Point(320, 256);
+            D7.Location = new Point(384, 256);
+            D8.Location = new Point(448, 256);
+
+            C1.Location = new Point(0, 320);
+            C2.Location = new Point(64, 320);
+            C3.Location = new Point(128, 320);
+            C4.Location = new Point(192, 320);
+            C5.Location = new Point(256, 320);
+            C6.Location = new Point(320, 320);
+            C7.Location = new Point(384, 320);
+            C8.Location = new Point(448, 320);
+
+            B1.Location = new Point(0, 384);
+            B2.Location = new Point(64, 384);
+            B3.Location = new Point(128, 384);
+            B4.Location = new Point(192, 384);
+            B5.Location = new Point(256, 384);
+            B6.Location = new Point(320, 384);
+            B7.Location = new Point(384, 384);
+            B8.Location = new Point(448, 384);
+
+            A1.Location = new Point(0, 448);
+            A2.Location = new Point(64, 448);
+            A3.Location = new Point(128, 448);
+            A4.Location = new Point(192, 448);
+            A5.Location = new Point(256, 448);
+            A6.Location = new Point(320, 448);
+            A7.Location = new Point(384, 448);
+            A8.Location = new Point(448, 448);
         }
 
         void InitializeChessBoard()
@@ -899,7 +969,7 @@ namespace Chess_Application
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            string message = string.Format("#{0} {1}", origin.Name, destination.Name);
+            string message = string.Format("#{0} {1}", origin.BoxName, destination.BoxName);
             SendMessage(message);
 
             ResetBoxesColors(ChessBoard);
@@ -989,10 +1059,8 @@ namespace Chess_Application
             historyEntries.AddEntry(origin, destination);
 
             destination.Piece = origin.Piece;
-            destination.pictureBox.BackgroundImage = origin.pictureBox.BackgroundImage;
 
             origin.Piece = null;
-            origin.RemovePieceImage();
         }
 
         #endregion
@@ -1060,13 +1128,13 @@ namespace Chess_Application
         {
             if (destination.Piece.Color == PieceColor.White)
             {
-                pozitieRegeAlb.X = destination.Name[0] - 64;
-                pozitieRegeAlb.Y = destination.Name[1] - 48;
+                pozitieRegeAlb.X = destination.BoxName[0] - 64;
+                pozitieRegeAlb.Y = destination.BoxName[1] - 48;
             }
             if (destination.Piece.Color == PieceColor.Black)
             {
-                pozitieRegeNegru.X = destination.Name[0] - 64;
-                pozitieRegeNegru.Y = destination.Name[1] - 48;
+                pozitieRegeNegru.X = destination.BoxName[0] - 64;
+                pozitieRegeNegru.Y = destination.BoxName[1] - 48;
             }
         }
 
@@ -1075,12 +1143,12 @@ namespace Chess_Application
             // If a white pawn has reached the last line
             if (currentPlayersTurn == Turn.White)
             {
-                if (destination.Name.Contains('H') && destination.Piece is Pawn)
+                if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
                 {
                     if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
                     {
                         retakeRow = 8;
-                        retakeColumn = destination.Name[1] - 48;
+                        retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
                         SendMessage("#selectie");
@@ -1092,12 +1160,12 @@ namespace Chess_Application
             // If a black pawn has reached the last line
             if (currentPlayersTurn == Turn.Black)
             {
-                if (destination.Name.Contains('A') && destination.Piece is Pawn)
+                if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
                 {
                     if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
                     {
                         retakeRow = 1;
-                        retakeColumn = destination.Name[1] - 48;
+                        retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
                         SendMessage("#selectie");
@@ -1140,7 +1208,6 @@ namespace Chess_Application
             if (capturedPieceBox.ChessPiece is Rook)
             {
                 destination.Piece = new Rook(capturedPieceColor);
-                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
 
                 capturedPieceBox.Count--;
             }
@@ -1148,7 +1215,6 @@ namespace Chess_Application
             if (capturedPieceBox.ChessPiece is Knight)
             {
                 destination.Piece = new Knight(capturedPieceColor);
-                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
 
                 capturedPieceBox.Count--;
             }
@@ -1156,7 +1222,6 @@ namespace Chess_Application
             if (capturedPieceBox.ChessPiece is Bishop)
             {
                 destination.Piece = new Bishop(capturedPieceColor);
-                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
 
                 capturedPieceBox.Count--;
             }
@@ -1164,7 +1229,6 @@ namespace Chess_Application
             if (capturedPieceBox.ChessPiece is Queen)
             {
                 destination.Piece = new Queen(capturedPieceColor);
-                destination.pictureBox.BackgroundImage = capturedPieceBox.ChessPiece.Image;
 
                 capturedPieceBox.Count--;
             }
@@ -1246,11 +1310,11 @@ namespace Chess_Application
                 {
                     if ( (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1) )
                     {
-                        ChessBoard[i, j].pictureBox.BackColor = BoxColorDark;
+                        ChessBoard[i, j].BoxBackgroundColor = BoxColorDark;
                     }
                     else
                     {
-                        ChessBoard[i, j].pictureBox.BackColor = BoxColorLight;
+                        ChessBoard[i, j].BoxBackgroundColor = BoxColorLight;
                     }
                 }
             }
@@ -1289,8 +1353,7 @@ namespace Chess_Application
         /// <param name="e"></param>
         void BoxClick(object sender, EventArgs e)
         {
-            PictureBox clickedBox = (PictureBox)sender;
-            Box clickedBoxObject = Boxes[clickedBox];
+            Box clickedBoxObject = (Box)sender;
 
             if (currentPlayerMustSelect || opponentMustSelect)
             {

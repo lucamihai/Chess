@@ -58,14 +58,14 @@ namespace Chess_Application.UserControls
 
             EntryNumber = entryNumber;
 
-            OriginName = origin.Name;
-            DestinationName = destination.Name;
+            OriginName = origin.BoxName;
+            DestinationName = destination.BoxName;
 
             pictureBoxOriginPiece.Image = origin.Piece.ImageSmall;
-            pictureBoxOriginPiece.BackColor = origin.pictureBox.BackColor;
+            pictureBoxOriginPiece.BackColor = origin.BoxBackgroundColor;
 
             pictureBoxDestinationPiece.Image = (destination.Piece != null) ? destination.Piece.ImageSmall : new Bitmap(32, 32);
-            pictureBoxDestinationPiece.BackColor = destination.pictureBox.BackColor;
+            pictureBoxDestinationPiece.BackColor = destination.BoxBackgroundColor;
         }
     }
 }
