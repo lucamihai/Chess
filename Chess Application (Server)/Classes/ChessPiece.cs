@@ -54,55 +54,50 @@ namespace Chess_Application
         /// <returns></returns>
         public bool TriggersCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
-            if (!(chessBoard[origRow, origColumn].Piece is King))
+            Point kingPosition;
+            if (MainForm.currentPlayersTurn == Turn.White)
             {
-                Point kingPosition;
-                if (MainForm.currentPlayersTurn == Turn.White)
-                {
-                    kingPosition = MainForm.pozitieRegeAlb;
-                }
-                else
-                {
-                    kingPosition = MainForm.pozitieRegeNegru;
-                }
-
-
-                // Back up origin and destination data
-                ChessPiece originChessPiece = chessBoard[origRow, origColumn].Piece;
-                ChessPiece destinationChessPiece = chessBoard[destinationRow, destinationColumn].Piece;
-
-                // Pretend the move was made
-                chessBoard[origRow, origColumn].Piece = null;
-                chessBoard[destinationRow, destinationColumn].Piece = originChessPiece;
-
-                bool triggersCheck = false;
-
-                if (!triggersCheck)
-                    triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
-
-                if (!triggersCheck)
-                    triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
-
-                if (!triggersCheck)
-                    triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
-
-                if (!triggersCheck)
-                    triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
-
-                if (!triggersCheck)
-                    triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
-
-                if (!triggersCheck)
-                    triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
-
-
-                chessBoard[origRow, origColumn].Piece = originChessPiece;
-                chessBoard[destinationRow, destinationColumn].Piece = destinationChessPiece;
-
-                return triggersCheck;
+                kingPosition = MainForm.pozitieRegeAlb;
+            }
+            else
+            {
+                kingPosition = MainForm.pozitieRegeNegru;
             }
 
-            return false;
+
+            // Back up origin and destination data
+            ChessPiece originChessPiece = chessBoard[origRow, origColumn].Piece;
+            ChessPiece destinationChessPiece = chessBoard[destinationRow, destinationColumn].Piece;
+
+            // Pretend the move was made
+            chessBoard[origRow, origColumn].Piece = null;
+            chessBoard[destinationRow, destinationColumn].Piece = originChessPiece;
+
+            bool triggersCheck = false;
+
+            if (!triggersCheck)
+                triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
+
+            if (!triggersCheck)
+                triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
+
+            if (!triggersCheck)
+                triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
+
+            if (!triggersCheck)
+                triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
+
+            if (!triggersCheck)
+                triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
+
+            if (!triggersCheck)
+                triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
+
+
+            chessBoard[origRow, origColumn].Piece = originChessPiece;
+            chessBoard[destinationRow, destinationColumn].Piece = destinationChessPiece;
+
+            return triggersCheck;
         }
 
         protected bool IsThreatenedByPawns(Box[,] chessBoard, int row, int column)

@@ -26,7 +26,6 @@ namespace Chess_Application
         public static Point pozitieRegeNegru = new Point();
 
         int clickCounter;
-        int moveNumber;
         bool isCurrentPlayersTurnToMove = true;
 
         int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
@@ -106,98 +105,9 @@ namespace Chess_Application
 
             menuContainer.BringToFront();
 
-            #region Initialize chess pieces
+            InitializeChessPieces();
 
-            whiteRook1 = new Rook(PieceColor.White);
-            whiteRook2 = new Rook(PieceColor.White);
-            whiteKnight1 = new Knight(PieceColor.White);
-            whiteKnight2 = new Knight(PieceColor.White);
-            whiteBishop1 = new Bishop(PieceColor.White);
-            whiteBishop2 = new Bishop(PieceColor.White);
-            whiteQueen = new Queen(PieceColor.White);
-            whiteKing = new King(PieceColor.White);
-
-            whitePawn1 = new Pawn(PieceColor.White);
-            whitePawn2 = new Pawn(PieceColor.White);
-            whitePawn3 = new Pawn(PieceColor.White);
-            whitePawn4 = new Pawn(PieceColor.White);
-            whitePawn5 = new Pawn(PieceColor.White);
-            whitePawn6 = new Pawn(PieceColor.White);
-            whitePawn7 = new Pawn(PieceColor.White);
-            whitePawn8 = new Pawn(PieceColor.White);
-
-            
-            blackRook1 = new Rook(PieceColor.Black);
-            blackRook2 = new Rook(PieceColor.Black);
-            blackKnight1 = new Knight(PieceColor.Black);
-            blackKnight2 = new Knight(PieceColor.Black);
-            blackBishop1 = new Bishop(PieceColor.Black);
-            blackBishop2 = new Bishop(PieceColor.Black);
-            blackQueen = new Queen(PieceColor.Black);
-            blackKing = new King(PieceColor.Black);
-
-            blackPawn1 = new Pawn(PieceColor.Black);
-            blackPawn2 = new Pawn(PieceColor.Black);
-            blackPawn3 = new Pawn(PieceColor.Black);
-            blackPawn4 = new Pawn(PieceColor.Black);
-            blackPawn5 = new Pawn(PieceColor.Black);
-            blackPawn6 = new Pawn(PieceColor.Black);
-            blackPawn7 = new Pawn(PieceColor.Black);
-            blackPawn8 = new Pawn(PieceColor.Black);
-
-            #endregion
-
-            #region Prepare captured pieces panel (Spoils o' war)
-
-            capturedWhitePawns = new CapturedPieceBox(new Pawn(PieceColor.White));
-            capturedWhiteRooks = new CapturedPieceBox(new Rook(PieceColor.White));
-            capturedWhiteKnights = new CapturedPieceBox(new Knight(PieceColor.White));
-            capturedWhiteBishops = new CapturedPieceBox(new Bishop(PieceColor.White));
-            capturedWhiteQueen = new CapturedPieceBox(new Queen(PieceColor.White));
-
-            capturedBlackPawns = new CapturedPieceBox(new Pawn(PieceColor.Black));
-            capturedBlackRooks = new CapturedPieceBox(new Rook(PieceColor.Black));
-            capturedBlackKnights = new CapturedPieceBox(new Knight(PieceColor.Black));
-            capturedBlackBishops = new CapturedPieceBox(new Bishop(PieceColor.Black));
-            capturedBlackQueen = new CapturedPieceBox(new Queen(PieceColor.Black));
-
-            panelCapturedWhitePieces.Controls.Add(capturedWhitePawns);
-            panelCapturedWhitePieces.Controls.Add(capturedWhiteRooks);
-            panelCapturedWhitePieces.Controls.Add(capturedWhiteKnights);
-            panelCapturedWhitePieces.Controls.Add(capturedWhiteBishops);
-            panelCapturedWhitePieces.Controls.Add(capturedWhiteQueen);
-
-            panelCapturedBlackPieces.Controls.Add(capturedBlackPawns);
-            panelCapturedBlackPieces.Controls.Add(capturedBlackRooks);
-            panelCapturedBlackPieces.Controls.Add(capturedBlackKnights);
-            panelCapturedBlackPieces.Controls.Add(capturedBlackBishops);
-            panelCapturedBlackPieces.Controls.Add(capturedBlackQueen);
-
-            capturedWhitePawns.Location = new Point(0, 0);
-            capturedWhiteRooks.Location = new Point(64, 0);
-            capturedWhiteKnights.Location = new Point(128, 0);
-            capturedWhiteBishops.Location = new Point(192, 0);
-            capturedWhiteQueen.Location = new Point(256, 0);
-
-            capturedBlackPawns.Location = new Point(0, 0);
-            capturedBlackRooks.Location = new Point(64, 0);
-            capturedBlackKnights.Location = new Point(128, 0);
-            capturedBlackBishops.Location = new Point(192, 0);
-            capturedBlackQueen.Location = new Point(256, 0);
-
-            capturedWhitePawns.Click += CapturedPieceBoxClick;
-            capturedWhiteRooks.Click += CapturedPieceBoxClick;
-            capturedWhiteKnights.Click += CapturedPieceBoxClick;
-            capturedWhiteBishops.Click += CapturedPieceBoxClick;
-            capturedWhiteQueen.Click += CapturedPieceBoxClick;
-
-            capturedBlackPawns.Click += CapturedPieceBoxClick;
-            capturedBlackRooks.Click += CapturedPieceBoxClick;
-            capturedBlackKnights.Click += CapturedPieceBoxClick;
-            capturedBlackBishops.Click += CapturedPieceBoxClick;
-            capturedBlackQueen.Click += CapturedPieceBoxClick;
-
-            #endregion
+            PrepareCapturedPiecesArea();
 
             NewGame();
 
@@ -222,166 +132,9 @@ namespace Chess_Application
         /// </summary>
         public void NewGame()
         {
-            moveNumber = 1; // Used in history entries
+            ResetBoxes();
 
-            #region Reset boxes with chess pieces on them
-
-            A1 = new Box(_1A, whiteRook1);
-            A2 = new Box(_2A, whiteKnight1);
-            A3 = new Box(_3A, whiteBishop1);
-            A4 = new Box(_4A, whiteQueen);
-            A5 = new Box(_5A, whiteKing);
-            A6 = new Box(_6A, whiteBishop2);
-            A7 = new Box(_7A, whiteKnight2);
-            A8 = new Box(_8A, whiteRook2);
-            
-            B1 = new Box(_1B, whitePawn1);
-            B2 = new Box(_2B, whitePawn2);
-            B3 = new Box(_3B, whitePawn3);
-            B4 = new Box(_4B, whitePawn4);
-            B5 = new Box(_5B, whitePawn5);
-            B6 = new Box(_6B, whitePawn6);
-            B7 = new Box(_7B, whitePawn7);
-            B8 = new Box(_8B, whitePawn8);
-            
-
-            G1 = new Box(_1G, blackPawn1);
-            G2 = new Box(_2G, blackPawn2);
-            G3 = new Box(_3G, blackPawn3);
-            G4 = new Box(_4G, blackPawn4);
-            G5 = new Box(_5G, blackPawn5);
-            G6 = new Box(_6G, blackPawn6);
-            G7 = new Box(_7G, blackPawn7);
-            G8 = new Box(_8G, blackPawn8);
-
-            H1 = new Box(_1H, blackRook1);
-            H2 = new Box(_2H, blackKnight1);
-            H3 = new Box(_3H, blackBishop1);
-            H4 = new Box(_4H, blackKing);
-            H5 = new Box(_5H, blackQueen);
-            H6 = new Box(_6H, blackBishop2);
-            H7 = new Box(_7H, blackKnight2);
-            H8 = new Box(_8H, blackRook2);
-
-            #endregion
-
-            #region Reset boxes without chess pieces on them
-
-            C1 = new Box(_1C);
-            C2 = new Box(_2C);
-            C3 = new Box(_3C);
-            C4 = new Box(_4C);
-            C5 = new Box(_5C);
-            C6 = new Box(_6C);
-            C7 = new Box(_7C);
-            C8 = new Box(_8C);
-
-            D1 = new Box(_1D);
-            D2 = new Box(_2D);
-            D3 = new Box(_3D);
-            D4 = new Box(_4D);
-            D5 = new Box(_5D);
-            D6 = new Box(_6D);
-            D7 = new Box(_7D);
-            D8 = new Box(_8D);
-
-            E1 = new Box(_1E);
-            E2 = new Box(_2E);
-            E3 = new Box(_3E);
-            E4 = new Box(_4E);
-            E5 = new Box(_5E);
-            E6 = new Box(_6E);
-            E7 = new Box(_7E);
-            E8 = new Box(_8E);
-
-            F1 = new Box(_1F);
-            F2 = new Box(_2F);
-            F3 = new Box(_3F);
-            F4 = new Box(_4F);
-            F5 = new Box(_5F);
-            F6 = new Box(_6F);
-            F7 = new Box(_7F);
-            F8 = new Box(_8F);
-
-            #endregion
-
-            #region Prepare the ChessBoard boxes matrix
-
-            ChessBoard = new Box[10, 10];
-
-            ChessBoard[1, 1] = A1;
-            ChessBoard[1, 2] = A2;
-            ChessBoard[1, 3] = A3;
-            ChessBoard[1, 4] = A4;
-            ChessBoard[1, 5] = A5;
-            ChessBoard[1, 6] = A6;
-            ChessBoard[1, 7] = A7;
-            ChessBoard[1, 8] = A8;
-
-            ChessBoard[2, 1] = B1;
-            ChessBoard[2, 2] = B2;
-            ChessBoard[2, 3] = B3;
-            ChessBoard[2, 4] = B4;
-            ChessBoard[2, 5] = B5;
-            ChessBoard[2, 6] = B6;
-            ChessBoard[2, 7] = B7;
-            ChessBoard[2, 8] = B8;
-
-            ChessBoard[3, 1] = C1;
-            ChessBoard[3, 2] = C2;
-            ChessBoard[3, 3] = C3;
-            ChessBoard[3, 4] = C4;
-            ChessBoard[3, 5] = C5;
-            ChessBoard[3, 6] = C6;
-            ChessBoard[3, 7] = C7;
-            ChessBoard[3, 8] = C8;
-
-            ChessBoard[4, 1] = D1;
-            ChessBoard[4, 2] = D2;
-            ChessBoard[4, 3] = D3;
-            ChessBoard[4, 4] = D4;
-            ChessBoard[4, 5] = D5;
-            ChessBoard[4, 6] = D6;
-            ChessBoard[4, 7] = D7;
-            ChessBoard[4, 8] = D8;
-
-            ChessBoard[5, 1] = E1;
-            ChessBoard[5, 2] = E2;
-            ChessBoard[5, 3] = E3;
-            ChessBoard[5, 4] = E4;
-            ChessBoard[5, 5] = E5;
-            ChessBoard[5, 6] = E6;
-            ChessBoard[5, 7] = E7;
-            ChessBoard[5, 8] = E8;
-
-            ChessBoard[6, 1] = F1;
-            ChessBoard[6, 2] = F2;
-            ChessBoard[6, 3] = F3;
-            ChessBoard[6, 4] = F4;
-            ChessBoard[6, 5] = F5;
-            ChessBoard[6, 6] = F6;
-            ChessBoard[6, 7] = F7;
-            ChessBoard[6, 8] = F8;
-
-            ChessBoard[7, 1] = G1;
-            ChessBoard[7, 2] = G2;
-            ChessBoard[7, 3] = G3;
-            ChessBoard[7, 4] = G4;
-            ChessBoard[7, 5] = G5;
-            ChessBoard[7, 6] = G6;
-            ChessBoard[7, 7] = G7;
-            ChessBoard[7, 8] = G8;
-
-            ChessBoard[8, 1] = H1;
-            ChessBoard[8, 2] = H2;
-            ChessBoard[8, 3] = H3;
-            ChessBoard[8, 4] = H4;
-            ChessBoard[8, 5] = H5;
-            ChessBoard[8, 6] = H6;
-            ChessBoard[8, 7] = H7;
-            ChessBoard[8, 8] = H8;
-
-            #endregion
+            InitializeChessBoard();
 
             #region Boxes dictionary
 
@@ -499,6 +252,252 @@ namespace Chess_Application
             capturedBlackQueen.Count = 0;
 
             #endregion
+        }
+
+        void ResetBoxes()
+        {
+            A1 = new Box(_1A, whiteRook1);
+            A2 = new Box(_2A, whiteKnight1);
+            A3 = new Box(_3A, whiteBishop1);
+            A4 = new Box(_4A, whiteQueen);
+            A5 = new Box(_5A, whiteKing);
+            A6 = new Box(_6A, whiteBishop2);
+            A7 = new Box(_7A, whiteKnight2);
+            A8 = new Box(_8A, whiteRook2);
+
+            B1 = new Box(_1B, whitePawn1);
+            B2 = new Box(_2B, whitePawn2);
+            B3 = new Box(_3B, whitePawn3);
+            B4 = new Box(_4B, whitePawn4);
+            B5 = new Box(_5B, whitePawn5);
+            B6 = new Box(_6B, whitePawn6);
+            B7 = new Box(_7B, whitePawn7);
+            B8 = new Box(_8B, whitePawn8);
+
+            G1 = new Box(_1G, blackPawn1);
+            G2 = new Box(_2G, blackPawn2);
+            G3 = new Box(_3G, blackPawn3);
+            G4 = new Box(_4G, blackPawn4);
+            G5 = new Box(_5G, blackPawn5);
+            G6 = new Box(_6G, blackPawn6);
+            G7 = new Box(_7G, blackPawn7);
+            G8 = new Box(_8G, blackPawn8);
+
+            H1 = new Box(_1H, blackRook1);
+            H2 = new Box(_2H, blackKnight1);
+            H3 = new Box(_3H, blackBishop1);
+            H4 = new Box(_4H, blackKing);
+            H5 = new Box(_5H, blackQueen);
+            H6 = new Box(_6H, blackBishop2);
+            H7 = new Box(_7H, blackKnight2);
+            H8 = new Box(_8H, blackRook2);
+
+            // ------
+
+            C1 = new Box(_1C);
+            C2 = new Box(_2C);
+            C3 = new Box(_3C);
+            C4 = new Box(_4C);
+            C5 = new Box(_5C);
+            C6 = new Box(_6C);
+            C7 = new Box(_7C);
+            C8 = new Box(_8C);
+
+            D1 = new Box(_1D);
+            D2 = new Box(_2D);
+            D3 = new Box(_3D);
+            D4 = new Box(_4D);
+            D5 = new Box(_5D);
+            D6 = new Box(_6D);
+            D7 = new Box(_7D);
+            D8 = new Box(_8D);
+
+            E1 = new Box(_1E);
+            E2 = new Box(_2E);
+            E3 = new Box(_3E);
+            E4 = new Box(_4E);
+            E5 = new Box(_5E);
+            E6 = new Box(_6E);
+            E7 = new Box(_7E);
+            E8 = new Box(_8E);
+
+            F1 = new Box(_1F);
+            F2 = new Box(_2F);
+            F3 = new Box(_3F);
+            F4 = new Box(_4F);
+            F5 = new Box(_5F);
+            F6 = new Box(_6F);
+            F7 = new Box(_7F);
+            F8 = new Box(_8F);
+        }
+
+        void InitializeChessBoard()
+        {
+            ChessBoard = new Box[10, 10];
+
+            ChessBoard[1, 1] = A1;
+            ChessBoard[1, 2] = A2;
+            ChessBoard[1, 3] = A3;
+            ChessBoard[1, 4] = A4;
+            ChessBoard[1, 5] = A5;
+            ChessBoard[1, 6] = A6;
+            ChessBoard[1, 7] = A7;
+            ChessBoard[1, 8] = A8;
+
+            ChessBoard[2, 1] = B1;
+            ChessBoard[2, 2] = B2;
+            ChessBoard[2, 3] = B3;
+            ChessBoard[2, 4] = B4;
+            ChessBoard[2, 5] = B5;
+            ChessBoard[2, 6] = B6;
+            ChessBoard[2, 7] = B7;
+            ChessBoard[2, 8] = B8;
+
+            ChessBoard[3, 1] = C1;
+            ChessBoard[3, 2] = C2;
+            ChessBoard[3, 3] = C3;
+            ChessBoard[3, 4] = C4;
+            ChessBoard[3, 5] = C5;
+            ChessBoard[3, 6] = C6;
+            ChessBoard[3, 7] = C7;
+            ChessBoard[3, 8] = C8;
+
+            ChessBoard[4, 1] = D1;
+            ChessBoard[4, 2] = D2;
+            ChessBoard[4, 3] = D3;
+            ChessBoard[4, 4] = D4;
+            ChessBoard[4, 5] = D5;
+            ChessBoard[4, 6] = D6;
+            ChessBoard[4, 7] = D7;
+            ChessBoard[4, 8] = D8;
+
+            ChessBoard[5, 1] = E1;
+            ChessBoard[5, 2] = E2;
+            ChessBoard[5, 3] = E3;
+            ChessBoard[5, 4] = E4;
+            ChessBoard[5, 5] = E5;
+            ChessBoard[5, 6] = E6;
+            ChessBoard[5, 7] = E7;
+            ChessBoard[5, 8] = E8;
+
+            ChessBoard[6, 1] = F1;
+            ChessBoard[6, 2] = F2;
+            ChessBoard[6, 3] = F3;
+            ChessBoard[6, 4] = F4;
+            ChessBoard[6, 5] = F5;
+            ChessBoard[6, 6] = F6;
+            ChessBoard[6, 7] = F7;
+            ChessBoard[6, 8] = F8;
+
+            ChessBoard[7, 1] = G1;
+            ChessBoard[7, 2] = G2;
+            ChessBoard[7, 3] = G3;
+            ChessBoard[7, 4] = G4;
+            ChessBoard[7, 5] = G5;
+            ChessBoard[7, 6] = G6;
+            ChessBoard[7, 7] = G7;
+            ChessBoard[7, 8] = G8;
+
+            ChessBoard[8, 1] = H1;
+            ChessBoard[8, 2] = H2;
+            ChessBoard[8, 3] = H3;
+            ChessBoard[8, 4] = H4;
+            ChessBoard[8, 5] = H5;
+            ChessBoard[8, 6] = H6;
+            ChessBoard[8, 7] = H7;
+            ChessBoard[8, 8] = H8;
+        }
+
+        void InitializeChessPieces()
+        {
+            whiteRook1 = new Rook(PieceColor.White);
+            whiteRook2 = new Rook(PieceColor.White);
+            whiteKnight1 = new Knight(PieceColor.White);
+            whiteKnight2 = new Knight(PieceColor.White);
+            whiteBishop1 = new Bishop(PieceColor.White);
+            whiteBishop2 = new Bishop(PieceColor.White);
+            whiteQueen = new Queen(PieceColor.White);
+            whiteKing = new King(PieceColor.White);
+
+            whitePawn1 = new Pawn(PieceColor.White);
+            whitePawn2 = new Pawn(PieceColor.White);
+            whitePawn3 = new Pawn(PieceColor.White);
+            whitePawn4 = new Pawn(PieceColor.White);
+            whitePawn5 = new Pawn(PieceColor.White);
+            whitePawn6 = new Pawn(PieceColor.White);
+            whitePawn7 = new Pawn(PieceColor.White);
+            whitePawn8 = new Pawn(PieceColor.White);
+
+
+            blackRook1 = new Rook(PieceColor.Black);
+            blackRook2 = new Rook(PieceColor.Black);
+            blackKnight1 = new Knight(PieceColor.Black);
+            blackKnight2 = new Knight(PieceColor.Black);
+            blackBishop1 = new Bishop(PieceColor.Black);
+            blackBishop2 = new Bishop(PieceColor.Black);
+            blackQueen = new Queen(PieceColor.Black);
+            blackKing = new King(PieceColor.Black);
+
+            blackPawn1 = new Pawn(PieceColor.Black);
+            blackPawn2 = new Pawn(PieceColor.Black);
+            blackPawn3 = new Pawn(PieceColor.Black);
+            blackPawn4 = new Pawn(PieceColor.Black);
+            blackPawn5 = new Pawn(PieceColor.Black);
+            blackPawn6 = new Pawn(PieceColor.Black);
+            blackPawn7 = new Pawn(PieceColor.Black);
+            blackPawn8 = new Pawn(PieceColor.Black);
+
+        }
+
+        void PrepareCapturedPiecesArea()
+        {
+            capturedWhitePawns = new CapturedPieceBox(new Pawn(PieceColor.White));
+            capturedWhiteRooks = new CapturedPieceBox(new Rook(PieceColor.White));
+            capturedWhiteKnights = new CapturedPieceBox(new Knight(PieceColor.White));
+            capturedWhiteBishops = new CapturedPieceBox(new Bishop(PieceColor.White));
+            capturedWhiteQueen = new CapturedPieceBox(new Queen(PieceColor.White));
+
+            capturedBlackPawns = new CapturedPieceBox(new Pawn(PieceColor.Black));
+            capturedBlackRooks = new CapturedPieceBox(new Rook(PieceColor.Black));
+            capturedBlackKnights = new CapturedPieceBox(new Knight(PieceColor.Black));
+            capturedBlackBishops = new CapturedPieceBox(new Bishop(PieceColor.Black));
+            capturedBlackQueen = new CapturedPieceBox(new Queen(PieceColor.Black));
+
+            panelCapturedWhitePieces.Controls.Add(capturedWhitePawns);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteRooks);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteKnights);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteBishops);
+            panelCapturedWhitePieces.Controls.Add(capturedWhiteQueen);
+
+            panelCapturedBlackPieces.Controls.Add(capturedBlackPawns);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackRooks);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackKnights);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackBishops);
+            panelCapturedBlackPieces.Controls.Add(capturedBlackQueen);
+
+            capturedWhitePawns.Location = new Point(0, 0);
+            capturedWhiteRooks.Location = new Point(64, 0);
+            capturedWhiteKnights.Location = new Point(128, 0);
+            capturedWhiteBishops.Location = new Point(192, 0);
+            capturedWhiteQueen.Location = new Point(256, 0);
+
+            capturedBlackPawns.Location = new Point(0, 0);
+            capturedBlackRooks.Location = new Point(64, 0);
+            capturedBlackKnights.Location = new Point(128, 0);
+            capturedBlackBishops.Location = new Point(192, 0);
+            capturedBlackQueen.Location = new Point(256, 0);
+
+            capturedWhitePawns.Click += CapturedPieceBoxClick;
+            capturedWhiteRooks.Click += CapturedPieceBoxClick;
+            capturedWhiteKnights.Click += CapturedPieceBoxClick;
+            capturedWhiteBishops.Click += CapturedPieceBoxClick;
+            capturedWhiteQueen.Click += CapturedPieceBoxClick;
+
+            capturedBlackPawns.Click += CapturedPieceBoxClick;
+            capturedBlackRooks.Click += CapturedPieceBoxClick;
+            capturedBlackKnights.Click += CapturedPieceBoxClick;
+            capturedBlackBishops.Click += CapturedPieceBoxClick;
+            capturedBlackQueen.Click += CapturedPieceBoxClick;
         }
 
         #region Network stuff
@@ -1134,8 +1133,6 @@ namespace Chess_Application
             }
         }
 
-        #region Recapturing chess pieces
-
         void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
         {
             PieceColor capturedPieceColor = capturedPieceBox.ChessPiece.Color;
@@ -1172,8 +1169,6 @@ namespace Chess_Application
                 capturedPieceBox.Count--;
             }
         }
-
-        #endregion
 
         private void SendChatMessage(object sender, EventArgs e)
         {
