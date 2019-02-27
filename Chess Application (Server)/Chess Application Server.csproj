@@ -56,6 +56,7 @@
     <Compile Include="Classes\Knight.cs" />
     <Compile Include="Classes\Bishop.cs" />
     <Compile Include="Classes\ChessPiece.cs" />
+    <Compile Include="Classes\NetworkManager.cs" />
     <Compile Include="Classes\Utilities.cs" />
     <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Enums\Turn.cs" />

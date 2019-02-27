@@ -56,7 +56,7 @@ namespace Chess_Application
         public bool TriggersCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
             Point kingPosition;
-            if (MainForm.currentPlayersTurn == Turn.White)
+            if (MainForm.CurrentPlayersTurn == Turn.White)
             {
                 kingPosition = MainForm.pozitieRegeAlb;
             }

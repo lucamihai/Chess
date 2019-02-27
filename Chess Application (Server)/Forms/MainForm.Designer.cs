@@ -65,7 +65,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.labelRand = new System.Windows.Forms.Label();
+            this.labelTurn = new System.Windows.Forms.Label();
             this.panelCapturedWhitePieces = new System.Windows.Forms.Panel();
             this.panelCapturedBlackPieces = new System.Windows.Forms.Panel();
             this.historyEntries = new Chess_Application.UserControls.History();
@@ -138,14 +138,14 @@
             this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
             this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.activeazaToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.EnableBeginnerMode);
+            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.ToolStripEnableBeginnerMode);
             // 
             // dezactiveazaToolStripMenuItem
             // 
             this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
             this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.DisableBeginnerMode);
+            this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.ToolStripDisableBeginnerMode);
             // 
             // sunetToolStripMenuItem
             // 
@@ -161,14 +161,14 @@
             this.activeazalToolStripMenuItem.Name = "activeazalToolStripMenuItem";
             this.activeazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.activeazalToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.EnableSound);
+            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.ToolStripEnableSound);
             // 
             // dezactiveazalToolStripMenuItem
             // 
             this.dezactiveazalToolStripMenuItem.Name = "dezactiveazalToolStripMenuItem";
             this.dezactiveazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.dezactiveazalToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.DisableSound);
+            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.ToolStripDisableSound);
             // 
             // menuStrip2
             // 
@@ -414,15 +414,15 @@
             this.label18.TabIndex = 48;
             this.label18.Text = "Spoils o\' war";
             // 
-            // labelRand
+            // labelTurn
             // 
-            this.labelRand.AutoSize = true;
-            this.labelRand.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.labelRand.Location = new System.Drawing.Point(864, 383);
-            this.labelRand.Name = "labelRand";
-            this.labelRand.Size = new System.Drawing.Size(131, 19);
-            this.labelRand.TabIndex = 49;
-            this.labelRand.Text = "Randul pieselor albe";
+            this.labelTurn.AutoSize = true;
+            this.labelTurn.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.labelTurn.Location = new System.Drawing.Point(864, 383);
+            this.labelTurn.Name = "labelTurn";
+            this.labelTurn.Size = new System.Drawing.Size(131, 19);
+            this.labelTurn.TabIndex = 49;
+            this.labelTurn.Text = "Randul pieselor albe";
             // 
             // panelCapturedWhitePieces
             // 
@@ -455,7 +455,7 @@
             this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.panelCapturedBlackPieces);
             this.Controls.Add(this.panelCapturedWhitePieces);
-            this.Controls.Add(this.labelRand);
+            this.Controls.Add(this.labelTurn);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.button1);
@@ -523,7 +523,7 @@
         private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
-        public System.Windows.Forms.Label labelRand;
+        public System.Windows.Forms.Label labelTurn;
         private System.Windows.Forms.Panel panelCapturedWhitePieces;
         private System.Windows.Forms.Panel panelCapturedBlackPieces;
         private UserControls.History historyEntries;

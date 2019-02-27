@@ -17,106 +17,212 @@ namespace Chess_Application
 
     public partial class MainForm : Form
     {
-        Panel menuContainer;
-        MainMenu mainMenu;
+        private NetworkManager NetworkManager { get; set; }
+
+        private Panel menuContainer;
+        private MainMenu mainMenu;
 
         public static Point pozitieRegeAlb = new Point();
         public static Point pozitieRegeNegru = new Point();
 
-        int clickCounter;
-        bool isCurrentPlayersTurnToMove = true;
+        private int clickCounter;
+        private bool isCurrentPlayersTurnToMove = true;
 
-        int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
+        private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
         public static bool markAvailableBoxesAsGreen = true; // Made static, because it's required elsewhere
 
-        bool soundEnabled = true;
-        bool incepeJocNou = false;
-        bool currentPlayerMustSelect = false;
-        bool opponentMustSelect = false;
+        private bool soundEnabled = true;
+        private bool isNewGameRequested = false;
+        private bool currentPlayerMustSelect = false;
+        private bool opponentMustSelect = false;
 
-        public static Turn currentPlayersTurn = Turn.White;
-        public static Turn opponentsTurn = Turn.Black;
+        public static Turn CurrentPlayersTurn { get; set; } = Turn.White;
+        public static Turn OpponentsTurn { get; set; } = Turn.Black;
 
-        string username = "Server";
-        string usernameClient = "Client";
+        private string username = "Server";
+        private string usernameClient = "Client";
 
-        ChessPiece whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8;
-        ChessPiece whiteRook1, whiteRook2;
-        ChessPiece whiteBishop1, whiteBishop2;
-        ChessPiece whiteKnight1, whiteKnight2;
-        ChessPiece whiteQueen, whiteKing;
+        private ChessPiece whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8;
+        private ChessPiece whiteRook1, whiteRook2;
+        private ChessPiece whiteBishop1, whiteBishop2;
+        private ChessPiece whiteKnight1, whiteKnight2;
+        private ChessPiece whiteQueen, whiteKing;
 
-        ChessPiece blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8;
-        ChessPiece blackRook1, blackRook2;
-        ChessPiece blackBishop1, blackBishop2;
-        ChessPiece blackKnight1, blackKnight2;
-        ChessPiece blackQueen, blackKing;
+        private ChessPiece blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8;
+        private ChessPiece blackRook1, blackRook2;
+        private ChessPiece blackBishop1, blackBishop2;
+        private ChessPiece blackKnight1, blackKnight2;
+        private ChessPiece blackQueen, blackKing;
 
-        Box orig;
+        private Box firstClickedBox;
         
-        Box A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
-        Box H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
+        private Box A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
+        private Box H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
 
-        Box C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
-        Box E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
+        private Box C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8;
+        private Box E1, E2, E3, E4, E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8;
 
-        CapturedPieceBox capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
-        CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
+        private CapturedPieceBox capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
+        private CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
 
-        Box[,] ChessBoard;
+        private Box[,] ChessBoard;
 
-        Color BoxColorLight = Color.Silver;
-        Color BoxColorDark  = Color.FromArgb(132, 107, 86);
+        private Color BoxColorLight { get; } = Color.Silver;
+        private Color BoxColorDark { get; }  = Color.FromArgb(132, 107, 86);
 
-        SoundPlayer moveSound1 = new SoundPlayer(Properties.Resources.MoveSound1);
-        SoundPlayer moveSound2 = new SoundPlayer(Properties.Resources.MoveSound2);
-
-        TcpListener serverTcpListener;
-        Thread networkThread;
-        NetworkStream streamServer;
-        bool isNetworkThreadRunning;
+        private SoundPlayer moveSound1 = new SoundPlayer(Properties.Resources.MoveSound1);
+        private SoundPlayer moveSound2 = new SoundPlayer(Properties.Resources.MoveSound2);
 
         public MainForm()
         {
             InitializeComponent();
+            InitializeNetworkManager();
 
-            serverTcpListener = new TcpListener(System.Net.IPAddress.Any, 3000);
-            serverTcpListener.Start();
-            networkThread = new Thread( new ThreadStart(ServerListen) );
-            isNetworkThreadRunning = true;
-            networkThread.Start();
+            menuContainer = new Panel
+            {
+                MinimumSize = new Size(this.Width, this.Height),
+                MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
+            };
 
-            mainMenu = new MainMenu(this);
-
-            menuContainer = new Panel();
-            menuContainer.MinimumSize = new Size(this.Width, this.Height);
-            menuContainer.MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            mainMenu = new MainMenu(this)
+            {
+                MinimumSize = new Size(this.Width, this.Height),
+                MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink
+            };
             menuContainer.Controls.Add(mainMenu);
 
-            mainMenu.MinimumSize = new Size(this.Width, this.Height);
-            mainMenu.MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            mainMenu.AutoSize = true;
-            mainMenu.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
             Controls.Add(menuContainer);
-
             menuContainer.BringToFront();
-
             InitializeChessPieces();
-
             PrepareCapturedPiecesArea();
-
             NewGame();
 
             activeazaToolStripMenuItem.Available = false;
             activeazalToolStripMenuItem.Available = false;
         }
 
-        /// <summary>
-        /// Method responsible for rearanging the chess board for a new game.
-        /// </summary>
-        public void NewGame()
+        private void InitializeNetworkManager()
+        {
+            NetworkManager = new NetworkManager();
+
+            NetworkManager.OnChangedColors += (currentPlayersTurn, opponentsTurn) =>
+            {
+                var opponentChangedColors = new MethodInvoker(() =>
+                {
+                    CurrentPlayersTurn = currentPlayersTurn;
+                    OpponentsTurn = opponentsTurn;
+
+                    isCurrentPlayersTurnToMove = CurrentPlayersTurn == Turn.White;
+                });
+
+                Invoke(opponentChangedColors);
+            };
+
+            NetworkManager.OnChangedUsername += username =>
+            {
+                var changeOpponentUsername = new MethodInvoker(()=> usernameClient = username);
+                Invoke(changeOpponentUsername);
+            };
+
+            NetworkManager.OnBeginSelection += () =>
+            {
+                var beginSelection = new MethodInvoker(()=>{
+                    opponentMustSelect = true;
+                    textBox1.AppendText(usernameClient + " must retake a piece from Spoils o' war\r\n");
+                });
+
+                Invoke(beginSelection);
+
+            };
+
+            NetworkManager.OnSelection += (point, type, color) =>
+            {
+                var selection = new MethodInvoker(() => {
+                    if (color == PieceColor.White)
+                    {
+                        if (type == typeof(Rook))
+                        {
+                            RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[point.X, point.Y]);
+                        }
+
+                        if (type == typeof(Knight))
+                        {
+                            RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[point.X, point.Y]);
+                        }
+
+                        if (type == typeof(Bishop))
+                        {
+                            RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[point.X, point.Y]);
+                        }
+
+                        if (type == typeof(Queen))
+                        {
+                            RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[point.X, point.Y]);
+                        }
+                    }
+
+                    if (color == PieceColor.Black)
+                    {
+                        if (type == typeof(Rook))
+                        {
+                            RetakeCapturedPiece(capturedBlackRooks, ChessBoard[point.X, point.Y]);
+                        }
+
+                        if (type == typeof(Knight))
+                        {
+                            RetakeCapturedPiece(capturedBlackKnights, ChessBoard[point.X, point.Y]);
+                        }
+
+                        if (type == typeof(Bishop))
+                        {
+                            RetakeCapturedPiece(capturedBlackBishops, ChessBoard[point.X, point.Y]);
+                        }
+
+                        if (type == typeof(Queen))
+                        {
+                            RetakeCapturedPiece(capturedBlackQueen, ChessBoard[point.X, point.Y]);
+                        }
+                    }
+
+                    opponentMustSelect = false;
+                });
+
+                Invoke(selection);
+
+            };
+
+            NetworkManager.OnMadeMove += (origin, destination) =>
+            {
+                var move = new MethodInvoker(
+                    ()=> OpponentMovePiece(ChessBoard[origin.X, origin.Y], ChessBoard[destination.X, destination.Y])
+                );
+
+                Invoke(move);
+            };
+
+            NetworkManager.OnRequestNewGame += () =>
+            {
+                var request = new MethodInvoker(() => isNewGameRequested = true);
+                Invoke(request);
+            };
+
+            NetworkManager.OnNewGame += () =>
+            {
+                var newGame = new MethodInvoker(NewGame);
+                Invoke(newGame);
+            };
+
+            NetworkManager.OnChatMessage += message =>
+            {
+                var chatMessage = new MethodInvoker(() => textBox1.Text += $"{usernameClient}: {message}\r\n");
+                Invoke(chatMessage);
+            };
+        }
+
+        private void NewGame()
         {
             ResetBoxes();
 
@@ -138,14 +244,14 @@ namespace Chess_Application
 
             clickCounter = 0;
 
-            if (opponentsTurn == Turn.Black)
+            if (OpponentsTurn == Turn.Black)
             {
-                currentPlayersTurn = Turn.White;
+                CurrentPlayersTurn = Turn.White;
                 isCurrentPlayersTurnToMove = true;
             }
             else
             {
-                currentPlayersTurn = Turn.Black;
+                CurrentPlayersTurn = Turn.Black;
                 isCurrentPlayersTurnToMove = false;
             }
 
@@ -174,7 +280,7 @@ namespace Chess_Application
             #endregion
         }
 
-        void ResetBoxes()
+        private void ResetBoxes()
         {
             A1 = new Box("A1", whiteRook1);
             A2 = new Box("A2", whiteKnight1);
@@ -401,7 +507,7 @@ namespace Chess_Application
             A8.Location = new Point(448, 448);
         }
 
-        void InitializeChessBoard()
+        private void InitializeChessBoard()
         {
             ChessBoard = new Box[10, 10];
 
@@ -478,7 +584,7 @@ namespace Chess_Application
             ChessBoard[8, 8] = H8;
         }
 
-        void InitializeChessPieces()
+        private void InitializeChessPieces()
         {
             whiteRook1 = new Rook(PieceColor.White);
             whiteRook2 = new Rook(PieceColor.White);
@@ -519,7 +625,7 @@ namespace Chess_Application
 
         }
 
-        void PrepareCapturedPiecesArea()
+        private void PrepareCapturedPiecesArea()
         {
             capturedWhitePawns = new CapturedPieceBox(new Pawn(PieceColor.White));
             capturedWhiteRooks = new CapturedPieceBox(new Rook(PieceColor.White));
@@ -570,294 +676,60 @@ namespace Chess_Application
             capturedBlackQueen.Click += CapturedPieceBoxClick;
         }
 
-        #region Network stuff
-
-        /// <summary>
-        /// Listens for incoming data and makes decisions based on the received data.
-        /// </summary>
-        public void ServerListen()
-        {
-            while (isNetworkThreadRunning)
-            {
-                try
-                {
-                    Socket socketServer = serverTcpListener.AcceptSocket();
-                    streamServer = new NetworkStream(socketServer);
-                    StreamReader streamReader = new StreamReader(streamServer);
-
-                    while (isNetworkThreadRunning)
-                    {
-                        string receivedData = streamReader.ReadLine();
-
-                        if (receivedData == null)
-                        {
-                            break;
-                        }
-                        
-                        // If a command was received
-                        if (receivedData.StartsWith("#"))
-                        {
-
-                            // Client has disconnected
-                            if (receivedData == "#Gata")
-                            {
-                                isNetworkThreadRunning = false;
-                            }
-
-                            // Client has made a move, receiving origin and destination coordinates, then proceeding to replicate the move
-                            // e.g. "#B1 B2"
-                            if (receivedData.Length == 6)
-                            {
-                                string[] coordinates = receivedData.Substring(1).Split();
-
-                                int originRow         = Convert.ToInt32( coordinates[0][0] ) - 64;
-                                int originColumn      = Convert.ToInt32( coordinates[0][1] ) - 48;
-                                int destinationRow    = Convert.ToInt32( coordinates[1][0] ) - 64;
-                                int destinationColumn = Convert.ToInt32( coordinates[1][1] ) - 48;
-
-                                MethodInvoker move = new MethodInvoker(
-                                    () => OpponentMovePiece( ChessBoard[originRow, originColumn], ChessBoard[destinationRow, destinationColumn] )
-                                );
-
-                                Invoke(move);
-                            }
-
-                            // Client changed the username, update this info
-                            // e.g. "#usernameNewCoolUsername"
-                            if (receivedData.StartsWith("#username"))
-                            {
-                                usernameClient = receivedData.Substring(9);
-                            }
-
-                            // Client chose a color, update this info
-                            // e.g. "#culori 1 2"
-                            if (receivedData.StartsWith("#culori"))
-                            {
-                                string colorsString = receivedData.Substring(8);
-                                string[] colors = colorsString.Split(' ');
-
-                                currentPlayersTurn       = (Turn)Convert.ToInt32(colors[0]);
-                                opponentsTurn = (Turn)Convert.ToInt32(colors[1]);
-
-                                isCurrentPlayersTurnToMove = (currentPlayersTurn == Turn.White) ? true : false;
-                            }
-
-                            // Client requested a new game
-                            if (receivedData == "#request new game")
-                            {
-                                incepeJocNou = true;
-                            }
-
-                            // Client agreed to start a new game
-                            if (receivedData == "#new game")
-                            {
-                                MethodInvoker newGame = new MethodInvoker(
-                                    () => NewGame()
-                                );
-
-                                Invoke(newGame);
-                            }
-
-                            // Client must retake a captured piece
-                            if (receivedData == "#selectie")
-                            {
-                                opponentMustSelect = true;
-                                MethodInvoker notify = new MethodInvoker(
-                                    () => { textBox1.AppendText(usernameClient + " must retake a piece from Spoils o' war\r\n"); }
-                                );
-
-                                Invoke(notify);
-                            }
-
-                            // Client has retaken a captured piece
-                            if (receivedData == "#final selectie")
-                            {
-                                opponentMustSelect = false;
-                            }
-
-                            // Client has retaken a captured piece, update this info
-                            // e.g. "#selectat 2 3 AC"
-                            if (receivedData.StartsWith("#selectat"))
-                            {
-                                string[] retakeDetails = receivedData.Substring(10).Split();
-
-                                int row    = Convert.ToInt32(retakeDetails[0]);
-                                int column = Convert.ToInt32(retakeDetails[1]);
-
-                                char retakenPieceColor = retakeDetails[2][1];
-                                char retakenPieceType  = retakeDetails[2][0];
-
-                                MethodInvoker updateLabelCapturedPiece = new MethodInvoker(() => { });
-
-                                // White piece
-                                if (retakenPieceColor == 'A')
-                                {
-                                    if (retakenPieceType == 'T')
-                                    {
-                                        RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedWhiteRooks.Count--; }
-                                        );
-                                    }
-
-                                    if (retakenPieceType == 'C')
-                                    {
-                                        RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedWhiteKnights.Count--; }
-                                        );
-                                    }
-
-                                    if (retakenPieceType == 'N')
-                                    {
-                                        RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedWhiteBishops.Count--; }
-                                        );
-                                    }
-
-                                    if (retakenPieceType == 'R')
-                                    {
-                                        RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedWhiteQueen.Count--; }
-                                        );
-                                    }
-                                }
-
-                                // Black piece
-                                if (retakenPieceColor == 'N')
-                                {
-                                    if (retakenPieceType == 'T')
-                                    {
-                                        RetakeCapturedPiece(capturedBlackRooks, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedBlackRooks.Count--; }
-                                        );
-                                    }
-
-                                    if (retakenPieceType == 'C')
-                                    {
-                                        RetakeCapturedPiece(capturedBlackKnights, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedBlackKnights.Count--; }
-                                        );
-                                    }
-
-                                    if (retakenPieceType == 'N')
-                                    {
-                                        RetakeCapturedPiece(capturedBlackBishops, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedBlackBishops.Count--; }
-                                        );
-                                    }
-
-                                    if (retakenPieceType == 'R')
-                                    {
-                                        RetakeCapturedPiece(capturedBlackQueen, ChessBoard[row, column]);
-
-                                        updateLabelCapturedPiece = new MethodInvoker(
-                                            () => { capturedBlackQueen.Count--; }
-                                        );
-                                    }
-                                }
-
-                                Invoke(updateLabelCapturedPiece);
-                            }
-                        }
-
-                        // If a normal message was received, create a new chat entry
-                        else
-                        {
-                            MethodInvoker newChatMessage = new MethodInvoker(
-                                () => { textBox1.Text += string.Format("{0}: {1}\r\n", usernameClient, receivedData); }
-                            );
-
-                            Invoke(newChatMessage);
-                        }
-                    }
-
-                    streamServer.Close();
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-        }
-
-        #region Username and colors settings
-
         /// <summary>
         /// Set the server's username, and communicate to the client the new username
         /// </summary>
         /// <param name="username">The new username</param>
-        public void SetUsername(string username)
+        public void SetUsernameFromMainMenu(string username)
         {
             this.username = username;
 
             // Communicate to partner the new username
-            StreamWriter streamWriter = new StreamWriter(streamServer);
-            streamWriter.AutoFlush = true;
-            streamWriter.WriteLine("#username" + username);
+            NetworkManager.SendMessage("#username" + username);
         }
 
         /// <summary>
         /// Set the server's color, and communicate to the client the new color configuration
         /// </summary>
         /// <param name="colorsString">The string containing the color configuration (e.g. "1 2" will set server's color to white, and client's color to black)</param>
-        public void SetColors(string colorsString)
+        public void SetColorsFromMainMenu(string colorsString)
         {
-            string[] colors = colorsString.Split(' ');
-            int a = Convert.ToInt32(colors[0]);
+            var colors = colorsString.Split(' ');
+            var serverColor = Convert.ToInt32(colors[0]);
 
             // Player will be controlling white, will have first move
-            if (a == 1)
+            if (serverColor == 1)
             {
-                currentPlayersTurn = Turn.White;
-                opponentsTurn = Turn.Black;
+                CurrentPlayersTurn = Turn.White;
+                OpponentsTurn = Turn.Black;
                 isCurrentPlayersTurnToMove = true;
             }
 
             // Player will be controlling black, will have second move
             else
             {
-                currentPlayersTurn = Turn.Black;
-                opponentsTurn = Turn.White;
+                CurrentPlayersTurn = Turn.Black;
+                OpponentsTurn = Turn.White;
                 isCurrentPlayersTurnToMove = false;
             }
 
             // Communicate to partner the colors
-            StreamWriter streamWriter = new StreamWriter(streamServer);
-            streamWriter.AutoFlush = true;
-            streamWriter.WriteLine("#culori " + colorsString);
+            NetworkManager.SendMessage("#culori " + colorsString);
         }
-
-        #endregion
 
         /// <summary>
         /// Send a message on the stream, and if the message isn't a command, also create a new chat entry.
         /// </summary>
         /// <param name="message">Message to be sent</param>
-        void SendMessage(string message)
+        private void SendMessage(string message)
         {
-            StreamWriter writer = new StreamWriter(streamServer);
-            writer.AutoFlush = true;
-
             // If the message to be sent isn't a command, create a new chat entry
             if (!message.StartsWith("#"))
             {
                 textBox1.AppendText(username + ": " + message + Environment.NewLine);
             }
-                
-            writer.WriteLine(message);
+
+            NetworkManager.SendMessage(message);
         }
 
         private void tbServerDate_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -868,71 +740,38 @@ namespace Chess_Application
             }     
         }
 
-        #endregion
-
-        #region ToolStripMenu Items
-
-        #region Options
-
-        /// <summary>
-        /// Enables sound, hides the "enable sound" option and displays the "hide sound" option.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EnableSound(object sender, EventArgs e)
+        private void ToolStripEnableSound(object sender, EventArgs e)
         {
             soundEnabled = true;
             activeazalToolStripMenuItem.Visible = false;
             dezactiveazalToolStripMenuItem.Visible = true;
         }
 
-        /// <summary>
-        /// Disables sound, hides the "disable sound" option and displays the "enable sound" option.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DisableSound(object sender, EventArgs e)
+        private void ToolStripDisableSound(object sender, EventArgs e)
         {
             soundEnabled = false;
             activeazalToolStripMenuItem.Visible = true;
             dezactiveazalToolStripMenuItem.Visible = false;
         }
 
-        /// <summary>
-        /// Enables beginner's mode, hides the enable option and displays the disable option.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EnableBeginnerMode(object sender, EventArgs e)
+        private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
         {
             markAvailableBoxesAsGreen = true;
             activeazaToolStripMenuItem.Available = false;
             dezactiveazaToolStripMenuItem.Available = true;
         }
 
-        /// <summary>
-        /// Disables beginner's mode, hides the disable option and displays the enable option.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DisableBeginnerMode(object sender, EventArgs e)
+        private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
         {
             markAvailableBoxesAsGreen = false;
             activeazaToolStripMenuItem.Available = true;
             dezactiveazaToolStripMenuItem.Available = false;
         }
 
-        #endregion
-
-        /// <summary>
-        /// Requests a new game, or begins a new game if the client has made a new game request. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ToolStripNewGame(object sender, EventArgs e)
         {
             // If a new game isn't already requested, proceed to request
-            if (!incepeJocNou)
+            if (!isNewGameRequested)
             {
                 SendMessage("#request new game");
                 SendMessage(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
@@ -943,7 +782,7 @@ namespace Chess_Application
             else
             {
                 NewGame();
-                incepeJocNou = false;
+                isNewGameRequested = false;
                 SendMessage("#new game");
             }
         }
@@ -953,23 +792,14 @@ namespace Chess_Application
             Application.Exit();
         }
 
-        #endregion
-
-        #region Chess pieces movement
-
-        /// <summary>
-        /// Method called when the current player moves a chess piece.
-        /// </summary>
-        /// <param name="origine"></param>
-        /// <param name="destinatie"></param>
-        void MovePiece(Box origin, Box destination)
+        private void CurrentPlayerMovePiece(Box origin, Box destination)
         {
             if (destination.Piece != null)
             {
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            string message = string.Format("#{0} {1}", origin.BoxName, destination.BoxName);
+            var message = $"#{origin.BoxName} {destination.BoxName}";
             SendMessage(message);
 
             ResetBoxesColors(ChessBoard);
@@ -987,16 +817,9 @@ namespace Chess_Application
             ResetBoxesColors(ChessBoard);
 
             isCurrentPlayersTurnToMove = false;
-            currentPlayersTurn = opponentsTurn;
+            CurrentPlayersTurn = OpponentsTurn;
 
-            if (currentPlayersTurn == Turn.White)
-            {
-                labelRand.Text = "White's turn";
-            }
-            else
-            {
-                labelRand.Text = "Black's turn";
-            }
+            labelTurn.Text = CurrentPlayersTurn == Turn.White ? "White's turn" : "Black's turn";
 
             if (soundEnabled)
             {
@@ -1008,14 +831,9 @@ namespace Chess_Application
             SetAllBoxesAsUnavailable(ChessBoard);
         }
 
-        /// <summary>
-        /// Method called when the opponent moves a chess piece.
-        /// </summary>
-        /// <param name="origin">The box whose piece will be moved.</param>
-        /// <param name="destination">The box where the selected piece will be moved</param>
-        void OpponentMovePiece(Box origin, Box destination)
+        private void OpponentMovePiece(Box origin, Box destination)
         {
-            // If the destionation has a piece, it will be removed => increase the counter of the captured piece type
+            // If the destination has a piece, it will be removed => increase the counter of the captured piece type
             if (destination.Piece != null)
             {
                 UpdateCapturedPiecesCounter(destination);
@@ -1033,15 +851,15 @@ namespace Chess_Application
 
             isCurrentPlayersTurnToMove = true;
 
-            if (opponentsTurn == Turn.Black)
+            if (OpponentsTurn == Turn.Black)
             {
-                currentPlayersTurn = Turn.White;
-                labelRand.Text = "White's turn";
+                CurrentPlayersTurn = Turn.White;
+                labelTurn.Text = "White's turn";
             }
             else
             {
-                currentPlayersTurn = Turn.Black;
-                labelRand.Text = "Black's turn";
+                CurrentPlayersTurn = Turn.Black;
+                labelTurn.Text = "Black's turn";
             }
 
             if (soundEnabled)
@@ -1054,18 +872,15 @@ namespace Chess_Application
             SetAllBoxesAsUnavailable(ChessBoard);
         }
 
-        void PerformMove(Box origin, Box destination)
+        private void PerformMove(Box origin, Box destination)
         {
             historyEntries.AddEntry(origin, destination);
 
             destination.Piece = origin.Piece;
-
             origin.Piece = null;
         }
 
-        #endregion
-
-        void UpdateCapturedPiecesCounter(Box destination)
+        private void UpdateCapturedPiecesCounter(Box destination)
         {
             if (destination.Piece.Color == PieceColor.White)
             {
@@ -1124,7 +939,7 @@ namespace Chess_Application
             }
         }
 
-        void UpdateKingPosition(Box destination)
+        private void UpdateKingPosition(Box destination)
         {
             if (destination.Piece.Color == PieceColor.White)
             {
@@ -1138,10 +953,10 @@ namespace Chess_Application
             }
         }
 
-        void BeginPieceRecapturingIfPawnReachedTheEnd(Box destination)
+        private void BeginPieceRecapturingIfPawnReachedTheEnd(Box destination)
         {
             // If a white pawn has reached the last line
-            if (currentPlayersTurn == Turn.White)
+            if (CurrentPlayersTurn == Turn.White)
             {
                 if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
                 {
@@ -1158,7 +973,7 @@ namespace Chess_Application
             }
 
             // If a black pawn has reached the last line
-            if (currentPlayersTurn == Turn.Black)
+            if (CurrentPlayersTurn == Turn.Black)
             {
                 if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
                 {
@@ -1175,35 +990,31 @@ namespace Chess_Application
             }
         }
 
-        void EndGameIfCheckMate()
+        private void EndGameIfCheckMate()
         {
             if ( CheckmateWhite() )
             {
                 textBox1.AppendText("Checkmate! Black has won");
                 Thread.Sleep(2000);
-                MethodInvoker NewGameInvoker = new MethodInvoker(
-                    () => NewGame()
-                );
+                var newGameInvoker = new MethodInvoker(NewGame);
 
-                Invoke(NewGameInvoker);
+                Invoke(newGameInvoker);
                 SendMessage("#new game");
             }
             if ( CheckmateBlack() )
             {
                 textBox1.AppendText("Checkmate! White has won");
                 Thread.Sleep(2000);
-                MethodInvoker NewGameInvoker = new MethodInvoker(
-                    () => NewGame()
-                );
+                var newGameInvoker = new MethodInvoker(NewGame);
 
-                Invoke(NewGameInvoker);
+                Invoke(newGameInvoker);
                 SendMessage("#new game");
             }
         }
 
-        void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
+        private void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
         {
-            PieceColor capturedPieceColor = capturedPieceBox.ChessPiece.Color;
+            var capturedPieceColor = capturedPieceBox.ChessPiece.Color;
 
             if (capturedPieceBox.ChessPiece is Rook)
             {
@@ -1236,27 +1047,11 @@ namespace Chess_Application
 
         private void SendChatMessage(object sender, EventArgs e)
         {
-            try
-            {
-                StreamWriter streamWriter = new StreamWriter(streamServer);
-
-                streamWriter.AutoFlush = true;
-                streamWriter.WriteLine(tbServerDate.Text);
-                textBox1.AppendText(username + ": " + tbServerDate.Text + Environment.NewLine);
-                tbServerDate.Clear();
-            }
-            catch
-            {
-                MessageBox.Show("There was an error sending the message"); 
-            }
+            SendMessage(tbServerDate.Text);
+            tbServerDate.Clear();
         }
 
-        public void HideMainMenu()
-        {
-            menuContainer.Hide();
-        }
-
-        bool CheckmateWhite()
+        private bool CheckmateWhite()
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -1279,7 +1074,7 @@ namespace Chess_Application
             return true;
         }
 
-        bool CheckmateBlack()
+        private bool CheckmateBlack()
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -1302,7 +1097,7 @@ namespace Chess_Application
             return true;
         }
 
-        public void ResetBoxesColors(Box[,] ChessBoard)
+        private void ResetBoxesColors(Box[,] ChessBoard)
         {
             for (int i = 1; i < 9; i++)
             {
@@ -1320,21 +1115,17 @@ namespace Chess_Application
             }
         }
 
-        public void NextTurn()
+        private void NextTurn()
         {
-            currentPlayersTurn++;
+            CurrentPlayersTurn++;
 
-            if (currentPlayersTurn > Turn.Black)
+            if (CurrentPlayersTurn > Turn.Black)
             {
-                currentPlayersTurn = Turn.White;
+                CurrentPlayersTurn = Turn.White;
             }
         }
 
-        /// <summary>
-        /// Sets every box as unavailable for chess pieces to move upon.
-        /// </summary>
-        /// <param name="ChessBoard">The boxes matrix.</param>
-        public void SetAllBoxesAsUnavailable(Box[,] ChessBoard)
+        private void SetAllBoxesAsUnavailable(Box[,] ChessBoard)
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -1345,15 +1136,9 @@ namespace Chess_Application
             }           
         }
 
-        /// <summary>
-        /// Event called whenever a box is clicked.
-        /// Responsible for making player moves possible.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void BoxClick(object sender, EventArgs e)
+        private void BoxClick(object sender, EventArgs e)
         {
-            Box clickedBoxObject = (Box)sender;
+            var clickedBoxObject = (Box)sender;
 
             if (currentPlayerMustSelect || opponentMustSelect)
             {
@@ -1361,15 +1146,15 @@ namespace Chess_Application
             }
 
             // First click on a box with a chess piece
-            if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)currentPlayersTurn == (int)clickedBoxObject.Piece.Color && isCurrentPlayersTurnToMove)
+            if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)CurrentPlayersTurn == (int)clickedBoxObject.Piece.Color && isCurrentPlayersTurnToMove)
             {
-                short row = clickedBoxObject.Row;
-                short column = clickedBoxObject.Column;
+                var row = clickedBoxObject.Row;
+                var column = clickedBoxObject.Column;
 
                 clickedBoxObject.Piece.CheckPossibilities(row, column, ChessBoard);
                 if (clickedBoxObject.Piece.CanMove)
                 {
-                    orig = clickedBoxObject;
+                    firstClickedBox = clickedBoxObject;
                     clickCounter++;
                     return;
                 }
@@ -1379,32 +1164,32 @@ namespace Chess_Application
             if (clickCounter == 1)
             {
                 // Click on the same box => Cancel moving current chess piece
-                if (clickedBoxObject == orig)
+                if (clickedBoxObject == firstClickedBox)
                 {
                     SetAllBoxesAsUnavailable(ChessBoard);
                     ResetBoxesColors(ChessBoard);
                 }
 
                 // Click on a different box where the current piece can be moved
-                if (clickedBoxObject != orig && clickedBoxObject.Available)
+                if (clickedBoxObject != firstClickedBox && clickedBoxObject.Available)
                 {
-                    MovePiece(orig, clickedBoxObject);
+                    CurrentPlayerMovePiece(firstClickedBox, clickedBoxObject);
                 }
 
                 clickCounter = 0;
             }
         }
 
-        void CapturedPieceBoxClick(object sender, EventArgs e)
+        private void CapturedPieceBoxClick(object sender, EventArgs e)
         {
-            CapturedPieceBox clickedCapturedPieceBox = (CapturedPieceBox)sender;
+            var clickedCapturedPieceBox = (CapturedPieceBox)sender;
 
             if (currentPlayerMustSelect && clickedCapturedPieceBox.Count > 0)
             {
                 RetakeCapturedPiece(clickedCapturedPieceBox, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
 
-                ChessPiece recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
+                var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
                     string recaptureMessage = "#selectat " + retakeRow + " " + retakeColumn + " ";
@@ -1445,20 +1230,15 @@ namespace Chess_Application
                 
             }
         }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
-            {
-                isNetworkThreadRunning = false;
-                streamServer.Close();
-            }
+            NetworkManager.Stop();
+        }
 
-            catch (Exception)
-            {
-
-            }
-
-            serverTcpListener.Stop();
+        public void HideMainMenu()
+        {
+            menuContainer.Hide();
         }
     }
 }

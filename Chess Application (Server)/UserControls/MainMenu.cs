@@ -59,12 +59,12 @@ namespace Chess_Application
 
         public void SetUsername(string username)
         {
-            mainForm.SetUsername(username);
+            mainForm.SetUsernameFromMainMenu(username);
         }
 
         public void SetColors(string colorsString)
         {
-            mainForm.SetColors(colorsString);
+            mainForm.SetColorsFromMainMenu(colorsString);
         }
     }
 }
