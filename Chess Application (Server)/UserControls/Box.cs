@@ -12,9 +12,25 @@ namespace Chess_Application.UserControls
 {
     public partial class Box : UserControl
     {
-        #region Properties
+        private bool _Available;
+        public bool Available
+        {
+            get
+            {
+                return _Available;
+            }
+            set
+            {
+                _Available = value;
 
-        string _BoxName;
+                if (_Available && MainForm.markAvailableBoxesAsGreen)
+                {
+                    pictureBoxPiece.BackColor = Color.Green;
+                }
+            }
+        }
+
+        private string _BoxName;
         public string BoxName
         {
             get
@@ -35,7 +51,7 @@ namespace Chess_Application.UserControls
             }
         }
 
-        ChessPiece _Piece;
+        private ChessPiece _Piece;
         public ChessPiece Piece
         {
             get
@@ -46,7 +62,7 @@ namespace Chess_Application.UserControls
             {
                 _Piece = value;
 
-                pictureBoxPiece.Image = (_Piece != null) ? _Piece.Image : null;
+                pictureBoxPiece.Image = _Piece != null ? _Piece.Image : null;
             }
         }
 
@@ -66,25 +82,6 @@ namespace Chess_Application.UserControls
             }
         }
 
-        bool _Available;
-        public bool Available
-        {
-            get
-            {
-                return _Available;
-            }
-            set
-            {
-                _Available = value;
-
-                if (_Available && MainForm.markAvailableBoxesAsGreen)
-                {
-                    pictureBoxPiece.BackColor = Color.Green;
-                }
-            }
-        }
-
-        #endregion
 
         public Box()
         {
@@ -97,14 +94,8 @@ namespace Chess_Application.UserControls
 
             BoxName = name;
             Piece = chessPiece;
-            
 
             Available = false;
-        }
-
-        public void RemovePieceImage()
-        {
-            pictureBoxPiece.Image = null;
         }
 
         private void pictureBoxPiece_Click(object sender, EventArgs e)

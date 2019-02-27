@@ -12,8 +12,6 @@ namespace Chess_Application.UserControls
 {
     public partial class HistoryEntry : UserControl
     {
-        #region Properties
-
         public int EntryNumber
         {
             get
@@ -49,8 +47,6 @@ namespace Chess_Application.UserControls
                 labelDestinationName.Text = value;
             }
         }
-
-        #endregion
 
         public HistoryEntry(int entryNumber, Box origin, Box destination)
         {

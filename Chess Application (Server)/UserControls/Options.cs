@@ -13,8 +13,8 @@ namespace Chess_Application
     
     public partial class Options : UserControl
     {
-        MainMenu mainMenu;
-        char[] forbiddenUsernameCharacters = { '#', '!', ':' };
+        private MainMenu mainMenu;
+        private char[] forbiddenUsernameCharacters = { '#', '!', ':' };
 
         public Options()
         {
@@ -35,11 +35,11 @@ namespace Chess_Application
 
         private void Confirm(object sender, EventArgs e)
         {
-            string username = textBoxUsername.Text;
+            var enteredUsername = textBoxUsername.Text;
 
-            if (IsUsernameValid(username))
+            if (IsUsernameValid(enteredUsername))
             {               
-                mainMenu.SetUsername(username);
+                mainMenu.SetUsername(enteredUsername);
                 labelError.Text = "";
 
                 if (radioButtonWhite.Checked == true)
@@ -56,14 +56,16 @@ namespace Chess_Application
             }
         }
 
-        bool IsUsernameValid(string username)
+        private bool IsUsernameValid(string username)
         {
-            bool isValid = true;
+            var isValid = true;
             labelError.Text = "";
 
             if (username.Length < 3 || username.Length > 15)
             {
-                labelError.Text += "Username must be between 3 and 15 characters\r\n";
+                labelError.Text += "Username must be between 3 and 15 characters";
+                labelError.Text += Environment.NewLine;
+
                 isValid = false;
             }
 
@@ -72,8 +74,8 @@ namespace Chess_Application
                 if (username.Contains(forbiddenCharacter))
                 {
                     labelError.Text += "Username shouldn't contain any of the following characters: ";
-                    labelError.Text += String.Join(", ", forbiddenUsernameCharacters);
-                    labelError.Text += "\r\n";
+                    labelError.Text += string.Join(", ", forbiddenUsernameCharacters);
+                    labelError.Text += Environment.NewLine;
 
                     isValid = false;
                     break;
@@ -82,7 +84,9 @@ namespace Chess_Application
 
             if (username.EndsWith(" "))
             {
-                labelError.Text += "Username shouldn't end with a blank space\r\n";
+                labelError.Text += "Username shouldn't end with a blank space";
+                labelError.Text += Environment.NewLine;
+
                 isValid = false;
             }
 

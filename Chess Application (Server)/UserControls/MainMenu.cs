@@ -12,8 +12,8 @@ namespace Chess_Application
 {
     public partial class MainMenu : UserControl
     {
-        MainForm mainForm;
-        Options options;
+        private MainForm mainForm;
+        private Options options;
 
         public MainMenu()
         {
@@ -31,30 +31,10 @@ namespace Chess_Application
             options.BringToFront();
             options.Hide();
 
-            options.MinimumSize = new System.Drawing.Size(1200, 875);
-            options.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            options.MinimumSize = new Size(1200, 875);
+            options.MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             options.AutoSize = true;
             options.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-        }
-
-        private void btnStartGame_Click(object sender, EventArgs e)
-        {
-            mainForm.HideMainMenu();           
-        }
-
-        private void btnOptionsMenu_Click(object sender, EventArgs e)
-        {
-            options.Show();
-        }
-
-        private void btnExitApp_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        public void HideMainMenu()
-        {
-            Hide();
         }
 
         public void SetUsername(string username)
@@ -65,6 +45,21 @@ namespace Chess_Application
         public void SetColors(string colorsString)
         {
             mainForm.SetColorsFromMainMenu(colorsString);
+        }
+
+        private void btnStartGame_Click(object sender, EventArgs e)
+        {
+            mainForm.HideMainMenu();
+        }
+
+        private void btnOptionsMenu_Click(object sender, EventArgs e)
+        {
+            options.Show();
+        }
+
+        private void btnExitApp_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

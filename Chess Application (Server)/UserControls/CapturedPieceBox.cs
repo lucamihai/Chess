@@ -12,7 +12,7 @@ namespace Chess_Application.UserControls
 {
     public partial class CapturedPieceBox : UserControl
     {
-        ChessPiece _ChessPiece;
+        private ChessPiece _ChessPiece;
         public ChessPiece ChessPiece
         {
             get

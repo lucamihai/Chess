@@ -81,7 +81,6 @@
             this.Controls.Add(this.panelHistoryEntries);
             this.Name = "History";
             this.Size = new System.Drawing.Size(200, 300);
-            this.Load += new System.EventHandler(this.History_Load);
             this.ResumeLayout(false);
 
         }

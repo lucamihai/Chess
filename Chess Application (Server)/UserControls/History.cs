@@ -26,21 +26,18 @@ namespace Chess_Application.UserControls
             ScrollToTopOfPanel();
 
             EntryCount++;
-            HistoryEntry historyEntry = new HistoryEntry(EntryCount, origin, destination);
+            var historyEntry = new HistoryEntry(EntryCount, origin, destination);
             panelHistoryEntries.Controls.Add(historyEntry);
-            historyEntry.Location = new Point(0, (EntryCount - 1) * 75);
+
+            var entryHeight = (EntryCount - 1) * 75;
+            historyEntry.Location = new Point(0, entryHeight);
 
             panelHistoryEntries.ScrollControlIntoView(historyEntry);
         }
 
-        void ScrollToTopOfPanel()
+        private void ScrollToTopOfPanel()
         {
             panelHistoryEntries.VerticalScroll.Value = 0;
-        }
-
-        private void History_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
