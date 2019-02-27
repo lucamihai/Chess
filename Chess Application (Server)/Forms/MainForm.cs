@@ -26,8 +26,6 @@ namespace Chess_Application
         public static Point pozitieRegeNegru = new Point();
 
         private int clickCounter;
-        private bool isCurrentPlayersTurnToMove = true;
-
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
         public static bool markAvailableBoxesAsGreen = true; // Made static, because it's required elsewhere
@@ -36,27 +34,14 @@ namespace Chess_Application
         private bool isNewGameRequested = false;
         private bool currentPlayerMustSelect = false;
         private bool opponentMustSelect = false;
+        private bool isCurrentPlayersTurnToMove = true;
 
         public static Turn CurrentPlayersTurn { get; set; } = Turn.White;
         public static Turn OpponentsTurn { get; set; } = Turn.Black;
 
-        private string username = "Server";
-        private string usernameClient = "Client";
+        private string Username { get; set; } = "Server";
+        private string UsernameClient { get; set; } = "Client";
 
-        private ChessPiece whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8;
-        private ChessPiece whiteRook1, whiteRook2;
-        private ChessPiece whiteBishop1, whiteBishop2;
-        private ChessPiece whiteKnight1, whiteKnight2;
-        private ChessPiece whiteQueen, whiteKing;
-
-        private ChessPiece blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8;
-        private ChessPiece blackRook1, blackRook2;
-        private ChessPiece blackBishop1, blackBishop2;
-        private ChessPiece blackKnight1, blackKnight2;
-        private ChessPiece blackQueen, blackKing;
-
-        private Box firstClickedBox;
-        
         private Box A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
         private Box H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
 
@@ -66,13 +51,14 @@ namespace Chess_Application
         private CapturedPieceBox capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
         private CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
 
-        private Box[,] ChessBoard;
+        private Box FirstClickedBox { get; set; }
+        private Box[,] ChessBoard { get; set; }
 
         private Color BoxColorLight { get; } = Color.Silver;
         private Color BoxColorDark { get; }  = Color.FromArgb(132, 107, 86);
 
-        private SoundPlayer moveSound1 = new SoundPlayer(Properties.Resources.MoveSound1);
-        private SoundPlayer moveSound2 = new SoundPlayer(Properties.Resources.MoveSound2);
+        private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.MoveSound1);
+        private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.MoveSound2);
 
         public MainForm()
         {
@@ -96,8 +82,7 @@ namespace Chess_Application
 
             Controls.Add(menuContainer);
             menuContainer.BringToFront();
-            InitializeChessPieces();
-            PrepareCapturedPiecesArea();
+            InitializeCapturedPiecesArea();
             NewGame();
 
             activeazaToolStripMenuItem.Available = false;
@@ -123,7 +108,7 @@ namespace Chess_Application
 
             NetworkManager.OnChangedUsername += username =>
             {
-                var changeOpponentUsername = new MethodInvoker(()=> usernameClient = username);
+                var changeOpponentUsername = new MethodInvoker(()=> UsernameClient = username);
                 Invoke(changeOpponentUsername);
             };
 
@@ -131,7 +116,7 @@ namespace Chess_Application
             {
                 var beginSelection = new MethodInvoker(()=>{
                     opponentMustSelect = true;
-                    textBox1.AppendText(usernameClient + " must retake a piece from Spoils o' war\r\n");
+                    textBox1.AppendText(UsernameClient + " must retake a piece from Spoils o' war\r\n");
                 });
 
                 Invoke(beginSelection);
@@ -217,14 +202,14 @@ namespace Chess_Application
 
             NetworkManager.OnChatMessage += message =>
             {
-                var chatMessage = new MethodInvoker(() => textBox1.Text += $"{usernameClient}: {message}\r\n");
+                var chatMessage = new MethodInvoker(() => textBox1.Text += $"{UsernameClient}: {message}\r\n");
                 Invoke(chatMessage);
             };
         }
 
         private void NewGame()
         {
-            ResetBoxes();
+            InitializeBoxes();
 
             InitializeChessBoard();
 
@@ -280,43 +265,43 @@ namespace Chess_Application
             #endregion
         }
 
-        private void ResetBoxes()
+        private void InitializeBoxes()
         {
-            A1 = new Box("A1", whiteRook1);
-            A2 = new Box("A2", whiteKnight1);
-            A3 = new Box("A3", whiteBishop1);
-            A4 = new Box("A4", whiteQueen);
-            A5 = new Box("A5", whiteKing);
-            A6 = new Box("A6", whiteBishop2);
-            A7 = new Box("A7", whiteKnight2);
-            A8 = new Box("A8", whiteRook2);
+            A1 = new Box("A1", new Rook(PieceColor.White));
+            A2 = new Box("A2", new Knight(PieceColor.White));
+            A3 = new Box("A3", new Bishop(PieceColor.White));
+            A4 = new Box("A4", new Queen(PieceColor.White));
+            A5 = new Box("A5", new King(PieceColor.White));
+            A6 = new Box("A6", new Bishop(PieceColor.White));
+            A7 = new Box("A7", new Knight(PieceColor.White));
+            A8 = new Box("A8", new Rook(PieceColor.White));
 
-            B1 = new Box("B1", whitePawn1);
-            B2 = new Box("B2", whitePawn2);
-            B3 = new Box("B3", whitePawn3);
-            B4 = new Box("B4", whitePawn4);
-            B5 = new Box("B5", whitePawn5);
-            B6 = new Box("B6", whitePawn6);
-            B7 = new Box("B7", whitePawn7);
-            B8 = new Box("B8", whitePawn8);
+            B1 = new Box("B1", new Pawn(PieceColor.White));
+            B2 = new Box("B2", new Pawn(PieceColor.White));
+            B3 = new Box("B3", new Pawn(PieceColor.White));
+            B4 = new Box("B4", new Pawn(PieceColor.White));
+            B5 = new Box("B5", new Pawn(PieceColor.White));
+            B6 = new Box("B6", new Pawn(PieceColor.White));
+            B7 = new Box("B7", new Pawn(PieceColor.White));
+            B8 = new Box("B8", new Pawn(PieceColor.White));
 
-            G1 = new Box("G1", blackPawn1);
-            G2 = new Box("G2", blackPawn2);
-            G3 = new Box("G3", blackPawn3);
-            G4 = new Box("G4", blackPawn4);
-            G5 = new Box("G5", blackPawn5);
-            G6 = new Box("G6", blackPawn6);
-            G7 = new Box("G7", blackPawn7);
-            G8 = new Box("G8", blackPawn8);
+            G1 = new Box("G1", new Pawn(PieceColor.Black));
+            G2 = new Box("G2", new Pawn(PieceColor.Black));
+            G3 = new Box("G3", new Pawn(PieceColor.Black));
+            G4 = new Box("G4", new Pawn(PieceColor.Black));
+            G5 = new Box("G5", new Pawn(PieceColor.Black));
+            G6 = new Box("G6", new Pawn(PieceColor.Black));
+            G7 = new Box("G7", new Pawn(PieceColor.Black));
+            G8 = new Box("G8", new Pawn(PieceColor.Black));
 
-            H1 = new Box("H1", blackRook1);
-            H2 = new Box("H2", blackKnight1);
-            H3 = new Box("H3", blackBishop1);
-            H4 = new Box("H4", blackKing);
-            H5 = new Box("H5", blackQueen);
-            H6 = new Box("H6", blackBishop2);
-            H7 = new Box("H7", blackKnight2);
-            H8 = new Box("H8", blackRook2);
+            H1 = new Box("H1", new Rook(PieceColor.Black));
+            H2 = new Box("H2", new Knight(PieceColor.Black));
+            H3 = new Box("H3", new Bishop(PieceColor.Black));
+            H4 = new Box("H4", new King(PieceColor.Black));
+            H5 = new Box("H5", new Queen(PieceColor.Black));
+            H6 = new Box("H6", new Bishop(PieceColor.Black));
+            H7 = new Box("H7", new Knight(PieceColor.Black));
+            H8 = new Box("H8", new Rook(PieceColor.Black));
 
             // ------
 
@@ -584,48 +569,7 @@ namespace Chess_Application
             ChessBoard[8, 8] = H8;
         }
 
-        private void InitializeChessPieces()
-        {
-            whiteRook1 = new Rook(PieceColor.White);
-            whiteRook2 = new Rook(PieceColor.White);
-            whiteKnight1 = new Knight(PieceColor.White);
-            whiteKnight2 = new Knight(PieceColor.White);
-            whiteBishop1 = new Bishop(PieceColor.White);
-            whiteBishop2 = new Bishop(PieceColor.White);
-            whiteQueen = new Queen(PieceColor.White);
-            whiteKing = new King(PieceColor.White);
-
-            whitePawn1 = new Pawn(PieceColor.White);
-            whitePawn2 = new Pawn(PieceColor.White);
-            whitePawn3 = new Pawn(PieceColor.White);
-            whitePawn4 = new Pawn(PieceColor.White);
-            whitePawn5 = new Pawn(PieceColor.White);
-            whitePawn6 = new Pawn(PieceColor.White);
-            whitePawn7 = new Pawn(PieceColor.White);
-            whitePawn8 = new Pawn(PieceColor.White);
-
-
-            blackRook1 = new Rook(PieceColor.Black);
-            blackRook2 = new Rook(PieceColor.Black);
-            blackKnight1 = new Knight(PieceColor.Black);
-            blackKnight2 = new Knight(PieceColor.Black);
-            blackBishop1 = new Bishop(PieceColor.Black);
-            blackBishop2 = new Bishop(PieceColor.Black);
-            blackQueen = new Queen(PieceColor.Black);
-            blackKing = new King(PieceColor.Black);
-
-            blackPawn1 = new Pawn(PieceColor.Black);
-            blackPawn2 = new Pawn(PieceColor.Black);
-            blackPawn3 = new Pawn(PieceColor.Black);
-            blackPawn4 = new Pawn(PieceColor.Black);
-            blackPawn5 = new Pawn(PieceColor.Black);
-            blackPawn6 = new Pawn(PieceColor.Black);
-            blackPawn7 = new Pawn(PieceColor.Black);
-            blackPawn8 = new Pawn(PieceColor.Black);
-
-        }
-
-        private void PrepareCapturedPiecesArea()
+        private void InitializeCapturedPiecesArea()
         {
             capturedWhitePawns = new CapturedPieceBox(new Pawn(PieceColor.White));
             capturedWhiteRooks = new CapturedPieceBox(new Rook(PieceColor.White));
@@ -682,7 +626,7 @@ namespace Chess_Application
         /// <param name="username">The new username</param>
         public void SetUsernameFromMainMenu(string username)
         {
-            this.username = username;
+            this.Username = username;
 
             // Communicate to partner the new username
             NetworkManager.SendMessage("#username" + username);
@@ -726,7 +670,7 @@ namespace Chess_Application
             // If the message to be sent isn't a command, create a new chat entry
             if (!message.StartsWith("#"))
             {
-                textBox1.AppendText(username + ": " + message + Environment.NewLine);
+                textBox1.AppendText(Username + ": " + message + Environment.NewLine);
             }
 
             NetworkManager.SendMessage(message);
@@ -823,7 +767,7 @@ namespace Chess_Application
 
             if (soundEnabled)
             {
-                moveSound1.Play();
+                MoveSound1.Play();
             }
 
             EndGameIfCheckMate();
@@ -864,7 +808,7 @@ namespace Chess_Application
 
             if (soundEnabled)
             {
-                moveSound2.Play();
+                MoveSound2.Play();
             }
 
             EndGameIfCheckMate();
@@ -967,7 +911,7 @@ namespace Chess_Application
                         currentPlayerMustSelect = true;
 
                         SendMessage("#selectie");
-                        textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
+                        textBox1.AppendText(Username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
             }
@@ -984,7 +928,7 @@ namespace Chess_Application
                         currentPlayerMustSelect = true;
 
                         SendMessage("#selectie");
-                        textBox1.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
+                        textBox1.AppendText(Username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
             }
@@ -1059,7 +1003,7 @@ namespace Chess_Application
                 {
                     if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.White)
                     {
-                        ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
+                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(i, j, ChessBoard);
 
                         if (ChessBoard[i, j].Piece.CanMove == true)
                         {
@@ -1082,7 +1026,7 @@ namespace Chess_Application
                 {
                     if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.Black)
                     {
-                        ChessBoard[i, j].Piece.CheckPossibilities(i, j, ChessBoard);
+                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(i, j, ChessBoard);
 
                         if (ChessBoard[i, j].Piece.CanMove == true)
                         {
@@ -1151,10 +1095,10 @@ namespace Chess_Application
                 var row = clickedBoxObject.Row;
                 var column = clickedBoxObject.Column;
 
-                clickedBoxObject.Piece.CheckPossibilities(row, column, ChessBoard);
+                clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(row, column, ChessBoard);
                 if (clickedBoxObject.Piece.CanMove)
                 {
-                    firstClickedBox = clickedBoxObject;
+                    FirstClickedBox = clickedBoxObject;
                     clickCounter++;
                     return;
                 }
@@ -1164,16 +1108,16 @@ namespace Chess_Application
             if (clickCounter == 1)
             {
                 // Click on the same box => Cancel moving current chess piece
-                if (clickedBoxObject == firstClickedBox)
+                if (clickedBoxObject == FirstClickedBox)
                 {
                     SetAllBoxesAsUnavailable(ChessBoard);
                     ResetBoxesColors(ChessBoard);
                 }
 
                 // Click on a different box where the current piece can be moved
-                if (clickedBoxObject != firstClickedBox && clickedBoxObject.Available)
+                if (clickedBoxObject != FirstClickedBox && clickedBoxObject.Available)
                 {
-                    CurrentPlayerMovePiece(firstClickedBox, clickedBoxObject);
+                    CurrentPlayerMovePiece(FirstClickedBox, clickedBoxObject);
                 }
 
                 clickCounter = 0;

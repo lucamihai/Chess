@@ -20,7 +20,7 @@ namespace Chess_Application.Classes
             return new string(stringCharacters);
         }
 
-        public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = 0)
+        public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = 0) where TYPE : ChessPiece
         {
             if (location != null)
             {
@@ -40,17 +40,10 @@ namespace Chess_Application.Classes
             return false;
         }
 
-        /// <summary>
-        /// Resize the image to the specified width and height.
-        /// </summary>
-        /// <param name="image">The image to resize.</param>
-        /// <param name="width">The width to resize to.</param>
-        /// <param name="height">The height to resize to.</param>
-        /// <returns>The resized image.</returns>
-        public static Bitmap ResizeImage(Image image, int width, int height)
+        public static Bitmap ResizeImage(Image image, int desiredWidth, int desiredHeight)
         {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
+            var destRect = new Rectangle(0, 0, desiredWidth, desiredHeight);
+            var destImage = new Bitmap(desiredWidth, desiredHeight);
 
             destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 

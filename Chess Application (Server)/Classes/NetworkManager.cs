@@ -17,14 +17,14 @@ namespace Chess_Application.Classes
         private TcpListener ServerTcpListener { get; set; }
         private Thread NetworkThread { get; set; }
         private NetworkStream StreamServer { get; set; }
-        private bool isNetworkThreadRunning;
+        private bool _isNetworkThreadRunning;
 
         public NetworkManager()
         {
             ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, 3000);
             ServerTcpListener.Start();
             NetworkThread = new Thread(new ThreadStart(ServerListen));
-            isNetworkThreadRunning = true;
+            _isNetworkThreadRunning = true;
             NetworkThread.Start();
         }
 
@@ -39,13 +39,14 @@ namespace Chess_Application.Classes
         {
             try
             {
-                isNetworkThreadRunning = false;
+                _isNetworkThreadRunning = false;
                 StreamServer.Close();
             }
 
-            catch (Exception)
+            catch (Exception exception)
             {
-
+                Console.WriteLine(exception.Message);
+                throw;
             }
 
             ServerTcpListener.Stop();
@@ -77,7 +78,7 @@ namespace Chess_Application.Classes
 
         private void ServerListen()
         {
-            while (isNetworkThreadRunning)
+            while (_isNetworkThreadRunning)
             {
                 try
                 {
@@ -86,7 +87,7 @@ namespace Chess_Application.Classes
 
                     var streamReader = new StreamReader(StreamServer);
 
-                    while (isNetworkThreadRunning)
+                    while (_isNetworkThreadRunning)
                     {
                         var receivedData = streamReader.ReadLine();
 
@@ -102,7 +103,7 @@ namespace Chess_Application.Classes
                             // Client has disconnected
                             if (receivedData == "#Gata")
                             {
-                                isNetworkThreadRunning = false;
+                                _isNetworkThreadRunning = false;
                             }
 
                             // Client has made a move, receiving origin and destination coordinates, then proceeding to replicate the move

@@ -14,11 +14,11 @@ namespace Chess_Application
 {
     public class Bishop : ChessPiece
     {
-        public Bishop(PieceColor c)
+        public Bishop(PieceColor pieceColor)
         {
-            Color = c;
+            Color = pieceColor;
 
-            if (c == PieceColor.White)
+            if (pieceColor == PieceColor.White)
             {
                 Image = Chess_Application.Properties.Resources.WhiteBishop;
             }
@@ -28,9 +28,9 @@ namespace Chess_Application
             }
         }
 
-        public override void CheckPossibilities(int row, int column, Box[,] chessBoard)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(int row, int column, Box[,] chessBoard)
         {
-            Box startLocation = chessBoard[row, column];
+            var startLocation = chessBoard[row, column];
             Box locationToBeInspected;
 
             // Check movement to the south - west
@@ -43,7 +43,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece == null)
                 {
-                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
                         locationToBeInspected.Available = true;
                         startLocation.Piece.CanMove = true;
@@ -54,7 +54,7 @@ namespace Chess_Application
                 {
                     if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
-                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
                             locationToBeInspected.Available = true;
                             startLocation.Piece.CanMove = true;
@@ -75,7 +75,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece == null)
                 {
-                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
                         locationToBeInspected.Available = true;
                         startLocation.Piece.CanMove = true;
@@ -86,7 +86,7 @@ namespace Chess_Application
                 {
                     if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
-                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
                             locationToBeInspected.Available = true;
                             startLocation.Piece.CanMove = true;
@@ -107,7 +107,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece == null)
                 {
-                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
                         locationToBeInspected.Available = true;
                         startLocation.Piece.CanMove = true;
@@ -118,7 +118,7 @@ namespace Chess_Application
                 {
                     if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
-                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
                             locationToBeInspected.Available = true;
                             startLocation.Piece.CanMove = true;
@@ -139,7 +139,7 @@ namespace Chess_Application
 
                 if (locationToBeInspected.Piece == null)
                 {
-                    if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                    if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                     {
                         locationToBeInspected.Available = true;
                         startLocation.Piece.CanMove = true;
@@ -150,7 +150,7 @@ namespace Chess_Application
                 {
                     if (locationToBeInspected.Piece.Color != startLocation.Piece.Color)
                     {
-                        if (!TriggersCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
+                        if (!WillMoveTriggerCheck(chessBoard, row, column, secondaryRow, secondaryColumn))
                         {
                             locationToBeInspected.Available = true;
                             startLocation.Piece.CanMove = true;

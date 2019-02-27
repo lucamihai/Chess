@@ -14,7 +14,7 @@ namespace Chess_Application
 
         public bool CanMove { get; set; } = false;
 
-        Image _Image;
+        private Image _Image;
         public Image Image
         {
             get
@@ -34,26 +34,9 @@ namespace Chess_Application
 
         public Image ImageSmall { get; protected set; }
 
+        public virtual void CheckPossibilitiesForProvidedLocationAndMarkThem(int row, int column, Box[,] chessBoard) { }
 
-        /// <summary>
-        /// Determines where the piece can move. If boxes where the piece could be moved are found, will mark them as available with MarkAsAvailable().
-        /// </summary>
-        /// <param name="row">Row of the piece</param>
-        /// <param name="column">Column of the piece</param>
-        /// <param name="chessBoard">Chess board (Boxes matrix)</param>
-        public virtual void CheckPossibilities(int row, int column, Box[,] chessBoard){ }
-
-        
-        /// <summary>
-        /// Determines if a move made from origin to destination would trigger a check.
-        /// </summary>
-        /// <param name="chessBoard">The chessboard</param>
-        /// <param name="origRow">Row of the origin</param>
-        /// <param name="origColumn">Column of the origin</param>
-        /// <param name="destinationRow">Row of the destination</param>
-        /// <param name="destinationColumn">Column of the destination</param>
-        /// <returns></returns>
-        public bool TriggersCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
+        public bool WillMoveTriggerCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
         {
             Point kingPosition;
             if (MainForm.CurrentPlayersTurn == Turn.White)
@@ -67,8 +50,8 @@ namespace Chess_Application
 
 
             // Back up origin and destination data
-            ChessPiece originChessPiece = chessBoard[origRow, origColumn].Piece;
-            ChessPiece destinationChessPiece = chessBoard[destinationRow, destinationColumn].Piece;
+            var originChessPiece = chessBoard[origRow, origColumn].Piece;
+            var destinationChessPiece = chessBoard[destinationRow, destinationColumn].Piece;
 
             // Pretend the move was made
             chessBoard[origRow, origColumn].Piece = null;
@@ -103,8 +86,8 @@ namespace Chess_Application
 
         protected bool IsThreatenedByPawns(Box[,] chessBoard, int row, int column)
         {
-            Box currentLocation = chessBoard[row, column];
-            bool threatened = false;
+            var currentLocation = chessBoard[row, column];
+            var threatened = false;
 
             if (currentLocation.Piece.Color == PieceColor.White)
             {
@@ -129,11 +112,10 @@ namespace Chess_Application
 
         protected bool IsThreatenedByKing(Box[,] chessBoard, int row, int column)
         {
-            Box currentLocation = chessBoard[row, column];
-            
-            bool threatened = false;
+            var currentLocation = chessBoard[row, column];
+            var threatened = false;
+            var containsKing = false;
 
-            bool containsKing = false;
             Box locationToBeInspected;
 
             if (!threatened)
@@ -197,9 +179,10 @@ namespace Chess_Application
 
         protected bool IsThreatenedByKnights(Box[,] chessBoard, int row, int column)
         {
-            Box currentLocation = chessBoard[row, column];
-            bool threatened = false;
-            bool containsKnight = false;
+            var currentLocation = chessBoard[row, column];
+            var threatened = false;
+            var containsKnight = false;
+
             Box locationToBeInspected;
 
             if (!threatened)
@@ -293,9 +276,10 @@ namespace Chess_Application
 
         protected bool IsThreatenedByBishops(Box[,] chessBoard, int row, int column)
         {
-            Box currentLocation = chessBoard[row, column];
-            bool threatened = false;
-            bool containsBishop = false;
+            var currentLocation = chessBoard[row, column];
+            var threatened = false;
+            var containsBishop = false;
+
             Box locationToBeInspected;
 
             // South - west
@@ -387,9 +371,10 @@ namespace Chess_Application
 
         protected bool IsThreatenedByRooks(Box[,] chessBoard, int row, int column)
         {
-            Box currentLocation = chessBoard[row, column];
-            bool threatened = false;
-            bool containsRook = false;
+            var currentLocation = chessBoard[row, column];
+            var threatened = false;
+            var containsRook = false;
+
             Box locationToBeInspected;
 
             // West
@@ -481,9 +466,10 @@ namespace Chess_Application
 
         protected bool IsThreatenedByQueen(Box[,] chessBoard, int row, int column)
         {
-            Box currentLocation = chessBoard[row, column];
-            bool threatened = false;
-            bool containsQueen = false;
+            var currentLocation = chessBoard[row, column];
+            var threatened = false;
+            var containsQueen = false;
+
             Box locationToBeInspected;
 
             // South - west
