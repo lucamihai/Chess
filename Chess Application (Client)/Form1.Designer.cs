@@ -1,4 +1,4 @@
-﻿namespace Chess_Application
+﻿namespace Chess_Application_client
 {
     partial class Form1
     {
@@ -182,7 +182,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.meniu2 = new Chess_Application.Meniu();
+            this.meniu2 = new Meniu();
             this.btnConnect = new System.Windows.Forms.Button();
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();

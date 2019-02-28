@@ -6,12 +6,13 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Chess_Application.Enums;
-using Chess_Application.UserControls;
+using Chess_Application.Common.ChessPieces;
+using Chess_Application.Common.Enums;
+using Chess_Application.Common.UserControls;
 
-namespace Chess_Application.Classes
+namespace Chess_Application.Common
 {
-    static class Utilities
+    public static class Utilities
     {
         public static string GetReversedString(string stringToBeReversed)
         {

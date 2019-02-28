@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net.Sockets;
-using System.Net;
-using Chess_Application.Classes;
-using Chess_Application.Enums;
-using Chess_Application.UserControls;
+﻿using System.Drawing;
+using Chess_Application.Common.Enums;
+using Chess_Application.Common.UserControls;
 
-namespace Chess_Application
+namespace Chess_Application.Common.ChessPieces
 {
     public class King : ChessPiece
     {
@@ -23,27 +12,16 @@ namespace Chess_Application
 
             if (pieceColor == PieceColor.White)
             {
-                Image = Chess_Application.Properties.Resources.WhiteKing;
+                Image = Properties.Resources.WhiteKing;
             }
             else
             {
-                Image = Chess_Application.Properties.Resources.BlackKing;
+                Image = Properties.Resources.BlackKing;
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(int i, int j, Box[,] chessBoard)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition)
         {
-            Point kingPosition;
-
-            if (MainForm.CurrentPlayersTurn == Turn.White)
-            {
-                kingPosition = MainForm.pozitieRegeAlb;
-            }
-            else
-            {
-                kingPosition = MainForm.pozitieRegeNegru;
-            }
-             
             Point newKingPosition;
 
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y - 1);

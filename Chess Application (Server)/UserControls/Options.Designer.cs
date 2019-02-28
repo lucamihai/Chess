@@ -1,4 +1,4 @@
-﻿namespace Chess_Application
+﻿namespace Chess_Application.UserControls
 {
     partial class Options
     {

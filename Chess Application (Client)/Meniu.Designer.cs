@@ -1,4 +1,4 @@
-﻿namespace Chess_Application
+﻿namespace Chess_Application_client
 {
     partial class Meniu
     {
@@ -31,7 +31,7 @@
             this.btnExitApp = new System.Windows.Forms.Button();
             this.btnOptionsMenu = new System.Windows.Forms.Button();
             this.btnStartGame = new System.Windows.Forms.Button();
-            this.optiuni1 = new Chess_Application.Optiuni();
+            this.optiuni1 = new Optiuni();
             this.SuspendLayout();
             // 
             // btnExitApp

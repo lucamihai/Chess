@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chess_Application.Common.ChessPieces;
 
-namespace Chess_Application.UserControls
+namespace Chess_Application.Common.UserControls
 {
     public partial class CapturedPieceBox : UserControl
     {

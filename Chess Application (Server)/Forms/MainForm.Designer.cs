@@ -1,4 +1,4 @@
-﻿namespace Chess_Application
+﻿namespace Chess_Application.Forms
 {
     partial class MainForm
     {
@@ -68,7 +68,7 @@
             this.labelTurn = new System.Windows.Forms.Label();
             this.panelCapturedWhitePieces = new System.Windows.Forms.Panel();
             this.panelCapturedBlackPieces = new System.Windows.Forms.Panel();
-            this.historyEntries = new Chess_Application.UserControls.History();
+            this.historyEntries = new Chess_Application.Common.UserControls.History();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -526,7 +526,7 @@
         public System.Windows.Forms.Label labelTurn;
         private System.Windows.Forms.Panel panelCapturedWhitePieces;
         private System.Windows.Forms.Panel panelCapturedBlackPieces;
-        private UserControls.History historyEntries;
+        private Common.UserControls.History historyEntries;
     }
 }
 

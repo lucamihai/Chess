@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Media;
-using System.Windows.Forms;
-using System.Net.Sockets;
-using System.IO;
 using System.Threading;
-using Chess_Application.Classes;
-using Chess_Application.Enums;
+using System.Windows.Forms;
+using Chess_Application.Common.ChessPieces;
+using Chess_Application.Common.UserControls;
+using Chess_Application.Common.Enums;
+using Chess_Application.Network;
 using Chess_Application.UserControls;
-using System.Drawing.Imaging;
+using MainMenu = Chess_Application.UserControls.MainMenu;
 
-namespace Chess_Application
+namespace Chess_Application.Forms
 {
 
     public partial class MainForm : Form
@@ -22,14 +21,13 @@ namespace Chess_Application
         private Panel menuContainer;
         private MainMenu mainMenu;
 
-        public static Point pozitieRegeAlb = new Point();
-        public static Point pozitieRegeNegru = new Point();
+        private Point positionWhiteKing = new Point();
+        private Point positionBlackKing = new Point();
 
         private int clickCounter;
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
-        public static bool markAvailableBoxesAsGreen = true; // Made static, because it's required elsewhere
-
+        private bool beginnersMode = true;
         private bool soundEnabled = true;
         private bool isNewGameRequested = false;
         private bool currentPlayerMustSelect = false;
@@ -240,11 +238,11 @@ namespace Chess_Application
                 isCurrentPlayersTurnToMove = false;
             }
 
-            pozitieRegeAlb.X = 1;
-            pozitieRegeAlb.Y = 5;
+            positionWhiteKing.X = 1;
+            positionWhiteKing.Y = 5;
 
-            pozitieRegeNegru.X = 8;
-            pozitieRegeNegru.Y = 4;
+            positionBlackKing.X = 8;
+            positionBlackKing.Y = 4;
 
             SetAllBoxesAsUnavailable(ChessBoard);
 
@@ -567,6 +565,14 @@ namespace Chess_Application
             ChessBoard[8, 6] = H6;
             ChessBoard[8, 7] = H7;
             ChessBoard[8, 8] = H8;
+
+            for (int row = 1; row <= 8; row++)
+            {
+                for (int column = 1; row <= 8; row++)
+                {
+                    ChessBoard[row, column].BeginnersMode = beginnersMode;
+                }
+            }
         }
 
         private void InitializeCapturedPiecesArea()
@@ -700,14 +706,14 @@ namespace Chess_Application
 
         private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
         {
-            markAvailableBoxesAsGreen = true;
+            beginnersMode = true;
             activeazaToolStripMenuItem.Available = false;
             dezactiveazaToolStripMenuItem.Available = true;
         }
 
         private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
         {
-            markAvailableBoxesAsGreen = false;
+            beginnersMode = false;
             activeazaToolStripMenuItem.Available = true;
             dezactiveazaToolStripMenuItem.Available = false;
         }
@@ -887,13 +893,13 @@ namespace Chess_Application
         {
             if (destination.Piece.Color == PieceColor.White)
             {
-                pozitieRegeAlb.X = destination.BoxName[0] - 64;
-                pozitieRegeAlb.Y = destination.BoxName[1] - 48;
+                positionWhiteKing.X = destination.BoxName[0] - 64;
+                positionWhiteKing.Y = destination.BoxName[1] - 48;
             }
             if (destination.Piece.Color == PieceColor.Black)
             {
-                pozitieRegeNegru.X = destination.BoxName[0] - 64;
-                pozitieRegeNegru.Y = destination.BoxName[1] - 48;
+                positionBlackKing.X = destination.BoxName[0] - 64;
+                positionBlackKing.Y = destination.BoxName[1] - 48;
             }
         }
 
@@ -1003,7 +1009,8 @@ namespace Chess_Application
                 {
                     if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.White)
                     {
-                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(i, j, ChessBoard);
+                        var location = new Point(i, j);
+                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionWhiteKing);
 
                         if (ChessBoard[i, j].Piece.CanMove == true)
                         {
@@ -1026,7 +1033,8 @@ namespace Chess_Application
                 {
                     if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.Black)
                     {
-                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(i, j, ChessBoard);
+                        var location = new Point(i, j);
+                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionBlackKing);
 
                         if (ChessBoard[i, j].Piece.CanMove == true)
                         {
@@ -1094,8 +1102,19 @@ namespace Chess_Application
             {
                 var row = clickedBoxObject.Row;
                 var column = clickedBoxObject.Column;
+                var location = new Point(row, column);
 
-                clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(row, column, ChessBoard);
+                Point kingPosition;
+                if (clickedBoxObject.Piece.Color == PieceColor.White)
+                {
+                    kingPosition = positionWhiteKing;
+                }
+                else
+                {
+                    kingPosition = positionBlackKing;
+                }
+
+                clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
                 if (clickedBoxObject.Piece.CanMove)
                 {
                     FirstClickedBox = clickedBoxObject;

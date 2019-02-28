@@ -1,5 +1,4 @@
-﻿using Chess_Application.UserControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -8,9 +7,10 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Chess_Application.Enums;
+using Chess_Application.Common;
+using Chess_Application.Common.Enums;
 
-namespace Chess_Application.Classes
+namespace Chess_Application.Network
 {
     public class NetworkManager
     {
@@ -30,7 +30,7 @@ namespace Chess_Application.Classes
 
         public void SendMessage(string message)
         {
-            var writer = new StreamWriter(StreamServer) {AutoFlush = true};
+            var writer = new StreamWriter(StreamServer) { AutoFlush = true };
 
             writer.WriteLine(message);
         }
@@ -99,9 +99,10 @@ namespace Chess_Application.Classes
                         // If a command was received
                         if (receivedData.StartsWith("#"))
                         {
+                            var remainder = receivedData.Substring(1);
 
                             // Client has disconnected
-                            if (receivedData == "#Gata")
+                            if (remainder == NetworkCommandStrings.Disconnect)
                             {
                                 _isNetworkThreadRunning = false;
                             }
@@ -125,7 +126,7 @@ namespace Chess_Application.Classes
 
                             // Client changed the username, update this info
                             // e.g. "#usernameNewCoolUsername"
-                            if (receivedData.StartsWith("#username"))
+                            if (remainder.StartsWith(NetworkCommandStrings.ChangedUsername))
                             {
                                 var username = receivedData.Substring(9);
                                 OnChangedUsername(username);
@@ -133,7 +134,7 @@ namespace Chess_Application.Classes
 
                             // Client chose a color, update this info
                             // e.g. "#culori 1 2"
-                            if (receivedData.StartsWith("#culori"))
+                            if (remainder.StartsWith(NetworkCommandStrings.ChangedColors))
                             {
                                 var colorsString = receivedData.Substring(8);
                                 var colors = colorsString.Split(' ');
@@ -147,33 +148,26 @@ namespace Chess_Application.Classes
                             }
 
                             // Client requested a new game
-                            if (receivedData == "#request new game")
+                            if (remainder == NetworkCommandStrings.RequestNewGame)
                             {
                                 OnRequestNewGame();
                             }
 
                             // Client agreed to start a new game
-                            if (receivedData == "#new game")
+                            if (remainder == NetworkCommandStrings.NewGame)
                             {
                                 OnNewGame();
                             }
 
                             // Client must retake a captured piece
-                            if (receivedData == "#selectie")
+                            if (remainder == NetworkCommandStrings.BeginSelection)
                             {
                                 OnBeginSelection();
-
-                                //opponentMustSelect = true;
-                                //MethodInvoker notify = new MethodInvoker(
-                                //    () => { textBox1.AppendText(usernameClient + " must retake a piece from Spoils o' war\r\n"); }
-                                //);
-
-                                //Invoke(notify);
                             }
 
                             // Client has retaken a captured piece, update this info
                             // e.g. "#selectat 2 3 AC"
-                            if (receivedData.StartsWith("#selectat"))
+                            if (remainder.StartsWith(NetworkCommandStrings.Selection))
                             {
                                 var retakeDetails = receivedData.Substring(10).Split();
 
@@ -184,6 +178,7 @@ namespace Chess_Application.Classes
                                 var retakenPieceColor = (PieceColor)retakeDetails[2][1];
                                 var retakenPieceType = retakeDetails[2][0];
 
+                                /*
                                 var chessPieceType = typeof(ChessPiece);
 
 
@@ -205,17 +200,10 @@ namespace Chess_Application.Classes
                                 if (retakenPieceType == 'R')
                                 {
                                     chessPieceType = typeof(Queen);
-
-                                    //RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[row, column]);
-
-                                    //updateLabelCapturedPiece = new MethodInvoker(
-                                    //    () => { capturedWhiteQueen.Count--; }
-                                    //);
                                 }
 
                                 OnSelection(selectionPoint, chessPieceType, retakenPieceColor);
-
-                                //Invoke(updateLabelCapturedPiece);
+                                */
                             }
                         }
 

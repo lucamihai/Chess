@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Media;
-using System.Net.Sockets;
-using System.Net;
 using System.IO;
+using System.Linq;
+using System.Media;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading;
+using System.Windows.Forms;
+using Chess_Application_client.Classes;
 
-
-
-namespace Chess_Application
+namespace Chess_Application_client
 {
     
     public partial class Form1 : Form

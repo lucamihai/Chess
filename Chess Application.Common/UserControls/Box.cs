@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chess_Application.Common.ChessPieces;
 
-namespace Chess_Application.UserControls
+namespace Chess_Application.Common.UserControls
 {
     public partial class Box : UserControl
     {
@@ -23,7 +18,7 @@ namespace Chess_Application.UserControls
             {
                 _Available = value;
 
-                if (_Available && MainForm.markAvailableBoxesAsGreen)
+                if (_Available && BeginnersMode)
                 {
                     pictureBoxPiece.BackColor = Color.Green;
                 }
@@ -65,6 +60,8 @@ namespace Chess_Application.UserControls
                 pictureBoxPiece.Image = _Piece != null ? _Piece.Image : null;
             }
         }
+
+        public bool BeginnersMode { get; set; } = true;
 
         public short Row { get; private set; }
 

@@ -1,4 +1,4 @@
-﻿namespace Chess_Application.UserControls
+﻿namespace Chess_Application.Common.UserControls
 {
     partial class HistoryEntry
     {

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Chess_Application.Classes;
-using Chess_Application.Enums;
-using Chess_Application.UserControls;
+﻿using System.Drawing;
+using Chess_Application.Common.Enums;
+using Chess_Application.Common.UserControls;
 
-namespace Chess_Application
+namespace Chess_Application.Common.ChessPieces
 {
     public class ChessPiece
     {
@@ -34,28 +31,17 @@ namespace Chess_Application
 
         public Image ImageSmall { get; protected set; }
 
-        public virtual void CheckPossibilitiesForProvidedLocationAndMarkThem(int row, int column, Box[,] chessBoard) { }
+        public virtual void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition) { }
 
-        public bool WillMoveTriggerCheck(Box[,] chessBoard, int origRow, int origColumn, int destinationRow, int destinationColumn)
+        public bool WillMoveTriggerCheck(Box[,] chessBoard, Point origin, Point destination, Point kingPosition)
         {
-            Point kingPosition;
-            if (MainForm.CurrentPlayersTurn == Turn.White)
-            {
-                kingPosition = MainForm.pozitieRegeAlb;
-            }
-            else
-            {
-                kingPosition = MainForm.pozitieRegeNegru;
-            }
-
-
             // Back up origin and destination data
-            var originChessPiece = chessBoard[origRow, origColumn].Piece;
-            var destinationChessPiece = chessBoard[destinationRow, destinationColumn].Piece;
+            var originChessPiece = chessBoard[origin.X, origin.Y].Piece;
+            var destinationChessPiece = chessBoard[destination.X, destination.Y].Piece;
 
             // Pretend the move was made
-            chessBoard[origRow, origColumn].Piece = null;
-            chessBoard[destinationRow, destinationColumn].Piece = originChessPiece;
+            chessBoard[origin.X, origin.Y].Piece = null;
+            chessBoard[destination.X, destination.Y].Piece = originChessPiece;
 
             bool triggersCheck = false;
 
@@ -78,8 +64,8 @@ namespace Chess_Application
                 triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
 
 
-            chessBoard[origRow, origColumn].Piece = originChessPiece;
-            chessBoard[destinationRow, destinationColumn].Piece = destinationChessPiece;
+            chessBoard[origin.X, origin.Y].Piece = originChessPiece;
+            chessBoard[destination.X, destination.Y].Piece = destinationChessPiece;
 
             return triggersCheck;
         }
