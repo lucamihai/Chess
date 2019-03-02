@@ -86,7 +86,6 @@ namespace Chess_Application_client
             String dateClient;
             while (ascult)
             {
-                
                 {
                     dateClient = citire.ReadLine();
                     if (dateClient != null)

@@ -8,38 +8,20 @@ namespace Chess_Application.Common.UserControls
     {
         public int EntryNumber
         {
-            get
-            {
-                return Convert.ToInt32(labelMoveNumber.Text);
-            }
-            private set
-            {
-                labelMoveNumber.Text = value.ToString();
-            }
+            get => Convert.ToInt32(labelMoveNumber.Text);
+            private set => labelMoveNumber.Text = value.ToString();
         }
 
         public string OriginName
         {
-            get
-            {
-                return labelOriginName.Text;
-            }
-            private set
-            {
-                labelOriginName.Text = value;
-            }
+            get => labelOriginName.Text;
+            private set => labelOriginName.Text = value;
         }
 
         public string DestinationName
         {
-            get
-            {
-                return labelDestinationName.Text;
-            }
-            private set
-            {
-                labelDestinationName.Text = value;
-            }
+            get => labelDestinationName.Text;
+            private set => labelDestinationName.Text = value;
         }
 
         public HistoryEntry(int entryNumber, Box origin, Box destination)

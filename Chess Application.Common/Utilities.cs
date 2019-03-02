@@ -25,7 +25,7 @@ namespace Chess_Application.Common
         {
             if (location != null)
             {
-                ChessPiece piece = location.Piece;
+                var piece = location.Piece;
                 if (piece != null)
                 {
                     if (piece is TYPE)
@@ -39,6 +39,39 @@ namespace Chess_Application.Common
             }
 
             return false;
+        }
+
+        public static void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
+        {
+            var capturedPieceColor = capturedPieceBox.ChessPiece.Color;
+
+            if (capturedPieceBox.ChessPiece is Rook)
+            {
+                destination.Piece = new Rook(capturedPieceColor);
+
+                capturedPieceBox.Count--;
+            }
+
+            if (capturedPieceBox.ChessPiece is Knight)
+            {
+                destination.Piece = new Knight(capturedPieceColor);
+
+                capturedPieceBox.Count--;
+            }
+
+            if (capturedPieceBox.ChessPiece is Bishop)
+            {
+                destination.Piece = new Bishop(capturedPieceColor);
+
+                capturedPieceBox.Count--;
+            }
+
+            if (capturedPieceBox.ChessPiece is Queen)
+            {
+                destination.Piece = new Queen(capturedPieceColor);
+
+                capturedPieceBox.Count--;
+            }
         }
 
         public static Bitmap ResizeImage(Image image, int desiredWidth, int desiredHeight)

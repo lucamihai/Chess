@@ -34,12 +34,12 @@ namespace Chess_Application.UserControls
 
         public void SetUsername(string username)
         {
-            mainForm.SetUsernameFromMainMenu(username);
+            mainForm.SetUsernameFromMainMenuAndNotifyClient(username);
         }
 
         public void SetColors(string colorsString)
         {
-            mainForm.SetColorsFromMainMenu(colorsString);
+            mainForm.SetColorsFromMainMenuAndNotifyClient(colorsString);
         }
 
         private void btnStartGame_Click(object sender, EventArgs e)

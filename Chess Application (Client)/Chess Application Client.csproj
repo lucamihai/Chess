@@ -119,6 +119,12 @@
   <ItemGroup>
     <Content Include="Capture.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chess Application.Common\Chess Application.Common.csproj">
+      <Project>{20552466-5df4-4bec-9a47-b6583eb27030}</Project>
+      <Name>Chess Application.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

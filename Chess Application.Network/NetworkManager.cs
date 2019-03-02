@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Chess_Application.Common;
+using Chess_Application.Common.ChessPieces;
 using Chess_Application.Common.Enums;
 
 namespace Chess_Application.Network
@@ -96,13 +97,11 @@ namespace Chess_Application.Network
                             break;
                         }
 
-                        // If a command was received
-                        if (receivedData.StartsWith("#"))
+                        if (MessageIsACommand(receivedData))
                         {
-                            var remainder = receivedData.Substring(1);
+                            var command = GetCommandFromMessage(receivedData);
 
-                            // Client has disconnected
-                            if (remainder == NetworkCommandStrings.Disconnect)
+                            if (command == NetworkCommandStrings.Disconnect)
                             {
                                 _isNetworkThreadRunning = false;
                             }
@@ -124,17 +123,15 @@ namespace Chess_Application.Network
                                 OnMadeMove(origin, destination);
                             }
 
-                            // Client changed the username, update this info
                             // e.g. "#usernameNewCoolUsername"
-                            if (remainder.StartsWith(NetworkCommandStrings.ChangedUsername))
+                            if (command.StartsWith(NetworkCommandStrings.ChangedUsername))
                             {
                                 var username = receivedData.Substring(9);
                                 OnChangedUsername(username);
                             }
 
-                            // Client chose a color, update this info
                             // e.g. "#culori 1 2"
-                            if (remainder.StartsWith(NetworkCommandStrings.ChangedColors))
+                            if (command.StartsWith(NetworkCommandStrings.ChangedColors))
                             {
                                 var colorsString = receivedData.Substring(8);
                                 var colors = colorsString.Split(' ');
@@ -147,27 +144,23 @@ namespace Chess_Application.Network
                                 //isCurrentPlayersTurnToMove = (CurrentPlayersTurn == Turn.White) ? true : false;
                             }
 
-                            // Client requested a new game
-                            if (remainder == NetworkCommandStrings.RequestNewGame)
+                            if (command == NetworkCommandStrings.RequestNewGame)
                             {
                                 OnRequestNewGame();
                             }
 
-                            // Client agreed to start a new game
-                            if (remainder == NetworkCommandStrings.NewGame)
+                            if (command == NetworkCommandStrings.NewGame)
                             {
                                 OnNewGame();
                             }
 
-                            // Client must retake a captured piece
-                            if (remainder == NetworkCommandStrings.BeginSelection)
+                            if (command == NetworkCommandStrings.BeginSelection)
                             {
                                 OnBeginSelection();
                             }
 
-                            // Client has retaken a captured piece, update this info
                             // e.g. "#selectat 2 3 AC"
-                            if (remainder.StartsWith(NetworkCommandStrings.Selection))
+                            if (command.StartsWith(NetworkCommandStrings.Selection))
                             {
                                 var retakeDetails = receivedData.Substring(10).Split();
 
@@ -175,10 +168,10 @@ namespace Chess_Application.Network
                                 var column = Convert.ToInt32(retakeDetails[1]);
                                 var selectionPoint = new Point(row, column);
 
-                                var retakenPieceColor = (PieceColor)retakeDetails[2][1];
+                                var retakenPieceColor = (retakeDetails[2][1] == 'A') ? PieceColor.White : PieceColor.Black;
                                 var retakenPieceType = retakeDetails[2][0];
 
-                                /*
+                                
                                 var chessPieceType = typeof(ChessPiece);
 
 
@@ -203,11 +196,10 @@ namespace Chess_Application.Network
                                 }
 
                                 OnSelection(selectionPoint, chessPieceType, retakenPieceColor);
-                                */
+                                
                             }
                         }
 
-                        // If a normal message was received, create a new chat entry
                         else
                         {
                             OnChatMessage(receivedData);
@@ -221,6 +213,16 @@ namespace Chess_Application.Network
 
                 }
             }
+        }
+
+        private bool MessageIsACommand(string message)
+        {
+            return message.StartsWith("#");
+        }
+
+        private string GetCommandFromMessage(string message)
+        {
+            return message.Substring(1);
         }
     }
 }

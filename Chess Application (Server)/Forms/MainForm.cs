@@ -4,22 +4,21 @@ using System.Linq;
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
+using Chess_Application.Common;
 using Chess_Application.Common.ChessPieces;
 using Chess_Application.Common.UserControls;
 using Chess_Application.Common.Enums;
 using Chess_Application.Network;
-using Chess_Application.UserControls;
-using MainMenu = Chess_Application.UserControls.MainMenu;
+
 
 namespace Chess_Application.Forms
 {
-
     public partial class MainForm : Form
     {
         private NetworkManager NetworkManager { get; set; }
 
         private Panel menuContainer;
-        private MainMenu mainMenu;
+        private UserControls.MainMenu mainMenu;
 
         private Point positionWhiteKing = new Point();
         private Point positionBlackKing = new Point();
@@ -27,15 +26,25 @@ namespace Chess_Application.Forms
         private int clickCounter;
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
-        private bool beginnersMode = true;
+        private bool _BeginnersMode = true;
+        private bool BeginnersMode
+        {
+            get => _BeginnersMode;
+            set
+            {
+                _BeginnersMode = value;
+                UpdateBeginnersModeForChessBoardBoxes();
+            }
+        }
+
         private bool soundEnabled = true;
         private bool isNewGameRequested = false;
         private bool currentPlayerMustSelect = false;
         private bool opponentMustSelect = false;
         private bool isCurrentPlayersTurnToMove = true;
 
-        public static Turn CurrentPlayersTurn { get; set; } = Turn.White;
-        public static Turn OpponentsTurn { get; set; } = Turn.Black;
+        private Turn CurrentPlayersTurn { get; set; } = Turn.White;
+        private Turn OpponentsTurn { get; set; } = Turn.Black;
 
         private string Username { get; set; } = "Server";
         private string UsernameClient { get; set; } = "Client";
@@ -69,7 +78,7 @@ namespace Chess_Application.Forms
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
             };
 
-            mainMenu = new MainMenu(this)
+            mainMenu = new UserControls.MainMenu(this)
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
@@ -80,11 +89,11 @@ namespace Chess_Application.Forms
 
             Controls.Add(menuContainer);
             menuContainer.BringToFront();
-            InitializeCapturedPiecesArea();
+
             NewGame();
 
-            activeazaToolStripMenuItem.Available = false;
-            activeazalToolStripMenuItem.Available = false;
+            toolStripMenuItemEnableBeginnersMode.Available = false;
+            toolStripMenuItemEnableSound.Available = false;
         }
 
         private void InitializeNetworkManager()
@@ -128,22 +137,22 @@ namespace Chess_Application.Forms
                     {
                         if (type == typeof(Rook))
                         {
-                            RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[point.X, point.Y]);
                         }
 
                         if (type == typeof(Knight))
                         {
-                            RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[point.X, point.Y]);
                         }
 
                         if (type == typeof(Bishop))
                         {
-                            RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[point.X, point.Y]);
                         }
 
                         if (type == typeof(Queen))
                         {
-                            RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[point.X, point.Y]);
                         }
                     }
 
@@ -151,22 +160,22 @@ namespace Chess_Application.Forms
                     {
                         if (type == typeof(Rook))
                         {
-                            RetakeCapturedPiece(capturedBlackRooks, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackRooks, ChessBoard[point.X, point.Y]);
                         }
 
                         if (type == typeof(Knight))
                         {
-                            RetakeCapturedPiece(capturedBlackKnights, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackKnights, ChessBoard[point.X, point.Y]);
                         }
 
                         if (type == typeof(Bishop))
                         {
-                            RetakeCapturedPiece(capturedBlackBishops, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackBishops, ChessBoard[point.X, point.Y]);
                         }
 
                         if (type == typeof(Queen))
                         {
-                            RetakeCapturedPiece(capturedBlackQueen, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackQueen, ChessBoard[point.X, point.Y]);
                         }
                     }
 
@@ -174,7 +183,6 @@ namespace Chess_Application.Forms
                 });
 
                 Invoke(selection);
-
             };
 
             NetworkManager.OnMadeMove += (origin, destination) =>
@@ -208,22 +216,11 @@ namespace Chess_Application.Forms
         private void NewGame()
         {
             InitializeBoxes();
-
             InitializeChessBoard();
-
-            #region Assign click event to chessboard pictureboxes
-
-            for (int i = 1; i <= 8; i++)
-            {
-                for (int j = 1; j <= 8; j++)
-                {
-                    ChessBoard[i, j].Click += BoxClick;
-                }
-            }
-
-            #endregion
-
-            ResetBoxesColors(ChessBoard);
+            InitializeCapturedPiecesArea();
+            ResetChessBoardBoxesColors();
+            SetChessBoardBoxesAsUnavailable();
+            AssignClickEventToBoxes();
 
             clickCounter = 0;
 
@@ -243,24 +240,6 @@ namespace Chess_Application.Forms
 
             positionBlackKing.X = 8;
             positionBlackKing.Y = 4;
-
-            SetAllBoxesAsUnavailable(ChessBoard);
-
-            #region Reset captured pieces
-
-            capturedWhitePawns.Count = 0;
-            capturedWhiteRooks.Count = 0;
-            capturedWhiteKnights.Count = 0;
-            capturedWhiteBishops.Count = 0;
-            capturedWhiteQueen.Count = 0;
-
-            capturedBlackPawns.Count = 0;
-            capturedBlackRooks.Count = 0;
-            capturedBlackKnights.Count = 0;
-            capturedBlackBishops.Count = 0;
-            capturedBlackQueen.Count = 0;
-
-            #endregion
         }
 
         private void InitializeBoxes()
@@ -570,13 +549,16 @@ namespace Chess_Application.Forms
             {
                 for (int column = 1; row <= 8; row++)
                 {
-                    ChessBoard[row, column].BeginnersMode = beginnersMode;
+                    ChessBoard[row, column].BeginnersMode = BeginnersMode;
                 }
             }
         }
 
         private void InitializeCapturedPiecesArea()
         {
+            panelCapturedWhitePieces.Controls.Clear();
+            panelCapturedBlackPieces.Controls.Clear();
+
             capturedWhitePawns = new CapturedPieceBox(new Pawn(PieceColor.White));
             capturedWhiteRooks = new CapturedPieceBox(new Rook(PieceColor.White));
             capturedWhiteKnights = new CapturedPieceBox(new Knight(PieceColor.White));
@@ -626,11 +608,18 @@ namespace Chess_Application.Forms
             capturedBlackQueen.Click += CapturedPieceBoxClick;
         }
 
-        /// <summary>
-        /// Set the server's username, and communicate to the client the new username
-        /// </summary>
-        /// <param name="username">The new username</param>
-        public void SetUsernameFromMainMenu(string username)
+        private void AssignClickEventToBoxes()
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    ChessBoard[i, j].Click += BoxClick;
+                }
+            }
+        }
+
+        public void SetUsernameFromMainMenuAndNotifyClient(string username)
         {
             this.Username = username;
 
@@ -638,11 +627,7 @@ namespace Chess_Application.Forms
             NetworkManager.SendMessage("#username" + username);
         }
 
-        /// <summary>
-        /// Set the server's color, and communicate to the client the new color configuration
-        /// </summary>
-        /// <param name="colorsString">The string containing the color configuration (e.g. "1 2" will set server's color to white, and client's color to black)</param>
-        public void SetColorsFromMainMenu(string colorsString)
+        public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
         {
             var colors = colorsString.Split(' ');
             var serverColor = Convert.ToInt32(colors[0]);
@@ -667,11 +652,7 @@ namespace Chess_Application.Forms
             NetworkManager.SendMessage("#culori " + colorsString);
         }
 
-        /// <summary>
-        /// Send a message on the stream, and if the message isn't a command, also create a new chat entry.
-        /// </summary>
-        /// <param name="message">Message to be sent</param>
-        private void SendMessage(string message)
+        private void SendMessageAndCreateChatEntryIfItsNotCommand(string message)
         {
             // If the message to be sent isn't a command, create a new chat entry
             if (!message.StartsWith("#"))
@@ -693,29 +674,40 @@ namespace Chess_Application.Forms
         private void ToolStripEnableSound(object sender, EventArgs e)
         {
             soundEnabled = true;
-            activeazalToolStripMenuItem.Visible = false;
-            dezactiveazalToolStripMenuItem.Visible = true;
+            toolStripMenuItemEnableSound.Visible = false;
+            toolStripMenuItemDisableSound.Visible = true;
         }
 
         private void ToolStripDisableSound(object sender, EventArgs e)
         {
             soundEnabled = false;
-            activeazalToolStripMenuItem.Visible = true;
-            dezactiveazalToolStripMenuItem.Visible = false;
+            toolStripMenuItemEnableSound.Visible = true;
+            toolStripMenuItemDisableSound.Visible = false;
         }
 
         private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
         {
-            beginnersMode = true;
-            activeazaToolStripMenuItem.Available = false;
-            dezactiveazaToolStripMenuItem.Available = true;
+            BeginnersMode = true;
+            toolStripMenuItemEnableBeginnersMode.Available = false;
+            toolStripMenuItemDisableBeginnersMode.Available = true;
         }
 
         private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
         {
-            beginnersMode = false;
-            activeazaToolStripMenuItem.Available = true;
-            dezactiveazaToolStripMenuItem.Available = false;
+            BeginnersMode = false;
+            toolStripMenuItemEnableBeginnersMode.Available = true;
+            toolStripMenuItemDisableBeginnersMode.Available = false;
+        }
+
+        private void UpdateBeginnersModeForChessBoardBoxes()
+        {
+            for (int row = 1; row <= 8; row++)
+            {
+                for (int column = 1; column <= 8; column++)
+                {
+                    ChessBoard[row, column].BeginnersMode = BeginnersMode;
+                }
+            }
         }
 
         private void ToolStripNewGame(object sender, EventArgs e)
@@ -723,8 +715,8 @@ namespace Chess_Application.Forms
             // If a new game isn't already requested, proceed to request
             if (!isNewGameRequested)
             {
-                SendMessage("#request new game");
-                SendMessage(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
+                SendMessageAndCreateChatEntryIfItsNotCommand("#request new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
 
             }
 
@@ -733,7 +725,7 @@ namespace Chess_Application.Forms
             {
                 NewGame();
                 isNewGameRequested = false;
-                SendMessage("#new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
             }
         }
 
@@ -750,9 +742,9 @@ namespace Chess_Application.Forms
             }
 
             var message = $"#{origin.BoxName} {destination.BoxName}";
-            SendMessage(message);
+            SendMessageAndCreateChatEntryIfItsNotCommand(message);
 
-            ResetBoxesColors(ChessBoard);
+            ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
 
             if (destination.Piece is King)
@@ -763,8 +755,8 @@ namespace Chess_Application.Forms
             BeginPieceRecapturingIfPawnReachedTheEnd(destination);
 
             NextTurn();
-            SetAllBoxesAsUnavailable(ChessBoard);
-            ResetBoxesColors(ChessBoard);
+            SetChessBoardBoxesAsUnavailable();
+            ResetChessBoardBoxesColors();
 
             isCurrentPlayersTurnToMove = false;
             CurrentPlayersTurn = OpponentsTurn;
@@ -778,7 +770,7 @@ namespace Chess_Application.Forms
 
             EndGameIfCheckMate();
 
-            SetAllBoxesAsUnavailable(ChessBoard);
+            SetChessBoardBoxesAsUnavailable();
         }
 
         private void OpponentMovePiece(Box origin, Box destination)
@@ -789,7 +781,7 @@ namespace Chess_Application.Forms
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            ResetBoxesColors(ChessBoard);
+            ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
             
 
@@ -819,7 +811,7 @@ namespace Chess_Application.Forms
 
             EndGameIfCheckMate();
 
-            SetAllBoxesAsUnavailable(ChessBoard);
+            SetChessBoardBoxesAsUnavailable();
         }
 
         private void PerformMove(Box origin, Box destination)
@@ -916,7 +908,7 @@ namespace Chess_Application.Forms
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessage("#selectie");
+                        SendMessageAndCreateChatEntryIfItsNotCommand("#selectie");
                         textBox1.AppendText(Username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
@@ -933,7 +925,7 @@ namespace Chess_Application.Forms
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessage("#selectie");
+                        SendMessageAndCreateChatEntryIfItsNotCommand("#selectie");
                         textBox1.AppendText(Username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
@@ -949,7 +941,7 @@ namespace Chess_Application.Forms
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessage("#new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
             }
             if ( CheckmateBlack() )
             {
@@ -958,64 +950,31 @@ namespace Chess_Application.Forms
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessage("#new game");
-            }
-        }
-
-        private void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
-        {
-            var capturedPieceColor = capturedPieceBox.ChessPiece.Color;
-
-            if (capturedPieceBox.ChessPiece is Rook)
-            {
-                destination.Piece = new Rook(capturedPieceColor);
-
-                capturedPieceBox.Count--;
-            }
-
-            if (capturedPieceBox.ChessPiece is Knight)
-            {
-                destination.Piece = new Knight(capturedPieceColor);
-
-                capturedPieceBox.Count--;
-            }
-
-            if (capturedPieceBox.ChessPiece is Bishop)
-            {
-                destination.Piece = new Bishop(capturedPieceColor);
-
-                capturedPieceBox.Count--;
-            }
-
-            if (capturedPieceBox.ChessPiece is Queen)
-            {
-                destination.Piece = new Queen(capturedPieceColor);
-
-                capturedPieceBox.Count--;
+                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
             }
         }
 
         private void SendChatMessage(object sender, EventArgs e)
         {
-            SendMessage(tbServerDate.Text);
+            SendMessageAndCreateChatEntryIfItsNotCommand(tbServerDate.Text);
             tbServerDate.Clear();
         }
 
         private bool CheckmateWhite()
         {
-            for (int i = 1; i <= 8; i++)
+            for (int row = 1; row <= 8; row++)
             {
-                for (int j = 1; j <= 8; j++)
+                for (int column = 1; column <= 8; column++)
                 {
-                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.White)
+                    if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == PieceColor.White)
                     {
-                        var location = new Point(i, j);
-                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionWhiteKing);
+                        var location = new Point(row, column);
+                        ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionWhiteKing);
 
-                        if (ChessBoard[i, j].Piece.CanMove == true)
+                        if (ChessBoard[row, column].Piece.CanMove == true)
                         {
-                            ResetBoxesColors(ChessBoard);
-                            ChessBoard[i, j].Piece.CanMove = false;                           
+                            ResetChessBoardBoxesColors();
+                            ChessBoard[row, column].Piece.CanMove = false;                           
                             return false;
                         }
                     }
@@ -1027,19 +986,19 @@ namespace Chess_Application.Forms
 
         private bool CheckmateBlack()
         {
-            for (int i = 1; i <= 8; i++)
+            for (int row = 1; row <= 8; row++)
             {
-                for (int j = 1; j <= 8; j++)
+                for (int column = 1; column <= 8; column++)
                 {
-                    if (ChessBoard[i, j].Piece != null && ChessBoard[i, j].Piece.Color == PieceColor.Black)
+                    if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == PieceColor.Black)
                     {
-                        var location = new Point(i, j);
-                        ChessBoard[i, j].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionBlackKing);
+                        var location = new Point(row, column);
+                        ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionBlackKing);
 
-                        if (ChessBoard[i, j].Piece.CanMove == true)
+                        if (ChessBoard[row, column].Piece.CanMove == true)
                         {
-                            ResetBoxesColors(ChessBoard);
-                            ChessBoard[i, j].Piece.CanMove = false;                           
+                            ResetChessBoardBoxesColors();
+                            ChessBoard[row, column].Piece.CanMove = false;                           
                             return false;
                         }
                     }
@@ -1049,19 +1008,19 @@ namespace Chess_Application.Forms
             return true;
         }
 
-        private void ResetBoxesColors(Box[,] ChessBoard)
+        private void ResetChessBoardBoxesColors()
         {
-            for (int i = 1; i < 9; i++)
+            for (int row = 1; row < 9; row++)
             {
-                for (int j = 1; j < 9; j++)
+                for (int column = 1; column < 9; column++)
                 {
-                    if ( (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1) )
+                    if ( (row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1) )
                     {
-                        ChessBoard[i, j].BoxBackgroundColor = BoxColorDark;
+                        ChessBoard[row, column].BoxBackgroundColor = BoxColorDark;
                     }
                     else
                     {
-                        ChessBoard[i, j].BoxBackgroundColor = BoxColorLight;
+                        ChessBoard[row, column].BoxBackgroundColor = BoxColorLight;
                     }
                 }
             }
@@ -1077,13 +1036,13 @@ namespace Chess_Application.Forms
             }
         }
 
-        private void SetAllBoxesAsUnavailable(Box[,] ChessBoard)
+        private void SetChessBoardBoxesAsUnavailable()
         {
-            for (int i = 1; i <= 8; i++)
+            for (int row = 1; row <= 8; row++)
             {
-                for (int j = 1; j <= 8; j++)
+                for (int column = 1; column <= 8; column++)
                 {
-                    ChessBoard[i, j].Available = false;
+                    ChessBoard[row, column].Available = false;
                 }
             }           
         }
@@ -1129,8 +1088,8 @@ namespace Chess_Application.Forms
                 // Click on the same box => Cancel moving current chess piece
                 if (clickedBoxObject == FirstClickedBox)
                 {
-                    SetAllBoxesAsUnavailable(ChessBoard);
-                    ResetBoxesColors(ChessBoard);
+                    SetChessBoardBoxesAsUnavailable();
+                    ResetChessBoardBoxesColors();
                 }
 
                 // Click on a different box where the current piece can be moved
@@ -1149,13 +1108,13 @@ namespace Chess_Application.Forms
 
             if (currentPlayerMustSelect && clickedCapturedPieceBox.Count > 0)
             {
-                RetakeCapturedPiece(clickedCapturedPieceBox, ChessBoard[retakeRow, retakeColumn]);
+                Utilities.RetakeCapturedPiece(clickedCapturedPieceBox, ChessBoard[retakeRow, retakeColumn]);
                 currentPlayerMustSelect = false;
 
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    string recaptureMessage = "#selectat " + retakeRow + " " + retakeColumn + " ";
+                    var recaptureMessage = "#selectat " + retakeRow + " " + retakeColumn + " ";
 
                     if (recapturedPiece is Rook)
                     {
@@ -1187,8 +1146,8 @@ namespace Chess_Application.Forms
                         recaptureMessage += "N";
                     }
 
-                    SendMessage(recaptureMessage);
-                    SendMessage("#final selectie");
+                    SendMessageAndCreateChatEntryIfItsNotCommand(recaptureMessage);
+                    SendMessageAndCreateChatEntryIfItsNotCommand("#final selectie");
                 }
                 
             }

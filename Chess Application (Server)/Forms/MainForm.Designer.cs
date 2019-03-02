@@ -36,11 +36,11 @@
             this.quitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.activeazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dezactiveazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEnableBeginnersMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDisableBeginnersMode = new System.Windows.Forms.ToolStripMenuItem();
             this.sunetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.activeazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dezactiveazalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEnableSound = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDisableSound = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -127,48 +127,48 @@
             // modIncepatorToolStripMenuItem
             // 
             this.modIncepatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.activeazaToolStripMenuItem,
-            this.dezactiveazaToolStripMenuItem});
+            this.toolStripMenuItemEnableBeginnersMode,
+            this.toolStripMenuItemDisableBeginnersMode});
             this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
             this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
             // 
-            // activeazaToolStripMenuItem
+            // toolStripMenuItemEnableBeginnersMode
             // 
-            this.activeazaToolStripMenuItem.Name = "activeazaToolStripMenuItem";
-            this.activeazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.activeazaToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazaToolStripMenuItem.Click += new System.EventHandler(this.ToolStripEnableBeginnerMode);
+            this.toolStripMenuItemEnableBeginnersMode.Name = "toolStripMenuItemEnableBeginnersMode";
+            this.toolStripMenuItemEnableBeginnersMode.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemEnableBeginnersMode.Text = "Activeaza-l";
+            this.toolStripMenuItemEnableBeginnersMode.Click += new System.EventHandler(this.ToolStripEnableBeginnerMode);
             // 
-            // dezactiveazaToolStripMenuItem
+            // toolStripMenuItemDisableBeginnersMode
             // 
-            this.dezactiveazaToolStripMenuItem.Name = "dezactiveazaToolStripMenuItem";
-            this.dezactiveazaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.dezactiveazaToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazaToolStripMenuItem.Click += new System.EventHandler(this.ToolStripDisableBeginnerMode);
+            this.toolStripMenuItemDisableBeginnersMode.Name = "toolStripMenuItemDisableBeginnersMode";
+            this.toolStripMenuItemDisableBeginnersMode.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemDisableBeginnersMode.Text = "Dezactiveaza-l";
+            this.toolStripMenuItemDisableBeginnersMode.Click += new System.EventHandler(this.ToolStripDisableBeginnerMode);
             // 
             // sunetToolStripMenuItem
             // 
             this.sunetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.activeazalToolStripMenuItem,
-            this.dezactiveazalToolStripMenuItem});
+            this.toolStripMenuItemEnableSound,
+            this.toolStripMenuItemDisableSound});
             this.sunetToolStripMenuItem.Name = "sunetToolStripMenuItem";
             this.sunetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sunetToolStripMenuItem.Text = "Sunet";
             // 
-            // activeazalToolStripMenuItem
+            // toolStripMenuItemEnableSound
             // 
-            this.activeazalToolStripMenuItem.Name = "activeazalToolStripMenuItem";
-            this.activeazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.activeazalToolStripMenuItem.Text = "Activeaza-l";
-            this.activeazalToolStripMenuItem.Click += new System.EventHandler(this.ToolStripEnableSound);
+            this.toolStripMenuItemEnableSound.Name = "toolStripMenuItemEnableSound";
+            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemEnableSound.Text = "Activeaza-l";
+            this.toolStripMenuItemEnableSound.Click += new System.EventHandler(this.ToolStripEnableSound);
             // 
-            // dezactiveazalToolStripMenuItem
+            // toolStripMenuItemDisableSound
             // 
-            this.dezactiveazalToolStripMenuItem.Name = "dezactiveazalToolStripMenuItem";
-            this.dezactiveazalToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.dezactiveazalToolStripMenuItem.Text = "Dezactiveaza-l";
-            this.dezactiveazalToolStripMenuItem.Click += new System.EventHandler(this.ToolStripDisableSound);
+            this.toolStripMenuItemDisableSound.Name = "toolStripMenuItemDisableSound";
+            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemDisableSound.Text = "Dezactiveaza-l";
+            this.toolStripMenuItemDisableSound.Click += new System.EventHandler(this.ToolStripDisableSound);
             // 
             // menuStrip2
             // 
@@ -513,14 +513,14 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem modIncepatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem activeazaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dezactiveazaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableBeginnersMode;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableBeginnersMode;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox tbServerDate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem sunetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem activeazalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dezactiveazalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableSound;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableSound;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         public System.Windows.Forms.Label labelTurn;

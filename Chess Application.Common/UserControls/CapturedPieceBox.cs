@@ -9,10 +9,7 @@ namespace Chess_Application.Common.UserControls
         private ChessPiece _ChessPiece;
         public ChessPiece ChessPiece
         {
-            get
-            {
-                return _ChessPiece;
-            }
+            get => _ChessPiece;
             private set
             {
                 _ChessPiece = value;
@@ -26,14 +23,8 @@ namespace Chess_Application.Common.UserControls
 
         public int Count
         {
-            get
-            {
-                return Convert.ToInt32(labelCount.Text);
-            }
-            set
-            {
-                labelCount.Text = value.ToString();
-            }
+            get => Convert.ToInt32(labelCount.Text);
+            set => labelCount.Text = value.ToString();
         }
 
         public CapturedPieceBox(ChessPiece chessPiece)

@@ -10,10 +10,7 @@ namespace Chess_Application.Common.UserControls
         private bool _Available;
         public bool Available
         {
-            get
-            {
-                return _Available;
-            }
+            get => _Available;
             set
             {
                 _Available = value;
@@ -28,10 +25,7 @@ namespace Chess_Application.Common.UserControls
         private string _BoxName;
         public string BoxName
         {
-            get
-            {
-                return _BoxName;
-            }
+            get => _BoxName;
             set
             {
                 _BoxName = value;
@@ -49,10 +43,7 @@ namespace Chess_Application.Common.UserControls
         private ChessPiece _Piece;
         public ChessPiece Piece
         {
-            get
-            {
-                return _Piece;
-            }
+            get => _Piece;
             set
             {
                 _Piece = value;
@@ -69,14 +60,8 @@ namespace Chess_Application.Common.UserControls
 
         public Color BoxBackgroundColor
         {
-            get
-            {
-                return pictureBoxPiece.BackColor;
-            }
-            set
-            {
-                pictureBoxPiece.BackColor = value;
-            }
+            get => pictureBoxPiece.BackColor;
+            set => pictureBoxPiece.BackColor = value;
         }
 
 
