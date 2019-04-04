@@ -23,7 +23,7 @@ namespace Chess_Application.Chessboard
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
         private bool _BeginnersMode = true;
-        private bool BeginnersMode
+        public bool BeginnersMode
         {
             get => _BeginnersMode;
             set
@@ -33,7 +33,8 @@ namespace Chess_Application.Chessboard
             }
         }
 
-        private bool soundEnabled = true;
+        public bool SoundEnabled { get; set; } = true;
+
         private bool isNewGameRequested = false;
         private bool currentPlayerMustSelect = false;
         private bool opponentMustSelect = false;
@@ -60,8 +61,8 @@ namespace Chess_Application.Chessboard
         private Color BoxColorLight { get; } = Color.Silver;
         private Color BoxColorDark { get; } = Color.FromArgb(132, 107, 86);
 
-        private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Chess_Application.Chessboard.Properties.Resources.MoveSound1);
-        private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Chess_Application.Chessboard.Properties.Resources.MoveSound2);
+        private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.MoveSound1);
+        private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.MoveSound2);
 
         public Chessboard(UserType userType, string hostname = null)
         {
@@ -615,9 +616,9 @@ namespace Chess_Application.Chessboard
 
         private void tbServerDate_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && tbServerDate.Text != "")
+            if (e.KeyCode == Keys.Enter)
             {
-                SendChatMessage(this, new EventArgs());
+                SendChatMessage(sender, e);
             }
         }
 
@@ -661,7 +662,7 @@ namespace Chess_Application.Chessboard
 
             labelTurn.Text = CurrentPlayersTurn == Turn.White ? "White's turn" : "Black's turn";
 
-            if (soundEnabled)
+            if (SoundEnabled)
             {
                 MoveSound1.Play();
             }
@@ -702,7 +703,7 @@ namespace Chess_Application.Chessboard
                 labelTurn.Text = "Black's turn";
             }
 
-            if (soundEnabled)
+            if (SoundEnabled)
             {
                 MoveSound2.Play();
             }
@@ -1048,6 +1049,58 @@ namespace Chess_Application.Chessboard
                     SendMessageAndCreateChatEntryIfItsNotCommand("#final selectie");
                 }
 
+            }
+        }
+
+        public void SetUsernameFromMainMenuAndNotifyClient(string username)
+        {
+            this.Username = username;
+
+            // Communicate to partner the new username
+            NetworkManager.SendMessage("#username" + username);
+        }
+
+        public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
+        {
+            var colors = colorsString.Split(' ');
+            var serverColor = Convert.ToInt32(colors[0]);
+
+            // Player will be controlling white, will have first move
+            if (serverColor == 1)
+            {
+                CurrentPlayersTurn = Turn.White;
+                OpponentsTurn = Turn.Black;
+                isCurrentPlayersTurnToMove = true;
+            }
+
+            // Player will be controlling black, will have second move
+            else
+            {
+                CurrentPlayersTurn = Turn.Black;
+                OpponentsTurn = Turn.White;
+                isCurrentPlayersTurnToMove = false;
+            }
+
+            // Communicate to partner the colors
+            NetworkManager.SendMessage("#culori " + colorsString);
+        }
+
+        public void RequestNewGame()
+        {
+            // If a new game isn't already requested, proceed to request
+            if (!isNewGameRequested)
+            {
+                SendMessageAndCreateChatEntryIfItsNotCommand("#request new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
+
+            }
+
+            // If a new game was already requested, fulfill that request
+            else
+            {
+                NewGame();
+                isNewGameRequested = false;
+                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
             }
         }
     }
