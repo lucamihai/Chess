@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{00E43F57-DB0C-4E86-AF89-392FAE10E196}</ProjectGuid>
+    <ProjectGuid>{3ADBE3C8-8446-401B-A76E-000679741B97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chess_Application.Network</RootNamespace>
-    <AssemblyName>Chess Application.Network</AssemblyName>
+    <RootNamespace>Chess_Application.Chessboard</RootNamespace>
+    <AssemblyName>Chess Application.Chessboard</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,16 +43,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NetworkManager.cs" />
-    <Compile Include="NetworkManagerClient.cs" />
-    <Compile Include="NetworkManagerServer.cs" />
+    <Compile Include="Chessboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chessboard.Designer.cs">
+      <DependentUpon>Chessboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Chessboard.resx">
+      <DependentUpon>Chessboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chess Application.Common\Chess Application.Common.csproj">
-      <Project>{20552466-5df4-4bec-9a47-b6583eb27030}</Project>
+      <Project>{20552466-5DF4-4BEC-9A47-B6583EB27030}</Project>
       <Name>Chess Application.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chess Application.Network\Chess Application.Network.csproj">
+      <Project>{00E43F57-DB0C-4E86-AF89-392FAE10E196}</Project>
+      <Name>Chess Application.Network</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movesound1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movesound2.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -50,7 +50,6 @@
     <Compile Include="ChessPieces\Pawn.cs" />
     <Compile Include="ChessPieces\Queen.cs" />
     <Compile Include="ChessPieces\Rook.cs" />
-    <Compile Include="Enums\NetworkManagerType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Enums\Turn.cs" />
     <Compile Include="NetworkCommandStrings.cs" />
@@ -142,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WhiteRook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoveSound1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoveSound2.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -111,6 +111,10 @@
     <None Include="Resources\MoveSound1.wav" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chess Application.Chessboard\Chess Application.Chessboard.csproj">
+      <Project>{3adbe3c8-8446-401b-a76e-000679741b97}</Project>
+      <Name>Chess Application.Chessboard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chess Application.Common\Chess Application.Common.csproj">
       <Project>{20552466-5df4-4bec-9a47-b6583eb27030}</Project>
       <Name>Chess Application.Common</Name>
