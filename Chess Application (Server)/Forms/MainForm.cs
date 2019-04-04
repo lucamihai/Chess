@@ -98,7 +98,7 @@ namespace Chess_Application.Forms
 
         private void InitializeNetworkManager()
         {
-            NetworkManager = new NetworkManager();
+            NetworkManager = new NetworkManagerServer();
 
             NetworkManager.OnChangedColors += (currentPlayersTurn, opponentsTurn) =>
             {
