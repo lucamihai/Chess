@@ -95,7 +95,7 @@ namespace ChessApplication.Client.Forms
 
         private void buttonConnect_Click(object sender, System.EventArgs e)
         {
-            if (buttonConnect.Text == "Connect")
+            if (buttonConnect.Text == Strings.Connect)
             {
                 if (tbAddress.Text.Length > 0)
                 {
@@ -104,11 +104,11 @@ namespace ChessApplication.Client.Forms
                     panelChessboard.Controls.Add(chessboard);
 
                     tbAddress.Visible = false;
-                    buttonConnect.Text = "Disconnect";
+                    buttonConnect.Text = Strings.Disconnect;
                 }
                 else
                 {
-                    MessageBox.Show("You must specify an IP address");
+                    MessageBox.Show(Strings.IpMustBeSpecified);
                 }
             }
 

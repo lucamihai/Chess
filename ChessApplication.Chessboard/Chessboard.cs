@@ -109,7 +109,9 @@ namespace ChessApplication.Chessboard
             {
                 var beginSelection = new MethodInvoker(() => {
                     opponentMustSelect = true;
-                    chatBox.AppendText(usernameOpponent + " must retake a piece from Spoils o' war\r\n");
+
+                    var message = string.Format(Strings.UserBeginsSelection, usernameOpponent);
+                    chatBox.AppendText(message);
                 });
 
                 Invoke(beginSelection);
@@ -197,14 +199,19 @@ namespace ChessApplication.Chessboard
 
             networkManager.OnChatMessage += message =>
             {
-                var chatMessage = new MethodInvoker(() => chatBox.Text += $"{usernameOpponent}: {message}\r\n");
-                Invoke(chatMessage);
+                var addChatMessage = new MethodInvoker(() =>
+                {
+                    var chatMessage = string.Format(Strings.ChatMessage, usernameOpponent, message);
+                    chatBox.Text += chatMessage;
+                });
+                Invoke(addChatMessage);
             };
         }
 
         private void NotifyNewGameIsRequested()
         {
-            MessageBox.Show($"{usernameOpponent} wishes a new game. If you agree, go to File -> New game");
+            var message = string.Format(Strings.UserRequestsNewGame, usernameOpponent);
+            MessageBox.Show(message);
         }
 
         private void InitializeUsernames(UserType currentPlayerUserType)
@@ -633,7 +640,8 @@ namespace ChessApplication.Chessboard
             // If the message to be sent isn't a command, create a new chat entry
             if (!message.StartsWith(CommandMarker))
             {
-                chatBox.AppendText(username + ": " + message + Environment.NewLine);
+                var chatMessage = string.Format(Strings.ChatMessage, username, message);
+                chatBox.AppendText(chatMessage);
             }
 
             networkManager.SendMessage(message);
@@ -685,7 +693,7 @@ namespace ChessApplication.Chessboard
             isCurrentPlayersTurnToMove = false;
             CurrentPlayersTurn = OpponentsTurn;
 
-            labelTurn.Text = CurrentPlayersTurn == Turn.White ? "White's turn" : "Black's turn";
+            labelTurn.Text = CurrentPlayersTurn == Turn.White ? Strings.WhitesTurn : Strings.BlacksTurn;
 
             if (SoundEnabled)
             {
@@ -720,12 +728,12 @@ namespace ChessApplication.Chessboard
             if (OpponentsTurn == Turn.Black)
             {
                 CurrentPlayersTurn = Turn.White;
-                labelTurn.Text = "White's turn";
+                labelTurn.Text = Strings.WhitesTurn;
             }
             else
             {
                 CurrentPlayersTurn = Turn.Black;
-                labelTurn.Text = "Black's turn";
+                labelTurn.Text = Strings.BlacksTurn;
             }
 
             if (SoundEnabled)
@@ -833,7 +841,9 @@ namespace ChessApplication.Chessboard
                         currentPlayerMustSelect = true;
 
                         SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
-                        chatBox.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
+
+                        var message = string.Format(Strings.UserBeginsSelection, username);
+                        chatBox.AppendText(message);
                     }
                 }
             }
@@ -850,7 +860,9 @@ namespace ChessApplication.Chessboard
                         currentPlayerMustSelect = true;
 
                         SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
-                        chatBox.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
+
+                        var message = string.Format(Strings.UserBeginsSelection, username);
+                        chatBox.AppendText(message);
                     }
                 }
             }
@@ -860,7 +872,7 @@ namespace ChessApplication.Chessboard
         {
             if (IsCheckmateForProvidedColor(PieceColor.White))
             {
-                chatBox.AppendText("Checkmate! Black has won");
+                chatBox.AppendText(Strings.CheckmateWhite);
                 Thread.Sleep(2000);
                 var newGameInvoker = new MethodInvoker(NewGame);
 
@@ -869,7 +881,7 @@ namespace ChessApplication.Chessboard
             }
             if (IsCheckmateForProvidedColor(PieceColor.Black))
             {
-                chatBox.AppendText("Checkmate! White has won");
+                chatBox.AppendText(Strings.CheckmateBlack);
                 Thread.Sleep(2000);
                 var newGameInvoker = new MethodInvoker(NewGame);
 
