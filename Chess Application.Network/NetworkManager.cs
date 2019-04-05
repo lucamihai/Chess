@@ -47,7 +47,7 @@ namespace Chess_Application.Network
             {
                 var command = GetCommandFromMessage(receivedData);
 
-                if (command == NetworkCommandStrings.Disconnect)
+                if (command == CommandStrings.Disconnect)
                 {
                     networkThreadRunning = false;
                 }
@@ -70,14 +70,14 @@ namespace Chess_Application.Network
                 }
 
                 // e.g. "#usernameNewCoolUsername"
-                if (command.StartsWith(NetworkCommandStrings.ChangedUsername))
+                if (command.StartsWith(CommandStrings.ChangedUsername))
                 {
                     var username = receivedData.Substring(9);
                     OnChangedUsername(username);
                 }
 
                 // e.g. "#culori 1 2"
-                if (command.StartsWith(NetworkCommandStrings.ChangedColors))
+                if (command.StartsWith(CommandStrings.ChangedColors))
                 {
                     var colorsString = receivedData.Substring(8);
                     var colors = colorsString.Split(' ');
@@ -86,27 +86,25 @@ namespace Chess_Application.Network
                     var opponentsTurn = (Turn)Convert.ToInt32(colors[1]);
 
                     OnChangedColors(currentPlayersTurn, opponentsTurn);
-
-                    //isCurrentPlayersTurnToMove = (CurrentPlayersTurn == Turn.White) ? true : false;
                 }
 
-                if (command == NetworkCommandStrings.RequestNewGame)
+                if (command == CommandStrings.RequestNewGame)
                 {
                     OnRequestNewGame();
                 }
 
-                if (command == NetworkCommandStrings.NewGame)
+                if (command == CommandStrings.NewGame)
                 {
                     OnNewGame();
                 }
 
-                if (command == NetworkCommandStrings.BeginSelection)
+                if (command == CommandStrings.BeginSelection)
                 {
                     OnBeginSelection();
                 }
 
                 // e.g. "#selectat 2 3 AC"
-                if (command.StartsWith(NetworkCommandStrings.Selection))
+                if (command.StartsWith(CommandStrings.Selection))
                 {
                     var retakeDetails = receivedData.Substring(10).Split();
 

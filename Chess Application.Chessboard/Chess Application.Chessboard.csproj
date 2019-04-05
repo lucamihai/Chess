@@ -49,6 +49,7 @@
     <Compile Include="Chessboard.Designer.cs">
       <DependentUpon>Chessboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

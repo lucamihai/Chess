@@ -3,21 +3,17 @@ using System.Drawing;
 using System.Windows.Forms;
 using Chess_Application.Chessboard;
 
-namespace Chess_Application.Forms
+namespace Chess_Application_Client
 {
     public partial class MainForm : Form
     {
         private Panel menuContainer;
         private UserControls.MainMenu mainMenu;
-        private Chessboard.Chessboard chessboard;
+        private Chessboard chessboard;
 
         public MainForm()
         {
             InitializeComponent();
-
-            chessboard = new Chessboard.Chessboard(UserType.Server);
-            panelChessboard.Controls.Add(chessboard);
-
             menuContainer = new Panel
             {
                 MinimumSize = new Size(this.Width, this.Height),
@@ -38,6 +34,10 @@ namespace Chess_Application.Forms
 
             toolStripMenuItemEnableBeginnersMode.Available = false;
             toolStripMenuItemEnableSound.Available = false;
+
+            buttonConnect.BringToFront();
+            tbAddress.BringToFront();
+            tbAddress.Text = "127.0.0.1";
         }
 
         public void SetUsernameFromMainMenuAndNotifyClient(string username)
@@ -52,30 +52,22 @@ namespace Chess_Application.Forms
 
         private void ToolStripEnableSound(object sender, EventArgs e)
         {
-            chessboard.SoundEnabled = true;
-            toolStripMenuItemEnableSound.Visible = false;
-            toolStripMenuItemDisableSound.Visible = true;
+
         }
 
         private void ToolStripDisableSound(object sender, EventArgs e)
         {
-            chessboard.SoundEnabled = false;
-            toolStripMenuItemEnableSound.Visible = true;
-            toolStripMenuItemDisableSound.Visible = false;
+
         }
 
         private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
         {
-            chessboard.BeginnersMode = true;
-            toolStripMenuItemEnableBeginnersMode.Available = false;
-            toolStripMenuItemDisableBeginnersMode.Available = true;
+
         }
 
         private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
         {
-            chessboard.BeginnersMode = false;
-            toolStripMenuItemEnableBeginnersMode.Available = true;
-            toolStripMenuItemDisableBeginnersMode.Available = false;
+
         }
 
         private void ToolStripNewGame(object sender, EventArgs e)
@@ -91,6 +83,31 @@ namespace Chess_Application.Forms
         public void HideMainMenu()
         {
             menuContainer.Hide();
+        }
+
+        private void buttonConnect_Click(object sender, System.EventArgs e)
+        {
+            if (buttonConnect.Text == "Connect")
+            {
+                if (tbAddress.Text.Length > 0)
+                {
+                    chessboard = new Chessboard(UserType.Client, tbAddress.Text);
+                    chessboard.SetColorsFromMainMenuAndNotifyClient("2 1");
+                    panelChessboard.Controls.Add(chessboard);
+
+                    tbAddress.Visible = false;
+                    buttonConnect.Text = "Disconnect";
+                }
+                else
+                {
+                    MessageBox.Show("You must specify an IP address");
+                }
+            }
+
+            else
+            {
+                chessboard.StopNetworkStuff();
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

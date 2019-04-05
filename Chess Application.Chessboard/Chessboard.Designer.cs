@@ -42,7 +42,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.chatBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbServerDate = new System.Windows.Forms.TextBox();
+            this.textBoxChatInput = new System.Windows.Forms.TextBox();
             this.panelChessBoard = new System.Windows.Forms.Panel();
             this.historyEntries = new Chess_Application.Common.UserControls.History();
             this.panel3.SuspendLayout();
@@ -197,14 +197,14 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "1";
             // 
-            // textBox1
+            // chatBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(695, 401);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(259, 156);
-            this.textBox1.TabIndex = 78;
+            this.chatBox.Location = new System.Drawing.Point(695, 401);
+            this.chatBox.Multiline = true;
+            this.chatBox.Name = "chatBox";
+            this.chatBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.chatBox.Size = new System.Drawing.Size(259, 156);
+            this.chatBox.TabIndex = 78;
             // 
             // label8
             // 
@@ -311,13 +311,13 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "A";
             // 
-            // tbServerDate
+            // textBoxChatInput
             // 
-            this.tbServerDate.Location = new System.Drawing.Point(695, 563);
-            this.tbServerDate.Name = "tbServerDate";
-            this.tbServerDate.Size = new System.Drawing.Size(259, 20);
-            this.tbServerDate.TabIndex = 79;
-            this.tbServerDate.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.tbServerDate_PreviewKeyDown);
+            this.textBoxChatInput.Location = new System.Drawing.Point(695, 563);
+            this.textBoxChatInput.Name = "textBoxChatInput";
+            this.textBoxChatInput.Size = new System.Drawing.Size(259, 20);
+            this.textBoxChatInput.TabIndex = 79;
+            this.textBoxChatInput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBoxChatInputPreviewKeyDown);
             // 
             // panelChessBoard
             // 
@@ -345,10 +345,10 @@
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.chatBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.tbServerDate);
+            this.Controls.Add(this.textBoxChatInput);
             this.Controls.Add(this.panelChessBoard);
             this.Name = "Chessboard";
             this.Size = new System.Drawing.Size(955, 800);
@@ -377,7 +377,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox chatBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -388,7 +388,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbServerDate;
+        private System.Windows.Forms.TextBox textBoxChatInput;
         private System.Windows.Forms.Panel panelChessBoard;
         private Common.UserControls.History historyEntries;
     }

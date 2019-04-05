@@ -14,10 +14,10 @@ namespace Chess_Application.Chessboard
 {
     public partial class Chessboard : UserControl
     {
-        private NetworkManager NetworkManager { get; set; }
+        private NetworkManager networkManager;
 
-        private Point positionWhiteKing = new Point();
-        private Point positionBlackKing = new Point();
+        private Point positionWhiteKing;
+        private Point positionBlackKing;
 
         private int clickCounter;
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
@@ -43,8 +43,8 @@ namespace Chess_Application.Chessboard
         private Turn CurrentPlayersTurn { get; set; } = Turn.White;
         private Turn OpponentsTurn { get; set; } = Turn.Black;
 
-        private string Username { get; set; } = "Server";
-        private string UsernameClient { get; set; } = "Client";
+        private string username;
+        private string usernameOpponent;
 
         private Box A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8;
         private Box H1, H2, H3, H4, H5, H6, H7, H8, G1, G2, G3, G4, G5, G6, G7, G8;
@@ -68,6 +68,7 @@ namespace Chess_Application.Chessboard
         {
             InitializeComponent();
             InitializeNetworkManager(userType, hostname);
+            InitializeUsernames(userType);
 
             NewGame();
         }
@@ -76,15 +77,15 @@ namespace Chess_Application.Chessboard
         {
             if (userType == UserType.Server)
             {
-                NetworkManager = new NetworkManagerServer();
+                networkManager = new NetworkManagerServer();
             }
 
             if (userType == UserType.Client)
             {
-                NetworkManager = new NetworkManagerClient(hostname);
+                networkManager = new NetworkManagerClient(hostname);
             }
 
-            NetworkManager.OnChangedColors += (currentPlayersTurn, opponentsTurn) =>
+            networkManager.OnChangedColors += (currentPlayersTurn, opponentsTurn) =>
             {
                 var opponentChangedColors = new MethodInvoker(() =>
                 {
@@ -97,24 +98,24 @@ namespace Chess_Application.Chessboard
                 Invoke(opponentChangedColors);
             };
 
-            NetworkManager.OnChangedUsername += username =>
+            networkManager.OnChangedUsername += username =>
             {
-                var changeOpponentUsername = new MethodInvoker(() => UsernameClient = username);
+                var changeOpponentUsername = new MethodInvoker(() => usernameOpponent = username);
                 Invoke(changeOpponentUsername);
             };
 
-            NetworkManager.OnBeginSelection += () =>
+            networkManager.OnBeginSelection += () =>
             {
                 var beginSelection = new MethodInvoker(() => {
                     opponentMustSelect = true;
-                    textBox1.AppendText(UsernameClient + " must retake a piece from Spoils o' war\r\n");
+                    chatBox.AppendText(usernameOpponent + " must retake a piece from Spoils o' war\r\n");
                 });
 
                 Invoke(beginSelection);
 
             };
 
-            NetworkManager.OnSelection += (point, type, color) =>
+            networkManager.OnSelection += (point, type, color) =>
             {
                 var selection = new MethodInvoker(() => {
                     if (color == PieceColor.White)
@@ -169,7 +170,7 @@ namespace Chess_Application.Chessboard
                 Invoke(selection);
             };
 
-            NetworkManager.OnMadeMove += (origin, destination) =>
+            networkManager.OnMadeMove += (origin, destination) =>
             {
                 var move = new MethodInvoker(
                     () => OpponentMovePiece(ChessBoard[origin.X, origin.Y], ChessBoard[destination.X, destination.Y])
@@ -178,23 +179,38 @@ namespace Chess_Application.Chessboard
                 Invoke(move);
             };
 
-            NetworkManager.OnRequestNewGame += () =>
+            networkManager.OnRequestNewGame += () =>
             {
                 var request = new MethodInvoker(() => isNewGameRequested = true);
                 Invoke(request);
             };
 
-            NetworkManager.OnNewGame += () =>
+            networkManager.OnNewGame += () =>
             {
                 var newGame = new MethodInvoker(NewGame);
                 Invoke(newGame);
             };
 
-            NetworkManager.OnChatMessage += message =>
+            networkManager.OnChatMessage += message =>
             {
-                var chatMessage = new MethodInvoker(() => textBox1.Text += $"{UsernameClient}: {message}\r\n");
+                var chatMessage = new MethodInvoker(() => chatBox.Text += $"{usernameOpponent}: {message}\r\n");
                 Invoke(chatMessage);
             };
+        }
+
+        private void InitializeUsernames(UserType currentPlayerUserType)
+        {
+            if (currentPlayerUserType == UserType.Server)
+            {
+                username = Constants.DefaultUsernameServer;
+                usernameOpponent = Constants.DefaultUsernameClient;
+            }
+
+            if (currentPlayerUserType == UserType.Client)
+            {
+                username = Constants.DefaultUsernameClient;
+                usernameOpponent = Constants.DefaultUsernameServer;
+            }
         }
 
         private void NewGame()
@@ -608,13 +624,13 @@ namespace Chess_Application.Chessboard
             // If the message to be sent isn't a command, create a new chat entry
             if (!message.StartsWith("#"))
             {
-                textBox1.AppendText(Username + ": " + message + Environment.NewLine);
+                chatBox.AppendText(username + ": " + message + Environment.NewLine);
             }
 
-            NetworkManager.SendMessage(message);
+            networkManager.SendMessage(message);
         }
 
-        private void tbServerDate_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void TextBoxChatInputPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -640,7 +656,7 @@ namespace Chess_Application.Chessboard
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            var message = $"#{origin.BoxName} {destination.BoxName}";
+            var message = $"#{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
             SendMessageAndCreateChatEntryIfItsNotCommand(message);
 
             ResetChessBoardBoxesColors();
@@ -807,8 +823,8 @@ namespace Chess_Application.Chessboard
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessageAndCreateChatEntryIfItsNotCommand("#selectie");
-                        textBox1.AppendText(Username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
+                        SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.BeginSelection}");
+                        chatBox.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
             }
@@ -824,8 +840,8 @@ namespace Chess_Application.Chessboard
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessageAndCreateChatEntryIfItsNotCommand("#selectie");
-                        textBox1.AppendText(Username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
+                        SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.BeginSelection}");
+                        chatBox.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
             }
@@ -835,28 +851,28 @@ namespace Chess_Application.Chessboard
         {
             if (CheckmateWhite())
             {
-                textBox1.AppendText("Checkmate! Black has won");
+                chatBox.AppendText("Checkmate! Black has won");
                 Thread.Sleep(2000);
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.NewGame}");
             }
             if (CheckmateBlack())
             {
-                textBox1.AppendText("Checkmate! White has won");
+                chatBox.AppendText("Checkmate! White has won");
                 Thread.Sleep(2000);
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.NewGame}");
             }
         }
 
         private void SendChatMessage(object sender, EventArgs e)
         {
-            SendMessageAndCreateChatEntryIfItsNotCommand(tbServerDate.Text);
-            tbServerDate.Clear();
+            SendMessageAndCreateChatEntryIfItsNotCommand(textBoxChatInput.Text);
+            textBoxChatInput.Clear();
         }
 
         private bool CheckmateWhite()
@@ -1013,7 +1029,7 @@ namespace Chess_Application.Chessboard
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    var recaptureMessage = "#selectat " + retakeRow + " " + retakeColumn + " ";
+                    var recaptureMessage = $"#{CommandStrings.Selection} {retakeRow} {retakeColumn} ";
 
                     if (recapturedPiece is Rook)
                     {
@@ -1046,7 +1062,6 @@ namespace Chess_Application.Chessboard
                     }
 
                     SendMessageAndCreateChatEntryIfItsNotCommand(recaptureMessage);
-                    SendMessageAndCreateChatEntryIfItsNotCommand("#final selectie");
                 }
 
             }
@@ -1054,26 +1069,22 @@ namespace Chess_Application.Chessboard
 
         public void SetUsernameFromMainMenuAndNotifyClient(string username)
         {
-            this.Username = username;
-
-            // Communicate to partner the new username
-            NetworkManager.SendMessage("#username" + username);
+            this.username = username;
+            var message = $"#{CommandStrings.ChangedUsername}{username}";
+            networkManager.SendMessage(message);
         }
 
         public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
         {
             var colors = colorsString.Split(' ');
-            var serverColor = Convert.ToInt32(colors[0]);
+            var currentPlayerColor = Convert.ToInt32(colors[0]);
 
-            // Player will be controlling white, will have first move
-            if (serverColor == 1)
+            if (currentPlayerColor == (int)Turn.White)
             {
                 CurrentPlayersTurn = Turn.White;
                 OpponentsTurn = Turn.Black;
                 isCurrentPlayersTurnToMove = true;
             }
-
-            // Player will be controlling black, will have second move
             else
             {
                 CurrentPlayersTurn = Turn.Black;
@@ -1081,26 +1092,31 @@ namespace Chess_Application.Chessboard
                 isCurrentPlayersTurnToMove = false;
             }
 
-            // Communicate to partner the colors
-            NetworkManager.SendMessage("#culori " + colorsString);
+            var message = $"#{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
+            networkManager.SendMessage(message);
         }
 
         public void RequestNewGame()
         {
-            // If a new game isn't already requested, proceed to request
             if (!isNewGameRequested)
             {
-                SendMessageAndCreateChatEntryIfItsNotCommand("#request new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.RequestNewGame}");
                 SendMessageAndCreateChatEntryIfItsNotCommand(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
 
             }
-
-            // If a new game was already requested, fulfill that request
             else
             {
                 NewGame();
                 isNewGameRequested = false;
-                SendMessageAndCreateChatEntryIfItsNotCommand("#new game");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.NewGame}");
+            }
+        }
+
+        public void StopNetworkStuff()
+        {
+            if (networkManager != null)
+            {
+                networkManager.Stop();
             }
         }
     }
