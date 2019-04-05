@@ -42,10 +42,8 @@ namespace ChessApplication.Network
 
         public void SendMessage(string message)
         {
-            using (var writer = new StreamWriter(NetworkStream) { AutoFlush = true })
-            {
-                writer.WriteLine(message);
-            }
+            var writer = new StreamWriter(NetworkStream) {AutoFlush = true};
+            writer.WriteLine(message);
         }
 
         protected void InterpretReceivedData(string receivedData)
