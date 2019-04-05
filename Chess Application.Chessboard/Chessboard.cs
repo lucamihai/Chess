@@ -858,7 +858,7 @@ namespace Chess_Application.Chessboard
 
         private void EndGameIfCheckMate()
         {
-            if (CheckmateWhite())
+            if (IsCheckmateForProvidedColor(PieceColor.White))
             {
                 chatBox.AppendText("Checkmate! Black has won");
                 Thread.Sleep(2000);
@@ -867,7 +867,7 @@ namespace Chess_Application.Chessboard
                 Invoke(newGameInvoker);
                 SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
-            if (CheckmateBlack())
+            if (IsCheckmateForProvidedColor(PieceColor.Black))
             {
                 chatBox.AppendText("Checkmate! White has won");
                 Thread.Sleep(2000);
@@ -884,42 +884,19 @@ namespace Chess_Application.Chessboard
             textBoxChatInput.Clear();
         }
 
-        private bool CheckmateWhite()
+        private bool IsCheckmateForProvidedColor(PieceColor providedColor)
         {
             for (int row = 1; row <= 8; row++)
             {
                 for (int column = 1; column <= 8; column++)
                 {
-                    if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == PieceColor.White)
+                    if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == providedColor)
                     {
                         var location = new Point(row, column);
-                        ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionWhiteKing);
+                        var kingPosition = providedColor == PieceColor.White ? positionWhiteKing : positionBlackKing;
+                        ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
 
-                        if (ChessBoard[row, column].Piece.CanMove == true)
-                        {
-                            ResetChessBoardBoxesColors();
-                            ChessBoard[row, column].Piece.CanMove = false;
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        private bool CheckmateBlack()
-        {
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int column = 1; column <= 8; column++)
-                {
-                    if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == PieceColor.Black)
-                    {
-                        var location = new Point(row, column);
-                        ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, positionBlackKing);
-
-                        if (ChessBoard[row, column].Piece.CanMove == true)
+                        if (ChessBoard[row, column].Piece.CanMove)
                         {
                             ResetChessBoardBoxesColors();
                             ChessBoard[row, column].Piece.CanMove = false;

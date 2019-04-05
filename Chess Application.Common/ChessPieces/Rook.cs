@@ -9,15 +9,7 @@ namespace Chess_Application.Common.ChessPieces
         public Rook(PieceColor pieceColor)
         {
             Color = pieceColor;
-
-            if (pieceColor == PieceColor.White)
-            {
-                Image = Properties.Resources.WhiteRook;
-            }
-            else
-            {
-                Image = Properties.Resources.BlackRook;
-            }
+            Image = pieceColor == PieceColor.White ? Properties.Resources.WhiteRook : Properties.Resources.BlackRook;
         }
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition)
         {

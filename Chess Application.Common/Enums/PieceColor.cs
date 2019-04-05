@@ -2,7 +2,8 @@
 {
     public enum PieceColor
     {
-        White = 1,
+        Undefined,
+        White,
         Black
     }
 }

@@ -9,15 +9,7 @@ namespace Chess_Application.Common.ChessPieces
         public Pawn(PieceColor pieceColor)
         {
             Color = pieceColor;
-
-            if (pieceColor == PieceColor.White)
-            {
-                Image = Properties.Resources.WhitePawn;
-            }
-            else
-            {
-                Image = Properties.Resources.BlackPawn;
-            }
+            Image = pieceColor == PieceColor.White ? Properties.Resources.WhitePawn : Properties.Resources.BlackPawn;
         }
         
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition)
@@ -27,7 +19,7 @@ namespace Chess_Application.Common.ChessPieces
 
             Box locationToBeInspected;
             Point destination;
-            // White pawn
+
             if (Color == PieceColor.White)
             {
                 locationToBeInspected = chessBoard[row + 1, column];
@@ -80,7 +72,6 @@ namespace Chess_Application.Common.ChessPieces
                 }
             }
 
-            // Black pawn
             if (Color == PieceColor.Black)
             {
                 locationToBeInspected = chessBoard[row - 1, column];
@@ -115,6 +106,7 @@ namespace Chess_Application.Common.ChessPieces
                         chessBoard[row, column].Piece.CanMove = true;
                     }
                 }
+
 
                 // Check if pawn can make 2 steps forward
                 locationToBeInspected = chessBoard[row - 1, column];

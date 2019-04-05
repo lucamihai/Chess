@@ -9,15 +9,7 @@ namespace Chess_Application.Common.ChessPieces
         public King(PieceColor pieceColor)
         {
             Color = pieceColor;
-
-            if (pieceColor == PieceColor.White)
-            {
-                Image = Properties.Resources.WhiteKing;
-            }
-            else
-            {
-                Image = Properties.Resources.BlackKing;
-            }
+            Image = Color == PieceColor.White ? Properties.Resources.WhiteKing : Properties.Resources.BlackKing;
         }
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition)

@@ -12,12 +12,13 @@ namespace Chess_Application.Common
     {
         public static string GetReversedString(string stringToBeReversed)
         {
-            char[] stringCharacters = stringToBeReversed.ToCharArray();
+            var stringCharacters = stringToBeReversed.ToCharArray();
             Array.Reverse(stringCharacters);
+
             return new string(stringCharacters);
         }
 
-        public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = 0) where TYPE : ChessPiece
+        public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = PieceColor.Undefined) where TYPE : ChessPiece
         {
             if (location != null)
             {
@@ -26,7 +27,7 @@ namespace Chess_Application.Common
                 {
                     if (piece is TYPE)
                     {
-                        if (piece.Color == color || color == 0)
+                        if (piece.Color == color || color == PieceColor.Undefined)
                         {
                             return true;
                         }

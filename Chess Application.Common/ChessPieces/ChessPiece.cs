@@ -6,7 +6,6 @@ namespace Chess_Application.Common.ChessPieces
 {
     public class ChessPiece
     {
-        // 1 - white, 2 - black;
         public PieceColor Color { get; protected set; } 
 
         public bool CanMove { get; set; } = false;
@@ -14,10 +13,7 @@ namespace Chess_Application.Common.ChessPieces
         private Image _Image;
         public Image Image
         {
-            get
-            {
-                return _Image;
-            }
+            get => _Image;
             set
             {
                 _Image = value;
@@ -33,7 +29,7 @@ namespace Chess_Application.Common.ChessPieces
 
         public virtual void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition) { }
 
-        public bool WillMoveTriggerCheck(Box[,] chessBoard, Point origin, Point destination, Point kingPosition)
+        protected bool WillMoveTriggerCheck(Box[,] chessBoard, Point origin, Point destination, Point kingPosition)
         {
             // Back up origin and destination data
             var originChessPiece = chessBoard[origin.X, origin.Y].Piece;
@@ -43,7 +39,7 @@ namespace Chess_Application.Common.ChessPieces
             chessBoard[origin.X, origin.Y].Piece = null;
             chessBoard[destination.X, destination.Y].Piece = originChessPiece;
 
-            bool triggersCheck = false;
+            var triggersCheck = false;
 
             if (!triggersCheck)
                 triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
