@@ -15,6 +15,7 @@ namespace Chess_Application.Chessboard
     public partial class Chessboard : UserControl
     {
         private NetworkManager networkManager;
+        private const string CommandMarker = Network.Constants.CommandMarker;
 
         private Point positionWhiteKing;
         private Point positionBlackKing;
@@ -112,7 +113,6 @@ namespace Chess_Application.Chessboard
                 });
 
                 Invoke(beginSelection);
-
             };
 
             networkManager.OnSelection += (point, type, color) =>
@@ -181,7 +181,11 @@ namespace Chess_Application.Chessboard
 
             networkManager.OnRequestNewGame += () =>
             {
-                var request = new MethodInvoker(() => isNewGameRequested = true);
+                var request = new MethodInvoker(() => {
+                    isNewGameRequested = true;
+                    NotifyNewGameIsRequested();
+                });
+
                 Invoke(request);
             };
 
@@ -196,6 +200,11 @@ namespace Chess_Application.Chessboard
                 var chatMessage = new MethodInvoker(() => chatBox.Text += $"{usernameOpponent}: {message}\r\n");
                 Invoke(chatMessage);
             };
+        }
+
+        private void NotifyNewGameIsRequested()
+        {
+            MessageBox.Show($"{usernameOpponent} wishes a new game. If you agree, go to File -> New game");
         }
 
         private void InitializeUsernames(UserType currentPlayerUserType)
@@ -622,7 +631,7 @@ namespace Chess_Application.Chessboard
         private void SendMessageAndCreateChatEntryIfItsNotCommand(string message)
         {
             // If the message to be sent isn't a command, create a new chat entry
-            if (!message.StartsWith("#"))
+            if (!message.StartsWith(CommandMarker))
             {
                 chatBox.AppendText(username + ": " + message + Environment.NewLine);
             }
@@ -656,7 +665,7 @@ namespace Chess_Application.Chessboard
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            var message = $"#{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
+            var message = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
             SendMessageAndCreateChatEntryIfItsNotCommand(message);
 
             ResetChessBoardBoxesColors();
@@ -823,7 +832,7 @@ namespace Chess_Application.Chessboard
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.BeginSelection}");
+                        SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
                         chatBox.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
@@ -840,7 +849,7 @@ namespace Chess_Application.Chessboard
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.BeginSelection}");
+                        SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
                         chatBox.AppendText(username + " must select a chess piece from Spoils o' war" + Environment.NewLine);
                     }
                 }
@@ -856,7 +865,7 @@ namespace Chess_Application.Chessboard
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.NewGame}");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
             if (CheckmateBlack())
             {
@@ -865,7 +874,7 @@ namespace Chess_Application.Chessboard
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.NewGame}");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
         }
 
@@ -1029,7 +1038,7 @@ namespace Chess_Application.Chessboard
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    var recaptureMessage = $"#{CommandStrings.Selection} {retakeRow} {retakeColumn} ";
+                    var recaptureMessage = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} ";
 
                     if (recapturedPiece is Rook)
                     {
@@ -1067,14 +1076,14 @@ namespace Chess_Application.Chessboard
             }
         }
 
-        public void SetUsernameFromMainMenuAndNotifyClient(string username)
+        public void SetUsernameAndNotifyClient(string username)
         {
             this.username = username;
-            var message = $"#{CommandStrings.ChangedUsername}{username}";
+            var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
             networkManager.SendMessage(message);
         }
 
-        public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
+        public void SetColorsAndNotifyClient(string colorsString)
         {
             var colors = colorsString.Split(' ');
             var currentPlayerColor = Convert.ToInt32(colors[0]);
@@ -1092,7 +1101,7 @@ namespace Chess_Application.Chessboard
                 isCurrentPlayersTurnToMove = false;
             }
 
-            var message = $"#{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
+            var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
             networkManager.SendMessage(message);
         }
 
@@ -1100,15 +1109,13 @@ namespace Chess_Application.Chessboard
         {
             if (!isNewGameRequested)
             {
-                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.RequestNewGame}");
-                SendMessageAndCreateChatEntryIfItsNotCommand(" doreste sa-nceapa un joc nou. Daca esti de acord, File->New Game.");
-
+                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
             }
             else
             {
                 NewGame();
                 isNewGameRequested = false;
-                SendMessageAndCreateChatEntryIfItsNotCommand($"#{CommandStrings.NewGame}");
+                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Net.Sockets;
 using System.Threading;
-using Chess_Application.Common;
 using Chess_Application.Common.ChessPieces;
 using Chess_Application.Common.Enums;
 
@@ -14,7 +14,6 @@ namespace Chess_Application.Network
         protected bool networkThreadRunning;
         protected NetworkStream NetworkStream { get; set; }
 
-        public abstract void SendMessage(string message);
         public abstract void Stop();
 
         public delegate void MadeMove(Point origin, Point destination);
@@ -40,6 +39,14 @@ namespace Chess_Application.Network
 
         public delegate void ChatMessage(string message);
         public ChatMessage OnChatMessage { get; set; }
+
+        public void SendMessage(string message)
+        {
+            using (var writer = new StreamWriter(NetworkStream) { AutoFlush = true })
+            {
+                writer.WriteLine(message);
+            }
+        }
 
         protected void InterpretReceivedData(string receivedData)
         {
@@ -148,7 +155,7 @@ namespace Chess_Application.Network
 
         private bool MessageIsACommand(string message)
         {
-            return message.StartsWith("#");
+            return message.StartsWith(Constants.CommandMarker);
         }
 
         private string GetCommandFromMessage(string message)

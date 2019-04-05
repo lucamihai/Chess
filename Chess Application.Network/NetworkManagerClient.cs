@@ -11,19 +11,12 @@ namespace Chess_Application.Network
 
         public NetworkManagerClient(string hostname)
         {
-            TcpClient = new TcpClient(hostname, 3000);
+            TcpClient = new TcpClient(hostname, Constants.PortNumber);
             NetworkStream = TcpClient.GetStream();
 
             NetworkThread = new Thread(new ThreadStart(ServerListen));
             NetworkThread.Start();
             networkThreadRunning = true;
-        }
-
-        public override void SendMessage(string message)
-        {
-            var writer = new StreamWriter(NetworkStream) { AutoFlush = true };
-
-            writer.WriteLine(message);
         }
 
         public override void Stop()

@@ -42,12 +42,12 @@ namespace Chess_Application.Forms
 
         public void SetUsernameFromMainMenuAndNotifyClient(string username)
         {
-            chessboard.SetUsernameFromMainMenuAndNotifyClient(username);
+            chessboard.SetUsernameAndNotifyClient(username);
         }
 
         public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
         {
-            chessboard.SetColorsFromMainMenuAndNotifyClient(colorsString);
+            chessboard.SetColorsAndNotifyClient(colorsString);
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)

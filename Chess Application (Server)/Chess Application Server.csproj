@@ -107,8 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Icon.ico" />
-    <None Include="Resources\MoveSound2.wav" />
-    <None Include="Resources\MoveSound1.wav" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chess Application.Chessboard\Chess Application.Chessboard.csproj">

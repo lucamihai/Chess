@@ -1,4 +1,6 @@
-﻿namespace Chess_Application.Chessboard
+﻿using Chess_Application.Common.UserControls;
+
+namespace Chess_Application.Chessboard
 {
     partial class Chessboard
     {
@@ -55,7 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxChatInput = new System.Windows.Forms.TextBox();
             this.panelChessBoard = new System.Windows.Forms.Panel();
-            this.historyEntries = new Chess_Application.Common.UserControls.History();
+            this.historyEntries = new History();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();

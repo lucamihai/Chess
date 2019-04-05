@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Chess_Application.Chessboard;
 
-namespace Chess_Application_Client
+namespace Chess_Application_Client.Forms
 {
     public partial class MainForm : Form
     {
@@ -42,32 +42,40 @@ namespace Chess_Application_Client
 
         public void SetUsernameFromMainMenuAndNotifyClient(string username)
         {
-            chessboard.SetUsernameFromMainMenuAndNotifyClient(username);
+            chessboard.SetUsernameAndNotifyClient(username);
         }
 
         public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
         {
-            chessboard.SetColorsFromMainMenuAndNotifyClient(colorsString);
+            chessboard.SetColorsAndNotifyClient(colorsString);
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)
         {
-
+            chessboard.SoundEnabled = true;
+            toolStripMenuItemEnableSound.Visible = false;
+            toolStripMenuItemDisableSound.Visible = true;
         }
 
         private void ToolStripDisableSound(object sender, EventArgs e)
         {
-
+            chessboard.SoundEnabled = false;
+            toolStripMenuItemEnableSound.Visible = true;
+            toolStripMenuItemDisableSound.Visible = false;
         }
 
         private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
         {
-
+            chessboard.BeginnersMode = true;
+            toolStripMenuItemEnableBeginnersMode.Available = false;
+            toolStripMenuItemDisableBeginnersMode.Available = true;
         }
 
         private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
         {
-
+            chessboard.BeginnersMode = false;
+            toolStripMenuItemEnableBeginnersMode.Available = true;
+            toolStripMenuItemDisableBeginnersMode.Available = false;
         }
 
         private void ToolStripNewGame(object sender, EventArgs e)
@@ -92,7 +100,7 @@ namespace Chess_Application_Client
                 if (tbAddress.Text.Length > 0)
                 {
                     chessboard = new Chessboard(UserType.Client, tbAddress.Text);
-                    chessboard.SetColorsFromMainMenuAndNotifyClient("2 1");
+                    chessboard.SetColorsAndNotifyClient("2 1");
                     panelChessboard.Controls.Add(chessboard);
 
                     tbAddress.Visible = false;

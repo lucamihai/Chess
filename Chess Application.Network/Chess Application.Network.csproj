@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandStrings.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkManagerClient.cs" />
     <Compile Include="NetworkManagerServer.cs" />
