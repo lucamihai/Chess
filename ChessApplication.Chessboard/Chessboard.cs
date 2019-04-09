@@ -59,6 +59,9 @@ namespace ChessApplication.Chessboard
         private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.MoveSound1);
         private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.MoveSound2);
 
+        public delegate void MoveMade(Box origin, Box destination);
+        public MoveMade OnMadeMove { get; set; }
+
         public Chessboard(UserType userType, string hostname = null)
         {
             InitializeComponent();
@@ -308,18 +311,18 @@ namespace ChessApplication.Chessboard
 
         private void AddBlackPieces()
         {
-            ChessBoard[7, 1].Piece = new Rook(PieceColor.Black);
-            ChessBoard[7, 2].Piece = new Knight(PieceColor.Black);
-            ChessBoard[7, 3].Piece = new Bishop(PieceColor.Black);
-            ChessBoard[7, 4].Piece = new King(PieceColor.Black);
-            ChessBoard[7, 5].Piece = new Queen(PieceColor.Black);
-            ChessBoard[7, 6].Piece = new Bishop(PieceColor.Black);
-            ChessBoard[7, 7].Piece = new Knight(PieceColor.Black);
-            ChessBoard[7, 8].Piece = new Rook(PieceColor.Black);
+            ChessBoard[8, 1].Piece = new Rook(PieceColor.Black);
+            ChessBoard[8, 2].Piece = new Knight(PieceColor.Black);
+            ChessBoard[8, 3].Piece = new Bishop(PieceColor.Black);
+            ChessBoard[8, 4].Piece = new King(PieceColor.Black);
+            ChessBoard[8, 5].Piece = new Queen(PieceColor.Black);
+            ChessBoard[8, 6].Piece = new Bishop(PieceColor.Black);
+            ChessBoard[8, 7].Piece = new Knight(PieceColor.Black);
+            ChessBoard[8, 8].Piece = new Rook(PieceColor.Black);
 
             for (int column = 1; column < 9; column++)
             {
-                ChessBoard[8, column].Piece = new Pawn(PieceColor.Black);
+                ChessBoard[7, column].Piece = new Pawn(PieceColor.Black);
             }
         }
 
@@ -501,7 +504,7 @@ namespace ChessApplication.Chessboard
 
         private void PerformMove(Box origin, Box destination)
         {
-            historyEntries.AddEntry(origin, destination);
+            OnMadeMove(origin, destination);
 
             destination.Piece = origin.Piece;
             origin.Piece = null;

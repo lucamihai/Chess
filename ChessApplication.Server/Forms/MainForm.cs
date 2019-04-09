@@ -14,9 +14,7 @@ namespace ChessApplication.Server.Forms
         public MainForm()
         {
             InitializeComponent();
-
-            chessboard = new Chessboard.Chessboard(UserType.Server);
-            panelChessboard.Controls.Add(chessboard);
+            InitializeChessboard();
 
             menuContainer = new Panel
             {
@@ -40,12 +38,23 @@ namespace ChessApplication.Server.Forms
             toolStripMenuItemEnableSound.Available = false;
         }
 
-        public void SetUsernameFromMainMenuAndNotifyClient(string username)
+        private void InitializeChessboard()
+        {
+            chessboard = new Chessboard.Chessboard(UserType.Server);
+            panelChessboard.Controls.Add(chessboard);
+
+            chessboard.OnMadeMove += (origin, destination) =>
+            {
+                historyEntries.AddEntry(origin, destination);
+            };
+        }
+
+        public void SetUsernameFromMainMenuAndNotifyPartner(string username)
         {
             chessboard.SetUsernameAndNotifyClient(username);
         }
 
-        public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
+        public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)
         {
             chessboard.SetColorsAndNotifyClient(colorsString);
         }

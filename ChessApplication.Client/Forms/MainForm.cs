@@ -40,12 +40,12 @@ namespace ChessApplication.Client.Forms
             tbAddress.Text = "127.0.0.1";
         }
 
-        public void SetUsernameFromMainMenuAndNotifyClient(string username)
+        public void SetUsernameFromMainMenuAndNotifyPartner(string username)
         {
             chessboard.SetUsernameAndNotifyClient(username);
         }
 
-        public void SetColorsFromMainMenuAndNotifyClient(string colorsString)
+        public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)
         {
             chessboard.SetColorsAndNotifyClient(colorsString);
         }
@@ -99,9 +99,7 @@ namespace ChessApplication.Client.Forms
             {
                 if (tbAddress.Text.Length > 0)
                 {
-                    chessboard = new Chessboard.Chessboard(UserType.Client, tbAddress.Text);
-                    chessboard.SetColorsAndNotifyClient("2 1");
-                    panelChessboard.Controls.Add(chessboard);
+                    InitializeChessboard();
 
                     tbAddress.Visible = false;
                     buttonConnect.Text = Strings.Disconnect;
@@ -116,6 +114,18 @@ namespace ChessApplication.Client.Forms
             {
                 chessboard.StopNetworkStuff();
             }
+        }
+
+        private void InitializeChessboard()
+        {
+            chessboard = new Chessboard.Chessboard(UserType.Client, tbAddress.Text);
+            chessboard.SetColorsAndNotifyClient("2 1");
+            panelChessboard.Controls.Add(chessboard);
+
+            chessboard.OnMadeMove += (origin, destination) =>
+            {
+                historyEntries.AddEntry(origin, destination);
+            };
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

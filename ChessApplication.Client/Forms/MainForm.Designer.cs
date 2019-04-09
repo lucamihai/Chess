@@ -42,6 +42,7 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.panelChessboard = new System.Windows.Forms.Panel();
+            this.historyEntries = new ChessApplication.Common.UserControls.History();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,14 +69,14 @@
             // newGameToolStripMenuItem1
             // 
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
-            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.newGameToolStripMenuItem1.Text = "New game";
             this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.ToolStripNewGame);
             // 
             // quitApplicationToolStripMenuItem
             // 
             this.quitApplicationToolStripMenuItem.Name = "quitApplicationToolStripMenuItem";
-            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitApplicationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.quitApplicationToolStripMenuItem.Text = "Quit application";
             this.quitApplicationToolStripMenuItem.Click += new System.EventHandler(this.ToolStripQuit);
             // 
@@ -94,20 +95,20 @@
             this.toolStripMenuItemEnableBeginnersMode,
             this.toolStripMenuItemDisableBeginnersMode});
             this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
-            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
             // 
             // toolStripMenuItemEnableBeginnersMode
             // 
             this.toolStripMenuItemEnableBeginnersMode.Name = "toolStripMenuItemEnableBeginnersMode";
-            this.toolStripMenuItemEnableBeginnersMode.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnableBeginnersMode.Size = new System.Drawing.Size(149, 22);
             this.toolStripMenuItemEnableBeginnersMode.Text = "Activeaza-l";
             this.toolStripMenuItemEnableBeginnersMode.Click += new System.EventHandler(this.ToolStripEnableBeginnerMode);
             // 
             // toolStripMenuItemDisableBeginnersMode
             // 
             this.toolStripMenuItemDisableBeginnersMode.Name = "toolStripMenuItemDisableBeginnersMode";
-            this.toolStripMenuItemDisableBeginnersMode.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemDisableBeginnersMode.Size = new System.Drawing.Size(149, 22);
             this.toolStripMenuItemDisableBeginnersMode.Text = "Dezactiveaza-l";
             this.toolStripMenuItemDisableBeginnersMode.Click += new System.EventHandler(this.ToolStripDisableBeginnerMode);
             // 
@@ -117,20 +118,20 @@
             this.toolStripMenuItemEnableSound,
             this.toolStripMenuItemDisableSound});
             this.sunetToolStripMenuItem.Name = "sunetToolStripMenuItem";
-            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sunetToolStripMenuItem.Text = "Sunet";
             // 
             // toolStripMenuItemEnableSound
             // 
             this.toolStripMenuItemEnableSound.Name = "toolStripMenuItemEnableSound";
-            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(149, 22);
             this.toolStripMenuItemEnableSound.Text = "Activeaza-l";
             this.toolStripMenuItemEnableSound.Click += new System.EventHandler(this.ToolStripEnableSound);
             // 
             // toolStripMenuItemDisableSound
             // 
             this.toolStripMenuItemDisableSound.Name = "toolStripMenuItemDisableSound";
-            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(149, 22);
             this.toolStripMenuItemDisableSound.Text = "Dezactiveaza-l";
             this.toolStripMenuItemDisableSound.Click += new System.EventHandler(this.ToolStripDisableSound);
             // 
@@ -156,8 +157,16 @@
             // 
             this.panelChessboard.Location = new System.Drawing.Point(30, 51);
             this.panelChessboard.Name = "panelChessboard";
-            this.panelChessboard.Size = new System.Drawing.Size(955, 800);
+            this.panelChessboard.Size = new System.Drawing.Size(900, 800);
             this.panelChessboard.TabIndex = 88;
+            // 
+            // historyEntries
+            // 
+            this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.historyEntries.Location = new System.Drawing.Point(949, 164);
+            this.historyEntries.Name = "historyEntries";
+            this.historyEntries.Size = new System.Drawing.Size(200, 300);
+            this.historyEntries.TabIndex = 89;
             // 
             // MainForm
             // 
@@ -165,6 +174,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 855);
+            this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.tbAddress);
@@ -195,6 +205,7 @@
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.TextBox tbAddress;
         private System.Windows.Forms.Panel panelChessboard;
+        private Common.UserControls.History historyEntries;
     }
 }
 

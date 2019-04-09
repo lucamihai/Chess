@@ -57,7 +57,6 @@ namespace ChessApplication.Chessboard
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxChatInput = new System.Windows.Forms.TextBox();
             this.panelChessBoard = new System.Windows.Forms.Panel();
-            this.historyEntries = new History();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -134,14 +133,14 @@ namespace ChessApplication.Chessboard
             // 
             // panelCapturedBlackPieces
             // 
-            this.panelCapturedBlackPieces.Location = new System.Drawing.Point(195, 712);
+            this.panelCapturedBlackPieces.Location = new System.Drawing.Point(139, 712);
             this.panelCapturedBlackPieces.Name = "panelCapturedBlackPieces";
             this.panelCapturedBlackPieces.Size = new System.Drawing.Size(320, 88);
             this.panelCapturedBlackPieces.TabIndex = 76;
             // 
             // panelCapturedWhitePieces
             // 
-            this.panelCapturedWhitePieces.Location = new System.Drawing.Point(207, 20);
+            this.panelCapturedWhitePieces.Location = new System.Drawing.Point(151, 20);
             this.panelCapturedWhitePieces.Name = "panelCapturedWhitePieces";
             this.panelCapturedWhitePieces.Size = new System.Drawing.Size(320, 88);
             this.panelCapturedWhitePieces.TabIndex = 83;
@@ -150,7 +149,7 @@ namespace ChessApplication.Chessboard
             // 
             this.labelTurn.AutoSize = true;
             this.labelTurn.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.labelTurn.Location = new System.Drawing.Point(747, 324);
+            this.labelTurn.Location = new System.Drawing.Point(663, 324);
             this.labelTurn.Name = "labelTurn";
             this.labelTurn.Size = new System.Drawing.Size(36, 19);
             this.labelTurn.TabIndex = 82;
@@ -159,7 +158,7 @@ namespace ChessApplication.Chessboard
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(307, 696);
+            this.label18.Location = new System.Drawing.Point(251, 696);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(66, 13);
             this.label18.TabIndex = 74;
@@ -184,7 +183,7 @@ namespace ChessApplication.Chessboard
             this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Location = new System.Drawing.Point(132, 632);
+            this.panel3.Location = new System.Drawing.Point(76, 632);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(512, 35);
             this.panel3.TabIndex = 73;
@@ -201,7 +200,7 @@ namespace ChessApplication.Chessboard
             // 
             // chatBox
             // 
-            this.chatBox.Location = new System.Drawing.Point(695, 401);
+            this.chatBox.Location = new System.Drawing.Point(619, 401);
             this.chatBox.Multiline = true;
             this.chatBox.Name = "chatBox";
             this.chatBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -280,7 +279,7 @@ namespace ChessApplication.Chessboard
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(764, 593);
+            this.button1.Location = new System.Drawing.Point(688, 593);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 80;
@@ -298,7 +297,7 @@ namespace ChessApplication.Chessboard
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Location = new System.Drawing.Point(59, 114);
+            this.panel1.Location = new System.Drawing.Point(3, 114);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(54, 512);
             this.panel1.TabIndex = 77;
@@ -315,7 +314,7 @@ namespace ChessApplication.Chessboard
             // 
             // textBoxChatInput
             // 
-            this.textBoxChatInput.Location = new System.Drawing.Point(695, 563);
+            this.textBoxChatInput.Location = new System.Drawing.Point(619, 563);
             this.textBoxChatInput.Name = "textBoxChatInput";
             this.textBoxChatInput.Size = new System.Drawing.Size(259, 20);
             this.textBoxChatInput.TabIndex = 79;
@@ -323,24 +322,15 @@ namespace ChessApplication.Chessboard
             // 
             // panelChessBoard
             // 
-            this.panelChessBoard.Location = new System.Drawing.Point(119, 114);
+            this.panelChessBoard.Location = new System.Drawing.Point(63, 114);
             this.panelChessBoard.Name = "panelChessBoard";
             this.panelChessBoard.Size = new System.Drawing.Size(525, 512);
             this.panelChessBoard.TabIndex = 75;
-            // 
-            // historyEntries
-            // 
-            this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.historyEntries.Location = new System.Drawing.Point(704, 20);
-            this.historyEntries.Name = "historyEntries";
-            this.historyEntries.Size = new System.Drawing.Size(200, 300);
-            this.historyEntries.TabIndex = 84;
             // 
             // Chessboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.panelCapturedBlackPieces);
             this.Controls.Add(this.panelCapturedWhitePieces);
             this.Controls.Add(this.labelTurn);
@@ -353,7 +343,7 @@ namespace ChessApplication.Chessboard
             this.Controls.Add(this.textBoxChatInput);
             this.Controls.Add(this.panelChessBoard);
             this.Name = "Chessboard";
-            this.Size = new System.Drawing.Size(955, 800);
+            this.Size = new System.Drawing.Size(900, 800);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -392,6 +382,5 @@ namespace ChessApplication.Chessboard
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxChatInput;
         private System.Windows.Forms.Panel panelChessBoard;
-        private Common.UserControls.History historyEntries;
     }
 }

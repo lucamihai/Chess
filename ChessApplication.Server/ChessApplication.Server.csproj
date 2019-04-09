@@ -102,6 +102,10 @@
       <Project>{edcec897-4d87-42f7-a0ce-bf6d584e3576}</Project>
       <Name>ChessApplication.Chessboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
+      <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
+      <Name>ChessApplication.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
