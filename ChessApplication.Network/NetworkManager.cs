@@ -121,22 +121,22 @@ namespace ChessApplication.Network
                     var retakenPieceType = retakeDetails[2][0];
 
                     var chessPieceType = typeof(ChessPiece);
-                    if (retakenPieceType == 'T')
+                    if (retakenPieceType == Abbreviations.Rook)
                     {
                         chessPieceType = typeof(Rook);
                     }
 
-                    if (retakenPieceType == 'C')
+                    if (retakenPieceType == Abbreviations.Knight)
                     {
                         chessPieceType = typeof(Knight);
                     }
 
-                    if (retakenPieceType == 'N')
+                    if (retakenPieceType == Abbreviations.Bishop)
                     {
                         chessPieceType = typeof(Bishop);
                     }
 
-                    if (retakenPieceType == 'R')
+                    if (retakenPieceType == Abbreviations.Queen)
                     {
                         chessPieceType = typeof(Queen);
                     }

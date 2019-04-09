@@ -783,41 +783,9 @@ namespace ChessApplication.Chessboard
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    var recaptureMessage = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} ";
-
-                    if (recapturedPiece is Rook)
-                    {
-                        recaptureMessage += "T";
-                    }
-
-                    if (recapturedPiece is Knight)
-                    {
-                        recaptureMessage += "C";
-                    }
-
-                    if (recapturedPiece is Bishop)
-                    {
-                        recaptureMessage += "N";
-                    }
-
-                    if (recapturedPiece is Queen)
-                    {
-                        recaptureMessage += "R";
-                    }
-
-                    if (recapturedPiece.Color == PieceColor.White)
-                    {
-                        recaptureMessage += "A";
-                    }
-
-                    if (recapturedPiece.Color == PieceColor.Black)
-                    {
-                        recaptureMessage += "N";
-                    }
-
+                    var recaptureMessage = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} {recapturedPiece.Abbreviation}";
                     SendMessageAndCreateChatEntryIfItsNotCommand(recaptureMessage);
                 }
-
             }
         }
 

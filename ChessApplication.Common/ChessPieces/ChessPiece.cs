@@ -25,6 +25,8 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
+        public virtual string Abbreviation { get; }
+
         public Image ImageSmall { get; protected set; }
 
         public virtual void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition) { }

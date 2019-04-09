@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChessPieces\Abbreviations.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
     <Compile Include="ChessPieces\King.cs" />
