@@ -40,6 +40,9 @@ namespace ChessApplication.Network
         public delegate void ChatMessage(string message);
         public ChatMessage OnChatMessage { get; set; }
 
+        public delegate void Notification(string notificationMessage);
+        public Notification OnNotification { get; set; }
+
         public void SendMessage(string message)
         {
             var writer = new StreamWriter(NetworkStream) {AutoFlush = true};

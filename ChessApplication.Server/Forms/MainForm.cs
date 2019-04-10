@@ -47,6 +47,11 @@ namespace ChessApplication.Server.Forms
             {
                 historyEntries.AddEntry(origin, destination);
             };
+
+            chessboard.OnNotification += (notificationMessage) =>
+            {
+                notifications.AddNotification(notificationMessage);
+            };
         }
 
         public void SetUsernameFromMainMenuAndNotifyPartner(string username)

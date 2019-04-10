@@ -62,6 +62,9 @@ namespace ChessApplication.Chessboard
         public delegate void MoveMade(Box origin, Box destination);
         public MoveMade OnMadeMove { get; set; }
 
+        public delegate void Notification(string notificationMessage);
+        public Notification OnNotification { get; set; }
+
         public Chessboard(UserType userType, string hostname = null)
         {
             InitializeComponent();
@@ -108,7 +111,7 @@ namespace ChessApplication.Chessboard
                     opponentMustSelect = true;
 
                     var message = string.Format(Strings.UserBeginsSelection, usernameOpponent);
-                    chatBox.AppendText(message);
+                    OnNotification(message);
                 });
 
                 Invoke(beginSelection);
@@ -190,7 +193,13 @@ namespace ChessApplication.Chessboard
 
             networkManager.OnNewGame += () =>
             {
-                var newGame = new MethodInvoker(NewGame);
+                var newGame = new MethodInvoker(() =>
+                {
+                    var message = Strings.NewGameHasBegun;
+                    OnNotification(message);
+
+                    NewGame();
+                });
                 Invoke(newGame);
             };
 
@@ -599,7 +608,7 @@ namespace ChessApplication.Chessboard
                         SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
 
                         var message = string.Format(Strings.UserBeginsSelection, username);
-                        chatBox.AppendText(message);
+                        OnNotification(message);
                     }
                 }
             }
@@ -618,7 +627,7 @@ namespace ChessApplication.Chessboard
                         SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
 
                         var message = string.Format(Strings.UserBeginsSelection, username);
-                        chatBox.AppendText(message);
+                        OnNotification(message);
                     }
                 }
             }
@@ -628,7 +637,8 @@ namespace ChessApplication.Chessboard
         {
             if (IsCheckmateForProvidedColor(PieceColor.White))
             {
-                chatBox.AppendText(Strings.CheckmateWhite);
+                OnNotification(Strings.CheckmateWhite);
+
                 Thread.Sleep(2000);
                 var newGameInvoker = new MethodInvoker(NewGame);
 
@@ -637,7 +647,8 @@ namespace ChessApplication.Chessboard
             }
             if (IsCheckmateForProvidedColor(PieceColor.Black))
             {
-                chatBox.AppendText(Strings.CheckmateBlack);
+                OnNotification(Strings.CheckmateBlack);
+
                 Thread.Sleep(2000);
                 var newGameInvoker = new MethodInvoker(NewGame);
 

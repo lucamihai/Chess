@@ -107,6 +107,10 @@
       <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
       <Name>ChessApplication.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Notifications\ChessApplication.Notifications.csproj">
+      <Project>{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}</Project>
+      <Name>ChessApplication.Notifications</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

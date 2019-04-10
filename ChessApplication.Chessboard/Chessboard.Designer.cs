@@ -149,7 +149,7 @@ namespace ChessApplication.Chessboard
             // 
             this.labelTurn.AutoSize = true;
             this.labelTurn.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.labelTurn.Location = new System.Drawing.Point(663, 324);
+            this.labelTurn.Location = new System.Drawing.Point(636, 324);
             this.labelTurn.Name = "labelTurn";
             this.labelTurn.Size = new System.Drawing.Size(36, 19);
             this.labelTurn.TabIndex = 82;
@@ -200,7 +200,7 @@ namespace ChessApplication.Chessboard
             // 
             // chatBox
             // 
-            this.chatBox.Location = new System.Drawing.Point(619, 401);
+            this.chatBox.Location = new System.Drawing.Point(592, 401);
             this.chatBox.Multiline = true;
             this.chatBox.Name = "chatBox";
             this.chatBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -279,7 +279,7 @@ namespace ChessApplication.Chessboard
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(688, 593);
+            this.button1.Location = new System.Drawing.Point(661, 593);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 80;
@@ -314,7 +314,7 @@ namespace ChessApplication.Chessboard
             // 
             // textBoxChatInput
             // 
-            this.textBoxChatInput.Location = new System.Drawing.Point(619, 563);
+            this.textBoxChatInput.Location = new System.Drawing.Point(592, 563);
             this.textBoxChatInput.Name = "textBoxChatInput";
             this.textBoxChatInput.Size = new System.Drawing.Size(259, 20);
             this.textBoxChatInput.TabIndex = 79;
@@ -343,7 +343,7 @@ namespace ChessApplication.Chessboard
             this.Controls.Add(this.textBoxChatInput);
             this.Controls.Add(this.panelChessBoard);
             this.Name = "Chessboard";
-            this.Size = new System.Drawing.Size(900, 800);
+            this.Size = new System.Drawing.Size(850, 800);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);

@@ -43,6 +43,7 @@
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.panelChessboard = new System.Windows.Forms.Panel();
             this.historyEntries = new ChessApplication.Common.UserControls.History();
+            this.notifications = new ChessApplication.Notifications.NotificationsUserControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,7 +158,7 @@
             // 
             this.panelChessboard.Location = new System.Drawing.Point(30, 51);
             this.panelChessboard.Name = "panelChessboard";
-            this.panelChessboard.Size = new System.Drawing.Size(900, 800);
+            this.panelChessboard.Size = new System.Drawing.Size(850, 800);
             this.panelChessboard.TabIndex = 88;
             // 
             // historyEntries
@@ -168,12 +169,21 @@
             this.historyEntries.Size = new System.Drawing.Size(200, 300);
             this.historyEntries.TabIndex = 89;
             // 
+            // notifications
+            // 
+            this.notifications.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.notifications.Location = new System.Drawing.Point(823, 494);
+            this.notifications.Name = "notifications";
+            this.notifications.Size = new System.Drawing.Size(350, 175);
+            this.notifications.TabIndex = 90;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 855);
+            this.Controls.Add(this.notifications);
             this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.buttonConnect);
@@ -206,6 +216,7 @@
         private System.Windows.Forms.TextBox tbAddress;
         private System.Windows.Forms.Panel panelChessboard;
         private Common.UserControls.History historyEntries;
+        private Notifications.NotificationsUserControl notifications;
     }
 }
 

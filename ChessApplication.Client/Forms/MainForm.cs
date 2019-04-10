@@ -126,6 +126,11 @@ namespace ChessApplication.Client.Forms
             {
                 historyEntries.AddEntry(origin, destination);
             };
+
+            chessboard.OnNotification += (notificationMessage) =>
+            {
+                notifications.AddNotification(notificationMessage);
+            };
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
