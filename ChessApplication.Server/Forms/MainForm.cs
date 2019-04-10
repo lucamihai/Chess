@@ -15,6 +15,7 @@ namespace ChessApplication.Server.Forms
         {
             InitializeComponent();
             InitializeChessboard();
+            InitializeChatBox();
 
             menuContainer = new Panel
             {
@@ -52,11 +53,26 @@ namespace ChessApplication.Server.Forms
             {
                 notifications.AddNotification(notificationMessage);
             };
+
+            chessboard.OnReceivedChatMessage += (username, message) =>
+            {
+                chatBox.AddChatMessage(username, message);
+            };
+        }
+
+        private void InitializeChatBox()
+        {
+            chatBox.Username = chessboard.PlayerUsername;
+            chatBox.OnSentChat += (message) =>
+            {
+                chessboard.SendMessageToOpponent(message);
+            };
         }
 
         public void SetUsernameFromMainMenuAndNotifyPartner(string username)
         {
             chessboard.SetUsernameAndNotifyClient(username);
+            chatBox.Username = username;
         }
 
         public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)

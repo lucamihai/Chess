@@ -79,7 +79,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 16);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Username";
+            this.label2.Text = "PlayerUsername";
             // 
             // label1
             // 

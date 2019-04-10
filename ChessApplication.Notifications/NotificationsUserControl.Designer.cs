@@ -37,6 +37,7 @@
             this.textBoxNotifications.Location = new System.Drawing.Point(3, 43);
             this.textBoxNotifications.Multiline = true;
             this.textBoxNotifications.Name = "textBoxNotifications";
+            this.textBoxNotifications.ReadOnly = true;
             this.textBoxNotifications.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxNotifications.Size = new System.Drawing.Size(344, 129);
             this.textBoxNotifications.TabIndex = 0;

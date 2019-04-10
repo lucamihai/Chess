@@ -98,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChessApplication.ChatBox\ChessApplication.ChatBox.csproj">
+      <Project>{72F819D6-5805-4B09-A382-B70D046A267D}</Project>
+      <Name>ChessApplication.ChatBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Chessboard\ChessApplication.Chessboard.csproj">
       <Project>{edcec897-4d87-42f7-a0ce-bf6d584e3576}</Project>
       <Name>ChessApplication.Chessboard</Name>

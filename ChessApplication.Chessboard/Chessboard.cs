@@ -44,7 +44,7 @@ namespace ChessApplication.Chessboard
         private Turn CurrentPlayersTurn { get; set; } = Turn.White;
         private Turn OpponentsTurn { get; set; } = Turn.Black;
 
-        private string username;
+        public string PlayerUsername { get; private set; }
         private string usernameOpponent;
 
         private CapturedPieceBox capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
@@ -61,6 +61,9 @@ namespace ChessApplication.Chessboard
 
         public delegate void MoveMade(Box origin, Box destination);
         public MoveMade OnMadeMove { get; set; }
+
+        public delegate void ReceivedChatMessage(string username, string message);
+        public ReceivedChatMessage OnReceivedChatMessage { get; set; }
 
         public delegate void Notification(string notificationMessage);
         public Notification OnNotification { get; set; }
@@ -207,8 +210,7 @@ namespace ChessApplication.Chessboard
             {
                 var addChatMessage = new MethodInvoker(() =>
                 {
-                    var chatMessage = string.Format(Strings.ChatMessage, usernameOpponent, message);
-                    chatBox.Text += chatMessage;
+                    OnReceivedChatMessage(usernameOpponent, message);
                 });
                 Invoke(addChatMessage);
             };
@@ -224,13 +226,13 @@ namespace ChessApplication.Chessboard
         {
             if (currentPlayerUserType == UserType.Server)
             {
-                username = Constants.DefaultUsernameServer;
+                PlayerUsername = Constants.DefaultUsernameServer;
                 usernameOpponent = Constants.DefaultUsernameClient;
             }
 
             if (currentPlayerUserType == UserType.Client)
             {
-                username = Constants.DefaultUsernameClient;
+                PlayerUsername = Constants.DefaultUsernameClient;
                 usernameOpponent = Constants.DefaultUsernameServer;
             }
         }
@@ -400,23 +402,19 @@ namespace ChessApplication.Chessboard
             }
         }
 
-        private void SendMessageAndCreateChatEntryIfItsNotCommand(string message)
+        private void SendCommand(string command)
         {
-            // If the message to be sent isn't a command, create a new chat entry
-            if (!message.StartsWith(CommandMarker))
+            if (command.StartsWith(CommandMarker))
             {
-                var chatMessage = string.Format(Strings.ChatMessage, username, message);
-                chatBox.AppendText(chatMessage);
+                networkManager.SendMessage(command);
             }
-
-            networkManager.SendMessage(message);
         }
 
-        private void TextBoxChatInputPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        public void SendMessageToOpponent(string message)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (!message.StartsWith(CommandMarker))
             {
-                SendChatMessage(sender, e);
+                networkManager.SendMessage(message);
             }
         }
 
@@ -438,8 +436,8 @@ namespace ChessApplication.Chessboard
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            var message = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
-            SendMessageAndCreateChatEntryIfItsNotCommand(message);
+            var command = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
+            SendCommand(command);
 
             ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
@@ -605,9 +603,9 @@ namespace ChessApplication.Chessboard
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
+                        SendCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
 
-                        var message = string.Format(Strings.UserBeginsSelection, username);
+                        var message = string.Format(Strings.UserBeginsSelection, PlayerUsername);
                         OnNotification(message);
                     }
                 }
@@ -624,9 +622,9 @@ namespace ChessApplication.Chessboard
                         retakeColumn = destination.BoxName[1] - 48;
                         currentPlayerMustSelect = true;
 
-                        SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
+                        SendCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
 
-                        var message = string.Format(Strings.UserBeginsSelection, username);
+                        var message = string.Format(Strings.UserBeginsSelection, PlayerUsername);
                         OnNotification(message);
                     }
                 }
@@ -643,7 +641,7 @@ namespace ChessApplication.Chessboard
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
+                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
             if (IsCheckmateForProvidedColor(PieceColor.Black))
             {
@@ -653,14 +651,8 @@ namespace ChessApplication.Chessboard
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
+                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
-        }
-
-        private void SendChatMessage(object sender, EventArgs e)
-        {
-            SendMessageAndCreateChatEntryIfItsNotCommand(textBoxChatInput.Text);
-            textBoxChatInput.Clear();
         }
 
         private bool IsCheckmateForProvidedColor(PieceColor providedColor)
@@ -794,15 +786,15 @@ namespace ChessApplication.Chessboard
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    var recaptureMessage = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} {recapturedPiece.Abbreviation}";
-                    SendMessageAndCreateChatEntryIfItsNotCommand(recaptureMessage);
+                    var command = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} {recapturedPiece.Abbreviation}";
+                    SendCommand(command);
                 }
             }
         }
 
         public void SetUsernameAndNotifyClient(string username)
         {
-            this.username = username;
+            this.PlayerUsername = username;
             var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
             networkManager.SendMessage(message);
         }
@@ -833,13 +825,13 @@ namespace ChessApplication.Chessboard
         {
             if (!isNewGameRequested)
             {
-                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
+                SendCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
             }
             else
             {
                 NewGame();
                 isNewGameRequested = false;
-                SendMessageAndCreateChatEntryIfItsNotCommand($"{CommandMarker}{CommandStrings.NewGame}");
+                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
         }
 

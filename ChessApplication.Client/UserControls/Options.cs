@@ -56,7 +56,7 @@ namespace ChessApplication.Client.UserControls
 
             if (username.Length < 3 || username.Length > 15)
             {
-                labelError.Text += "Username must be between 3 and 15 characters";
+                labelError.Text += "PlayerUsername must be between 3 and 15 characters";
                 labelError.Text += Environment.NewLine;
 
                 isValid = false;
@@ -66,7 +66,7 @@ namespace ChessApplication.Client.UserControls
             {
                 if (username.Contains(forbiddenCharacter))
                 {
-                    labelError.Text += "Username shouldn't contain any of the following characters: ";
+                    labelError.Text += "PlayerUsername shouldn't contain any of the following characters: ";
                     labelError.Text += string.Join(", ", forbiddenUsernameCharacters);
                     labelError.Text += Environment.NewLine;
 
@@ -77,7 +77,7 @@ namespace ChessApplication.Client.UserControls
 
             if (username.EndsWith(" "))
             {
-                labelError.Text += "Username shouldn't end with a blank space";
+                labelError.Text += "PlayerUsername shouldn't end with a blank space";
                 labelError.Text += Environment.NewLine;
 
                 isValid = false;

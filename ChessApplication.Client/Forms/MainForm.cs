@@ -43,6 +43,7 @@ namespace ChessApplication.Client.Forms
         public void SetUsernameFromMainMenuAndNotifyPartner(string username)
         {
             chessboard.SetUsernameAndNotifyClient(username);
+            chatBox.Username = username;
         }
 
         public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)
@@ -100,6 +101,7 @@ namespace ChessApplication.Client.Forms
                 if (tbAddress.Text.Length > 0)
                 {
                     InitializeChessboard();
+                    InitializeChatBox();
 
                     tbAddress.Visible = false;
                     buttonConnect.Text = Strings.Disconnect;
@@ -130,6 +132,20 @@ namespace ChessApplication.Client.Forms
             chessboard.OnNotification += (notificationMessage) =>
             {
                 notifications.AddNotification(notificationMessage);
+            };
+
+            chessboard.OnReceivedChatMessage += (username, message) =>
+            {
+                chatBox.AddChatMessage(username, message);
+            };
+        }
+
+        private void InitializeChatBox()
+        {
+            chatBox.Username = chessboard.PlayerUsername;
+            chatBox.OnSentChat += (message) =>
+            {
+                chessboard.SendMessageToOpponent(message);
             };
         }
 

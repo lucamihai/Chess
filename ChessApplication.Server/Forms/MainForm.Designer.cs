@@ -43,6 +43,7 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.historyEntries = new ChessApplication.Common.UserControls.History();
             this.notifications = new ChessApplication.Notifications.NotificationsUserControl();
+            this.chatBox = new ChessApplication.ChatBox.ChatBoxUserControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,7 +140,7 @@
             // 
             this.panelChessboard.Location = new System.Drawing.Point(25, 37);
             this.panelChessboard.Name = "panelChessboard";
-            this.panelChessboard.Size = new System.Drawing.Size(850, 800);
+            this.panelChessboard.Size = new System.Drawing.Size(595, 800);
             this.panelChessboard.TabIndex = 7;
             // 
             // menuStrip2
@@ -154,7 +155,7 @@
             // historyEntries
             // 
             this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.historyEntries.Location = new System.Drawing.Point(964, 68);
+            this.historyEntries.Location = new System.Drawing.Point(624, 37);
             this.historyEntries.Name = "historyEntries";
             this.historyEntries.Size = new System.Drawing.Size(200, 300);
             this.historyEntries.TabIndex = 8;
@@ -162,10 +163,20 @@
             // notifications
             // 
             this.notifications.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.notifications.Location = new System.Drawing.Point(825, 398);
+            this.notifications.Location = new System.Drawing.Point(830, 37);
             this.notifications.Name = "notifications";
             this.notifications.Size = new System.Drawing.Size(350, 175);
             this.notifications.TabIndex = 9;
+            // 
+            // chatBox
+            // 
+            this.chatBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.chatBox.Location = new System.Drawing.Point(624, 361);
+            this.chatBox.Name = "chatBox";
+            this.chatBox.OnSentChat = null;
+            this.chatBox.Size = new System.Drawing.Size(560, 260);
+            this.chatBox.TabIndex = 10;
+            this.chatBox.Username = "Undefined PlayerUsername";
             // 
             // MainForm
             // 
@@ -173,6 +184,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 836);
+            this.Controls.Add(this.chatBox);
             this.Controls.Add(this.notifications);
             this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.menuStrip1);
@@ -205,6 +217,7 @@
         private System.Windows.Forms.MenuStrip menuStrip2;
         private Common.UserControls.History historyEntries;
         private Notifications.NotificationsUserControl notifications;
+        private ChatBox.ChatBoxUserControl chatBox;
     }
 }
 
