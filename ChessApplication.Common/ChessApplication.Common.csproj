@@ -95,12 +95,6 @@
     <None Include="Resources\BoxBorder.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MoveSound1.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MoveSound2.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\WhiteBishop.png" />
   </ItemGroup>
   <ItemGroup>

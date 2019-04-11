@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
@@ -13,15 +8,7 @@ using ChessApplication.Common.UserControls;
 namespace ChessApplication.Common
 {
     public static class Utilities
-    {
-        public static string GetReversedString(string stringToBeReversed)
-        {
-            var stringCharacters = stringToBeReversed.ToCharArray();
-            Array.Reverse(stringCharacters);
-
-            return new string(stringCharacters);
-        }
-
+    { 
         public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = PieceColor.Undefined) where TYPE : ChessPiece
         {
             if (location != null)
