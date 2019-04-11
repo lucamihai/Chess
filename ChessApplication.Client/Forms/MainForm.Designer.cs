@@ -42,9 +42,9 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.panelChessboard = new System.Windows.Forms.Panel();
-            this.historyEntries = new ChessApplication.Common.UserControls.History();
             this.notifications = new ChessApplication.Notifications.NotificationsUserControl();
             this.chatBox = new ChessApplication.ChatBox.ChatBoxUserControl();
+            this.historyEntries = new ChessApplication.History.History();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,14 +162,6 @@
             this.panelChessboard.Size = new System.Drawing.Size(595, 800);
             this.panelChessboard.TabIndex = 88;
             // 
-            // historyEntries
-            // 
-            this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.historyEntries.Location = new System.Drawing.Point(631, 51);
-            this.historyEntries.Name = "historyEntries";
-            this.historyEntries.Size = new System.Drawing.Size(200, 300);
-            this.historyEntries.TabIndex = 89;
-            // 
             // notifications
             // 
             this.notifications.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -188,15 +180,23 @@
             this.chatBox.TabIndex = 91;
             this.chatBox.Username = "Undefined username";
             // 
+            // historyEntries
+            // 
+            this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.historyEntries.Location = new System.Drawing.Point(631, 51);
+            this.historyEntries.Name = "historyEntries";
+            this.historyEntries.Size = new System.Drawing.Size(200, 300);
+            this.historyEntries.TabIndex = 92;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 855);
+            this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.chatBox);
             this.Controls.Add(this.notifications);
-            this.Controls.Add(this.historyEntries);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.tbAddress);
@@ -227,9 +227,9 @@
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.TextBox tbAddress;
         private System.Windows.Forms.Panel panelChessboard;
-        private Common.UserControls.History historyEntries;
         private Notifications.NotificationsUserControl notifications;
         private ChatBox.ChatBoxUserControl chatBox;
+        private History.History historyEntries;
     }
 }
 

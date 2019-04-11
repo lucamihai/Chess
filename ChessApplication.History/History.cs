@@ -1,4 +1,8 @@
-﻿namespace ChessApplication.History
+﻿using System.Drawing;
+using System.Windows.Forms;
+using ChessApplication.Common.UserControls;
+
+namespace ChessApplication.History
 {
     public partial class History : UserControl
     {

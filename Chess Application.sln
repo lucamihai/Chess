@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Server", "ChessApplication.Server\ChessApplication.Server.csproj", "{F43467A2-63DF-468D-BB67-1858B998CDEE}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Notifications", "ChessApplication.Notifications\ChessApplication.Notifications.csproj", "{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChatBox", "ChessApplication.ChatBox\ChessApplication.ChatBox.csproj", "{72F819D6-5805-4B09-A382-B70D046A267D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.History", "ChessApplication.History\ChessApplication.History.csproj", "{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{72F819D6-5805-4B09-A382-B70D046A267D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72F819D6-5805-4B09-A382-B70D046A267D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72F819D6-5805-4B09-A382-B70D046A267D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

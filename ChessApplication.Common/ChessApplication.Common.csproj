@@ -71,18 +71,6 @@
     <Compile Include="UserControls\CapturedPieceBox.Designer.cs">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\History.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\History.Designer.cs">
-      <DependentUpon>History.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\HistoryEntry.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\HistoryEntry.Designer.cs">
-      <DependentUpon>HistoryEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,12 +128,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CapturedPieceBox.resx">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\History.resx">
-      <DependentUpon>History.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\HistoryEntry.resx">
-      <DependentUpon>HistoryEntry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
