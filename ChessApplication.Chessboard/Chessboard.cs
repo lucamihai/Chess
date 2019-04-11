@@ -214,6 +214,15 @@ namespace ChessApplication.Chessboard
                 });
                 Invoke(addChatMessage);
             };
+
+            networkManager.OnNotification += message =>
+            {
+                var triggerNotification = new MethodInvoker(() =>
+                {
+                    OnNotification(message);
+                });
+                Invoke(triggerNotification);
+            };
         }
 
         private void NotifyNewGameIsRequested()
