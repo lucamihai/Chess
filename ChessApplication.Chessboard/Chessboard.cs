@@ -14,6 +14,8 @@ namespace ChessApplication.Chessboard
 {
     public partial class Chessboard : UserControl
     {
+        public bool NetworkManagerIsInitialized => networkManager != null;
+
         private NetworkManager networkManager;
         private const string CommandMarker = Network.Constants.CommandMarker;
 

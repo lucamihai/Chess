@@ -120,7 +120,7 @@ namespace ChessApplication.Network
                     var column = Convert.ToInt32(retakeDetails[1]);
                     var selectionPoint = new Point(row, column);
 
-                    var retakenPieceColor = (retakeDetails[2][1] == 'A') ? PieceColor.White : PieceColor.Black;
+                    var retakenPieceColor = retakeDetails[2][1] == Abbreviations.White ? PieceColor.White : PieceColor.Black;
                     var retakenPieceType = retakeDetails[2][0];
 
                     var chessPieceType = typeof(ChessPiece);

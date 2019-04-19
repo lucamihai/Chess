@@ -94,7 +94,7 @@ namespace ChessApplication.Client.Forms
             menuContainer.Hide();
         }
 
-        private void buttonConnect_Click(object sender, System.EventArgs e)
+        private void buttonConnect_Click(object sender, EventArgs e)
         {
             if (buttonConnect.Text == Strings.Connect)
             {
@@ -114,7 +114,10 @@ namespace ChessApplication.Client.Forms
 
             else
             {
-                chessboard.StopNetworkStuff();
+                if (chessboard.NetworkManagerIsInitialized)
+                {
+                    chessboard.StopNetworkStuff();
+                }
             }
         }
 
@@ -151,7 +154,10 @@ namespace ChessApplication.Client.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            chessboard.StopNetworkStuff();
+            if (chessboard.NetworkManagerIsInitialized)
+            {
+                chessboard.StopNetworkStuff();
+            }
         }
     }
 }

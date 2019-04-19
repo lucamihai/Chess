@@ -331,7 +331,7 @@ namespace ChessApplication.Chessboard
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panelCapturedBlackPieces;
         private System.Windows.Forms.Panel panelCapturedWhitePieces;
-        public System.Windows.Forms.Label labelTurn;
+        private System.Windows.Forms.Label labelTurn;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel3;
