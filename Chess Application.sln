@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.156
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Server", "ChessApplication.Server\ChessApplication.Server.csproj", "{F43467A2-63DF-468D-BB67-1858B998CDEE}"
 EndProject
@@ -18,6 +18,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChatBox", "ChessApplication.ChatBox\ChessApplication.ChatBox.csproj", "{72F819D6-5805-4B09-A382-B70D046A267D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.History", "ChessApplication.History\ChessApplication.History.csproj", "{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common.UnitTests", "ChessApplication.Common.UnitTests\ChessApplication.Common.UnitTests.csproj", "{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsUtilities", "UnitTestsUtilities\UnitTestsUtilities.csproj", "{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +63,21 @@ Global
 		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
+		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A17F387-2CC4-446B-B387-4BB5D3CCC18D}
