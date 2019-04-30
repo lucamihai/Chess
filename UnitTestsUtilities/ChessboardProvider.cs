@@ -1,10 +1,12 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
 
 namespace UnitTestsUtilities
 {
+    [ExcludeFromCodeCoverage]
     public static class ChessboardProvider
     {
         public static Box[,] GetChessboardInitialState()

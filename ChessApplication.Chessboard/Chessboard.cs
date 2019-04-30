@@ -19,8 +19,11 @@ namespace ChessApplication.Chessboard
         private NetworkManager networkManager;
         private const string CommandMarker = Network.Constants.CommandMarker;
 
-        private Point positionWhiteKing;
-        private Point positionBlackKing;
+        private Point _PositionWhiteKing;
+        public Point PositionWhiteKing => new Point(_PositionWhiteKing.X, _PositionWhiteKing.Y);
+
+        private Point _PositionBlackKing;
+        public Point PositionBlackKing => new Point(_PositionBlackKing.X, _PositionBlackKing.Y);
 
         private int clickCounter;
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
@@ -37,6 +40,8 @@ namespace ChessApplication.Chessboard
         }
 
         public bool SoundEnabled { get; set; } = true;
+
+        public object this[Point point] => ChessBoard[point.X, point.Y];
 
         private bool isNewGameRequested = false;
         private bool currentPlayerMustSelect = false;
@@ -269,11 +274,11 @@ namespace ChessApplication.Chessboard
                 isCurrentPlayersTurnToMove = false;
             }
 
-            positionWhiteKing.X = 1;
-            positionWhiteKing.Y = 5;
+            _PositionWhiteKing.X = 1;
+            _PositionWhiteKing.Y = 5;
 
-            positionBlackKing.X = 8;
-            positionBlackKing.Y = 4;
+            _PositionBlackKing.X = 8;
+            _PositionBlackKing.Y = 4;
         }
 
         private void InitializeChessBoard()
@@ -591,13 +596,13 @@ namespace ChessApplication.Chessboard
         {
             if (destination.Piece.Color == PieceColor.White)
             {
-                positionWhiteKing.X = destination.BoxName[0] - 64;
-                positionWhiteKing.Y = destination.BoxName[1] - 48;
+                _PositionWhiteKing.X = destination.BoxName[0] - 64;
+                _PositionWhiteKing.Y = destination.BoxName[1] - 48;
             }
             if (destination.Piece.Color == PieceColor.Black)
             {
-                positionBlackKing.X = destination.BoxName[0] - 64;
-                positionBlackKing.Y = destination.BoxName[1] - 48;
+                _PositionBlackKing.X = destination.BoxName[0] - 64;
+                _PositionBlackKing.Y = destination.BoxName[1] - 48;
             }
         }
 
@@ -675,7 +680,7 @@ namespace ChessApplication.Chessboard
                     if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == providedColor)
                     {
                         var location = new Point(row, column);
-                        var kingPosition = providedColor == PieceColor.White ? positionWhiteKing : positionBlackKing;
+                        var kingPosition = providedColor == PieceColor.White ? _PositionWhiteKing : _PositionBlackKing;
                         ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
 
                         if (ChessBoard[row, column].Piece.CanMove)
@@ -749,11 +754,11 @@ namespace ChessApplication.Chessboard
                 Point kingPosition;
                 if (clickedBoxObject.Piece.Color == PieceColor.White)
                 {
-                    kingPosition = positionWhiteKing;
+                    kingPosition = _PositionWhiteKing;
                 }
                 else
                 {
-                    kingPosition = positionBlackKing;
+                    kingPosition = _PositionBlackKing;
                 }
 
                 clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);

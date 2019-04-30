@@ -50,7 +50,10 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Pawn\BlackPawnNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Pawn\BlackPawnPieceTakingUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Pawn\WhitePawnNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Pawn\WhitePawnPieceTakingUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
