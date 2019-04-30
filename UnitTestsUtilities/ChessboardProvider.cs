@@ -9,6 +9,25 @@ namespace UnitTestsUtilities
     [ExcludeFromCodeCoverage]
     public static class ChessboardProvider
     {
+        public static Box[,] GetChessboardWithNoPieces()
+        {
+            var chessboard = new Box[10, 10];
+
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    var boxName = GenerateBoxNameBasedOnRowAndColumn(row, column);
+                    var boxLocation = GenerateBoxLocationBasedOnRowAndColumn(row, column);
+
+                    chessboard[row, column] = new Box(boxName);
+                    chessboard[row, column].Location = boxLocation;
+                }
+            }
+
+            return chessboard;
+        }
+
         public static Box[,] GetChessboardInitialState()
         {
             var chessboard = new Box[10, 10];
@@ -25,8 +44,8 @@ namespace UnitTestsUtilities
                 }
             }
 
-            AddWhitePieces(chessboard);
-            AddBlackPieces(chessboard);
+            AddWhitePiecesInitialState(chessboard);
+            AddBlackPiecesInitialState(chessboard);
 
             return chessboard;
         }
@@ -56,7 +75,7 @@ namespace UnitTestsUtilities
             };
         }
 
-        private static void AddWhitePieces(Box[,] ChessBoard)
+        private static void AddWhitePiecesInitialState(Box[,] ChessBoard)
         {
             ChessBoard[1, 1].Piece = new Rook(PieceColor.White);
             ChessBoard[1, 2].Piece = new Knight(PieceColor.White);
@@ -73,7 +92,7 @@ namespace UnitTestsUtilities
             }
         }
 
-        private static void AddBlackPieces(Box[,] ChessBoard)
+        private static void AddBlackPiecesInitialState(Box[,] ChessBoard)
         {
             ChessBoard[8, 1].Piece = new Rook(PieceColor.Black);
             ChessBoard[8, 2].Piece = new Knight(PieceColor.Black);

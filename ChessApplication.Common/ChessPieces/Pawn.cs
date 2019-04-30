@@ -121,8 +121,8 @@ namespace ChessApplication.Common.ChessPieces
 
 
                 // Check if pawn can make 2 steps forward
-                locationToBeInspected = chessBoard[row - 1, column];
-                destination = new Point(row - 1, column);
+                locationToBeInspected = chessBoard[row - 2, column];
+                destination = new Point(row - 2, column);
                 if (row == 7 && chessBoard[row - 2, column] != null)
                 {
                     if (chessBoard[row - 2, column].Piece == null && chessBoard[row - 1, column].Piece == null)
