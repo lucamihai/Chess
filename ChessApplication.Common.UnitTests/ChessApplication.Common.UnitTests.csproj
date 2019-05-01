@@ -57,7 +57,9 @@
     <Compile Include="ChessPiecesUnitTests\Pawn\WhitePawnNormalMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Pawn\WhitePawnPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Rook\BlackRookNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Rook\BlackRookPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Rook\WhiteRookNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Rook\WhiteRookPieceTakingUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

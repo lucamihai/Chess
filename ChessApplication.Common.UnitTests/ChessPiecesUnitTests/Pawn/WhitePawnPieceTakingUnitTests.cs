@@ -25,14 +25,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             var whiteKingPosition = new Point(8, 8);
             var whitePawnPosition = new Point(3, 3);
-            var positionNorthWest = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
-            var positionNorthEast = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
 
             ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
             ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
 
             Methods.SurroundBoxWithPawns(PieceColor.Black, whitePawnPosition, ChessBoard);
             ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whitePawnPosition, whiteKingPosition);
+
+            var positionNorthWest = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
+            var positionNorthEast = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
 
             Assert.IsTrue(ChessBoard[positionNorthWest.X, positionNorthWest.Y].Available);
             Assert.IsTrue(ChessBoard[positionNorthEast.X, positionNorthEast.Y].Available);
