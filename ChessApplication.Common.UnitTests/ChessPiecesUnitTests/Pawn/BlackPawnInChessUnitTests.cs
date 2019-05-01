@@ -60,16 +60,16 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
             ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
 
             var blackKingPosition = new Point(8, 8);
-            var whiteQueenLocation = new Point(blackKingPosition.X, blackKingPosition.Y - 1);
+            var whiteQueenPosition = new Point(blackKingPosition.X, blackKingPosition.Y - 1);
             var blackPawnPosition = new Point(3, 3);
-            var whitePawnLocationSouthWest = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
-            var whitePawnLocationSouthEast = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y + 1);
+            var whitePawnPositionSouthWest = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+            var whitePawnPositionSouthEast = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y + 1);
 
             ChessBoard[blackKingPosition.X, blackKingPosition.Y].Piece = new King(PieceColor.Black);
-            ChessBoard[whiteQueenLocation.X, whiteQueenLocation.Y].Piece = new Queen(PieceColor.White);
+            ChessBoard[whiteQueenPosition.X, whiteQueenPosition.Y].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[whitePawnLocationSouthWest.X, whitePawnLocationSouthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationSouthEast.X, whitePawnLocationSouthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionSouthWest.X, whitePawnPositionSouthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionSouthEast.X, whitePawnPositionSouthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
 
             ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackPawnPosition, blackKingPosition);
 

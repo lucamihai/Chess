@@ -22,61 +22,61 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void BlackPawnCanTakeWhitePieceOnlyFromSouthWestAndSouthEast()
         {
-            ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
-            var blackKingPosition = UnitTestsUtilities.ChessboardProvider.GetBlackKingPositionForChessboardInitialState();
-            var blackPawnLocation = new Point(3, 3);
-            var whitePawnLocationWest = new Point(blackPawnLocation.X, blackPawnLocation.Y - 1);
-            var whitePawnLocationNorthWest = new Point(blackPawnLocation.X + 1, blackPawnLocation.Y - 1);
-            var whitePawnLocationNorth = new Point(blackPawnLocation.X + 1, blackPawnLocation.Y);
-            var whitePawnLocationNorthEast = new Point(blackPawnLocation.X + 1, blackPawnLocation.Y + 1);
-            var whitePawnLocationEast = new Point(blackPawnLocation.X, blackPawnLocation.Y + 1);
-            var whitePawnLocationSouthEast = new Point(blackPawnLocation.X - 1, blackPawnLocation.Y - 1);
-            var whitePawnLocationSouth = new Point(blackPawnLocation.X - 1, blackPawnLocation.Y);
-            var whitePawnLocationSouthWest = new Point(blackPawnLocation.X - 1, blackPawnLocation.Y - 1);
+            ChessBoard = ChessboardProvider.GetChessboardInitialState();
+            var blackKingPosition = ChessboardProvider.GetBlackKingPositionForChessboardInitialState();
+            var blackPawnPosition = new Point(3, 3);
+            var whitePawnPositionWest = new Point(blackPawnPosition.X, blackPawnPosition.Y - 1);
+            var whitePawnPositionNorthWest = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y - 1);
+            var whitePawnPositionNorth = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y);
+            var whitePawnPositionNorthEast = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 1);
+            var whitePawnPositionEast = new Point(blackPawnPosition.X, blackPawnPosition.Y + 1);
+            var whitePawnPositionSouthEast = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+            var whitePawnPositionSouth = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y);
+            var whitePawnPositionSouthWest = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
 
-            ChessBoard[whitePawnLocationWest.X, whitePawnLocationWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationNorthWest.X, whitePawnLocationNorthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationNorth.X, whitePawnLocationNorth.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationNorthEast.X, whitePawnLocationNorthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationEast.X, whitePawnLocationEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationSouthEast.X, whitePawnLocationSouthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationSouth.X, whitePawnLocationSouth.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[whitePawnLocationSouthWest.X, whitePawnLocationSouthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionWest.X, whitePawnPositionWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionNorthWest.X, whitePawnPositionNorthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionNorth.X, whitePawnPositionNorth.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionNorthEast.X, whitePawnPositionNorthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionEast.X, whitePawnPositionEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionSouthEast.X, whitePawnPositionSouthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionSouth.X, whitePawnPositionSouth.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPositionSouthWest.X, whitePawnPositionSouthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
 
-            ChessBoard[blackPawnLocation.X, blackPawnLocation.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocation.X, blackPawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackPawnLocation, blackKingPosition);
+            ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackPawnPosition, blackKingPosition);
 
-            Assert.IsTrue(ChessBoard[whitePawnLocationSouthWest.X, whitePawnLocationNorthWest.Y].Available);
-            Assert.IsTrue(ChessBoard[whitePawnLocationSouthEast.X, whitePawnLocationNorthEast.Y].Available);
+            Assert.IsTrue(ChessBoard[whitePawnPositionSouthWest.X, whitePawnPositionNorthWest.Y].Available);
+            Assert.IsTrue(ChessBoard[whitePawnPositionSouthEast.X, whitePawnPositionNorthEast.Y].Available);
             Assert.AreEqual(2, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
 
         [TestMethod]
         public void BlackPawnCantTakeAnyBlackPiece()
         {
-            ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
-            var blackKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var blackPawnLocation = new Point(3, 3);
-            var blackPawnLocationWest = new Point(blackPawnLocation.X, blackPawnLocation.Y - 1);
-            var blackPawnLocationNorthWest = new Point(blackPawnLocation.X + 1, blackPawnLocation.Y - 1);
-            var blackPawnLocationNorth = new Point(blackPawnLocation.X + 1, blackPawnLocation.Y);
-            var blackPawnLocationNorthEast = new Point(blackPawnLocation.X + 1, blackPawnLocation.Y + 1);
-            var blackPawnLocationEast = new Point(blackPawnLocation.X, blackPawnLocation.Y + 1);
-            var blackPawnLocationSouthEast = new Point(blackPawnLocation.X - 1, blackPawnLocation.Y - 1);
-            var blackPawnLocationSouth = new Point(blackPawnLocation.X - 1, blackPawnLocation.Y);
-            var blackPawnLocationSouthWest = new Point(blackPawnLocation.X - 1, blackPawnLocation.Y - 1);
+            ChessBoard = ChessboardProvider.GetChessboardInitialState();
+            var blackKingPosition = ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
+            var blackPawnPosition = new Point(3, 3);
+            var blackPawnPositionWest = new Point(blackPawnPosition.X, blackPawnPosition.Y - 1);
+            var blackPawnPositionNorthWest = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y - 1);
+            var blackPawnPositionNorth = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y);
+            var blackPawnPositionNorthEast = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 1);
+            var blackPawnPositionEast = new Point(blackPawnPosition.X, blackPawnPosition.Y + 1);
+            var blackPawnPositionSouthEast = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+            var blackPawnPositionSouth = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y);
+            var blackPawnPositionSouthWest = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
 
-            ChessBoard[blackPawnLocationWest.X, blackPawnLocationWest.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationNorthWest.X, blackPawnLocationNorthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationNorth.X, blackPawnLocationNorth.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationNorthEast.X, blackPawnLocationNorthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationEast.X, blackPawnLocationEast.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationSouthEast.X, blackPawnLocationSouthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationSouth.X, blackPawnLocationSouth.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocationSouthWest.X, blackPawnLocationSouthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionWest.X, blackPawnPositionWest.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionNorthWest.X, blackPawnPositionNorthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionNorth.X, blackPawnPositionNorth.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionNorthEast.X, blackPawnPositionNorthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionEast.X, blackPawnPositionEast.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionSouthEast.X, blackPawnPositionSouthEast.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionSouth.X, blackPawnPositionSouth.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPositionSouthWest.X, blackPawnPositionSouthWest.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
 
-            ChessBoard[blackPawnLocation.X, blackPawnLocation.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[blackPawnLocation.X, blackPawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackPawnLocation, blackKingPosition);
+            ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackPawnPosition, blackKingPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }

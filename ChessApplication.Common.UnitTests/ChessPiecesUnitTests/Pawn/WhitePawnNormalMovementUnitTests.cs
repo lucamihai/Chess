@@ -23,12 +23,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
+            var pawnPosition = new Point(2, 1);
 
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
-            var locationToBeTested = new Point(3, 1);
-            Assert.IsTrue(ChessBoard[locationToBeTested.X, locationToBeTested.Y].Available);
+            var positionToBeTested = new Point(3, 1);
+            Assert.IsTrue(ChessBoard[positionToBeTested.X, positionToBeTested.Y].Available);
         }
 
         [TestMethod]
@@ -36,12 +36,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
+            var pawnPosition = new Point(2, 1);
 
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
-            var locationToBeTested = new Point(4, 1);
-            Assert.IsTrue(ChessBoard[locationToBeTested.X, locationToBeTested.Y].Available);
+            var positionToBeTested = new Point(4, 1);
+            Assert.IsTrue(ChessBoard[positionToBeTested.X, positionToBeTested.Y].Available);
         }
 
         [TestMethod]
@@ -49,9 +49,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
+            var pawnPosition = new Point(2, 1);
 
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
             var availableMoves = UnitTestsUtilities.Methods.GetNumberOfAvailableBoxes(ChessBoard);
             Assert.AreEqual(2, availableMoves);
@@ -62,10 +62,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
+            var pawnPosition = new Point(2, 1);
 
-            ChessBoard[pawnLocation.X + 1, pawnLocation.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[pawnPosition.X + 1, pawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
             var availableMoves = UnitTestsUtilities.Methods.GetNumberOfAvailableBoxes(ChessBoard);
             Assert.AreEqual(0, availableMoves);
@@ -76,10 +76,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
+            var pawnPosition = new Point(2, 1);
 
-            ChessBoard[pawnLocation.X + 1, pawnLocation.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[pawnPosition.X + 1, pawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
             var availableMoves = UnitTestsUtilities.Methods.GetNumberOfAvailableBoxes(ChessBoard);
             Assert.AreEqual(0, availableMoves);
@@ -90,13 +90,13 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
-            var locationToBeTested = new Point(4, 1);
+            var pawnPosition = new Point(2, 1);
+            var positionToBeTested = new Point(4, 1);
 
-            ChessBoard[locationToBeTested.X, locationToBeTested.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[positionToBeTested.X, positionToBeTested.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
-            Assert.IsFalse(ChessBoard[locationToBeTested.X, locationToBeTested.Y].Available);
+            Assert.IsFalse(ChessBoard[positionToBeTested.X, positionToBeTested.Y].Available);
         }
 
         [TestMethod]
@@ -104,13 +104,13 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         {
             ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
             var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
-            var pawnLocation = new Point(2, 1);
-            var locationToBeTested = new Point(4, 1);
+            var pawnPosition = new Point(2, 1);
+            var positionToBeTested = new Point(4, 1);
 
-            ChessBoard[locationToBeTested.X, locationToBeTested.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
-            ChessBoard[pawnLocation.X, pawnLocation.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnLocation, whiteKingPosition);
+            ChessBoard[positionToBeTested.X, positionToBeTested.Y].Piece = new ChessPieces.Pawn(PieceColor.Black);
+            ChessBoard[pawnPosition.X, pawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, pawnPosition, whiteKingPosition);
 
-            Assert.IsFalse(ChessBoard[locationToBeTested.X, locationToBeTested.Y].Available);
+            Assert.IsFalse(ChessBoard[positionToBeTested.X, positionToBeTested.Y].Available);
         }
 
     }
