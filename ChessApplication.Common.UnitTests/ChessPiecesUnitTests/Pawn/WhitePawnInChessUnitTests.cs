@@ -17,13 +17,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestInitialize]
         public void Setup()
         {
-            ChessBoard = new Box[10, 10];
+            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
         }
 
         [TestMethod]
         public void WhitePawnCantMove1BoxForwardIfCantPreventCheck()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
             var whiteKingPosition = new Point(2, 2);
             var blackQueenPosition = new Point(2, 3);
             var whitePawnPosition = new Point(4, 4);
@@ -40,7 +39,6 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void WhitePawnCantMove2BoxesForwardIfCantPreventCheck()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
             var whiteKingPosition = new Point(2, 2);
             var whitePawnPosition = new Point(2, 4);
             var blackQueenPosition = new Point(2, 3);
@@ -57,8 +55,6 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void WhitePawnCantTakePiecesIfCantPreventCheck()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
-
             var whiteKingPosition = new Point(8, 8);
             var blackQueenPosition = new Point(whiteKingPosition.X, whiteKingPosition.Y - 1);
             var whitePawnPosition = new Point(3, 3);
@@ -79,7 +75,6 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void WhitePawnCanMove1BoxForwardIfCanPreventCheck()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
             var whiteKingPosition = new Point(2, 2);
             var whitePawnPosition = new Point(3, 4);
             var blackQueenPosition = new Point(5, 5);
@@ -97,7 +92,6 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void WhitePawnCanMove2BoxesForwardIfCanPreventCheck()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
             var whiteKingPosition = new Point(3, 3);
             var whitePawnPosition = new Point(2, 4);
             var blackQueenPosition = new Point(5, 5);
@@ -115,7 +109,6 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void WhitePawnCanTakePieceIfCanPreventCheck()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
             var whiteKingPosition = new Point(3, 3);
             var whitePawnPosition = new Point(2, 1);
             var blackQueenPosition = new Point(3, 2);
