@@ -54,8 +54,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
         [TestMethod]
         public void WhitePawnCantTakeAnyWhitePiece()
         {
-            ChessBoard = UnitTestsUtilities.ChessboardProvider.GetChessboardInitialState();
-            var whiteKingPosition = UnitTestsUtilities.ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
+            ChessBoard = ChessboardProvider.GetChessboardInitialState();
+            var whiteKingPosition = ChessboardProvider.GetWhiteKingPositionForChessboardInitialState();
             var whitePawnPosition = new Point(3, 3);
             var whitePawnPositionWest = new Point(whitePawnPosition.X, whitePawnPosition.Y - 1);
             var whitePawnPositionNorthWest = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
