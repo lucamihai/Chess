@@ -51,7 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChessPiecesUnitTests\Knight\BlackKnightNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Knight\BlackKnightPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Knight\WhiteKnightNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\Knight\WhiteKnightPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Pawn\BlackPawnInChessUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Pawn\BlackPawnNormalMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\Pawn\BlackPawnPieceTakingUnitTests.cs" />
