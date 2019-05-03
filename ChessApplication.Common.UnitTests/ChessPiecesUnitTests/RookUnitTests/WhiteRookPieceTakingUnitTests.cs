@@ -42,6 +42,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Assert.IsTrue(ChessBoard[positionSouth.X, positionSouth.Y].Available);
             Assert.IsTrue(ChessBoard[positionEast.X, positionEast.Y].Available);
             Assert.IsTrue(ChessBoard[positionWest.X, positionWest.Y].Available);
+            Assert.AreEqual(4, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
 
         [TestMethod]

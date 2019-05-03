@@ -50,6 +50,8 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopPieceTakingUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightMovementUnitTests.cs" />
