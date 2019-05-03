@@ -68,8 +68,10 @@
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnInCheckUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnPieceTakingUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenInCheckUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenPieceTakingUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenInCheckUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookInCheckUnitTests.cs" />
