@@ -56,6 +56,8 @@
     <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightInCheckUnitTests.cs" />
