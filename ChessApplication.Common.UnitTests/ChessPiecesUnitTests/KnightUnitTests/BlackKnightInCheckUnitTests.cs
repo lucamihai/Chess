@@ -6,7 +6,7 @@ using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
 
-namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Knight
+namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -28,7 +28,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Knight
             var whiteQueenPosition = new Point(blackKingPosition.X - 1, blackKingPosition.Y);
 
             ChessBoard[blackKingPosition.X, blackKingPosition.Y].Piece = new King(PieceColor.Black);
-            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new ChessPieces.Knight(PieceColor.Black);
+            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new Knight(PieceColor.Black);
             ChessBoard[whiteQueenPosition.X, whiteQueenPosition.Y].Piece = new Queen(PieceColor.White);
 
             ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece
@@ -46,9 +46,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Knight
             var whitePawnPosition = new Point(blackKnightPosition.X - 2, blackKnightPosition.Y - 1);
 
             ChessBoard[blackKingPosition.X, blackKingPosition.Y].Piece = new King(PieceColor.Black);
-            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new ChessPieces.Knight(PieceColor.Black);
+            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new Knight(PieceColor.Black);
             ChessBoard[whiteQueenPosition.X, whiteQueenPosition.Y].Piece = new Queen(PieceColor.White);
-            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new Pawn(PieceColor.White);
 
             ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackKnightPosition, blackKingPosition);
@@ -64,7 +64,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Knight
             var whiteQueenPosition = new Point(blackKingPosition.X, 1);
 
             ChessBoard[blackKingPosition.X, blackKingPosition.Y].Piece = new King(PieceColor.Black);
-            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new ChessPieces.Knight(PieceColor.Black);
+            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new Knight(PieceColor.Black);
             ChessBoard[whiteQueenPosition.X, whiteQueenPosition.Y].Piece = new Queen(PieceColor.White);
 
             ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece
@@ -84,7 +84,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Knight
 
             ChessBoard[blackKingPosition.X, blackKingPosition.Y].Piece = new King(PieceColor.Black);
             ChessBoard[whiteQueenPosition.X, whiteQueenPosition.Y].Piece = new Queen(PieceColor.White);
-            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new ChessPieces.Knight(PieceColor.Black);
+            ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece = new Knight(PieceColor.Black);
 
             ChessBoard[blackKnightPosition.X, blackKnightPosition.Y].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackKnightPosition, blackKingPosition);

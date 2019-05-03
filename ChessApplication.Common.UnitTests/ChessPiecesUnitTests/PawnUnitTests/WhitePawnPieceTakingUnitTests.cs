@@ -6,7 +6,7 @@ using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
 
-namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
+namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -27,10 +27,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
             var whitePawnPosition = new Point(3, 3);
 
             ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
-            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new Pawn(PieceColor.White);
 
             Methods.SurroundBoxWithPawns(PieceColor.Black, whitePawnPosition, ChessBoard);
-            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whitePawnPosition, whiteKingPosition);
+            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whitePawnPosition, whiteKingPosition);
 
             var positionNorthWest = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
             var positionNorthEast = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
@@ -47,10 +48,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.Pawn
             var whitePawnPosition = new Point(3, 3);
 
             ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
-            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new ChessPieces.Pawn(PieceColor.White);
+            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece = new Pawn(PieceColor.White);
 
             Methods.SurroundBoxWithPawns(PieceColor.White, whitePawnPosition, ChessBoard);
-            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whitePawnPosition, whiteKingPosition);
+            ChessBoard[whitePawnPosition.X, whitePawnPosition.Y].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whitePawnPosition, whiteKingPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
