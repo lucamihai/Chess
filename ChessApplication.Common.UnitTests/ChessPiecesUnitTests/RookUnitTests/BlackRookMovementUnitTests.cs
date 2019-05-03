@@ -10,7 +10,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class BlackRookNormalMovementUnitTests
+    public class BlackRookMovementUnitTests
     {
         private Box[,] ChessBoard;
 

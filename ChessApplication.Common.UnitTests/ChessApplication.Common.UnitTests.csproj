@@ -50,23 +50,23 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightInCheckUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightInCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnInCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnInCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookInCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookPieceTakingUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookInCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookNormalMovementUnitTests.cs" />
+    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookPieceTakingUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
