@@ -10,7 +10,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WhiteBishopInCheckUnitTests
+    public class WhiteBishopCheckUnitTests
     {
         private Box[,] ChessBoard;
 
@@ -18,6 +18,42 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         public void Setup()
         {
             ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
+        }
+
+        [TestMethod]
+        public void WhiteBishopCantMoveIfWillCauseCheck()
+        {
+            var whiteKingPosition = new Point(1, 2);
+            var whiteBishopPosition = new Point(2, 2);
+            var blackQueenPosition = new Point(8, 2);
+
+            ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
+            ChessBoard[whiteBishopPosition.X, whiteBishopPosition.Y].Piece = new Bishop(PieceColor.White);
+            ChessBoard[blackQueenPosition.X, blackQueenPosition.Y].Piece = new Queen(PieceColor.Black);
+
+            ChessBoard[whiteBishopPosition.X, whiteBishopPosition.Y].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteBishopPosition, whiteKingPosition);
+
+            Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
+        }
+
+        [TestMethod]
+        public void WhiteBishopCantTakePieceIfWillCauseCheck()
+        {
+            var whiteKingPosition = new Point(1, 2);
+            var whiteBishopPosition = new Point(2, 2);
+            var blackQueenPosition = new Point(8, 2);
+            var blackPawnPosition = new Point(whiteBishopPosition.X + 1, whiteBishopPosition.Y + 1);
+
+            ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
+            ChessBoard[whiteBishopPosition.X, whiteBishopPosition.Y].Piece = new Bishop(PieceColor.White);
+            ChessBoard[blackQueenPosition.X, blackQueenPosition.Y].Piece = new Queen(PieceColor.Black);
+            ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece = new Queen(PieceColor.Black);
+
+            ChessBoard[whiteBishopPosition.X, whiteBishopPosition.Y].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteBishopPosition, whiteKingPosition);
+
+            Assert.IsFalse(ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Available);
         }
 
         [TestMethod]

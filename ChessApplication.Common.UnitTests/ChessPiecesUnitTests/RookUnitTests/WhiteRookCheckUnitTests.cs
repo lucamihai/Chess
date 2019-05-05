@@ -10,7 +10,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WhiteRookInCheckUnitTests
+    public class WhiteRookCheckUnitTests
     {
         private Box[,] ChessBoard;
 
@@ -18,6 +18,42 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
         public void Setup()
         {
             ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
+        }
+
+        [TestMethod]
+        public void WhiteRookCantMoveIfWillCauseCheck()
+        {
+            var whiteKingPosition = new Point(3, 3);
+            var whiteRookPosition = new Point(4, 4);
+            var blackQueenPosition = new Point(5, 5);
+
+            ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
+            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece = new Rook(PieceColor.White);
+            ChessBoard[blackQueenPosition.X, blackQueenPosition.Y].Piece = new Queen(PieceColor.Black);
+
+            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+
+            Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
+        }
+
+        [TestMethod]
+        public void WhiteRookCantTakePieceIfWillCauseCheck()
+        {
+            var whiteKingPosition = new Point(3, 3);
+            var whiteRookPosition = new Point(4, 4);
+            var blackQueenPosition = new Point(5, 5);
+            var blackPawnPosition = new Point(4, 5);
+
+            ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
+            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece = new Rook(PieceColor.White);
+            ChessBoard[blackQueenPosition.X, blackQueenPosition.Y].Piece = new Queen(PieceColor.Black);
+            ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Piece = new Pawn(PieceColor.Black);
+
+            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+
+            Assert.IsFalse(ChessBoard[blackPawnPosition.X, blackPawnPosition.Y].Available);
         }
 
         [TestMethod]

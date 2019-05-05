@@ -4,9 +4,9 @@ using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.Common.ChessPieces
 {
-    public class ChessPiece
+    public abstract class ChessPiece
     {
-        public PieceColor Color { get; protected set; } 
+        public PieceColor Color { get; protected set; }
 
         public bool CanMove { get; set; } = false;
 
@@ -25,11 +25,11 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public virtual string Abbreviation { get; }
+        public abstract string Abbreviation { get; }
 
         public Image ImageSmall { get; protected set; }
 
-        public virtual void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition) { }
+        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition);
 
         protected bool WillMoveTriggerCheck(Box[,] chessBoard, Point origin, Point destination, Point kingPosition)
         {
