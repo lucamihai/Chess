@@ -34,69 +34,69 @@ namespace ChessApplication.Common.ChessPieces
         protected bool WillMoveTriggerCheck(Chessboard chessBoard, Point origin, Point destination, Point kingPosition)
         {
             // Back up origin and destination data
-            var originChessPiece = chessBoard[origin.X, origin.Y].Piece;
-            var destinationChessPiece = chessBoard[destination.X, destination.Y].Piece;
+            var originChessPiece = chessBoard[origin].Piece;
+            var destinationChessPiece = chessBoard[destination].Piece;
 
             // Pretend the move was made
-            chessBoard[origin.X, origin.Y].Piece = null;
-            chessBoard[destination.X, destination.Y].Piece = originChessPiece;
+            chessBoard[origin].Piece = null;
+            chessBoard[destination].Piece = originChessPiece;
 
             var triggersCheck = false;
 
             if (!triggersCheck)
-                triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition.X, kingPosition.Y);
+                triggersCheck = IsThreatenedByPawns(chessBoard, kingPosition);
 
             if (!triggersCheck)
-                triggersCheck = IsThreatenedByKing(chessBoard, kingPosition.X, kingPosition.Y);
+                triggersCheck = IsThreatenedByKing(chessBoard, kingPosition);
 
             if (!triggersCheck)
-                triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition.X, kingPosition.Y);
+                triggersCheck = IsThreatenedByKnights(chessBoard, kingPosition);
 
             if (!triggersCheck)
-                triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition.X, kingPosition.Y);
+                triggersCheck = IsThreatenedByRooks(chessBoard, kingPosition);
 
             if (!triggersCheck)
-                triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition.X, kingPosition.Y);
+                triggersCheck = IsThreatenedByBishops(chessBoard, kingPosition);
 
             if (!triggersCheck)
-                triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition.X, kingPosition.Y);
+                triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition);
 
 
-            chessBoard[origin.X, origin.Y].Piece = originChessPiece;
-            chessBoard[destination.X, destination.Y].Piece = destinationChessPiece;
+            chessBoard[origin].Piece = originChessPiece;
+            chessBoard[destination].Piece = destinationChessPiece;
 
             return triggersCheck;
         }
 
-        protected bool IsThreatenedByPawns(Chessboard chessBoard, int row, int column)
+        protected bool IsThreatenedByPawns(Chessboard chessBoard, Point location)
         {
-            var currentLocation = chessBoard[row, column];
+            var currentLocation = chessBoard[location];
             var threatened = false;
 
             if (currentLocation.Piece.Color == PieceColor.White)
             {
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column - 1], PieceColor.Black);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[location.X + 1, location.Y - 1], PieceColor.Black);
 
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row + 1, column + 1], PieceColor.Black);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[location.X + 1, location.Y + 1], PieceColor.Black);
             }
 
             if (currentLocation.Piece.Color == PieceColor.Black)
             {
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column - 1], PieceColor.White);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[location.X - 1, location.Y - 1], PieceColor.White);
 
                 if (!threatened)
-                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[row - 1, column + 1], PieceColor.White);
+                    threatened = Utilities.LocationContainsPiece<Pawn>(chessBoard[location.X - 1, location.Y + 1], PieceColor.White);
             }
 
             return threatened;
         }
 
-        protected bool IsThreatenedByKing(Chessboard chessBoard, int row, int column)
+        protected bool IsThreatenedByKing(Chessboard chessBoard, Point location)
         {
-            var currentLocation = chessBoard[row, column];
+            var currentLocation = chessBoard[location];
             var threatened = false;
             var containsKing = false;
 
@@ -104,56 +104,56 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row + 1, column - 1];
+                locationToBeInspected = chessBoard[location.X + 1, location.Y - 1];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row + 1, column + 1];
+                locationToBeInspected = chessBoard[location.X + 1, location.Y + 1];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
             
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row + 1, column];
+                locationToBeInspected = chessBoard[location.X + 1, location.Y];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row, column - 1];
+                locationToBeInspected = chessBoard[location.X, location.Y - 1];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row, column + 1];
+                locationToBeInspected = chessBoard[location.X, location.Y + 1];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row - 1, column - 1];
+                locationToBeInspected = chessBoard[location.X - 1, location.Y - 1];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row - 1, column];
+                locationToBeInspected = chessBoard[location.X - 1, location.Y];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
 
             if (!threatened)
             {
-                locationToBeInspected = chessBoard[row - 1, column + 1];
+                locationToBeInspected = chessBoard[location.X - 1, location.Y + 1];
                 containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
                 threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
             }
@@ -161,9 +161,9 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByKnights(Chessboard chessBoard, int row, int column)
+        protected bool IsThreatenedByKnights(Chessboard chessBoard, Point location)
         {
-            var currentLocation = chessBoard[row, column];
+            var currentLocation = chessBoard[location];
             var threatened = false;
             var containsKnight = false;
 
@@ -171,9 +171,9 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                if (row < 8 && column < 7)
+                if (location.X < 8 && location.Y < 7)
                 {
-                    locationToBeInspected = chessBoard[row + 1, column + 2];
+                    locationToBeInspected = chessBoard[location.X + 1, location.Y + 2];
                     containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
@@ -181,31 +181,9 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                if (row < 8 && column > 2)
+                if (location.X < 8 && location.Y > 2)
                 {
-                    locationToBeInspected = chessBoard[row + 1, column - 2];
-                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
-                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-                }
-            }
-
-            //-----
-
-            if (!threatened)
-            {
-                if (row < 7 && column < 8)
-                {
-                    locationToBeInspected = chessBoard[row + 2, column + 1];
-                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
-                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-                }
-            }
-
-            if (!threatened)
-            {
-                if (row < 7 && column > 1)
-                {
-                    locationToBeInspected = chessBoard[row + 2, column - 1];
+                    locationToBeInspected = chessBoard[location.X + 1, location.Y - 2];
                     containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
@@ -215,9 +193,9 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                if (row > 1 && column < 7)
+                if (location.X < 7 && location.Y < 8)
                 {
-                    locationToBeInspected = chessBoard[row - 1, column + 2];
+                    locationToBeInspected = chessBoard[location.X + 2, location.Y + 1];
                     containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
@@ -225,9 +203,31 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                if (row > 1 && column > 2)
+                if (location.X < 7 && location.Y > 1)
                 {
-                    locationToBeInspected = chessBoard[row - 1, column - 2];
+                    locationToBeInspected = chessBoard[location.X + 2, location.Y - 1];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            //-----
+
+            if (!threatened)
+            {
+                if (location.X > 1 && location.Y < 7)
+                {
+                    locationToBeInspected = chessBoard[location.X - 1, location.Y + 2];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            if (!threatened)
+            {
+                if (location.X > 1 && location.Y > 2)
+                {
+                    locationToBeInspected = chessBoard[location.X - 1, location.Y - 2];
                     containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
@@ -237,9 +237,9 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                if (row > 2 && column < 8)
+                if (location.X > 2 && location.Y < 8)
                 {
-                    locationToBeInspected = chessBoard[row - 2, column + 1];
+                    locationToBeInspected = chessBoard[location.X - 2, location.Y + 1];
                     containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
@@ -247,9 +247,9 @@ namespace ChessApplication.Common.ChessPieces
 
             if (!threatened)
             {
-                if (row > 2 && column > 1)
+                if (location.X > 2 && location.Y > 1)
                 {
-                    locationToBeInspected = chessBoard[row - 2, column - 1];
+                    locationToBeInspected = chessBoard[location.X - 2, location.Y - 1];
                     containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
                     threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
                 }
@@ -258,18 +258,18 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByBishops(Chessboard chessBoard, int row, int column)
+        protected bool IsThreatenedByBishops(Chessboard chessBoard, Point location)
         {
-            var currentLocation = chessBoard[row, column];
+            var currentLocation = chessBoard[location];
             var threatened = false;
             var containsBishop = false;
 
             Box locationToBeInspected;
 
             // South - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -288,9 +288,9 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // North - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -309,9 +309,9 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // North - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -330,9 +330,9 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // South - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -353,21 +353,21 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByRooks(Chessboard chessBoard, int row, int column)
+        protected bool IsThreatenedByRooks(Chessboard chessBoard, Point location)
         {
-            var currentLocation = chessBoard[row, column];
+            var currentLocation = chessBoard[location];
             var threatened = false;
             var containsRook = false;
 
             Box locationToBeInspected;
 
             // West
-            for (int secondaryColumn = column; secondaryColumn >= 1 && !threatened; secondaryColumn--)
+            for (int secondaryColumn = location.Y; secondaryColumn >= 1 && !threatened; secondaryColumn--)
             {
-                if (secondaryColumn == column)
+                if (secondaryColumn == location.Y)
                     continue;
 
-                locationToBeInspected = chessBoard[row, secondaryColumn];
+                locationToBeInspected = chessBoard[location.X, secondaryColumn];
                 containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -383,12 +383,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // East
-            for (int secondaryColumn = column; secondaryColumn <= 8 && !threatened; secondaryColumn++)
+            for (int secondaryColumn = location.Y; secondaryColumn <= 8 && !threatened; secondaryColumn++)
             {
-                if (secondaryColumn == column)
+                if (secondaryColumn == location.Y)
                     continue;
 
-                locationToBeInspected = chessBoard[row, secondaryColumn];
+                locationToBeInspected = chessBoard[location.X, secondaryColumn];
                 containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -404,12 +404,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // South
-            for (int secondaryRow = row; secondaryRow >= 1 && !threatened; secondaryRow--)
+            for (int secondaryRow = location.X; secondaryRow >= 1 && !threatened; secondaryRow--)
             {
-                if (secondaryRow == row)
+                if (secondaryRow == location.X)
                     continue;
 
-                locationToBeInspected = chessBoard[secondaryRow, column];
+                locationToBeInspected = chessBoard[secondaryRow, location.Y];
                 containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -425,12 +425,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // North
-            for (int secondaryRow = row; secondaryRow <= 8 && !threatened; secondaryRow++)
+            for (int secondaryRow = location.X; secondaryRow <= 8 && !threatened; secondaryRow++)
             {
-                if (secondaryRow == row)
+                if (secondaryRow == location.X)
                     continue;
 
-                locationToBeInspected = chessBoard[secondaryRow, column];
+                locationToBeInspected = chessBoard[secondaryRow, location.Y];
                 containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
                 threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -448,18 +448,18 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByQueen(Chessboard chessBoard, int row, int column)
+        protected bool IsThreatenedByQueen(Chessboard chessBoard, Point location)
         {
-            var currentLocation = chessBoard[row, column];
+            var currentLocation = chessBoard[location];
             var threatened = false;
             var containsQueen = false;
 
             Box locationToBeInspected;
 
             // South - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -478,9 +478,9 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // North - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -499,9 +499,9 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // North - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -520,9 +520,9 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // South - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
             {
-                if (secondaryRow == row && secondaryColumn == column)
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
                     continue;
 
                 locationToBeInspected = chessBoard[secondaryRow, secondaryColumn];
@@ -541,12 +541,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // West
-            for (int secondaryColumn = column; secondaryColumn >= 1 && !threatened; secondaryColumn--)
+            for (int secondaryColumn = location.Y; secondaryColumn >= 1 && !threatened; secondaryColumn--)
             {
-                if (secondaryColumn == column)
+                if (secondaryColumn == location.Y)
                     continue;
 
-                locationToBeInspected = chessBoard[row, secondaryColumn];
+                locationToBeInspected = chessBoard[location.X, secondaryColumn];
                 containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -562,12 +562,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // East
-            for (int secondaryColumn = column; secondaryColumn <= 8 && !threatened; secondaryColumn++)
+            for (int secondaryColumn = location.Y; secondaryColumn <= 8 && !threatened; secondaryColumn++)
             {
-                if (secondaryColumn == column)
+                if (secondaryColumn == location.Y)
                     continue;
 
-                locationToBeInspected = chessBoard[row, secondaryColumn];
+                locationToBeInspected = chessBoard[location.X, secondaryColumn];
                 containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -583,12 +583,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // South
-            for (int secondaryRow = row; secondaryRow >= 1 && !threatened; secondaryRow--)
+            for (int secondaryRow = location.X; secondaryRow >= 1 && !threatened; secondaryRow--)
             {
-                if (secondaryRow == row)
+                if (secondaryRow == location.X)
                     continue;
 
-                locationToBeInspected = chessBoard[secondaryRow, column];
+                locationToBeInspected = chessBoard[secondaryRow, location.Y];
                 containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
@@ -604,12 +604,12 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // North
-            for (int secondaryRow = row; secondaryRow <= 8 && !threatened; secondaryRow++)
+            for (int secondaryRow = location.X; secondaryRow <= 8 && !threatened; secondaryRow++)
             {
-                if (secondaryRow == row)
+                if (secondaryRow == location.X)
                     continue;
 
-                locationToBeInspected = chessBoard[secondaryRow, column];
+                locationToBeInspected = chessBoard[secondaryRow, location.Y];
                 containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
                 threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
 
