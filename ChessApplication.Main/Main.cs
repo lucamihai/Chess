@@ -10,20 +10,14 @@ using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
 using ChessApplication.Network;
 
-namespace ChessApplication.Chessboard
+namespace ChessApplication.Main
 {
-    public partial class Chessboard : UserControl
+    public partial class Main : UserControl
     {
         public bool NetworkManagerIsInitialized => networkManager != null;
 
         private NetworkManager networkManager;
         private const string CommandMarker = Network.Constants.CommandMarker;
-
-        private Point _PositionWhiteKing;
-        public Point PositionWhiteKing => new Point(_PositionWhiteKing.X, _PositionWhiteKing.Y);
-
-        private Point _PositionBlackKing;
-        public Point PositionBlackKing => new Point(_PositionBlackKing.X, _PositionBlackKing.Y);
 
         private int clickCounter;
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
@@ -41,8 +35,6 @@ namespace ChessApplication.Chessboard
 
         public bool SoundEnabled { get; set; } = true;
 
-        public object this[Point point] => ChessBoard[point.X, point.Y];
-
         private bool isNewGameRequested = false;
         private bool currentPlayerMustSelect = false;
         private bool opponentMustSelect = false;
@@ -58,13 +50,10 @@ namespace ChessApplication.Chessboard
         private CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
 
         private Box FirstClickedBox { get; set; }
-        private Box[,] ChessBoard { get; set; }
+        private Chessboard ChessBoard { get; set; }
 
-        private Color BoxColorLight { get; } = Color.Silver;
-        private Color BoxColorDark { get; } = Color.FromArgb(132, 107, 86);
-
-        private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.MoveSound1);
-        private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.MoveSound2);
+        private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.movesound1);
+        private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.movesound2);
 
         public delegate void MoveMade(Box origin, Box destination);
         public MoveMade OnMadeMove { get; set; }
@@ -75,7 +64,7 @@ namespace ChessApplication.Chessboard
         public delegate void Notification(string notificationMessage);
         public Notification OnNotification { get; set; }
 
-        public Chessboard(UserType userType, string hostname = null)
+        public Main(UserType userType, string hostname = null)
         {
             InitializeComponent();
             InitializeNetworkManager(userType, hostname);
@@ -273,83 +262,18 @@ namespace ChessApplication.Chessboard
                 CurrentPlayersTurn = Turn.Black;
                 isCurrentPlayersTurnToMove = false;
             }
-
-            _PositionWhiteKing.X = 1;
-            _PositionWhiteKing.Y = 5;
-
-            _PositionBlackKing.X = 8;
-            _PositionBlackKing.Y = 4;
         }
 
         private void InitializeChessBoard()
         {
-            ChessBoard = new Box[10, 10];
+            ChessBoard = new Chessboard();
 
             for (int row = 1; row < 9; row++)
             {
                 for (int column = 1; column < 9; column++)
                 {
-                    var boxName = GenerateBoxNameBasedOnRowAndColumn(row, column);
-                    var boxLocation = GenerateBoxLocationBasedOnRowAndColumn(row, column);
-
-                    ChessBoard[row, column] = new Box(boxName);
-                    ChessBoard[row, column].Location = boxLocation;
-                    ChessBoard[row, column].BeginnersMode = BeginnersMode;
-
                     panelChessBoard.Controls.Add(ChessBoard[row, column]);
                 }
-            }
-
-            AddWhitePieces();
-            AddBlackPieces();
-        }
-
-        private string GenerateBoxNameBasedOnRowAndColumn(int row, int column)
-        {
-            char rowLetter = (char)('A' + row - 1);
-            return $"{rowLetter}{column}";
-        }
-
-        private Point GenerateBoxLocationBasedOnRowAndColumn(int row, int column)
-        {
-            return new Point
-            {
-                X = (column - 1) * 64,
-                Y = (8 - row) * 64
-            };
-        }
-
-        private void AddWhitePieces()
-        {
-            ChessBoard[1, 1].Piece = new Rook(PieceColor.White);
-            ChessBoard[1, 2].Piece = new Knight(PieceColor.White);
-            ChessBoard[1, 3].Piece = new Bishop(PieceColor.White);
-            ChessBoard[1, 4].Piece = new Queen(PieceColor.White);
-            ChessBoard[1, 5].Piece = new King(PieceColor.White);
-            ChessBoard[1, 6].Piece = new Bishop(PieceColor.White);
-            ChessBoard[1, 7].Piece = new Knight(PieceColor.White);
-            ChessBoard[1, 8].Piece = new Rook(PieceColor.White);
-
-            for (int column = 1; column < 9; column++)
-            {
-                ChessBoard[2, column].Piece = new Pawn(PieceColor.White);
-            }
-        }
-
-        private void AddBlackPieces()
-        {
-            ChessBoard[8, 1].Piece = new Rook(PieceColor.Black);
-            ChessBoard[8, 2].Piece = new Knight(PieceColor.Black);
-            ChessBoard[8, 3].Piece = new Bishop(PieceColor.Black);
-            ChessBoard[8, 4].Piece = new King(PieceColor.Black);
-            ChessBoard[8, 5].Piece = new Queen(PieceColor.Black);
-            ChessBoard[8, 6].Piece = new Bishop(PieceColor.Black);
-            ChessBoard[8, 7].Piece = new Knight(PieceColor.Black);
-            ChessBoard[8, 8].Piece = new Rook(PieceColor.Black);
-
-            for (int column = 1; column < 9; column++)
-            {
-                ChessBoard[7, column].Piece = new Pawn(PieceColor.Black);
             }
         }
 
@@ -596,13 +520,19 @@ namespace ChessApplication.Chessboard
         {
             if (destination.Piece.Color == PieceColor.White)
             {
-                _PositionWhiteKing.X = destination.BoxName[0] - 64;
-                _PositionWhiteKing.Y = destination.BoxName[1] - 48;
+                ChessBoard.PositionWhiteKing = new Point
+                {
+                    X = destination.BoxName[0] - 64,
+                    Y = destination.BoxName[1] - 48
+                };
             }
             if (destination.Piece.Color == PieceColor.Black)
             {
-                _PositionBlackKing.X = destination.BoxName[0] - 64;
-                _PositionBlackKing.Y = destination.BoxName[1] - 48;
+                ChessBoard.PositionBlackKing = new Point
+                {
+                    X = destination.BoxName[0] - 64,
+                    Y = destination.BoxName[1] - 48
+                };
             }
         }
 
@@ -611,7 +541,7 @@ namespace ChessApplication.Chessboard
             // If a white pawn has reached the last line
             if (CurrentPlayersTurn == Turn.White)
             {
-                if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
+                if (Enumerable.Contains(destination.BoxName, 'H') && destination.Piece is Pawn)
                 {
                     if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
                     {
@@ -630,7 +560,7 @@ namespace ChessApplication.Chessboard
             // If a black pawn has reached the last line
             if (CurrentPlayersTurn == Turn.Black)
             {
-                if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
+                if (Enumerable.Contains(destination.BoxName, 'A') && destination.Piece is Pawn)
                 {
                     if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
                     {
@@ -680,7 +610,7 @@ namespace ChessApplication.Chessboard
                     if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == providedColor)
                     {
                         var location = new Point(row, column);
-                        var kingPosition = providedColor == PieceColor.White ? _PositionWhiteKing : _PositionBlackKing;
+                        var kingPosition = providedColor == PieceColor.White ? ChessBoard.PositionWhiteKing : ChessBoard.PositionBlackKing;
                         ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
 
                         if (ChessBoard[row, column].Piece.CanMove)
@@ -704,11 +634,11 @@ namespace ChessApplication.Chessboard
                 {
                     if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
                     {
-                        ChessBoard[row, column].BoxBackgroundColor = BoxColorDark;
+                        ChessBoard[row, column].BoxBackgroundColor = Constants.BoxColorDark;
                     }
                     else
                     {
-                        ChessBoard[row, column].BoxBackgroundColor = BoxColorLight;
+                        ChessBoard[row, column].BoxBackgroundColor = Constants.BoxColorLight;
                     }
                 }
             }
@@ -754,11 +684,11 @@ namespace ChessApplication.Chessboard
                 Point kingPosition;
                 if (clickedBoxObject.Piece.Color == PieceColor.White)
                 {
-                    kingPosition = _PositionWhiteKing;
+                    kingPosition = ChessBoard.PositionWhiteKing;
                 }
                 else
                 {
-                    kingPosition = _PositionBlackKing;
+                    kingPosition = ChessBoard.PositionBlackKing;
                 }
 
                 clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
@@ -810,7 +740,7 @@ namespace ChessApplication.Chessboard
 
         public void SetUsernameAndNotifyClient(string username)
         {
-            this.PlayerUsername = username;
+            PlayerUsername = username;
             var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
             networkManager.SendMessage(message);
         }
@@ -823,7 +753,7 @@ namespace ChessApplication.Chessboard
             if (currentPlayerColor == (int)Turn.White)
             {
                 CurrentPlayersTurn = Turn.White;
-                OpponentsTurn = Turn.Black;
+                OpponentsTurn = Turn.Black; 
                 isCurrentPlayersTurnToMove = true;
             }
             else

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ChessApplication.Chessboard;
+using ChessApplication.Main;
 
 namespace ChessApplication.Client.Forms
 {
@@ -9,7 +9,7 @@ namespace ChessApplication.Client.Forms
     {
         private Panel menuContainer;
         private UserControls.MainMenu mainMenu;
-        private Chessboard.Chessboard chessboard;
+        private Main.Main chessboard;
 
         public MainForm()
         {
@@ -123,7 +123,7 @@ namespace ChessApplication.Client.Forms
 
         private void InitializeChessboard()
         {
-            chessboard = new Chessboard.Chessboard(UserType.Client, tbAddress.Text);
+            chessboard = new Main.Main(UserType.Client, tbAddress.Text);
             chessboard.SetColorsAndNotifyClient("2 1");
             panelChessboard.Controls.Add(chessboard);
 

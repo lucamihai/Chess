@@ -24,7 +24,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition)
         {
             Point newKingPosition;
 
@@ -85,7 +85,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        private bool IsMovePossible(Box[,] chessBoard, Point source, Point destination)
+        private bool IsMovePossible(Chessboard chessBoard, Point source, Point destination)
         {
             if (chessBoard[source.X, source.Y] == null || chessBoard[destination.X, destination.Y] == null)
             {
@@ -134,7 +134,7 @@ namespace ChessApplication.Common.ChessPieces
             return isPossible;
         }
 
-        private bool IsInCheck(Box[,] chessBoard, int row, int column)
+        private bool IsInCheck(Chessboard chessBoard, int row, int column)
         {
             var check = false;
 

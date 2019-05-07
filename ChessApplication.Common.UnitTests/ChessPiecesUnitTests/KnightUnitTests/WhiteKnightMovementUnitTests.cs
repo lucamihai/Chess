@@ -12,7 +12,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
     [ExcludeFromCodeCoverage]
     public class WhiteKnightMovementUnitTests
     {
-        private Box[,] ChessBoard;
+        private Chessboard ChessBoard;
 
         [TestInitialize]
         public void Setup()

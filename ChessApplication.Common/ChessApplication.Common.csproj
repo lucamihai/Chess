@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chessboard.cs" />
     <Compile Include="ChessPieces\Abbreviations.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="ChessPieces\Pawn.cs" />
     <Compile Include="ChessPieces\Queen.cs" />
     <Compile Include="ChessPieces\Rook.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Enums\Turn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

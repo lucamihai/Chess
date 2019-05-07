@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ChessApplication.Chessboard;
+using ChessApplication.Main;
 
 namespace ChessApplication.Server.Forms
 {
@@ -9,7 +9,7 @@ namespace ChessApplication.Server.Forms
     {
         private Panel menuContainer;
         private UserControls.MainMenu mainMenu;
-        private Chessboard.Chessboard chessboard;
+        private Main.Main chessboard;
 
         public MainForm()
         {
@@ -41,7 +41,7 @@ namespace ChessApplication.Server.Forms
 
         private void InitializeChessboard()
         {
-            chessboard = new Chessboard.Chessboard(UserType.Server);
+            chessboard = new Main.Main(UserType.Server);
             panelChessboard.Controls.Add(chessboard);
 
             chessboard.OnMadeMove += (origin, destination) =>

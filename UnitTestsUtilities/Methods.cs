@@ -1,15 +1,15 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.UserControls;
 
 namespace UnitTestsUtilities
 {
     [ExcludeFromCodeCoverage]
     public static class Methods
     {
-        public static int GetNumberOfAvailableBoxes(Box[,] boxes)
+        public static int GetNumberOfAvailableBoxes(Chessboard boxes)
         {
             int counter = 0;
 
@@ -27,7 +27,7 @@ namespace UnitTestsUtilities
             return counter;
         }
 
-        public static void SurroundBoxWithPawns(PieceColor pawnColor, Point pieceLocation, Box[,] chessBoard)
+        public static void SurroundBoxWithPawns(PieceColor pawnColor, Point pieceLocation, Chessboard chessBoard)
         {
             var pawnPositionWest = new Point(pieceLocation.X, pieceLocation.Y - 1);
             var pawnPositionNorthWest = new Point(pieceLocation.X + 1, pieceLocation.Y - 1);

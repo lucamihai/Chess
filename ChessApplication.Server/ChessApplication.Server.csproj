@@ -102,10 +102,6 @@
       <Project>{72F819D6-5805-4B09-A382-B70D046A267D}</Project>
       <Name>ChessApplication.ChatBox</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Chessboard\ChessApplication.Chessboard.csproj">
-      <Project>{edcec897-4d87-42f7-a0ce-bf6d584e3576}</Project>
-      <Name>ChessApplication.Chessboard</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
       <Name>ChessApplication.Common</Name>
@@ -113,6 +109,10 @@
     <ProjectReference Include="..\ChessApplication.History\ChessApplication.History.csproj">
       <Project>{aadfd0d1-3510-4a81-b84b-caaaeea0accf}</Project>
       <Name>ChessApplication.History</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Main\ChessApplication.Main.csproj">
+      <Project>{8673500a-3352-4b5b-a461-3f7f65d3e16f}</Project>
+      <Name>ChessApplication.Main</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Notifications\ChessApplication.Notifications.csproj">
       <Project>{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}</Project>

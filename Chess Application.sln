@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common", "ChessApplication.Common\ChessApplication.Common.csproj", "{6B209803-C8D8-402B-8092-0F53BEF6F989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Chessboard", "ChessApplication.Chessboard\ChessApplication.Chessboard.csproj", "{EDCEC897-4D87-42F7-A0CE-BF6D584E3576}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Notifications", "ChessApplication.Notifications\ChessApplication.Notifications.csproj", "{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChatBox", "ChessApplication.ChatBox\ChessApplication.ChatBox.csproj", "{72F819D6-5805-4B09-A382-B70D046A267D}"
@@ -24,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common.UnitTests", "ChessApplication.Common.UnitTests\ChessApplication.Common.UnitTests.csproj", "{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsUtilities", "UnitTestsUtilities\UnitTestsUtilities.csproj", "{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Main", "ChessApplication.Main\ChessApplication.Main.csproj", "{8673500A-3352-4B5B-A461-3F7F65D3E16F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{6B209803-C8D8-402B-8092-0F53BEF6F989}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B209803-C8D8-402B-8092-0F53BEF6F989}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B209803-C8D8-402B-8092-0F53BEF6F989}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDCEC897-4D87-42F7-A0CE-BF6D584E3576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDCEC897-4D87-42F7-A0CE-BF6D584E3576}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDCEC897-4D87-42F7-A0CE-BF6D584E3576}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDCEC897-4D87-42F7-A0CE-BF6D584E3576}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,6 +67,10 @@ Global
 		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8673500A-3352-4B5B-A461-3F7F65D3E16F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8673500A-3352-4B5B-A461-3F7F65D3E16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8673500A-3352-4B5B-A461-3F7F65D3E16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8673500A-3352-4B5B-A461-3F7F65D3E16F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,6 @@
-﻿using ChessApplication.Common.UserControls;
-
-namespace ChessApplication.Chessboard
+﻿namespace ChessApplication.Main
 {
-    partial class Chessboard
+    partial class Main
     {
         /// <summary> 
         /// Required designer variable.

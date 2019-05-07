@@ -12,7 +12,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
     [ExcludeFromCodeCoverage]
     public class WhiteBishopPieceTakingUnitTests
     {
-        private Box[,] ChessBoard;
+        private Chessboard ChessBoard;
 
         [TestInitialize]
         public void Setup()

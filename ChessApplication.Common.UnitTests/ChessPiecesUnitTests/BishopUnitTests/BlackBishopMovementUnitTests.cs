@@ -2,7 +2,6 @@
 using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
 
@@ -12,7 +11,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
     [ExcludeFromCodeCoverage]
     public class BlackBishopMovementUnitTests
     {
-        private Box[,] ChessBoard;
+        private Chessboard ChessBoard;
 
         [TestInitialize]
         public void Setup()

@@ -29,9 +29,9 @@ namespace ChessApplication.Common.ChessPieces
 
         public Image ImageSmall { get; protected set; }
 
-        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition);
+        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition);
 
-        protected bool WillMoveTriggerCheck(Box[,] chessBoard, Point origin, Point destination, Point kingPosition)
+        protected bool WillMoveTriggerCheck(Chessboard chessBoard, Point origin, Point destination, Point kingPosition)
         {
             // Back up origin and destination data
             var originChessPiece = chessBoard[origin.X, origin.Y].Piece;
@@ -68,7 +68,7 @@ namespace ChessApplication.Common.ChessPieces
             return triggersCheck;
         }
 
-        protected bool IsThreatenedByPawns(Box[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByPawns(Chessboard chessBoard, int row, int column)
         {
             var currentLocation = chessBoard[row, column];
             var threatened = false;
@@ -94,7 +94,7 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByKing(Box[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByKing(Chessboard chessBoard, int row, int column)
         {
             var currentLocation = chessBoard[row, column];
             var threatened = false;
@@ -161,7 +161,7 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByKnights(Box[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByKnights(Chessboard chessBoard, int row, int column)
         {
             var currentLocation = chessBoard[row, column];
             var threatened = false;
@@ -258,7 +258,7 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByBishops(Box[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByBishops(Chessboard chessBoard, int row, int column)
         {
             var currentLocation = chessBoard[row, column];
             var threatened = false;
@@ -353,7 +353,7 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByRooks(Box[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByRooks(Chessboard chessBoard, int row, int column)
         {
             var currentLocation = chessBoard[row, column];
             var threatened = false;
@@ -448,7 +448,7 @@ namespace ChessApplication.Common.ChessPieces
             return threatened;
         }
 
-        protected bool IsThreatenedByQueen(Box[,] chessBoard, int row, int column)
+        protected bool IsThreatenedByQueen(Chessboard chessBoard, int row, int column)
         {
             var currentLocation = chessBoard[row, column];
             var threatened = false;

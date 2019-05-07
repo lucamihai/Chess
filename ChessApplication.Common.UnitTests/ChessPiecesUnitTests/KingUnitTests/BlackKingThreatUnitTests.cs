@@ -12,7 +12,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
     [ExcludeFromCodeCoverage]
     public class BlackKingThreatUnitTests
     {
-        private Box[,] ChessBoard;
+        private Chessboard ChessBoard;
 
         [TestInitialize]
         public void Setup()

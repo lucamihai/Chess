@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MoveSound1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="movesound1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\movesound1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MoveSound2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="movesound2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\movesound2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -24,7 +24,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Box[,] chessBoard, Point location, Point kingPosition)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition)
         {
             var row = location.X;
             var column = location.Y;

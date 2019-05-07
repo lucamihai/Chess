@@ -92,10 +92,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessApplication.Chessboard\ChessApplication.Chessboard.csproj">
-      <Project>{edcec897-4d87-42f7-a0ce-bf6d584e3576}</Project>
-      <Name>ChessApplication.Chessboard</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>

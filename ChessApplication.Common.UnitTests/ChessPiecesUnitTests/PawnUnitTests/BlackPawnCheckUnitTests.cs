@@ -12,7 +12,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
     [ExcludeFromCodeCoverage]
     public class BlackPawnCheckUnitTests
     {
-        private Box[,] ChessBoard;
+        private Chessboard ChessBoard;
 
         [TestInitialize]
         public void Setup()

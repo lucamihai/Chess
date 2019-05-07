@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChessApplication.Chessboard.Properties {
+namespace ChessApplication.Main.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ChessApplication.Chessboard.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ChessApplication.Chessboard.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ChessApplication.Main.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,18 +63,18 @@ namespace ChessApplication.Chessboard.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream MoveSound1 {
+        internal static System.IO.UnmanagedMemoryStream movesound1 {
             get {
-                return ResourceManager.GetStream("MoveSound1", resourceCulture);
+                return ResourceManager.GetStream("movesound1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream MoveSound2 {
+        internal static System.IO.UnmanagedMemoryStream movesound2 {
             get {
-                return ResourceManager.GetStream("MoveSound2", resourceCulture);
+                return ResourceManager.GetStream("movesound2", resourceCulture);
             }
         }
     }
