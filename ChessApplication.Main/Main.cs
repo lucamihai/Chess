@@ -73,6 +73,65 @@ namespace ChessApplication.Main
             NewGame();
         }
 
+        public void SetUsernameAndNotifyClient(string username)
+        {
+            PlayerUsername = username;
+            var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
+            networkManager.SendMessage(message);
+        }
+
+        public void SetColorsAndNotifyClient(string colorsString)
+        {
+            var colors = colorsString.Split(' ');
+            var currentPlayerColor = Convert.ToInt32(colors[0]);
+
+            if (currentPlayerColor == (int)Turn.White)
+            {
+                CurrentPlayersTurn = Turn.White;
+                OpponentsTurn = Turn.Black;
+                isCurrentPlayersTurnToMove = true;
+            }
+            else
+            {
+                CurrentPlayersTurn = Turn.Black;
+                OpponentsTurn = Turn.White;
+                isCurrentPlayersTurnToMove = false;
+            }
+
+            var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
+            networkManager.SendMessage(message);
+        }
+
+        public void RequestNewGame()
+        {
+            if (!isNewGameRequested)
+            {
+                SendCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
+            }
+            else
+            {
+                NewGame();
+                isNewGameRequested = false;
+                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
+            }
+        }
+
+        public void StopNetworkStuff()
+        {
+            if (networkManager != null)
+            {
+                networkManager.Stop();
+            }
+        }
+
+        public void SendMessageToOpponent(string message)
+        {
+            if (!message.StartsWith(CommandMarker))
+            {
+                networkManager.SendMessage(message);
+            }
+        }
+
         private void InitializeNetworkManager(UserType userType, string hostname)
         {
             if (userType == UserType.Server)
@@ -246,8 +305,8 @@ namespace ChessApplication.Main
         {
             InitializeChessBoard();
             InitializeCapturedPiecesArea();
-            ResetChessBoardBoxesColors();
-            SetChessBoardBoxesAsUnavailable();
+            ChessBoard.ResetChessBoardBoxesColors();
+            ChessBoard.SetChessBoardBoxesAsUnavailable();
             AssignClickEventToBoxes();
 
             clickCounter = 0;
@@ -350,14 +409,6 @@ namespace ChessApplication.Main
             }
         }
 
-        public void SendMessageToOpponent(string message)
-        {
-            if (!message.StartsWith(CommandMarker))
-            {
-                networkManager.SendMessage(message);
-            }
-        }
-
         private void UpdateBeginnersModeForChessBoardBoxes()
         {
             for (int row = 1; row <= 8; row++)
@@ -379,7 +430,7 @@ namespace ChessApplication.Main
             var command = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
             SendCommand(command);
 
-            ResetChessBoardBoxesColors();
+            ChessBoard.ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
 
             if (destination.Piece is King)
@@ -390,8 +441,8 @@ namespace ChessApplication.Main
             BeginPieceRecapturingIfPawnReachedTheEnd(destination);
 
             NextTurn();
-            SetChessBoardBoxesAsUnavailable();
-            ResetChessBoardBoxesColors();
+            ChessBoard.SetChessBoardBoxesAsUnavailable();
+            ChessBoard.ResetChessBoardBoxesColors();
 
             isCurrentPlayersTurnToMove = false;
             CurrentPlayersTurn = OpponentsTurn;
@@ -405,7 +456,7 @@ namespace ChessApplication.Main
 
             EndGameIfCheckMate();
 
-            SetChessBoardBoxesAsUnavailable();
+            ChessBoard.SetChessBoardBoxesAsUnavailable();
         }
 
         private void OpponentMovePiece(Box origin, Box destination)
@@ -416,7 +467,7 @@ namespace ChessApplication.Main
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            ResetChessBoardBoxesColors();
+            ChessBoard.ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
 
 
@@ -446,7 +497,7 @@ namespace ChessApplication.Main
 
             EndGameIfCheckMate();
 
-            SetChessBoardBoxesAsUnavailable();
+            ChessBoard.SetChessBoardBoxesAsUnavailable();
         }
 
         private void PerformMove(Box origin, Box destination)
@@ -579,7 +630,7 @@ namespace ChessApplication.Main
 
         private void EndGameIfCheckMate()
         {
-            if (IsCheckmateForProvidedColor(PieceColor.White))
+            if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.White))
             {
                 OnNotification(Strings.CheckmateWhite);
 
@@ -589,7 +640,7 @@ namespace ChessApplication.Main
                 Invoke(newGameInvoker);
                 SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
-            if (IsCheckmateForProvidedColor(PieceColor.Black))
+            if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black))
             {
                 OnNotification(Strings.CheckmateBlack);
 
@@ -601,49 +652,6 @@ namespace ChessApplication.Main
             }
         }
 
-        private bool IsCheckmateForProvidedColor(PieceColor providedColor)
-        {
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int column = 1; column <= 8; column++)
-                {
-                    if (ChessBoard[row, column].Piece != null && ChessBoard[row, column].Piece.Color == providedColor)
-                    {
-                        var location = new Point(row, column);
-                        var kingPosition = providedColor == PieceColor.White ? ChessBoard.PositionWhiteKing : ChessBoard.PositionBlackKing;
-                        ChessBoard[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
-
-                        if (ChessBoard[row, column].Piece.CanMove)
-                        {
-                            ResetChessBoardBoxesColors();
-                            ChessBoard[row, column].Piece.CanMove = false;
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        private void ResetChessBoardBoxesColors()
-        {
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
-                    {
-                        ChessBoard[row, column].BoxBackgroundColor = Constants.BoxColorDark;
-                    }
-                    else
-                    {
-                        ChessBoard[row, column].BoxBackgroundColor = Constants.BoxColorLight;
-                    }
-                }
-            }
-        }
-
         private void NextTurn()
         {
             CurrentPlayersTurn++;
@@ -651,17 +659,6 @@ namespace ChessApplication.Main
             if (CurrentPlayersTurn > Turn.Black)
             {
                 CurrentPlayersTurn = Turn.White;
-            }
-        }
-
-        private void SetChessBoardBoxesAsUnavailable()
-        {
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int column = 1; column <= 8; column++)
-                {
-                    ChessBoard[row, column].Available = false;
-                }
             }
         }
 
@@ -706,8 +703,8 @@ namespace ChessApplication.Main
                 // Click on the same box => Cancel moving current chess piece
                 if (clickedBoxObject == FirstClickedBox)
                 {
-                    SetChessBoardBoxesAsUnavailable();
-                    ResetChessBoardBoxesColors();
+                    ChessBoard.SetChessBoardBoxesAsUnavailable();
+                    ChessBoard.ResetChessBoardBoxesColors();
                 }
 
                 // Click on a different box where the current piece can be moved
@@ -738,55 +735,5 @@ namespace ChessApplication.Main
             }
         }
 
-        public void SetUsernameAndNotifyClient(string username)
-        {
-            PlayerUsername = username;
-            var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
-            networkManager.SendMessage(message);
-        }
-
-        public void SetColorsAndNotifyClient(string colorsString)
-        {
-            var colors = colorsString.Split(' ');
-            var currentPlayerColor = Convert.ToInt32(colors[0]);
-
-            if (currentPlayerColor == (int)Turn.White)
-            {
-                CurrentPlayersTurn = Turn.White;
-                OpponentsTurn = Turn.Black; 
-                isCurrentPlayersTurnToMove = true;
-            }
-            else
-            {
-                CurrentPlayersTurn = Turn.Black;
-                OpponentsTurn = Turn.White;
-                isCurrentPlayersTurnToMove = false;
-            }
-
-            var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
-            networkManager.SendMessage(message);
-        }
-
-        public void RequestNewGame()
-        {
-            if (!isNewGameRequested)
-            {
-                SendCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
-            }
-            else
-            {
-                NewGame();
-                isNewGameRequested = false;
-                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
-            }
-        }
-
-        public void StopNetworkStuff()
-        {
-            if (networkManager != null)
-            {
-                networkManager.Stop();
-            }
-        }
     }
 }
