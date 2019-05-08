@@ -36,11 +36,11 @@ namespace ChessApplication.Main
         public bool SoundEnabled { get; set; } = true;
 
         private bool isNewGameRequested = false;
-        private bool currentPlayerMustSelect = false;
+        private bool playerMustSelect = false;
         private bool opponentMustSelect = false;
-        private bool isCurrentPlayersTurnToMove = true;
 
-        private Turn CurrentPlayersTurn { get; set; } = Turn.White;
+        private Turn CurrentTurn { get; set; } = Turn.White;
+        private Turn PlayerTurn { get; set; } = Turn.White;
         private Turn OpponentsTurn { get; set; } = Turn.Black;
 
         public string PlayerUsername { get; private set; }
@@ -87,15 +87,13 @@ namespace ChessApplication.Main
 
             if (currentPlayerColor == (int)Turn.White)
             {
-                CurrentPlayersTurn = Turn.White;
+                PlayerTurn = Turn.White;
                 OpponentsTurn = Turn.Black;
-                isCurrentPlayersTurnToMove = true;
             }
             else
             {
-                CurrentPlayersTurn = Turn.Black;
+                PlayerTurn = Turn.Black;
                 OpponentsTurn = Turn.White;
-                isCurrentPlayersTurnToMove = false;
             }
 
             var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
@@ -148,10 +146,8 @@ namespace ChessApplication.Main
             {
                 var opponentChangedColors = new MethodInvoker(() =>
                 {
-                    CurrentPlayersTurn = currentPlayersTurn;
+                    PlayerTurn = currentPlayersTurn;
                     OpponentsTurn = opponentsTurn;
-
-                    isCurrentPlayersTurnToMove = CurrentPlayersTurn == Turn.White;
                 });
 
                 Invoke(opponentChangedColors);
@@ -233,7 +229,7 @@ namespace ChessApplication.Main
             networkManager.OnMadeMove += (origin, destination) =>
             {
                 var move = new MethodInvoker(
-                    () => OpponentMovePiece(ChessBoard[origin.X, origin.Y], ChessBoard[destination.X, destination.Y])
+                    () => OpponentMovePiece(ChessBoard[origin], ChessBoard[destination])
                 );
 
                 Invoke(move);
@@ -313,13 +309,11 @@ namespace ChessApplication.Main
 
             if (OpponentsTurn == Turn.Black)
             {
-                CurrentPlayersTurn = Turn.White;
-                isCurrentPlayersTurnToMove = true;
+                PlayerTurn = Turn.White;
             }
             else
             {
-                CurrentPlayersTurn = Turn.Black;
-                isCurrentPlayersTurnToMove = false;
+                PlayerTurn = Turn.Black;
             }
         }
 
@@ -441,13 +435,6 @@ namespace ChessApplication.Main
             BeginPieceRecapturingIfPawnReachedTheEnd(destination);
 
             NextTurn();
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
-            ChessBoard.ResetChessBoardBoxesColors();
-
-            isCurrentPlayersTurnToMove = false;
-            CurrentPlayersTurn = OpponentsTurn;
-
-            labelTurn.Text = CurrentPlayersTurn == Turn.White ? Strings.WhitesTurn : Strings.BlacksTurn;
 
             if (SoundEnabled)
             {
@@ -477,18 +464,7 @@ namespace ChessApplication.Main
                 UpdateKingPosition(destination);
             }
 
-            isCurrentPlayersTurnToMove = true;
-
-            if (OpponentsTurn == Turn.Black)
-            {
-                CurrentPlayersTurn = Turn.White;
-                labelTurn.Text = Strings.WhitesTurn;
-            }
-            else
-            {
-                CurrentPlayersTurn = Turn.Black;
-                labelTurn.Text = Strings.BlacksTurn;
-            }
+            NextTurn();
 
             if (SoundEnabled)
             {
@@ -577,6 +553,7 @@ namespace ChessApplication.Main
                     Y = destination.BoxName[1] - 48
                 };
             }
+
             if (destination.Piece.Color == PieceColor.Black)
             {
                 ChessBoard.PositionBlackKing = new Point
@@ -590,7 +567,7 @@ namespace ChessApplication.Main
         private void BeginPieceRecapturingIfPawnReachedTheEnd(Box destination)
         {
             // If a white pawn has reached the last line
-            if (CurrentPlayersTurn == Turn.White)
+            if (PlayerTurn == Turn.White)
             {
                 if (Enumerable.Contains(destination.BoxName, 'H') && destination.Piece is Pawn)
                 {
@@ -598,7 +575,7 @@ namespace ChessApplication.Main
                     {
                         retakeRow = 8;
                         retakeColumn = destination.BoxName[1] - 48;
-                        currentPlayerMustSelect = true;
+                        playerMustSelect = true;
 
                         SendCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
 
@@ -609,7 +586,7 @@ namespace ChessApplication.Main
             }
 
             // If a black pawn has reached the last line
-            if (CurrentPlayersTurn == Turn.Black)
+            if (PlayerTurn == Turn.Black)
             {
                 if (Enumerable.Contains(destination.BoxName, 'A') && destination.Piece is Pawn)
                 {
@@ -617,7 +594,7 @@ namespace ChessApplication.Main
                     {
                         retakeRow = 1;
                         retakeColumn = destination.BoxName[1] - 48;
-                        currentPlayerMustSelect = true;
+                        playerMustSelect = true;
 
                         SendCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
 
@@ -654,66 +631,72 @@ namespace ChessApplication.Main
 
         private void NextTurn()
         {
-            CurrentPlayersTurn++;
+            CurrentTurn = CurrentTurn == Turn.White ? Turn.Black : Turn.White;
 
-            if (CurrentPlayersTurn > Turn.Black)
-            {
-                CurrentPlayersTurn = Turn.White;
-            }
+            ChessBoard.SetChessBoardBoxesAsUnavailable();
+            ChessBoard.ResetChessBoardBoxesColors();
+
+            labelTurn.Text = CurrentTurn == Turn.White ? Strings.WhitesTurn : Strings.BlacksTurn;
         }
 
         private void BoxClick(object sender, EventArgs e)
         {
             var clickedBoxObject = (Box)sender;
 
-            if (currentPlayerMustSelect || opponentMustSelect)
+            if (playerMustSelect || opponentMustSelect)
             {
                 return;
             }
 
-            // First click on a box with a chess piece
-            if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)CurrentPlayersTurn == (int)clickedBoxObject.Piece.Color && isCurrentPlayersTurnToMove)
+            if (CurrentTurn == PlayerTurn)
             {
-                var row = clickedBoxObject.Row;
-                var column = clickedBoxObject.Column;
-                var location = new Point(row, column);
+                // First click on a box with a chess piece
+                if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)PlayerTurn == (int)clickedBoxObject.Piece.Color)
+                {
+                    if ((int)PlayerTurn == (int)clickedBoxObject.Piece.Color)
+                    {
+                        var row = clickedBoxObject.Row;
+                        var column = clickedBoxObject.Column;
+                        var location = new Point(row, column);
 
-                Point kingPosition;
-                if (clickedBoxObject.Piece.Color == PieceColor.White)
-                {
-                    kingPosition = ChessBoard.PositionWhiteKing;
-                }
-                else
-                {
-                    kingPosition = ChessBoard.PositionBlackKing;
-                }
+                        Point kingPosition;
+                        if (clickedBoxObject.Piece.Color == PieceColor.White)
+                        {
+                            kingPosition = ChessBoard.PositionWhiteKing;
+                        }
+                        else
+                        {
+                            kingPosition = ChessBoard.PositionBlackKing;
+                        }
 
-                clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
-                if (clickedBoxObject.Piece.CanMove)
-                {
-                    FirstClickedBox = clickedBoxObject;
-                    clickCounter++;
-                    return;
-                }
-            }
-
-            // Second click on a box
-            if (clickCounter == 1)
-            {
-                // Click on the same box => Cancel moving current chess piece
-                if (clickedBoxObject == FirstClickedBox)
-                {
-                    ChessBoard.SetChessBoardBoxesAsUnavailable();
-                    ChessBoard.ResetChessBoardBoxesColors();
+                        clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
+                        if (clickedBoxObject.Piece.CanMove)
+                        {
+                            FirstClickedBox = clickedBoxObject;
+                            clickCounter++;
+                            return;
+                        }
+                    }
                 }
 
-                // Click on a different box where the current piece can be moved
-                if (clickedBoxObject != FirstClickedBox && clickedBoxObject.Available)
+                // Second click on a box
+                if (clickCounter == 1)
                 {
-                    CurrentPlayerMovePiece(FirstClickedBox, clickedBoxObject);
-                }
+                    // Click on the same box => Cancel moving current chess piece
+                    if (clickedBoxObject == FirstClickedBox)
+                    {
+                        ChessBoard.SetChessBoardBoxesAsUnavailable();
+                        ChessBoard.ResetChessBoardBoxesColors();
+                    }
 
-                clickCounter = 0;
+                    // Click on a different box where the current piece can be moved
+                    if (clickedBoxObject != FirstClickedBox && clickedBoxObject.Available)
+                    {
+                        CurrentPlayerMovePiece(FirstClickedBox, clickedBoxObject);
+                    }
+
+                    clickCounter = 0;
+                }
             }
         }
 
@@ -721,10 +704,10 @@ namespace ChessApplication.Main
         {
             var clickedCapturedPieceBox = (CapturedPieceBox)sender;
 
-            if (currentPlayerMustSelect && clickedCapturedPieceBox.Count > 0)
+            if (playerMustSelect && clickedCapturedPieceBox.Count > 0)
             {
                 Utilities.RetakeCapturedPiece(clickedCapturedPieceBox, ChessBoard[retakeRow, retakeColumn]);
-                currentPlayerMustSelect = false;
+                playerMustSelect = false;
 
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)

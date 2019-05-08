@@ -1,4 +1,6 @@
-﻿namespace ChessApplication.Common.UserControls
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Common.UserControls
 {
     partial class Box
     {
