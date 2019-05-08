@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common.ChessPieces;
@@ -64,12 +65,6 @@ namespace ChessApplication.Common.UserControls
             set => pictureBoxPiece.BackColor = value;
         }
 
-
-        public Box()
-        {
-            InitializeComponent();
-        }
-
         public Box(string name, ChessPiece chessPiece = null)
         {
             InitializeComponent();
@@ -80,6 +75,7 @@ namespace ChessApplication.Common.UserControls
             Available = false;
         }
 
+        [ExcludeFromCodeCoverage]
         private void pictureBoxPiece_Click(object sender, EventArgs e)
         {
             this.OnClick(EventArgs.Empty);

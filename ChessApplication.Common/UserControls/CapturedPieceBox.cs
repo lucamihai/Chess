@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using ChessApplication.Common.ChessPieces;
 
@@ -35,11 +36,13 @@ namespace ChessApplication.Common.UserControls
             Count = 0;
         }
 
+        [ExcludeFromCodeCoverage]
         private void pictureBoxPiece_Click(object sender, EventArgs e)
         {
             this.OnClick(EventArgs.Empty);
         }
 
+        [ExcludeFromCodeCoverage]
         private void labelCount_Click(object sender, EventArgs e)
         {
             this.OnClick(EventArgs.Empty);

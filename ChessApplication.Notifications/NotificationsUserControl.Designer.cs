@@ -1,4 +1,6 @@
-﻿namespace ChessApplication.Notifications
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Notifications
 {
     partial class NotificationsUserControl
     {
@@ -11,6 +13,7 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

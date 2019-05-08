@@ -1,4 +1,6 @@
-﻿namespace ChessApplication.Server.Forms
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Server.Forms
 {
     partial class MainForm
     {
@@ -11,6 +13,7 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

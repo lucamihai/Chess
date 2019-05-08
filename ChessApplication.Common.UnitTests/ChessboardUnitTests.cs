@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,6 +16,21 @@ namespace ChessApplication.Common.UnitTests
         public void Setup()
         {
             chessboard = new Chessboard();
+        }
+
+        [TestMethod]
+        public void BoxesHaveCorrectNamesSet()
+        {
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    char rowLetter = (char)('A' + row - 1);
+                    var expectedName = $"{rowLetter}{column}";
+
+                    Assert.AreEqual(expectedName, chessboard[row, column].BoxName);
+                }
+            }
         }
 
         [TestMethod]
