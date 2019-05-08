@@ -88,6 +88,7 @@
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookMovementUnitTests.cs" />
     <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookPieceTakingUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControlsUnitTests\BoxUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

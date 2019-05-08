@@ -18,7 +18,7 @@ namespace ChessApplication.Common.UserControls
 
                 if (_Available && BeginnersMode)
                 {
-                    pictureBoxPiece.BackColor = Color.Green;
+                    pictureBoxPiece.BackColor = Constants.BoxColorAvailable;
                 }
             }
         }
@@ -27,17 +27,19 @@ namespace ChessApplication.Common.UserControls
         public string BoxName
         {
             get => _BoxName;
-            set
+            private set
             {
                 _BoxName = value;
 
-                Row = (short)_BoxName[0];
-                Row -= (short)'A';
-                Row += 1;
+                var row = (int)_BoxName[0];
+                row -= 'A';
+                row += 1;
 
-                Column = (short)_BoxName[1];
-                Column -= (short)'1';
-                Column += 1;
+                var column = (int)_BoxName[1];
+                column -= '1';
+                column += 1;
+
+                Position = new Point(row, column);
             }
         }
 
@@ -55,9 +57,7 @@ namespace ChessApplication.Common.UserControls
 
         public bool BeginnersMode { get; set; } = true;
 
-        public short Row { get; private set; }
-
-        public short Column { get; private set; }
+        public Point Position { get; private set; }
 
         public Color BoxBackgroundColor
         {

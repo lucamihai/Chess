@@ -639,9 +639,7 @@ namespace ChessApplication.Main
                 {
                     if ((int)PlayerTurn == (int)clickedBoxObject.Piece.Color)
                     {
-                        var row = clickedBoxObject.Row;
-                        var column = clickedBoxObject.Column;
-                        var location = new Point(row, column);
+                        var boxPosition = clickedBoxObject.Position;
 
                         Point kingPosition;
                         if (clickedBoxObject.Piece.Color == PieceColor.White)
@@ -653,7 +651,7 @@ namespace ChessApplication.Main
                             kingPosition = ChessBoard.PositionBlackKing;
                         }
 
-                        clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, location, kingPosition);
+                        clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition, kingPosition);
                         if (clickedBoxObject.Piece.CanMove)
                         {
                             FirstClickedBox = clickedBoxObject;
