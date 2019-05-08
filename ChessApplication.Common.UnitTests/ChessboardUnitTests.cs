@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UnitTestsUtilities;
 
 namespace ChessApplication.Common.UnitTests
 {
@@ -83,6 +85,84 @@ namespace ChessApplication.Common.UnitTests
             }
         }
 
+        [TestMethod]
+        public void SettingBeginnersModeSetsBeginnersModeForEachBox()
+        {
+            chessboard.BeginnersMode = true;
+
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    Assert.IsTrue(chessboard[row, column].BeginnersMode);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ResettingBeginnersModeResetsBeginnersModeForEachBox()
+        {
+            chessboard.BeginnersMode = false;
+
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    Assert.IsFalse(chessboard[row, column].BeginnersMode);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAllBoxesAsUnavailableSetsAllBoxesAvailableToFalse()
+        {
+            chessboard.SetChessBoardBoxesAsUnavailable();
+
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    Assert.IsFalse(chessboard[row, column].Available);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ResetBoxesColorsMakesBoxesHaveTheCorrectColors()
+        {
+            chessboard.ResetChessBoardBoxesColors();
+
+            Assert.IsTrue(BoxesHaveTheCorrectColors());
+        }
+
+        [TestMethod]
+        public void IsCheckmateForProvidedColorReturnsTrueForWhiteIfWhiteIsInCheckmate()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithProvidedColorInCheckmate(PieceColor.White);
+
+            Assert.IsTrue(chessboard.IsCheckmateForProvidedColor(PieceColor.White));
+        }
+
+        [TestMethod]
+        public void IsCheckmateForProvidedColorReturnsFalseForWhiteIfWhiteIsNotInCheckmate()
+        {
+            Assert.IsFalse(chessboard.IsCheckmateForProvidedColor(PieceColor.White));
+        }
+
+        [TestMethod]
+        public void IsCheckmateForProvidedColorReturnsTrueForBlackIfBlackIsInCheckmate()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithProvidedColorInCheckmate(PieceColor.Black);
+
+            Assert.IsTrue(chessboard.IsCheckmateForProvidedColor(PieceColor.Black));
+        }
+
+        [TestMethod]
+        public void IsCheckmateForProvidedColorReturnsFalseForBlackIfBlackIsNotInCheckmate()
+        {
+            Assert.IsFalse(chessboard.IsCheckmateForProvidedColor(PieceColor.Black));
+        }
+
         private bool WhitePawnsAreAdded()
         {
             for (int column = 1; column < 9; column++)
@@ -107,6 +187,32 @@ namespace ChessApplication.Common.UnitTests
                 if (!(currentPiece is Pawn) && currentPiece.Color != PieceColor.Black)
                 {
                     return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool BoxesHaveTheCorrectColors()
+        {
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
+                    {
+                        if (chessboard[row, column].BoxBackgroundColor != Constants.BoxColorDark)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (chessboard[row, column].BoxBackgroundColor != Constants.BoxColorLight)
+                        {
+                            return false;
+                        }
+                    }
                 }
             }
 

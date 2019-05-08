@@ -3,7 +3,6 @@ using System.Drawing;
 using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.UserControls;
 
 namespace UnitTestsUtilities
 {
@@ -50,6 +49,32 @@ namespace UnitTestsUtilities
                 {
                     chessboard[row, column].Piece = new Pawn(PieceColor.Black);
                 }
+            }
+
+            return chessboard;
+        }
+
+        public static Chessboard GetChessboardWithProvidedColorInCheckmate(PieceColor providedColor)
+        {
+            var chessboard = GetChessboardWithNoPieces();
+            var opponentColor = providedColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
+
+            var kingPosition = new Point(1, 1);
+            var opponentQueenPosition = new Point(kingPosition.X, kingPosition.Y + 1);
+            var opponentBishopPosition = new Point(kingPosition.X + 1, kingPosition.Y);
+
+            chessboard[kingPosition].Piece = new King(providedColor);
+            chessboard[opponentQueenPosition].Piece = new Queen(opponentColor);
+            chessboard[opponentBishopPosition].Piece = new Bishop(opponentColor);
+
+            if (providedColor == PieceColor.White)
+            {
+                chessboard.PositionWhiteKing = kingPosition;
+            }
+
+            if (providedColor == PieceColor.Black)
+            {
+                chessboard.PositionBlackKing = kingPosition;
             }
 
             return chessboard;

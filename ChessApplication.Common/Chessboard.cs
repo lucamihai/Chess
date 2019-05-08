@@ -28,7 +28,14 @@ namespace ChessApplication.Common
             set
             {
                 _BeginnersMode = value;
-                UpdateBeginnersModeForChessBoardBoxes();
+
+                for (int row = 1; row <= 8; row++)
+                {
+                    for (int column = 1; column <= 8; column++)
+                    {
+                        Boxes[row, column].BeginnersMode = BeginnersMode;
+                    }
+                }
             }
         }
 
@@ -154,17 +161,6 @@ namespace ChessApplication.Common
             }
 
             return true;
-        }
-
-        private void UpdateBeginnersModeForChessBoardBoxes()
-        {
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int column = 1; column <= 8; column++)
-                {
-                    Boxes[row, column].BeginnersMode = BeginnersMode;
-                }
-            }
         }
 
     }
