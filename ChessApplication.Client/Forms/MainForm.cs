@@ -42,13 +42,13 @@ namespace ChessApplication.Client.Forms
 
         public void SetUsernameFromMainMenuAndNotifyPartner(string username)
         {
-            chessboard.SetUsernameAndNotifyClient(username);
+            chessboard.SetUsernameAndNotifyOpponent(username);
             chatBox.Username = username;
         }
 
         public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)
         {
-            chessboard.SetColorsAndNotifyClient(colorsString);
+            chessboard.SetColorsAndNotifyOpponent(colorsString);
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)
@@ -124,7 +124,7 @@ namespace ChessApplication.Client.Forms
         private void InitializeChessboard()
         {
             chessboard = new Main.Main(UserType.Client, tbAddress.Text);
-            chessboard.SetColorsAndNotifyClient("2 1");
+            chessboard.SetColorsAndNotifyOpponent("2 1");
             panelChessboard.Controls.Add(chessboard);
 
             chessboard.OnMadeMove += (origin, destination) =>

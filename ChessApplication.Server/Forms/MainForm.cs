@@ -71,13 +71,13 @@ namespace ChessApplication.Server.Forms
 
         public void SetUsernameFromMainMenuAndNotifyPartner(string username)
         {
-            chessboard.SetUsernameAndNotifyClient(username);
+            chessboard.SetUsernameAndNotifyOpponent(username);
             chatBox.Username = username;
         }
 
         public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)
         {
-            chessboard.SetColorsAndNotifyClient(colorsString);
+            chessboard.SetColorsAndNotifyOpponent(colorsString);
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)

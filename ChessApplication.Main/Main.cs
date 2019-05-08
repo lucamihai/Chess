@@ -25,12 +25,8 @@ namespace ChessApplication.Main
         private bool _BeginnersMode = true;
         public bool BeginnersMode
         {
-            get => _BeginnersMode;
-            set
-            {
-                _BeginnersMode = value;
-                UpdateBeginnersModeForChessBoardBoxes();
-            }
+            get => ChessBoard.BeginnersMode;
+            set => ChessBoard.BeginnersMode = value;
         }
 
         public bool SoundEnabled { get; set; } = true;
@@ -73,14 +69,14 @@ namespace ChessApplication.Main
             NewGame();
         }
 
-        public void SetUsernameAndNotifyClient(string username)
+        public void SetUsernameAndNotifyOpponent(string username)
         {
             PlayerUsername = username;
             var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
             networkManager.SendMessage(message);
         }
 
-        public void SetColorsAndNotifyClient(string colorsString)
+        public void SetColorsAndNotifyOpponent(string colorsString)
         {
             var colors = colorsString.Split(' ');
             var currentPlayerColor = Convert.ToInt32(colors[0]);
@@ -171,29 +167,29 @@ namespace ChessApplication.Main
                 Invoke(beginSelection);
             };
 
-            networkManager.OnSelection += (point, type, color) =>
+            networkManager.OnSelection += (location, type, color) =>
             {
                 var selection = new MethodInvoker(() => {
                     if (color == PieceColor.White)
                     {
                         if (type == typeof(Rook))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[location]);
                         }
 
                         if (type == typeof(Knight))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[location]);
                         }
 
                         if (type == typeof(Bishop))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[location]);
                         }
 
                         if (type == typeof(Queen))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[location]);
                         }
                     }
 
@@ -201,22 +197,22 @@ namespace ChessApplication.Main
                     {
                         if (type == typeof(Rook))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackRooks, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackRooks, ChessBoard[location]);
                         }
 
                         if (type == typeof(Knight))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackKnights, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackKnights, ChessBoard[location]);
                         }
 
                         if (type == typeof(Bishop))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackBishops, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackBishops, ChessBoard[location]);
                         }
 
                         if (type == typeof(Queen))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackQueen, ChessBoard[point.X, point.Y]);
+                            Utilities.RetakeCapturedPiece(capturedBlackQueen, ChessBoard[location]);
                         }
                     }
 
@@ -403,17 +399,6 @@ namespace ChessApplication.Main
             }
         }
 
-        private void UpdateBeginnersModeForChessBoardBoxes()
-        {
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int column = 1; column <= 8; column++)
-                {
-                    ChessBoard[row, column].BeginnersMode = BeginnersMode;
-                }
-            }
-        }
-
         private void CurrentPlayerMovePiece(Box origin, Box destination)
         {
             if (destination.Piece != null)
@@ -456,7 +441,6 @@ namespace ChessApplication.Main
 
             ChessBoard.ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
-
 
             // If, the king was moved, update its coordinates
             if (destination.Piece is King)
@@ -569,7 +553,7 @@ namespace ChessApplication.Main
             // If a white pawn has reached the last line
             if (PlayerTurn == Turn.White)
             {
-                if (Enumerable.Contains(destination.BoxName, 'H') && destination.Piece is Pawn)
+                if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
                 {
                     if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
                     {
@@ -588,7 +572,7 @@ namespace ChessApplication.Main
             // If a black pawn has reached the last line
             if (PlayerTurn == Turn.Black)
             {
-                if (Enumerable.Contains(destination.BoxName, 'A') && destination.Piece is Pawn)
+                if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
                 {
                     if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
                     {
