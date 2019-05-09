@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace ChessApplication.Notifications
 {
+    [ExcludeFromCodeCoverage]
     public partial class NotificationsUserControl : UserControl
     {
         private readonly string notificationPattern = Strings.NotificationPattern;

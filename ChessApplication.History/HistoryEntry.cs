@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.History
 {
+    [ExcludeFromCodeCoverage]
     public partial class HistoryEntry : UserControl
     {
         public int EntryNumber

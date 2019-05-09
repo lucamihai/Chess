@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace ChessApplication.ChatBox
 {
+    [ExcludeFromCodeCoverage]
     public partial class ChatBoxUserControl : UserControl
     {
         private readonly string chatPattern = Strings.ChatPattern;

@@ -1,9 +1,11 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.History
 {
+    [ExcludeFromCodeCoverage]
     public partial class History : UserControl
     {
         public int EntryCount { get; private set; }

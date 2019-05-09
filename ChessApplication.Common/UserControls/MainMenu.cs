@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace ChessApplication.Common.UserControls
 {
+    [ExcludeFromCodeCoverage]
     public partial class MainMenu : UserControl
     {
         public delegate void StartGame();

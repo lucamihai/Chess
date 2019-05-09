@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Main;
 
 namespace ChessApplication.Client.Forms
 {
+    [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
         private Panel menuContainer;

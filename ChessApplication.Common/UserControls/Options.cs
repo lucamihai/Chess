@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace ChessApplication.Common.UserControls
 {
+    [ExcludeFromCodeCoverage]
     public partial class Options : UserControl
     {
         private readonly char[] forbiddenUsernameCharacters = { '#', '!', ':' };

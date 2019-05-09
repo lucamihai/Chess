@@ -1,5 +1,8 @@
-﻿namespace ChessApplication.Main
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Main
 {
+    [ExcludeFromCodeCoverage]
     public static class Strings
     {
         public static string UserRequestsNewGame => "{0} wishes a new game. If you agree, go to File -> New game";
