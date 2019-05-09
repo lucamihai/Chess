@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
 
@@ -27,6 +28,7 @@ namespace ChessApplication.Common.ChessPieces
 
         public abstract string Abbreviation { get; }
 
+        [ExcludeFromCodeCoverage]
         public Image ImageSmall { get; protected set; }
 
         public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition);
