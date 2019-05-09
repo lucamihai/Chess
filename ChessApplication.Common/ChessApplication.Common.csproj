@@ -73,6 +73,18 @@
     <Compile Include="UserControls\CapturedPieceBox.Designer.cs">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Options.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +136,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CapturedPieceBox.resx">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

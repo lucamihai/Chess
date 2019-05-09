@@ -8,24 +8,18 @@ namespace ChessApplication.Client.Forms
     public partial class MainForm : Form
     {
         private Panel menuContainer;
-        private UserControls.MainMenu mainMenu;
+        private Common.UserControls.MainMenu mainMenu;
         private Main.Main chessboard;
 
         public MainForm()
         {
             InitializeComponent();
+            InitializeMainMenu();
+
             menuContainer = new Panel
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
-            };
-
-            mainMenu = new UserControls.MainMenu(this)
-            {
-                MinimumSize = new Size(this.Width, this.Height),
-                MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink
             };
             menuContainer.Controls.Add(mainMenu);
 
@@ -40,15 +34,27 @@ namespace ChessApplication.Client.Forms
             tbAddress.Text = "127.0.0.1";
         }
 
-        public void SetUsernameFromMainMenuAndNotifyPartner(string username)
+        private void InitializeMainMenu()
         {
-            chessboard.SetUsernameAndNotifyOpponent(username);
-            chatBox.Username = username;
-        }
+            mainMenu = new Common.UserControls.MainMenu
+            {
+                MinimumSize = new Size(this.Width, this.Height),
+                MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink
+            };
 
-        public void SetColorsFromMainMenuAndNotifyPartner(string colorsString)
-        {
-            chessboard.SetColorsAndNotifyOpponent(colorsString);
+            mainMenu.OnOptionsChanged += (username, colorsString) =>
+            {
+                chessboard.SetUsernameAndNotifyOpponent(username);
+                chessboard.SetColorsAndNotifyOpponent(colorsString);
+
+                chatBox.Username = username;
+
+                menuContainer.Hide();
+            };
+
+            mainMenu.OnStartGame += () => menuContainer.Hide();
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)
@@ -87,11 +93,6 @@ namespace ChessApplication.Client.Forms
         private void ToolStripQuit(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        public void HideMainMenu()
-        {
-            menuContainer.Hide();
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)

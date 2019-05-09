@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace ChessApplication.Client.UserControls
+﻿namespace ChessApplication.Common.UserControls
 {
     partial class Options
     {
@@ -13,7 +11,6 @@ namespace ChessApplication.Client.UserControls
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -82,7 +79,7 @@ namespace ChessApplication.Client.UserControls
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 16);
             this.label2.TabIndex = 22;
-            this.label2.Text = "PlayerUsername";
+            this.label2.Text = "Username";
             // 
             // label1
             // 
@@ -102,7 +99,7 @@ namespace ChessApplication.Client.UserControls
             this.btnConfirm.TabIndex = 20;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.Confirm);
+            this.btnConfirm.Click += new System.EventHandler(this.ConfirmEvent);
             // 
             // btnCancel
             // 
@@ -112,7 +109,7 @@ namespace ChessApplication.Client.UserControls
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.Cancel);
+            this.btnCancel.Click += new System.EventHandler(this.CancelEvent);
             // 
             // textBoxUsername
             // 

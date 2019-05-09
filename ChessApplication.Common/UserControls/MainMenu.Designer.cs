@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace ChessApplication.Server.UserControls
+﻿namespace ChessApplication.Common.UserControls
 {
     partial class MainMenu
     {
@@ -13,7 +11,6 @@ namespace ChessApplication.Server.UserControls
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -41,30 +38,30 @@ namespace ChessApplication.Server.UserControls
             this.btnExitApp.Location = new System.Drawing.Point(444, 342);
             this.btnExitApp.Name = "btnExitApp";
             this.btnExitApp.Size = new System.Drawing.Size(215, 40);
-            this.btnExitApp.TabIndex = 8;
+            this.btnExitApp.TabIndex = 11;
             this.btnExitApp.Text = "Exit";
             this.btnExitApp.UseVisualStyleBackColor = true;
-            this.btnExitApp.Click += new System.EventHandler(this.Exit);
+            this.btnExitApp.Click += new System.EventHandler(this.ExitAppEvent);
             // 
             // btnOptionsMenu
             // 
             this.btnOptionsMenu.Location = new System.Drawing.Point(444, 283);
             this.btnOptionsMenu.Name = "btnOptionsMenu";
             this.btnOptionsMenu.Size = new System.Drawing.Size(215, 40);
-            this.btnOptionsMenu.TabIndex = 7;
+            this.btnOptionsMenu.TabIndex = 10;
             this.btnOptionsMenu.Text = "Options";
             this.btnOptionsMenu.UseVisualStyleBackColor = true;
-            this.btnOptionsMenu.Click += new System.EventHandler(this.OptionsMenu);
+            this.btnOptionsMenu.Click += new System.EventHandler(this.OptionsMenuEvent);
             // 
             // btnStartGame
             // 
             this.btnStartGame.Location = new System.Drawing.Point(444, 226);
             this.btnStartGame.Name = "btnStartGame";
             this.btnStartGame.Size = new System.Drawing.Size(215, 40);
-            this.btnStartGame.TabIndex = 6;
+            this.btnStartGame.TabIndex = 9;
             this.btnStartGame.Text = "Start game";
             this.btnStartGame.UseVisualStyleBackColor = true;
-            this.btnStartGame.Click += new System.EventHandler(this.StartGame);
+            this.btnStartGame.Click += new System.EventHandler(this.StartGameEvent);
             // 
             // MainMenu
             // 

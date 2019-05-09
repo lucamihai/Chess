@@ -1,58 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ChessApplication.Server.UserControls
+namespace ChessApplication.Common.UserControls
 {
     public partial class Options : UserControl
     {
-        private MainMenu mainMenu;
-        private char[] forbiddenUsernameCharacters = { '#', '!', ':' };
+        private readonly char[] forbiddenUsernameCharacters = { '#', '!', ':' };
+
+        public delegate void Confirm(string username, string colorsString);
+        public Confirm OnConfirm { get; set; }
+
+        public delegate void Cancel();
+        public Cancel OnCancel { get; set; }
 
         public Options()
         {
             InitializeComponent();
+
+            labelError.Text = string.Empty;
         }
 
-        public Options(MainMenu mainMenu)
-        {
-            InitializeComponent();
-            this.mainMenu = mainMenu;
-            labelError.Text = "";
-        }
-
-        private void Cancel(object sender, EventArgs e)
-        {
-            Hide();
-        }
-
-        private void Confirm(object sender, EventArgs e)
+        private void ConfirmEvent(object sender, EventArgs e)
         {
             var enteredUsername = textBoxUsername.Text;
 
             if (IsUsernameValid(enteredUsername))
             {
-                mainMenu.SetUsername(enteredUsername);
-                labelError.Text = "";
+                var colorsString = radioButtonWhite.Checked ? "1 2" : "2 1";
 
-                if (radioButtonWhite.Checked == true)
-                {
-                    mainMenu.SetColors("1 2");
-                }
-
-                else
-                {
-                    mainMenu.SetColors("2 1");
-                }
-
-                Hide();
+                OnConfirm(enteredUsername, colorsString);
             }
+        }
+
+        private void CancelEvent(object sender, EventArgs e)
+        {
+            OnCancel();
         }
 
         private bool IsUsernameValid(string username)
