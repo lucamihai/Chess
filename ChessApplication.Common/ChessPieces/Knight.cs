@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.Common.ChessPieces
 {
@@ -28,9 +27,6 @@ namespace ChessApplication.Common.ChessPieces
         {
             var row = location.X;
             var column = location.Y;
-            var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
-                ? chessBoard.PositionWhiteKing
-                : chessBoard.PositionBlackKing;
 
             int destinationRow, destinationColumn;
             Point destination;

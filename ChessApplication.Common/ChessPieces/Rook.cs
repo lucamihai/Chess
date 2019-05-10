@@ -29,9 +29,6 @@ namespace ChessApplication.Common.ChessPieces
             var row = location.X;
             var column = location.Y;
             var startLocation = chessBoard[location.X, location.Y];
-            var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
-                ? chessBoard.PositionWhiteKing
-                : chessBoard.PositionBlackKing;
 
             Box locationToBeInspected;
             Point destination;
