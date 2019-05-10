@@ -33,7 +33,7 @@ namespace ChessApplication.Common.ChessPieces
 
         public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location);
 
-        protected bool WillMoveTriggerCheck(Chessboard chessBoard, Point origin, Point destination, Point kingPosition)
+        protected bool WillMoveTriggerCheck(Chessboard chessBoard, Point origin, Point destination)
         {
             // Back up origin and destination data
             var originChessPiece = chessBoard[origin].Piece;
@@ -43,6 +43,9 @@ namespace ChessApplication.Common.ChessPieces
             chessBoard[origin].Piece = null;
             chessBoard[destination].Piece = originChessPiece;
 
+            var kingPosition = originChessPiece.Color == PieceColor.White
+                ? chessBoard.PositionWhiteKing
+                : chessBoard.PositionBlackKing;
             var triggersCheck = false;
 
             if (!triggersCheck)
@@ -63,7 +66,7 @@ namespace ChessApplication.Common.ChessPieces
             if (!triggersCheck)
                 triggersCheck = IsThreatenedByQueen(chessBoard, kingPosition);
 
-
+            // Restore origin and destination
             chessBoard[origin].Piece = originChessPiece;
             chessBoard[destination].Piece = destinationChessPiece;
 
