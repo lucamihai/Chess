@@ -27,9 +27,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X + 1, column = whiteQueenPosition.Y + 1; row < 9 && column < 9; row++, column++)
             {
@@ -45,9 +46,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X - 1, column = whiteQueenPosition.Y + 1; row > 0 && column < 9; row--, column++)
             {
@@ -63,9 +65,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X - 1, column = whiteQueenPosition.Y - 1; row > 0 && column > 0; row--, column--)
             {
@@ -81,9 +84,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X + 1, column = whiteQueenPosition.Y - 1; row < 9 && column > 0; row++, column--)
             {
@@ -101,9 +105,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X + 1, column = whiteQueenPosition.Y + 1; row < whitePawnPosition.X && column < whitePawnPosition.Y; row++, column++)
             {
@@ -126,9 +131,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X - 1, column = whiteQueenPosition.Y + 1; row > whitePawnPosition.X && column < whitePawnPosition.Y; row--, column++)
             {
@@ -151,9 +157,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X - 1, column = whiteQueenPosition.Y - 1; row > whitePawnPosition.X && column > whitePawnPosition.Y; row--, column--)
             {
@@ -176,9 +183,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X + 1, column = whiteQueenPosition.Y - 1; row < whitePawnPosition.X && column > whitePawnPosition.Y; row++, column--)
             {
@@ -201,9 +209,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X + 1, column = whiteQueenPosition.Y + 1; row < blackPawnPosition.X && column < blackPawnPosition.Y; row++, column++)
             {
@@ -226,9 +235,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X - 1, column = whiteQueenPosition.Y + 1; row > blackPawnPosition.X && column < blackPawnPosition.Y; row--, column++)
             {
@@ -251,9 +261,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X - 1, column = whiteQueenPosition.Y - 1; row > blackPawnPosition.X && column > blackPawnPosition.Y; row--, column--)
             {
@@ -276,9 +287,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (int row = whiteQueenPosition.X + 1, column = whiteQueenPosition.Y - 1; row < blackPawnPosition.X && column > blackPawnPosition.Y; row++, column--)
             {
@@ -299,9 +311,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var column = whiteQueenPosition.Y + 1; column < 9; column++)
                 Assert.IsTrue(ChessBoard[whiteQueenPosition.X, column].Available);
@@ -315,9 +328,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var column = whiteQueenPosition.Y - 1; column > 0; column--)
                 Assert.IsTrue(ChessBoard[whiteQueenPosition.X, column].Available);
@@ -331,9 +345,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var row = whiteQueenPosition.X + 1; row < 9; row++)
                 Assert.IsTrue(ChessBoard[row, whiteQueenPosition.Y].Available);
@@ -347,9 +362,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var row = whiteQueenPosition.X - 1; row > 0; row--)
                 Assert.IsTrue(ChessBoard[row, whiteQueenPosition.Y].Available);
@@ -365,9 +381,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var column = whiteQueenPosition.Y + 1; column < whitePawnPosition.Y; column++)
                 Assert.IsTrue(ChessBoard[whiteQueenPosition.X, column].Available);
@@ -386,9 +403,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var column = whiteQueenPosition.Y - 1; column > whitePawnPosition.Y; column--)
                 Assert.IsTrue(ChessBoard[whiteQueenPosition.X, column].Available);
@@ -407,9 +425,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var row = whiteQueenPosition.X + 1; row < whitePawnPosition.X; row++)
                 Assert.IsTrue(ChessBoard[row, whiteQueenPosition.Y].Available);
@@ -428,9 +447,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var row = whiteQueenPosition.X - 1; row > whitePawnPosition.X; row--)
                 Assert.IsTrue(ChessBoard[row, whiteQueenPosition.Y].Available);
@@ -449,9 +469,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var column = whiteQueenPosition.Y + 1; column < blackPawnPosition.Y; column++)
                 Assert.IsTrue(ChessBoard[whiteQueenPosition.X, column].Available);
@@ -470,9 +491,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var column = whiteQueenPosition.Y - 1; column > blackPawnPosition.Y; column--)
                 Assert.IsTrue(ChessBoard[whiteQueenPosition.X, column].Available);
@@ -491,9 +513,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var row = whiteQueenPosition.X + 1; row < blackPawnPosition.X; row++)
                 Assert.IsTrue(ChessBoard[row, whiteQueenPosition.Y].Available);
@@ -512,9 +535,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteQueenPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteQueenPosition);
 
             for (var row = whiteQueenPosition.X - 1; row > blackPawnPosition.X; row--)
                 Assert.IsTrue(ChessBoard[row, whiteQueenPosition.Y].Available);

@@ -25,8 +25,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
             var whiteKingPosition = new Point(3, 3);
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
             ChessBoard[whiteKingPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteKingPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteKingPosition);
 
             var positionNorth = new Point(whiteKingPosition.X + 1, whiteKingPosition.Y);
             var positionSouth = new Point(whiteKingPosition.X - 1, whiteKingPosition.Y);
@@ -57,9 +58,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
             var whiteKingPosition = new Point(3, 3);
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
             Methods.SurroundBoxWithPawns(PieceColor.White, whiteKingPosition, ChessBoard);
             ChessBoard[whiteKingPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteKingPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteKingPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }

@@ -148,7 +148,7 @@ namespace ChessApplication.Common
                     {
                         var location = new Point(row, column);
                         var kingPosition = providedColor == PieceColor.White ? PositionWhiteKing : PositionBlackKing;
-                        Boxes[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(this, location, kingPosition);
+                        Boxes[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(this, location);
 
                         if (Boxes[row, column].Piece.CanMove)
                         {

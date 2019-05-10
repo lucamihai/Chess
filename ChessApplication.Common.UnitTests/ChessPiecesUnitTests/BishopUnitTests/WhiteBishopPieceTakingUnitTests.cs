@@ -27,10 +27,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             Methods.SurroundBoxWithPawns(PieceColor.Black, whiteBishopPosition, ChessBoard);
             ChessBoard[whiteBishopPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteBishopPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteBishopPosition);
 
             var positionNorthEast = new Point(whiteBishopPosition.X + 1, whiteBishopPosition.Y + 1);
             var positionSouthEast = new Point(whiteBishopPosition.X - 1, whiteBishopPosition.Y + 1);
@@ -52,10 +53,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
 
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             Methods.SurroundBoxWithPawns(PieceColor.White, whiteBishopPosition, ChessBoard);
             ChessBoard[whiteBishopPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteBishopPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteBishopPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }

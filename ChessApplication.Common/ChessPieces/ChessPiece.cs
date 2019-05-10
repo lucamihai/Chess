@@ -31,7 +31,7 @@ namespace ChessApplication.Common.ChessPieces
         [ExcludeFromCodeCoverage]
         public Image ImageSmall { get; protected set; }
 
-        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition);
+        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location);
 
         protected bool WillMoveTriggerCheck(Chessboard chessBoard, Point origin, Point destination, Point kingPosition)
         {

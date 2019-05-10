@@ -29,9 +29,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
             ChessBoard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
@@ -48,9 +49,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
             ChessBoard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition);
 
             Assert.IsFalse(ChessBoard[blackPawnPosition].Available);
         }
@@ -65,9 +67,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
             ChessBoard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
@@ -84,9 +87,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
             ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             ChessBoard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
@@ -101,9 +105,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
             ChessBoard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition);
 
             var defensePosition = new Point(blackQueenPosition.X, whiteRookPosition.Y);
             Assert.IsTrue(ChessBoard[defensePosition].Available);
@@ -120,9 +125,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
             ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
             ChessBoard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+            ChessBoard.PositionWhiteKing = whiteKingPosition;
 
             ChessBoard[whiteRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition);
 
             Assert.IsTrue(ChessBoard[blackQueenPosition].Available);
             Assert.AreEqual(1, Methods.GetNumberOfAvailableBoxes(ChessBoard));

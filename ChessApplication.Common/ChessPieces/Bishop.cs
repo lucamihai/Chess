@@ -24,11 +24,14 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location)
         {
             var row = location.X;
             var column = location.Y;
             var startLocation = chessBoard[row, column];
+            var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
+                ? chessBoard.PositionWhiteKing
+                : chessBoard.PositionBlackKing;
 
             Box locationToBeInspected;
             Point destination;

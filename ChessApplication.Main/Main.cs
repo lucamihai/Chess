@@ -651,7 +651,7 @@ namespace ChessApplication.Main
                             kingPosition = ChessBoard.PositionBlackKing;
                         }
 
-                        clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition, kingPosition);
+                        clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition);
                         if (clickedBoxObject.Piece.CanMove)
                         {
                             FirstClickedBox = clickedBoxObject;

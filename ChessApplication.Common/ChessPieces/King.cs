@@ -23,9 +23,12 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location, Point kingPosition)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location)
         {
             Point newKingPosition;
+            var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
+                ? chessBoard.PositionWhiteKing
+                : chessBoard.PositionBlackKing;
 
             newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y - 1);
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
