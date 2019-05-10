@@ -25,11 +25,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var whiteKingPosition = new Point(8, 8);
             var whiteRookPosition = new Point(5, 5);
 
-            ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
-            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece = new Rook(PieceColor.White);
+            ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
+            ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
 
             Methods.SurroundBoxWithPawns(PieceColor.Black, whiteRookPosition, ChessBoard);
-            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece
+            ChessBoard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
 
             var positionNorth = new Point(whiteRookPosition.X + 1, whiteRookPosition.Y);
@@ -37,10 +37,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var positionEast = new Point(whiteRookPosition.X, whiteRookPosition.Y + 1);
             var positionWest = new Point(whiteRookPosition.X, whiteRookPosition.Y - 1);
 
-            Assert.IsTrue(ChessBoard[positionNorth.X, positionNorth.Y].Available);
-            Assert.IsTrue(ChessBoard[positionSouth.X, positionSouth.Y].Available);
-            Assert.IsTrue(ChessBoard[positionEast.X, positionEast.Y].Available);
-            Assert.IsTrue(ChessBoard[positionWest.X, positionWest.Y].Available);
+            Assert.IsTrue(ChessBoard[positionNorth].Available);
+            Assert.IsTrue(ChessBoard[positionSouth].Available);
+            Assert.IsTrue(ChessBoard[positionEast].Available);
+            Assert.IsTrue(ChessBoard[positionWest].Available);
             Assert.AreEqual(4, Methods.GetNumberOfAvailableBoxes(ChessBoard));
         }
 
@@ -50,11 +50,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var whiteKingPosition = new Point(8, 8);
             var whiteRookPosition = new Point(5, 5);
 
-            ChessBoard[whiteKingPosition.X, whiteKingPosition.Y].Piece = new King(PieceColor.White);
-            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece = new Rook(PieceColor.White);
+            ChessBoard[whiteKingPosition].Piece = new King(PieceColor.White);
+            ChessBoard[whiteRookPosition].Piece = new Rook(PieceColor.White);
 
             Methods.SurroundBoxWithPawns(PieceColor.White, whiteRookPosition, ChessBoard);
-            ChessBoard[whiteRookPosition.X, whiteRookPosition.Y].Piece
+            ChessBoard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, whiteRookPosition, whiteKingPosition);
 
             Assert.AreEqual(0, Methods.GetNumberOfAvailableBoxes(ChessBoard));
