@@ -219,5 +219,6 @@ namespace ChessApplication.Common.UnitTests
             Assert.AreEqual(desiredWidth, imageAfterResizing.Width);
             Assert.AreEqual(desiredHeight, imageAfterResizing.Height);
         }
+
     }
 }

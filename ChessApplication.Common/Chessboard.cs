@@ -163,5 +163,603 @@ namespace ChessApplication.Common
             return true;
         }
 
+        public bool MoveTriggersCheck(Point origin, Point destination)
+        {
+            // Back up origin and destination data
+            var originChessPiece = this[origin].Piece;
+            var destinationChessPiece = this[destination].Piece;
+
+            // Pretend the move was made
+            this[origin].Piece = null;
+            this[destination].Piece = originChessPiece;
+
+            var kingPosition = originChessPiece.Color == PieceColor.White
+                ? this.PositionWhiteKing
+                : this.PositionBlackKing;
+            var triggersCheck = false;
+
+            if (!triggersCheck)
+                triggersCheck = PieceIsThreatenedByPawns(kingPosition);
+
+            if (!triggersCheck)
+                triggersCheck = PieceIsThreatenedByKing(kingPosition);
+
+            if (!triggersCheck)
+                triggersCheck = PieceIsThreatenedByKnights(kingPosition);
+
+            if (!triggersCheck)
+                triggersCheck = PieceIsThreatenedByRooks(kingPosition);
+
+            if (!triggersCheck)
+                triggersCheck = PieceIsThreatenedByBishops(kingPosition);
+
+            if (!triggersCheck)
+                triggersCheck = PieceIsThreatenedByQueen(kingPosition);
+
+            // Restore origin and destination
+            this[origin].Piece = originChessPiece;
+            this[destination].Piece = destinationChessPiece;
+
+            return triggersCheck;
+        }
+
+        public bool PieceIsThreatenedByPawns(Point location)
+        {
+            var currentLocation = this[location];
+            var threatened = false;
+
+            if (currentLocation.Piece.Color == PieceColor.White)
+            {
+                if (!threatened)
+                    threatened = Utilities.LocationContainsPiece<Pawn>(this[location.X + 1, location.Y - 1], PieceColor.Black);
+
+                if (!threatened)
+                    threatened = Utilities.LocationContainsPiece<Pawn>(this[location.X + 1, location.Y + 1], PieceColor.Black);
+            }
+
+            if (currentLocation.Piece.Color == PieceColor.Black)
+            {
+                if (!threatened)
+                    threatened = Utilities.LocationContainsPiece<Pawn>(this[location.X - 1, location.Y - 1], PieceColor.White);
+
+                if (!threatened)
+                    threatened = Utilities.LocationContainsPiece<Pawn>(this[location.X - 1, location.Y + 1], PieceColor.White);
+            }
+
+            return threatened;
+        }
+
+        public bool PieceIsThreatenedByKing(Point location)
+        {
+            var currentLocation = this[location];
+            var threatened = false;
+            var containsKing = false;
+
+            Box locationToBeInspected;
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X + 1, location.Y - 1];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X + 1, location.Y + 1];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X + 1, location.Y];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X, location.Y - 1];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X, location.Y + 1];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X - 1, location.Y - 1];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X - 1, location.Y];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            if (!threatened)
+            {
+                locationToBeInspected = this[location.X - 1, location.Y + 1];
+                containsKing = Utilities.LocationContainsPiece<King>(locationToBeInspected);
+                threatened = (containsKing && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+            }
+
+            return threatened;
+        }
+
+        public bool PieceIsThreatenedByKnights(Point location)
+        {
+            var currentLocation = this[location];
+            var threatened = false;
+            var containsKnight = false;
+
+            Box locationToBeInspected;
+
+            if (!threatened)
+            {
+                if (location.X < 8 && location.Y < 7)
+                {
+                    locationToBeInspected = this[location.X + 1, location.Y + 2];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            if (!threatened)
+            {
+                if (location.X < 8 && location.Y > 2)
+                {
+                    locationToBeInspected = this[location.X + 1, location.Y - 2];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            //-----
+
+            if (!threatened)
+            {
+                if (location.X < 7 && location.Y < 8)
+                {
+                    locationToBeInspected = this[location.X + 2, location.Y + 1];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            if (!threatened)
+            {
+                if (location.X < 7 && location.Y > 1)
+                {
+                    locationToBeInspected = this[location.X + 2, location.Y - 1];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            //-----
+
+            if (!threatened)
+            {
+                if (location.X > 1 && location.Y < 7)
+                {
+                    locationToBeInspected = this[location.X - 1, location.Y + 2];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            if (!threatened)
+            {
+                if (location.X > 1 && location.Y > 2)
+                {
+                    locationToBeInspected = this[location.X - 1, location.Y - 2];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            //----- 
+
+            if (!threatened)
+            {
+                if (location.X > 2 && location.Y < 8)
+                {
+                    locationToBeInspected = this[location.X - 2, location.Y + 1];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            if (!threatened)
+            {
+                if (location.X > 2 && location.Y > 1)
+                {
+                    locationToBeInspected = this[location.X - 2, location.Y - 1];
+                    containsKnight = Utilities.LocationContainsPiece<Knight>(locationToBeInspected);
+                    threatened = (containsKnight && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+                }
+            }
+
+            return threatened;
+        }
+
+        public bool PieceIsThreatenedByBishops(Point location)
+        {
+            var currentLocation = this[location];
+            var threatened = false;
+            var containsBishop = false;
+
+            Box locationToBeInspected;
+
+            // South - west
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsBishop && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // North - east
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsBishop && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // North - west
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsBishop && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // South - east
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
+                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsBishop && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            return threatened;
+        }
+
+        public bool PieceIsThreatenedByRooks(Point location)
+        {
+            var currentLocation = this[location];
+            var threatened = false;
+            var containsRook = false;
+
+            Box locationToBeInspected;
+
+            // West
+            for (int secondaryColumn = location.Y; secondaryColumn >= 1 && !threatened; secondaryColumn--)
+            {
+                if (secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[location.X, secondaryColumn];
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsRook && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // East
+            for (int secondaryColumn = location.Y; secondaryColumn <= 8 && !threatened; secondaryColumn++)
+            {
+                if (secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[location.X, secondaryColumn];
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsRook && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // South
+            for (int secondaryRow = location.X; secondaryRow >= 1 && !threatened; secondaryRow--)
+            {
+                if (secondaryRow == location.X)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, location.Y];
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsRook && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // North
+            for (int secondaryRow = location.X; secondaryRow <= 8 && !threatened; secondaryRow++)
+            {
+                if (secondaryRow == location.X)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, location.Y];
+                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
+                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsRook && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            return threatened;
+        }
+
+        public bool PieceIsThreatenedByQueen(Point location)
+        {
+            var currentLocation = this[location];
+            var threatened = false;
+            var containsQueen = false;
+
+            Box locationToBeInspected;
+
+            // South - west
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // North - east
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // North - west
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // South - east
+            for (int secondaryRow = location.X, secondaryColumn = location.Y; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
+            {
+                if (secondaryRow == location.X && secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, secondaryColumn];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // West
+            for (int secondaryColumn = location.Y; secondaryColumn >= 1 && !threatened; secondaryColumn--)
+            {
+                if (secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[location.X, secondaryColumn];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // East
+            for (int secondaryColumn = location.Y; secondaryColumn <= 8 && !threatened; secondaryColumn++)
+            {
+                if (secondaryColumn == location.Y)
+                    continue;
+
+                locationToBeInspected = this[location.X, secondaryColumn];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // South
+            for (int secondaryRow = location.X; secondaryRow >= 1 && !threatened; secondaryRow--)
+            {
+                if (secondaryRow == location.X)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, location.Y];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            // North
+            for (int secondaryRow = location.X; secondaryRow <= 8 && !threatened; secondaryRow++)
+            {
+                if (secondaryRow == location.X)
+                    continue;
+
+                locationToBeInspected = this[secondaryRow, location.Y];
+                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
+                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
+
+                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
+                {
+                    break;
+                }
+
+                if (!containsQueen && locationToBeInspected.Piece != null)
+                {
+                    break;
+                }
+            }
+
+            return threatened;
+        }
     }
 }

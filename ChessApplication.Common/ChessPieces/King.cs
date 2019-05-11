@@ -140,22 +140,22 @@ namespace ChessApplication.Common.ChessPieces
         {
             var check = false;
 
-            check = IsThreatenedByPawns(chessBoard, location);
+            check = chessBoard.PieceIsThreatenedByPawns(location);
             if (check) return check;
 
-            check = IsThreatenedByKing(chessBoard, location);
+            check = chessBoard.PieceIsThreatenedByKing(location);
             if (check) return check;
 
-            check = IsThreatenedByKnights(chessBoard, location);
+            check = chessBoard.PieceIsThreatenedByKnights(location);
             if (check) return check;
 
-            check = IsThreatenedByRooks(chessBoard, location);
+            check = chessBoard.PieceIsThreatenedByRooks(location);
             if (check) return check;
 
-            check = IsThreatenedByBishops(chessBoard, location);
+            check = chessBoard.PieceIsThreatenedByBishops(location);
             if (check) return check;
 
-            check = IsThreatenedByQueen(chessBoard, location);
+            check = chessBoard.PieceIsThreatenedByQueen(location);
             if (check) return check;
 
             return check;

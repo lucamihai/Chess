@@ -88,5 +88,6 @@ namespace ChessApplication.Common
 
             return destImage;
         }
+
     }
 }
