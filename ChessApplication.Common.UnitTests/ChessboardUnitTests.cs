@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -175,6 +176,366 @@ namespace ChessApplication.Common.UnitTests
         public void IsCheckmateForProvidedColorReturnsFalseForBlackIfBlackIsNotInCheckmate()
         {
             Assert.IsFalse(chessboard.IsCheckmateForProvidedColor(PieceColor.Black));
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByPawnsReturnsTrueIfBlackPawnIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var blackPawnPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByPawns(whitePawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByPawnsReturnsFalseIfWhitePawnIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var whitePawnPosition2 = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[whitePawnPosition2].Piece = new Pawn(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByPawns(whitePawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByRooksReturnsTrueIfBlackRookIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var blackRookPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByRooks(whitePawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByRooksReturnsFalseIfWhiteRookIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var whiteRookPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByRooks(whitePawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKnightsReturnsTrueIfBlackKnightIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var blackKnightPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 2);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[blackKnightPosition].Piece = new Knight(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByKnights(whitePawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKnightsReturnsFalseIfWhiteKnightIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var whiteKnightPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 2);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByKnights(whitePawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByBishopsReturnsTrueIfBlackBishopIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var blackBishopPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByBishops(whitePawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByBishopsReturnsFalseIfWhiteBishopIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var whiteBishopPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByBishops(whitePawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByQueenReturnsTrueIfBlackQueenIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var blackQueenPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByQueen(whitePawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByQueenReturnsFalseIfWhiteQueenIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var whiteQueenPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByQueen(whitePawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKingReturnsTrueIfBlackKingIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var blackKingPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByKing(whitePawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKingReturnsFalseIfWhiteKingIntersectsWhitePiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var whitePawnPosition = new Point(2, 2);
+            var whiteKingPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
+
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByKing(whitePawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByPawnsReturnsTrueIfWhitePawnIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var whitePawnPosition = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByPawns(blackPawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByPawnsReturnsFalseIfBlackPawnIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var blackPawnPosition2 = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[blackPawnPosition2].Piece = new Pawn(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByPawns(blackPawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByRooksReturnsTrueIfWhiteRookIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var whiteRookPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByRooks(blackPawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByRooksReturnsFalseIfBlackRookIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var blackRookPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByRooks(blackPawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKnightsReturnsTrueIfWhiteKnightIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var whiteKnightPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 2);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByKnights(blackPawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKnightsReturnsFalseIfBlackKnightIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var blackKnightPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 2);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[blackKnightPosition].Piece = new Knight(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByKnights(blackPawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByBishopsReturnsTrueIfWhiteBishopIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var whiteBishopPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByBishops(blackPawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByBishopsReturnsFalseIfBlackBishopIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var blackBishopPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByBishops(blackPawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByQueenReturnsTrueIfWhiteQueenIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var whiteQueenPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByQueen(blackPawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByQueenReturnsFalseIfBlackQueenIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var blackQueenPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByQueen(blackPawnPosition);
+            Assert.IsFalse(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKingReturnsTrueIfWhiteKingIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var whiteKingPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 1);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
+
+            var threatened = chessboard.PieceIsThreatenedByKing(blackPawnPosition);
+            Assert.IsTrue(threatened);
+        }
+
+        [TestMethod]
+        public void PieceIsThreatenedByKingReturnsFalseIfBlackKingIntersectsBlackPiece()
+        {
+            chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+
+            var blackPawnPosition = new Point(2, 2);
+            var blackKingPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 1);
+
+            chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+
+            var threatened = chessboard.PieceIsThreatenedByKing(blackPawnPosition);
+            Assert.IsFalse(threatened);
         }
 
         private bool WhitePawnsAreAdded()
