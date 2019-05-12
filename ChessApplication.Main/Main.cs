@@ -635,21 +635,11 @@ namespace ChessApplication.Main
             if (CurrentTurn == PlayerTurn)
             {
                 // First click on a box with a chess piece
-                if (clickCounter == 0 && clickedBoxObject.Piece != null && (int)PlayerTurn == (int)clickedBoxObject.Piece.Color)
+                if (clickCounter == 0 && clickedBoxObject.Piece != null)
                 {
                     if ((int)PlayerTurn == (int)clickedBoxObject.Piece.Color)
                     {
                         var boxPosition = clickedBoxObject.Position;
-
-                        Point kingPosition;
-                        if (clickedBoxObject.Piece.Color == PieceColor.White)
-                        {
-                            kingPosition = ChessBoard.PositionWhiteKing;
-                        }
-                        else
-                        {
-                            kingPosition = ChessBoard.PositionBlackKing;
-                        }
 
                         clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition);
                         if (clickedBoxObject.Piece.CanMove)
@@ -669,15 +659,15 @@ namespace ChessApplication.Main
                     {
                         ChessBoard.SetChessBoardBoxesAsUnavailable();
                         ChessBoard.ResetChessBoardBoxesColors();
+                        clickCounter = 0;
                     }
 
                     // Click on a different box where the current piece can be moved
                     if (clickedBoxObject != FirstClickedBox && clickedBoxObject.Available)
                     {
                         CurrentPlayerMovePiece(FirstClickedBox, clickedBoxObject);
+                        clickCounter = 0;
                     }
-
-                    clickCounter = 0;
                 }
             }
         }
