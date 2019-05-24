@@ -9,7 +9,7 @@ namespace ChessApplication.Server.Forms
     [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
-        private Panel menuContainer;
+        private readonly Panel menuContainer;
         private Common.UserControls.MainMenu mainMenu;
         private Main.Main chessboard;
 

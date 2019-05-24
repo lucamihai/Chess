@@ -7,7 +7,7 @@ namespace ChessApplication.Network
 {
     public class NetworkManagerServer : NetworkManager
     {
-        private TcpListener ServerTcpListener { get; set; }
+        private TcpListener ServerTcpListener { get; }
 
         public NetworkManagerServer()
         {

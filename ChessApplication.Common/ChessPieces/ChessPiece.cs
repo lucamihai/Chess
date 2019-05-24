@@ -10,17 +10,17 @@ namespace ChessApplication.Common.ChessPieces
 
         public bool CanMove { get; set; } = false;
 
-        private Image _Image;
+        private Image image;
         public Image Image
         {
-            get => _Image;
+            get => image;
             set
             {
-                _Image = value;
+                image = value;
 
-                if (_Image != null)
+                if (image != null)
                 {
-                    ImageSmall = Utilities.ResizeImage(_Image, 32, 32);
+                    ImageSmall = Utilities.ResizeImage(image, 32, 32);
                 }
             }
         }

@@ -158,51 +158,91 @@ namespace ChessApplication.Common.UnitTests
         }
 
         [TestMethod]
-        public void RetakeCapturedPieceCreatesNewRookForBoxIfCapturedPieceBoxHasRook()
+        public void RetakeCapturedPieceCreatesNewWhiteRookForBoxIfCapturedPieceBoxHasWhiteRook()
         {
             var box = new Box("H1");
             var capturedPieceBox = new CapturedPieceBox(new Rook(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
 
-            Assert.IsTrue(box.Piece != null);
-            Assert.IsTrue(Utilities.LocationContainsPiece<Rook>(box));
+            Assert.IsTrue(Utilities.LocationContainsPiece<Rook>(box, capturedPieceBox.ChessPiece.Color));
         }
 
         [TestMethod]
-        public void RetakeCapturedPieceCreatesNewKnightForBoxIfCapturedPieceBoxHasKnight()
+        public void RetakeCapturedPieceCreatesNewWhiteKnightForBoxIfCapturedPieceBoxHasWhiteKnight()
         {
             var box = new Box("H1");
             var capturedPieceBox = new CapturedPieceBox(new Knight(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
 
-            Assert.IsTrue(box.Piece != null);
-            Assert.IsTrue(Utilities.LocationContainsPiece<Knight>(box));
+            Assert.IsTrue(Utilities.LocationContainsPiece<Knight>(box, capturedPieceBox.ChessPiece.Color));
         }
 
         [TestMethod]
-        public void RetakeCapturedPieceCreatesNewBishopForBoxIfCapturedPieceBoxHasBishop()
+        public void RetakeCapturedPieceCreatesNewWhiteBishopForBoxIfCapturedPieceBoxHasWhiteBishop()
         {
             var box = new Box("H1");
             var capturedPieceBox = new CapturedPieceBox(new Bishop(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
 
-            Assert.IsTrue(box.Piece != null);
-            Assert.IsTrue(Utilities.LocationContainsPiece<Bishop>(box));
+            Assert.IsTrue(Utilities.LocationContainsPiece<Bishop>(box, capturedPieceBox.ChessPiece.Color));
         }
 
         [TestMethod]
-        public void RetakeCapturedPieceCreatesNewQueenForBoxIfCapturedPieceBoxHasQueen()
+        public void RetakeCapturedPieceCreatesNewWhiteQueenForBoxIfCapturedPieceBoxHasWhiteQueen()
         {
             var box = new Box("H1");
             var capturedPieceBox = new CapturedPieceBox(new Queen(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
 
-            Assert.IsTrue(box.Piece != null);
-            Assert.IsTrue(Utilities.LocationContainsPiece<Queen>(box));
+            Assert.IsTrue(Utilities.LocationContainsPiece<Queen>(box, capturedPieceBox.ChessPiece.Color));
+        }
+
+        [TestMethod]
+        public void RetakeCapturedPieceCreatesNewBlackRookForBoxIfCapturedPieceBoxHasBlackRook()
+        {
+            var box = new Box("H1");
+            var capturedPieceBox = new CapturedPieceBox(new Rook(PieceColor.Black)) { Count = 2 };
+
+            Utilities.RetakeCapturedPiece(capturedPieceBox, box);
+
+            Assert.IsTrue(Utilities.LocationContainsPiece<Rook>(box, capturedPieceBox.ChessPiece.Color));
+        }
+
+        [TestMethod]
+        public void RetakeCapturedPieceCreatesNewBlackKnightForBoxIfCapturedPieceBoxHasBlackKnight()
+        {
+            var box = new Box("H1");
+            var capturedPieceBox = new CapturedPieceBox(new Knight(PieceColor.Black)) { Count = 2 };
+
+            Utilities.RetakeCapturedPiece(capturedPieceBox, box);
+
+            Assert.IsTrue(Utilities.LocationContainsPiece<Knight>(box, capturedPieceBox.ChessPiece.Color));
+        }
+
+        [TestMethod]
+        public void RetakeCapturedPieceCreatesNewBlackBishopForBoxIfCapturedPieceBoxHasBlackBishop()
+        {
+            var box = new Box("H1");
+            var capturedPieceBox = new CapturedPieceBox(new Bishop(PieceColor.Black)) { Count = 2 };
+
+            Utilities.RetakeCapturedPiece(capturedPieceBox, box);
+
+            Assert.IsTrue(Utilities.LocationContainsPiece<Bishop>(box, capturedPieceBox.ChessPiece.Color));
+        }
+
+        [TestMethod]
+        public void RetakeCapturedPieceCreatesNewBlackQueenForBoxIfCapturedPieceBoxHasBlackQueen()
+        {
+            var box = new Box("H1");
+            var capturedPieceBox = new CapturedPieceBox(new Queen(PieceColor.Black)) { Count = 2 };
+
+            Utilities.RetakeCapturedPiece(capturedPieceBox, box);
+
+            Assert.IsTrue(Utilities.LocationContainsPiece<Queen>(box, capturedPieceBox.ChessPiece.Color));
         }
 
         [TestMethod]

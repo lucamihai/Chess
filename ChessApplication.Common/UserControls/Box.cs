@@ -8,34 +8,34 @@ namespace ChessApplication.Common.UserControls
 {
     public partial class Box : UserControl
     {
-        private bool _Available;
+        private bool available;
         public bool Available
         {
-            get => _Available;
+            get => available;
             set
             {
-                _Available = value;
+                available = value;
 
-                if (_Available && BeginnersMode)
+                if (available && BeginnersMode)
                 {
                     pictureBoxPiece.BackColor = Constants.BoxColorAvailable;
                 }
             }
         }
 
-        private string _BoxName;
+        private string boxName;
         public string BoxName
         {
-            get => _BoxName;
+            get => boxName;
             private set
             {
-                _BoxName = value;
+                boxName = value;
 
-                var row = (int)_BoxName[0];
+                var row = (int)boxName[0];
                 row -= 'A';
                 row += 1;
 
-                var column = (int)_BoxName[1];
+                var column = (int)boxName[1];
                 column -= '1';
                 column += 1;
 
@@ -43,15 +43,15 @@ namespace ChessApplication.Common.UserControls
             }
         }
 
-        private ChessPiece _Piece;
+        private ChessPiece piece;
         public ChessPiece Piece
         {
-            get => _Piece;
+            get => piece;
             set
             {
-                _Piece = value;
+                piece = value;
 
-                pictureBoxPiece.Image = _Piece != null ? _Piece.Image : null;
+                pictureBoxPiece.Image = piece != null ? piece.Image : null;
             }
         }
 

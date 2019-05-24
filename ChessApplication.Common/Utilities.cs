@@ -9,14 +9,14 @@ namespace ChessApplication.Common
 {
     public static class Utilities
     { 
-        public static bool LocationContainsPiece<TYPE>(Box location, PieceColor color = PieceColor.Undefined) where TYPE : ChessPiece
+        public static bool LocationContainsPiece<TChessPiece>(Box location, PieceColor color = PieceColor.Undefined) where TChessPiece : ChessPiece
         {
             if (location != null)
             {
                 var piece = location.Piece;
                 if (piece != null)
                 {
-                    if (piece is TYPE)
+                    if (piece is TChessPiece)
                     {
                         if (piece.Color == color || color == PieceColor.Undefined)
                         {

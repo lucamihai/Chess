@@ -7,27 +7,21 @@ namespace ChessApplication.Common
 {
     public class Chessboard
     {
-        private Box[,] Boxes;
+        private Box[,] Boxes { get; }
 
         public Box this[Point point] => Boxes[point.X, point.Y];
         public Box this[int row, int column] => Boxes[row, column];
 
-        //private Point _PositionWhiteKing = new Point(1, 5);
-        //public Point PositionWhiteKing => new Point(_PositionWhiteKing.X, _PositionWhiteKing.Y);
-
-        //private Point _PositionBlackKing = new Point(8, 4);
-        //public Point PositionBlackKing => new Point(_PositionBlackKing.X, _PositionBlackKing.Y);
-
         public Point PositionWhiteKing { get; set; } = new Point(1, 5);
         public Point PositionBlackKing { get; set; } = new Point(8, 4);
 
-        private bool _BeginnersMode = true;
+        private bool beginnersMode = true;
         public bool BeginnersMode
         {
-            get => _BeginnersMode;
+            get => beginnersMode;
             set
             {
-                _BeginnersMode = value;
+                beginnersMode = value;
 
                 for (int row = 1; row <= 8; row++)
                 {
@@ -174,8 +168,8 @@ namespace ChessApplication.Common
             this[destination].Piece = originChessPiece;
 
             var kingPosition = originChessPiece.Color == PieceColor.White
-                ? this.PositionWhiteKing
-                : this.PositionBlackKing;
+                ? PositionWhiteKing
+                : PositionBlackKing;
             var triggersCheck = false;
 
             if (!triggersCheck)

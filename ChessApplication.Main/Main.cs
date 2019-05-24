@@ -22,7 +22,6 @@ namespace ChessApplication.Main
         private int clickCounter;
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
-        private bool _BeginnersMode = true;
         public bool BeginnersMode
         {
             get => ChessBoard.BeginnersMode;
@@ -112,10 +111,7 @@ namespace ChessApplication.Main
 
         public void StopNetworkStuff()
         {
-            if (networkManager != null)
-            {
-                networkManager.Stop();
-            }
+            networkManager?.Stop();
         }
 
         public void SendMessageToOpponent(string message)

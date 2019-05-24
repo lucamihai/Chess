@@ -7,17 +7,17 @@ namespace ChessApplication.Common.UserControls
 {
     public partial class CapturedPieceBox : UserControl
     {
-        private ChessPiece _ChessPiece;
+        private ChessPiece chessPiece;
         public ChessPiece ChessPiece
         {
-            get => _ChessPiece;
+            get => chessPiece;
             private set
             {
-                _ChessPiece = value;
+                chessPiece = value;
 
-                if (_ChessPiece != null)
+                if (chessPiece != null)
                 {
-                    pictureBoxPiece.Image = _ChessPiece.Image;
+                    pictureBoxPiece.Image = chessPiece.Image;
                 }
             }
         }
