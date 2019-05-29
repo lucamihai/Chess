@@ -71,6 +71,11 @@ namespace ChessApplication.Main
 
         private void InitializeNetworkManager(UserType userType, string hostname)
         {
+            if (userType == UserType.SinglePlayer)
+            {
+                return;
+            }
+
             if (userType == UserType.Server)
             {
                 networkManager = new NetworkManagerServer();
@@ -418,8 +423,11 @@ namespace ChessApplication.Main
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            var command = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
-            SendCommand(command);
+            if (networkManager != null)
+            {
+                var command = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
+                SendCommand(command);
+            }
 
             ChessBoard.ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
