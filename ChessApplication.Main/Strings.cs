@@ -15,5 +15,7 @@ namespace ChessApplication.Main
 
         public static string CheckmateWhite => "Checkmate! Black has won!";
         public static string CheckmateBlack => "Checkmate! White has won!";
+
+        public static string ApplicationText => "Chess application ({0})";
     }
 }

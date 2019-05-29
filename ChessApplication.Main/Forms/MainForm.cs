@@ -87,7 +87,7 @@ namespace ChessApplication.Main.Forms
 
         private void UpdateApplicationTextByUserType(UserType userType)
         {
-            this.Text = $"Chess application ({userType})";
+            this.Text = string.Format(Strings.ApplicationText, userType);
         }
 
         private void InitializeChessboard(UserType userType)
