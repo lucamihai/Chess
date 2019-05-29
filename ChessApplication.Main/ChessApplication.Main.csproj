@@ -62,9 +62,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
-    <Compile Include="UserType.cs" />
     <EmbeddedResource Include="ChessboardUserControl.resx">
       <DependentUpon>ChessboardUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,13 +98,25 @@
     <None Include="Resources\movesound2.wav" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChessApplication.ChatBox\ChessApplication.ChatBox.csproj">
+      <Project>{72f819d6-5805-4b09-a382-b70d046a267d}</Project>
+      <Name>ChessApplication.ChatBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
       <Name>ChessApplication.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.History\ChessApplication.History.csproj">
+      <Project>{aadfd0d1-3510-4a81-b84b-caaaeea0accf}</Project>
+      <Name>ChessApplication.History</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj">
       <Project>{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}</Project>
       <Name>ChessApplication.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Notifications\ChessApplication.Notifications.csproj">
+      <Project>{a90ef670-de52-44ea-9e58-8a0a9b028c8c}</Project>
+      <Name>ChessApplication.Notifications</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

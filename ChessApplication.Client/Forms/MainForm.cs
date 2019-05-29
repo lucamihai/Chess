@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
+using ChessApplication.Common;
 using ChessApplication.Common.UserControls;
 using ChessApplication.Main;
 
@@ -11,7 +12,7 @@ namespace ChessApplication.Client.Forms
     public partial class MainForm : Form
     {
         private readonly Panel menuContainer;
-        private ChessboardMainMenu mainMenu;
+        private ChessboardMainMenuUserControl mainMenu;
         private ChessboardUserControl chessboard;
 
         public MainForm()
@@ -39,7 +40,7 @@ namespace ChessApplication.Client.Forms
 
         private void InitializeMainMenu()
         {
-            mainMenu = new Common.UserControls.ChessboardMainMenu
+            mainMenu = new Common.UserControls.ChessboardMainMenuUserControl
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),

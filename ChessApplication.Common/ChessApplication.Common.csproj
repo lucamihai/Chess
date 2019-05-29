@@ -85,6 +85,13 @@
     <Compile Include="UserControls\ChessboardOptions.Designer.cs">
       <DependentUpon>ChessboardOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UserTypeSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserTypeSelection.Designer.cs">
+      <DependentUpon>UserTypeSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ChessboardOptions.resx">
       <DependentUpon>ChessboardOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserTypeSelection.resx">
+      <DependentUpon>UserTypeSelection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace ChessApplication.Common.UserControls
 {
     [ExcludeFromCodeCoverage]
-    public partial class ChessboardMainMenu : UserControl
+    public partial class ChessboardMainMenuUserControl : UserControl
     {
         public delegate void StartGame();
         public StartGame OnStartGame { get; set; }
@@ -14,7 +14,7 @@ namespace ChessApplication.Common.UserControls
         public delegate void OptionsChanged(string username, string colorsString);
         public OptionsChanged OnOptionsChanged { get; set; }
 
-        public ChessboardMainMenu()
+        public ChessboardMainMenuUserControl()
         {
             InitializeComponent();
         }
@@ -36,9 +36,9 @@ namespace ChessApplication.Common.UserControls
             Application.Exit();
         }
 
-        private ChessboardOptions GetOptionsUserControl()
+        private ChessboardOptionsUserControl GetOptionsUserControl()
         {
-            var optionsUserControl = new ChessboardOptions
+            var optionsUserControl = new ChessboardOptionsUserControl
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),

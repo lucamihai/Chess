@@ -1,9 +1,9 @@
-﻿namespace ChessApplication.Main
+﻿namespace ChessApplication.Common
 {
     public enum UserType
     {
         Server,
         Client,
-        Human
+        SinglePlayer
     }
 }
