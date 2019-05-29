@@ -2,7 +2,7 @@
 
 namespace ChessApplication.Main
 {
-    partial class Main
+    partial class ChessboardUserControl
     {
         /// <summary> 
         /// Required designer variable.

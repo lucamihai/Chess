@@ -93,7 +93,7 @@
       <Name>ChessApplication.History</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Main\ChessApplication.Main.csproj">
-      <Project>{8673500a-3352-4b5b-a461-3f7f65d3e16f}</Project>
+      <Project>{e6ec510d-560e-4564-80cc-bcee8818072c}</Project>
       <Name>ChessApplication.Main</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Notifications\ChessApplication.Notifications.csproj">

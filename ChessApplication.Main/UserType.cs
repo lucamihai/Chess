@@ -3,6 +3,7 @@
     public enum UserType
     {
         Server,
-        Client
+        Client,
+        Human
     }
 }

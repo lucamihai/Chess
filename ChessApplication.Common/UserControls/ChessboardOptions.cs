@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace ChessApplication.Common.UserControls
 {
     [ExcludeFromCodeCoverage]
-    public partial class Options : UserControl
+    public partial class ChessboardOptions : UserControl
     {
         private readonly char[] forbiddenUsernameCharacters = { '#', '!', ':' };
 
@@ -16,7 +16,7 @@ namespace ChessApplication.Common.UserControls
         public delegate void Cancel();
         public Cancel OnCancel { get; set; }
 
-        public Options()
+        public ChessboardOptions()
         {
             InitializeComponent();
 

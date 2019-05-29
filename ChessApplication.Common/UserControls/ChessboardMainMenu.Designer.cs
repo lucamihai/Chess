@@ -1,6 +1,6 @@
 ﻿namespace ChessApplication.Common.UserControls
 {
-    partial class MainMenu
+    partial class ChessboardMainMenu
     {
         /// <summary> 
         /// Required designer variable.

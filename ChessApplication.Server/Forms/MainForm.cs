@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
+using ChessApplication.Common.UserControls;
 using ChessApplication.Main;
 
 namespace ChessApplication.Server.Forms
@@ -10,8 +11,8 @@ namespace ChessApplication.Server.Forms
     public partial class MainForm : Form
     {
         private readonly Panel menuContainer;
-        private Common.UserControls.MainMenu mainMenu;
-        private Main.Main chessboard;
+        private ChessboardMainMenu mainMenu;
+        private ChessboardUserControl chessboard;
 
         public MainForm()
         {
@@ -36,7 +37,7 @@ namespace ChessApplication.Server.Forms
 
         private void InitializeMainMenu()
         {
-            mainMenu = new Common.UserControls.MainMenu
+            mainMenu = new Common.UserControls.ChessboardMainMenu
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
@@ -59,7 +60,7 @@ namespace ChessApplication.Server.Forms
 
         private void InitializeChessboard()
         {
-            chessboard = new Main.Main(UserType.Server);
+            chessboard = new Main.ChessboardUserControl(UserType.Server);
             panelChessboard.Controls.Add(chessboard);
 
             chessboard.OnMadeMove += (origin, destination) =>

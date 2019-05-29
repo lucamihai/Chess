@@ -12,7 +12,7 @@ using ChessApplication.Network;
 
 namespace ChessApplication.Main
 {
-    public partial class Main : UserControl
+    public partial class ChessboardUserControl : UserControl
     {
         public bool NetworkManagerIsInitialized => networkManager != null;
 
@@ -59,7 +59,7 @@ namespace ChessApplication.Main
         public delegate void Notification(string notificationMessage);
         public Notification OnNotification { get; set; }
 
-        public Main(UserType userType, string hostname = null)
+        public ChessboardUserControl(UserType userType, string hostname = null)
         {
             InitializeComponent();
             InitializeNetworkManager(userType, hostname);
@@ -549,7 +549,7 @@ namespace ChessApplication.Main
             // If a white pawn has reached the last line
             if (PlayerTurn == Turn.White)
             {
-                if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
+                if (Enumerable.Contains(destination.BoxName, 'H') && destination.Piece is Pawn)
                 {
                     if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
                     {
@@ -568,7 +568,7 @@ namespace ChessApplication.Main
             // If a black pawn has reached the last line
             if (PlayerTurn == Turn.Black)
             {
-                if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
+                if (Enumerable.Contains(destination.BoxName, 'A') && destination.Piece is Pawn)
                 {
                     if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
                     {
