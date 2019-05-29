@@ -565,7 +565,7 @@ namespace ChessApplication.Main
             // If a white pawn has reached the last line
             if (PlayerTurn == Turn.White)
             {
-                if (Enumerable.Contains(destination.BoxName, 'H') && destination.Piece is Pawn)
+                if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
                 {
                     if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
                     {
@@ -584,7 +584,7 @@ namespace ChessApplication.Main
             // If a black pawn has reached the last line
             if (PlayerTurn == Turn.Black)
             {
-                if (Enumerable.Contains(destination.BoxName, 'A') && destination.Piece is Pawn)
+                if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
                 {
                     if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
                     {

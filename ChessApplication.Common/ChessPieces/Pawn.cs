@@ -64,7 +64,6 @@ namespace ChessApplication.Common.ChessPieces
                     {
                         chessBoard[row + 1, column - 1].Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
-                        
                     }
                 }
 

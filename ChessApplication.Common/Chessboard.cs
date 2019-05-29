@@ -9,8 +9,31 @@ namespace ChessApplication.Common
     {
         private Box[,] Boxes { get; }
 
-        public Box this[Point point] => Boxes[point.X, point.Y];
-        public Box this[int row, int column] => Boxes[row, column];
+        public Box this[Point point]
+        {
+            get
+            {
+                if (point.X < 0 || point.X > 10)
+                    return null;
+                if (point.Y < 0 || point.Y > 10)
+                    return null;
+
+                return Boxes[point.X, point.Y];
+            }
+        }
+
+        public Box this[int row, int column]
+        {
+            get
+            {
+                if (row < 0 || row > 10)
+                    return null;
+                if (column < 0 || column > 10)
+                    return null;
+
+                return Boxes[row, column];
+            }
+        }
 
         public Point PositionWhiteKing { get; set; } = new Point(1, 5);
         public Point PositionBlackKing { get; set; } = new Point(8, 4);
@@ -141,7 +164,6 @@ namespace ChessApplication.Common
                     if (Boxes[row, column].Piece != null && Boxes[row, column].Piece.Color == providedColor)
                     {
                         var location = new Point(row, column);
-                        var kingPosition = providedColor == PieceColor.White ? PositionWhiteKing : PositionBlackKing;
                         Boxes[row, column].Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(this, location);
 
                         if (Boxes[row, column].Piece.CanMove)
