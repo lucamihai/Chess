@@ -64,62 +64,9 @@ namespace ChessApplication.Main
             InitializeComponent();
             InitializeNetworkManager(userType, hostname);
             InitializeUsernames(userType);
+            InitializeTurnsByUserType(userType);
 
             NewGame();
-        }
-
-        public void SetUsernameAndNotifyOpponent(string username)
-        {
-            PlayerUsername = username;
-            var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
-            networkManager.SendMessage(message);
-        }
-
-        public void SetColorsAndNotifyOpponent(string colorsString)
-        {
-            var colors = colorsString.Split(' ');
-            var currentPlayerColor = Convert.ToInt32(colors[0]);
-
-            if (currentPlayerColor == (int)Turn.White)
-            {
-                PlayerTurn = Turn.White;
-                OpponentsTurn = Turn.Black;
-            }
-            else
-            {
-                PlayerTurn = Turn.Black;
-                OpponentsTurn = Turn.White;
-            }
-
-            var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
-            networkManager.SendMessage(message);
-        }
-
-        public void RequestNewGame()
-        {
-            if (!isNewGameRequested)
-            {
-                SendCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
-            }
-            else
-            {
-                NewGame();
-                isNewGameRequested = false;
-                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
-            }
-        }
-
-        public void StopNetworkStuff()
-        {
-            networkManager?.Stop();
-        }
-
-        public void SendMessageToOpponent(string message)
-        {
-            if (!message.StartsWith(CommandMarker))
-            {
-                networkManager.SendMessage(message);
-            }
         }
 
         private void InitializeNetworkManager(UserType userType, string hostname)
@@ -268,12 +215,6 @@ namespace ChessApplication.Main
             };
         }
 
-        private void NotifyNewGameIsRequested()
-        {
-            var message = string.Format(Strings.UserRequestsNewGame, usernameOpponent);
-            MessageBox.Show(message);
-        }
-
         private void InitializeUsernames(UserType currentPlayerUserType)
         {
             if (currentPlayerUserType == UserType.Server)
@@ -287,6 +228,81 @@ namespace ChessApplication.Main
                 PlayerUsername = Constants.DefaultUsernameClient;
                 usernameOpponent = Constants.DefaultUsernameServer;
             }
+        }
+
+        private void InitializeTurnsByUserType(UserType userType)
+        {
+            CurrentTurn = Turn.White;
+            if (userType == UserType.Client)
+            {
+                PlayerTurn = Turn.Black;
+                OpponentsTurn = Turn.White;
+            }
+            else
+            {
+                PlayerTurn = Turn.White;
+                OpponentsTurn = Turn.Black;
+            }
+        }
+
+        public void SetUsernameAndNotifyOpponent(string username)
+        {
+            PlayerUsername = username;
+            var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
+            networkManager.SendMessage(message);
+        }
+
+        public void SetColorsAndNotifyOpponent(string colorsString)
+        {
+            var colors = colorsString.Split(' ');
+            var currentPlayerColor = Convert.ToInt32(colors[0]);
+
+            if (currentPlayerColor == (int)Turn.White)
+            {
+                PlayerTurn = Turn.White;
+                OpponentsTurn = Turn.Black;
+            }
+            else
+            {
+                PlayerTurn = Turn.Black;
+                OpponentsTurn = Turn.White;
+            }
+
+            var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
+            networkManager.SendMessage(message);
+        }
+
+        public void RequestNewGame()
+        {
+            if (!isNewGameRequested)
+            {
+                SendCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
+            }
+            else
+            {
+                NewGame();
+                isNewGameRequested = false;
+                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
+            }
+        }
+
+        public void StopNetworkStuff()
+        {
+            networkManager?.Stop();
+        }
+
+        public void SendMessageToOpponent(string message)
+        {
+            if (!message.StartsWith(CommandMarker))
+            {
+                networkManager.SendMessage(message);
+            }
+        }
+
+        private void NotifyNewGameIsRequested()
+        {
+            var message = string.Format(Strings.UserRequestsNewGame, usernameOpponent);
+            MessageBox.Show(message);
         }
 
         private void NewGame()

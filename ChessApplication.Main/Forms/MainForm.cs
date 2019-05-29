@@ -10,18 +10,16 @@ namespace ChessApplication.Main.Forms
     [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
-        private UserType userType;
         private readonly Panel menuContainer;
-        private UserTypeSelection userTypeSelection;
-        private ChessboardMainMenu mainMenu;
+        private UserTypeSelectionUserControl userTypeSelection;
+        private ChessboardMainMenuUserControl mainMenu;
         private ChessboardUserControl chessboard;
 
         public MainForm()
         {
             InitializeComponent();
             InitializeUserTypeSelection();
-            InitializeChessboard();
-            InitializeChatBox();
+            
             InitializeMainMenu();
 
             menuContainer = new Panel
@@ -41,7 +39,7 @@ namespace ChessApplication.Main.Forms
 
         private void InitializeMainMenu()
         {
-            mainMenu = new ChessboardMainMenu
+            mainMenu = new ChessboardMainMenuUserControl
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
@@ -64,7 +62,7 @@ namespace ChessApplication.Main.Forms
 
         private void InitializeUserTypeSelection()
         {
-            userTypeSelection = new UserTypeSelection
+            userTypeSelection = new UserTypeSelectionUserControl
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
@@ -72,17 +70,32 @@ namespace ChessApplication.Main.Forms
                 AutoSizeMode = AutoSizeMode.GrowAndShrink
             };
 
-            userTypeSelection.OnUserTypeSelected += type =>
+            userTypeSelection.OnUserTypeSelected += userType =>
             {
-                userType = type;
+                UpdateApplicationTextByUserType(userType);
+                InitializeChessboard(userType);
+                InitializeChatBox();
                 userTypeSelection.Hide();
-                MessageBox.Show($"You selected user type '{userType}'");
             };
         }
 
-        private void InitializeChessboard()
+        private void UpdateApplicationTextByUserType(UserType userType)
         {
-            chessboard = new ChessboardUserControl(UserType.Server);
+            this.Text = $"Chess application ({userType})";
+        }
+
+        private void InitializeChessboard(UserType userType)
+        {
+            if (userType == UserType.Client)
+            {
+                var hostname = PromptIpAddress.ShowDialog();
+                chessboard = new ChessboardUserControl(userType, hostname);
+            }
+            else
+            {
+                chessboard = new ChessboardUserControl(userType);
+            }
+
             panelChessboard.Controls.Add(chessboard);
 
             chessboard.OnMadeMove += (origin, destination) =>
@@ -150,7 +163,7 @@ namespace ChessApplication.Main.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            chessboard.StopNetworkStuff();
+            chessboard?.StopNetworkStuff();
         }
     }
 }

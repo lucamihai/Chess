@@ -5,12 +5,12 @@ using System.Windows.Forms;
 namespace ChessApplication.Common.UserControls
 {
     [ExcludeFromCodeCoverage]
-    public partial class UserTypeSelection : UserControl
+    public partial class UserTypeSelectionUserControl : UserControl
     {
         public delegate void UserTypeSelected(UserType userType);
         public UserTypeSelected OnUserTypeSelected { get; set; }
 
-        public UserTypeSelection()
+        public UserTypeSelectionUserControl()
         {
             InitializeComponent();
         }

@@ -73,23 +73,23 @@
     <Compile Include="UserControls\CapturedPieceBox.Designer.cs">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ChessboardMainMenu.cs">
+    <Compile Include="UserControls\ChessboardMainMenuUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ChessboardMainMenu.Designer.cs">
-      <DependentUpon>ChessboardMainMenu.cs</DependentUpon>
+    <Compile Include="UserControls\ChessboardMainMenuUserControl.Designer.cs">
+      <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ChessboardOptions.cs">
+    <Compile Include="UserControls\ChessboardOptionsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ChessboardOptions.Designer.cs">
-      <DependentUpon>ChessboardOptions.cs</DependentUpon>
+    <Compile Include="UserControls\ChessboardOptionsUserControl.Designer.cs">
+      <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserTypeSelection.cs">
+    <Compile Include="UserControls\UserTypeSelectionUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UserTypeSelection.Designer.cs">
-      <DependentUpon>UserTypeSelection.cs</DependentUpon>
+    <Compile Include="UserControls\UserTypeSelectionUserControl.Designer.cs">
+      <DependentUpon>UserTypeSelectionUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserType.cs" />
     <Compile Include="Utilities.cs" />
@@ -144,14 +144,14 @@
     <EmbeddedResource Include="UserControls\CapturedPieceBox.resx">
       <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ChessboardMainMenu.resx">
-      <DependentUpon>ChessboardMainMenu.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\ChessboardMainMenuUserControl.resx">
+      <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ChessboardOptions.resx">
-      <DependentUpon>ChessboardOptions.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\ChessboardOptionsUserControl.resx">
+      <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UserTypeSelection.resx">
-      <DependentUpon>UserTypeSelection.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\UserTypeSelectionUserControl.resx">
+      <DependentUpon>UserTypeSelectionUserControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

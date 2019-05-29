@@ -194,7 +194,7 @@ namespace ChessApplication.Main.Forms
             this.Controls.Add(this.panelChessboard);
             this.Controls.Add(this.menuStrip2);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Chess application";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

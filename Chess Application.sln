@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Server", "ChessApplication.Server\ChessApplication.Server.csproj", "{F43467A2-63DF-468D-BB67-1858B998CDEE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Client", "ChessApplication.Client\ChessApplication.Client.csproj", "{3B040F6C-F13E-49F4-A007-8BAF7BA28E66}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network", "ChessApplication.Network\ChessApplication.Network.csproj", "{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common", "ChessApplication.Common\ChessApplication.Common.csproj", "{6B209803-C8D8-402B-8092-0F53BEF6F989}"
@@ -31,14 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F43467A2-63DF-468D-BB67-1858B998CDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F43467A2-63DF-468D-BB67-1858B998CDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F43467A2-63DF-468D-BB67-1858B998CDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F43467A2-63DF-468D-BB67-1858B998CDEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B040F6C-F13E-49F4-A007-8BAF7BA28E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B040F6C-F13E-49F4-A007-8BAF7BA28E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B040F6C-F13E-49F4-A007-8BAF7BA28E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B040F6C-F13E-49F4-A007-8BAF7BA28E66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU

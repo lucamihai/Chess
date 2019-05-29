@@ -1,6 +1,6 @@
 ﻿namespace ChessApplication.Common.UserControls
 {
-    partial class UserTypeSelection
+    partial class UserTypeSelectionUserControl
     {
         /// <summary> 
         /// Required designer variable.

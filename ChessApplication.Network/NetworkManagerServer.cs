@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace ChessApplication.Network
 {
@@ -11,8 +12,17 @@ namespace ChessApplication.Network
 
         public NetworkManagerServer()
         {
-            ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, Constants.PortNumber);
-            ServerTcpListener.Start();
+            try
+            {
+                ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, Constants.PortNumber);
+                ServerTcpListener.Start();
+            }
+
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                Environment.Exit(0);
+            }
 
             NetworkThread = new Thread(new ThreadStart(ServerListen));
             NetworkThread.Start();
@@ -29,8 +39,7 @@ namespace ChessApplication.Network
 
             catch (Exception exception)
             {
-                Console.WriteLine(exception.Message);
-                throw;
+                Application.Exit();
             }
 
             ServerTcpListener.Stop();
