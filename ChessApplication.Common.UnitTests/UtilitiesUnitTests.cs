@@ -15,7 +15,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsTrueForAppropriatePieceTypeWithoutProvidingColor1()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var whitePawnPosition = new Point(1, 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -26,7 +26,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsTrueForAppropriatePieceTypeWithoutProvidingColor2()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var blackBishopPosition = new Point(3, 3);
 
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -37,7 +37,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForDifferentPieceTypeWithoutProvidingColor1()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var whitePawnPosition = new Point(1, 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -48,7 +48,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForDifferentPieceTypeWithoutProvidingColor2()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var blackBishopPosition = new Point(3, 3);
 
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -59,7 +59,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsTrueForAppropriatePieceTypeAndAppropriateProvidedColor1()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var whitePawnPosition = new Point(1, 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -70,7 +70,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsTrueForAppropriatePieceTypeAndAppropriateProvidedColor2()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var blackBishopPosition = new Point(3, 3);
 
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -81,7 +81,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForAppropriatePieceTypeAndDifferentProvidedColor1()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var whitePawnPosition = new Point(1, 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -92,7 +92,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForAppropriatePieceTypeAndDifferentProvidedColor2()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var blackBishopPosition = new Point(3, 3);
 
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -103,7 +103,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForDifferentPieceTypeAndAppropriateProvidedColor1()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var whitePawnPosition = new Point(1, 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -114,7 +114,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForDifferentPieceTypeAndAppropriateProvidedColor2()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var blackBishopPosition = new Point(3, 3);
 
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -125,7 +125,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForDifferentPieceTypeAndDifferentProvidedColor1()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var whiteKnightPosition = new Point(1, 1);
 
             chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -136,7 +136,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void LocationContainsPieceReturnsFalseForDifferentPieceTypeAndDifferentProvidedColor2()
         {
-            var chessboard = ChessboardProvider.GetChessboardWithNoPieces();
+            var chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
             var blackPawnPosition = new Point(3, 3);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
