@@ -5,8 +5,10 @@ using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using ChessApplication.Common;
+using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 using ChessApplication.Network;
 
@@ -45,7 +47,7 @@ namespace ChessApplication.Main
         private CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
 
         private Box FirstClickedBox { get; set; }
-        private Chessboard ChessBoard { get; set; }
+        private IChessboard ChessBoard { get; set; }
 
         private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.movesound1);
         private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.movesound2);
@@ -332,7 +334,7 @@ namespace ChessApplication.Main
 
         private void InitializeChessBoard()
         {
-            ChessBoard = new Chessboard();
+            ChessBoard = new ChessboardClassic();
 
             for (int row = 1; row < 9; row++)
             {

@@ -1,11 +1,12 @@
 ﻿using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 
-namespace ChessApplication.Common
+namespace ChessApplication.Common.Chessboards
 {
-    public class Chessboard
+    public class ChessboardClassic : IChessboard
     {
         private Box[,] Boxes { get; }
 
@@ -56,7 +57,7 @@ namespace ChessApplication.Common
             }
         }
 
-        public Chessboard()
+        public ChessboardClassic()
         {
             Boxes = new Box[10, 10];
 
@@ -75,55 +76,6 @@ namespace ChessApplication.Common
 
             AddWhitePieces();
             AddBlackPieces();
-        }
-
-        private string GenerateBoxNameBasedOnRowAndColumn(int row, int column)
-        {
-            char rowLetter = (char)('A' + row - 1);
-            return $"{rowLetter}{column}";
-        }
-
-        private Point GenerateBoxLocationBasedOnRowAndColumn(int row, int column)
-        {
-            return new Point
-            {
-                X = (column - 1) * 64,
-                Y = (8 - row) * 64
-            };
-        }
-
-        private void AddWhitePieces()
-        {
-            Boxes[1, 1].Piece = new Rook(PieceColor.White);
-            Boxes[1, 2].Piece = new Knight(PieceColor.White);
-            Boxes[1, 3].Piece = new Bishop(PieceColor.White);
-            Boxes[1, 4].Piece = new Queen(PieceColor.White);
-            Boxes[1, 5].Piece = new King(PieceColor.White);
-            Boxes[1, 6].Piece = new Bishop(PieceColor.White);
-            Boxes[1, 7].Piece = new Knight(PieceColor.White);
-            Boxes[1, 8].Piece = new Rook(PieceColor.White);
-
-            for (int column = 1; column < 9; column++)
-            {
-                Boxes[2, column].Piece = new Pawn(PieceColor.White);
-            }
-        }
-
-        private void AddBlackPieces()
-        {
-            Boxes[8, 1].Piece = new Rook(PieceColor.Black);
-            Boxes[8, 2].Piece = new Knight(PieceColor.Black);
-            Boxes[8, 3].Piece = new Bishop(PieceColor.Black);
-            Boxes[8, 4].Piece = new King(PieceColor.Black);
-            Boxes[8, 5].Piece = new Queen(PieceColor.Black);
-            Boxes[8, 6].Piece = new Bishop(PieceColor.Black);
-            Boxes[8, 7].Piece = new Knight(PieceColor.Black);
-            Boxes[8, 8].Piece = new Rook(PieceColor.Black);
-
-            for (int column = 1; column < 9; column++)
-            {
-                Boxes[7, column].Piece = new Pawn(PieceColor.Black);
-            }
         }
 
         public void ResetChessBoardBoxesColors()
@@ -192,31 +144,38 @@ namespace ChessApplication.Common
             var kingPosition = originChessPiece.Color == PieceColor.White
                 ? PositionWhiteKing
                 : PositionBlackKing;
-            var triggersCheck = false;
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByPawns(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByKing(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByKnights(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByRooks(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByBishops(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByQueen(kingPosition);
+            var triggersCheck = PieceIsThreatened(kingPosition);
 
             // Restore origin and destination
             this[origin].Piece = originChessPiece;
             this[destination].Piece = destinationChessPiece;
 
             return triggersCheck;
+        }
+
+        public bool PieceIsThreatened(Point location)
+        {
+            var isThreatened = false;
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByPawns(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByKing(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByKnights(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByRooks(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByBishops(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByQueen(location);
+
+            return isThreatened;
         }
 
         public bool PieceIsThreatenedByPawns(Point location)
@@ -777,5 +736,55 @@ namespace ChessApplication.Common
 
             return threatened;
         }
+
+        private string GenerateBoxNameBasedOnRowAndColumn(int row, int column)
+        {
+            char rowLetter = (char)('A' + row - 1);
+            return $"{rowLetter}{column}";
+        }
+
+        private Point GenerateBoxLocationBasedOnRowAndColumn(int row, int column)
+        {
+            return new Point
+            {
+                X = (column - 1) * 64,
+                Y = (8 - row) * 64
+            };
+        }
+
+        private void AddWhitePieces()
+        {
+            Boxes[1, 1].Piece = new Rook(PieceColor.White);
+            Boxes[1, 2].Piece = new Knight(PieceColor.White);
+            Boxes[1, 3].Piece = new Bishop(PieceColor.White);
+            Boxes[1, 4].Piece = new Queen(PieceColor.White);
+            Boxes[1, 5].Piece = new King(PieceColor.White);
+            Boxes[1, 6].Piece = new Bishop(PieceColor.White);
+            Boxes[1, 7].Piece = new Knight(PieceColor.White);
+            Boxes[1, 8].Piece = new Rook(PieceColor.White);
+
+            for (int column = 1; column < 9; column++)
+            {
+                Boxes[2, column].Piece = new Pawn(PieceColor.White);
+            }
+        }
+
+        private void AddBlackPieces()
+        {
+            Boxes[8, 1].Piece = new Rook(PieceColor.Black);
+            Boxes[8, 2].Piece = new Knight(PieceColor.Black);
+            Boxes[8, 3].Piece = new Bishop(PieceColor.Black);
+            Boxes[8, 4].Piece = new King(PieceColor.Black);
+            Boxes[8, 5].Piece = new Queen(PieceColor.Black);
+            Boxes[8, 6].Piece = new Bishop(PieceColor.Black);
+            Boxes[8, 7].Piece = new Knight(PieceColor.Black);
+            Boxes[8, 8].Piece = new Rook(PieceColor.Black);
+
+            for (int column = 1; column < 9; column++)
+            {
+                Boxes[7, column].Piece = new Pawn(PieceColor.Black);
+            }
+        }
+
     }
 }

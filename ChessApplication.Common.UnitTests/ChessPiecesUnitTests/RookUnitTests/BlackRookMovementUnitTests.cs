@@ -2,6 +2,7 @@
 using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
 
@@ -11,12 +12,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
     [ExcludeFromCodeCoverage]
     public class BlackRookMovementUnitTests
     {
-        private Chessboard ChessBoard;
+        private IChessboard Chessboard;
 
         [TestInitialize]
         public void Setup()
         {
-            ChessBoard = ChessboardProvider.GetChessboardWithNoPieces();
+            Chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
         }
 
         [TestMethod]
@@ -25,15 +26,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackKingPosition = new Point(1, 1);
             var blackRookPosition = new Point(1, 2);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var column = blackRookPosition.Y + 1; column < 9; column++)
-                Assert.IsTrue(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsTrue(Chessboard[blackRookPosition.X, column].Available);
         }
 
         [TestMethod]
@@ -42,15 +43,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackKingPosition = new Point(1, 1);
             var blackRookPosition = new Point(2, 8);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var column = blackRookPosition.Y - 1; column > 0; column--)
-                Assert.IsTrue(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsTrue(Chessboard[blackRookPosition.X, column].Available);
         }
 
         [TestMethod]
@@ -59,15 +60,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackKingPosition = new Point(1, 1);
             var blackRookPosition = new Point(1, 2);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var row = blackRookPosition.X + 1; row < 9; row++)
-                Assert.IsTrue(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsTrue(Chessboard[row, blackRookPosition.Y].Available);
         }
 
         [TestMethod]
@@ -76,15 +77,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackKingPosition = new Point(1, 1);
             var blackRookPosition = new Point(8, 2);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var row = blackRookPosition.X - 1; row > 0; row--)
-                Assert.IsTrue(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsTrue(Chessboard[row, blackRookPosition.Y].Available);
         }
 
         [TestMethod]
@@ -94,19 +95,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(1, 2);
             var whitePawnPosition = new Point(1, 5);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var column = blackRookPosition.Y + 1; column < whitePawnPosition.Y; column++)
-                Assert.IsTrue(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsTrue(Chessboard[blackRookPosition.X, column].Available);
 
             for (var column = whitePawnPosition.Y + 1; column < 9; column++)
-                Assert.IsFalse(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsFalse(Chessboard[blackRookPosition.X, column].Available);
         }
 
         [TestMethod]
@@ -116,19 +117,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(1, 8);
             var whitePawnPosition = new Point(1, 5);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var column = blackRookPosition.Y - 1; column > whitePawnPosition.Y; column--)
-                Assert.IsTrue(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsTrue(Chessboard[blackRookPosition.X, column].Available);
 
             for (var column = whitePawnPosition.Y - 1; column > 0; column--)
-                Assert.IsFalse(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsFalse(Chessboard[blackRookPosition.X, column].Available);
         }
 
         [TestMethod]
@@ -138,19 +139,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(1, 1);
             var whitePawnPosition = new Point(5, 1);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var row = blackRookPosition.X + 1; row < whitePawnPosition.X; row++)
-                Assert.IsTrue(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsTrue(Chessboard[row, blackRookPosition.Y].Available);
 
             for (var row = whitePawnPosition.X + 1; row < 9; row++)
-                Assert.IsFalse(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsFalse(Chessboard[row, blackRookPosition.Y].Available);
         }
 
         [TestMethod]
@@ -160,19 +161,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(8, 1);
             var whitePawnPosition = new Point(5, 1);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var row = blackRookPosition.X - 1; row > whitePawnPosition.X; row--)
-                Assert.IsTrue(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsTrue(Chessboard[row, blackRookPosition.Y].Available);
 
             for (var row = whitePawnPosition.X - 1; row > 0; row--)
-                Assert.IsFalse(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsFalse(Chessboard[row, blackRookPosition.Y].Available);
         }
 
         [TestMethod]
@@ -182,19 +183,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(1, 2);
             var blackPawnPosition = new Point(1, 5);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var column = blackRookPosition.Y + 1; column < blackPawnPosition.Y; column++)
-                Assert.IsTrue(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsTrue(Chessboard[blackRookPosition.X, column].Available);
 
             for (var column = blackPawnPosition.Y + 1; column < 9; column++)
-                Assert.IsFalse(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsFalse(Chessboard[blackRookPosition.X, column].Available);
         }
 
         [TestMethod]
@@ -204,19 +205,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(1, 8);
             var blackPawnPosition = new Point(1, 5);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var column = blackRookPosition.Y - 1; column > blackPawnPosition.Y; column--)
-                Assert.IsTrue(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsTrue(Chessboard[blackRookPosition.X, column].Available);
 
             for (var column = blackPawnPosition.Y - 1; column > 0; column--)
-                Assert.IsFalse(ChessBoard[blackRookPosition.X, column].Available);
+                Assert.IsFalse(Chessboard[blackRookPosition.X, column].Available);
         }
 
         [TestMethod]
@@ -226,19 +227,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(1, 1);
             var blackPawnPosition = new Point(5, 1);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var row = blackRookPosition.X + 1; row < blackPawnPosition.X; row++)
-                Assert.IsTrue(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsTrue(Chessboard[row, blackRookPosition.Y].Available);
 
             for (var row = blackPawnPosition.X + 1; row < 9; row++)
-                Assert.IsFalse(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsFalse(Chessboard[row, blackRookPosition.Y].Available);
         }
 
         [TestMethod]
@@ -248,19 +249,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             var blackRookPosition = new Point(8, 1);
             var blackPawnPosition = new Point(5, 1);
 
-            ChessBoard[blackKingPosition].Piece = new King(PieceColor.Black);
-            ChessBoard[blackRookPosition].Piece = new Rook(PieceColor.Black);
-            ChessBoard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
-            ChessBoard.PositionBlackKing = blackKingPosition;
+            Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
+            Chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
+            Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
+            Chessboard.PositionBlackKing = blackKingPosition;
 
-            ChessBoard[blackRookPosition].Piece
-                .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, blackRookPosition);
+            Chessboard[blackRookPosition].Piece
+                .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackRookPosition);
 
             for (var row = blackRookPosition.X - 1; row > blackPawnPosition.X; row--)
-                Assert.IsTrue(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsTrue(Chessboard[row, blackRookPosition.Y].Available);
 
             for (var row = blackPawnPosition.X - 1; row > 0; row--)
-                Assert.IsFalse(ChessBoard[row, blackRookPosition.Y].Available);
+                Assert.IsFalse(Chessboard[row, blackRookPosition.Y].Available);
         }
     }
 }

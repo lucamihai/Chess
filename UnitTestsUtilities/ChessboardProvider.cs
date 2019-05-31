@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using ChessApplication.Common;
+using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
@@ -9,9 +9,9 @@ namespace UnitTestsUtilities
     [ExcludeFromCodeCoverage]
     public static class ChessboardProvider
     {
-        public static Chessboard GetChessboardWithNoPieces()
+        public static ChessboardClassic GetChessboardClassicWithNoPieces()
         {
-            var chessboard = new Chessboard();
+            var chessboard = new ChessboardClassic();
 
             for (int row = 1; row < 9; row++)
             {
@@ -24,9 +24,9 @@ namespace UnitTestsUtilities
             return chessboard;
         }
 
-        public static Chessboard GetChessboardFilledWithWhitePawns()
+        public static ChessboardClassic GetChessboardClassicFilledWithWhitePawns()
         {
-            var chessboard = GetChessboardWithNoPieces();
+            var chessboard = GetChessboardClassicWithNoPieces();
 
             for (int row = 1; row < 9; row++)
             {
@@ -39,9 +39,9 @@ namespace UnitTestsUtilities
             return chessboard;
         }
 
-        public static Chessboard GetChessboardFilledWithBlackPawns()
+        public static ChessboardClassic GetChessboardClassicFilledWithBlackPawns()
         {
-            var chessboard = GetChessboardWithNoPieces();
+            var chessboard = GetChessboardClassicWithNoPieces();
 
             for (int row = 1; row < 9; row++)
             {
@@ -54,9 +54,9 @@ namespace UnitTestsUtilities
             return chessboard;
         }
 
-        public static Chessboard GetChessboardWithProvidedColorInCheckmate(PieceColor providedColor)
+        public static ChessboardClassic GetChessboardClassicWithProvidedColorInCheckmate(PieceColor providedColor)
         {
-            var chessboard = GetChessboardWithNoPieces();
+            var chessboard = GetChessboardClassicWithNoPieces();
             var opponentColor = providedColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
 
             var kingPosition = new Point(1, 1);

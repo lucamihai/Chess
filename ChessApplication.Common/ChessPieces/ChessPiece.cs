@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.ChessPieces
 {
@@ -30,7 +31,7 @@ namespace ChessApplication.Common.ChessPieces
         [ExcludeFromCodeCoverage]
         public Image ImageSmall { get; protected set; }
 
-        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location);
+        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location);
 
     }
 }

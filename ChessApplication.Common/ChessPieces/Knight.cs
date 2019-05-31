@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.ChessPieces
 {
@@ -23,7 +24,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location)
         {
             var row = location.X;
             var column = location.Y;
