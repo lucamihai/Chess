@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.ChessPieces
 {
@@ -23,7 +24,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard chessBoard, Point location)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location)
         {
             Point newKingPosition;
             var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
@@ -87,7 +88,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        private bool IsMovePossible(Chessboard chessBoard, Point source, Point destination)
+        private bool IsMovePossible(IChessboard chessBoard, Point source, Point destination)
         {
             if (chessBoard[source] == null || chessBoard[destination] == null)
             {
@@ -136,29 +137,9 @@ namespace ChessApplication.Common.ChessPieces
             return isPossible;
         }
 
-        private bool IsInCheck(Chessboard chessBoard, Point location)
+        private bool IsInCheck(IChessboard chessBoard, Point location)
         {
-            var check = false;
-
-            check = chessBoard.PieceIsThreatenedByPawns(location);
-            if (check) return check;
-
-            check = chessBoard.PieceIsThreatenedByKing(location);
-            if (check) return check;
-
-            check = chessBoard.PieceIsThreatenedByKnights(location);
-            if (check) return check;
-
-            check = chessBoard.PieceIsThreatenedByRooks(location);
-            if (check) return check;
-
-            check = chessBoard.PieceIsThreatenedByBishops(location);
-            if (check) return check;
-
-            check = chessBoard.PieceIsThreatenedByQueen(location);
-            if (check) return check;
-
-            return check;
+            return chessBoard.PieceIsThreatened(location);
         }
     }
 }

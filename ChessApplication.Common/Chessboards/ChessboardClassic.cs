@@ -4,9 +4,9 @@ using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 
-namespace ChessApplication.Common
+namespace ChessApplication.Common.Chessboards
 {
-    public class Chessboard : IChessboard
+    public class ChessboardClassic : IChessboard
     {
         private Box[,] Boxes { get; }
 
@@ -57,7 +57,7 @@ namespace ChessApplication.Common
             }
         }
 
-        public Chessboard()
+        public ChessboardClassic()
         {
             Boxes = new Box[10, 10];
 
@@ -144,31 +144,38 @@ namespace ChessApplication.Common
             var kingPosition = originChessPiece.Color == PieceColor.White
                 ? PositionWhiteKing
                 : PositionBlackKing;
-            var triggersCheck = false;
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByPawns(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByKing(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByKnights(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByRooks(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByBishops(kingPosition);
-
-            if (!triggersCheck)
-                triggersCheck = PieceIsThreatenedByQueen(kingPosition);
+            var triggersCheck = PieceIsThreatened(kingPosition);
 
             // Restore origin and destination
             this[origin].Piece = originChessPiece;
             this[destination].Piece = destinationChessPiece;
 
             return triggersCheck;
+        }
+
+        public bool PieceIsThreatened(Point location)
+        {
+            var isThreatened = false;
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByPawns(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByKing(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByKnights(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByRooks(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByBishops(location);
+
+            if (!isThreatened)
+                isThreatened = PieceIsThreatenedByQueen(location);
+
+            return isThreatened;
         }
 
         public bool PieceIsThreatenedByPawns(Point location)
@@ -779,6 +786,5 @@ namespace ChessApplication.Common
             }
         }
 
-        
     }
 }

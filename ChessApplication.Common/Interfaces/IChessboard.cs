@@ -15,5 +15,6 @@ namespace ChessApplication.Common.Interfaces
         void SetChessBoardBoxesAsUnavailable();
         bool IsCheckmateForProvidedColor(PieceColor providedColor);
         bool MoveTriggersCheck(Point origin, Point destination);
+        bool PieceIsThreatened(Point location);
     }
 }

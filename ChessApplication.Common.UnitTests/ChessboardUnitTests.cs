@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,12 +12,12 @@ namespace ChessApplication.Common.UnitTests
     [ExcludeFromCodeCoverage]
     public class ChessboardUnitTests
     {
-        private Chessboard chessboard;
+        private ChessboardClassic chessboard;
 
         [TestInitialize]
         public void Setup()
         {
-            chessboard = new Chessboard();
+            chessboard = new ChessboardClassic();
         }
 
         [TestMethod]

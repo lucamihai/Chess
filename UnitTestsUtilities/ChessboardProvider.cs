@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using ChessApplication.Common;
+using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
@@ -9,9 +10,9 @@ namespace UnitTestsUtilities
     [ExcludeFromCodeCoverage]
     public static class ChessboardProvider
     {
-        public static Chessboard GetChessboardWithNoPieces()
+        public static ChessboardClassic GetChessboardWithNoPieces()
         {
-            var chessboard = new Chessboard();
+            var chessboard = new ChessboardClassic();
 
             for (int row = 1; row < 9; row++)
             {
@@ -24,7 +25,7 @@ namespace UnitTestsUtilities
             return chessboard;
         }
 
-        public static Chessboard GetChessboardFilledWithWhitePawns()
+        public static ChessboardClassic GetChessboardFilledWithWhitePawns()
         {
             var chessboard = GetChessboardWithNoPieces();
 
@@ -39,7 +40,7 @@ namespace UnitTestsUtilities
             return chessboard;
         }
 
-        public static Chessboard GetChessboardFilledWithBlackPawns()
+        public static ChessboardClassic GetChessboardFilledWithBlackPawns()
         {
             var chessboard = GetChessboardWithNoPieces();
 
@@ -54,7 +55,7 @@ namespace UnitTestsUtilities
             return chessboard;
         }
 
-        public static Chessboard GetChessboardWithProvidedColorInCheckmate(PieceColor providedColor)
+        public static ChessboardClassic GetChessboardWithProvidedColorInCheckmate(PieceColor providedColor)
         {
             var chessboard = GetChessboardWithNoPieces();
             var opponentColor = providedColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
