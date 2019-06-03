@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
@@ -32,11 +31,16 @@ namespace ChessApplication.Common.ChessPieces
             var column = location.Y;
             var startLocation = chessBoard[row, column];
 
+            var rowMinValue = chessBoard.PositionLowerLimit.X;
+            var rowMaxValue = chessBoard.PositionHigherLimit.X;
+            var columnMinValue = chessBoard.PositionLowerLimit.X;
+            var columnMaxValue = chessBoard.PositionHigherLimit.X;
+
             Box locationToBeInspected;
             Point destination;
 
             // Check movement to the south - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= rowMinValue && secondaryColumn >= columnMinValue; secondaryRow--, secondaryColumn--)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;
@@ -69,7 +73,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the north - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= rowMaxValue && secondaryColumn <= columnMaxValue; secondaryRow++, secondaryColumn++)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;
@@ -102,7 +106,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the north - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= rowMaxValue && secondaryColumn >= columnMinValue; secondaryRow++, secondaryColumn--)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;
@@ -135,7 +139,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the south - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= rowMinValue && secondaryColumn <= columnMaxValue; secondaryRow--, secondaryColumn++)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;

@@ -31,13 +31,18 @@ namespace ChessApplication.Common.ChessPieces
             var column = location.Y;
             var startLocation = chessBoard[row, column];
 
+            var rowMinValue = chessBoard.PositionLowerLimit.X;
+            var rowMaxValue = chessBoard.PositionHigherLimit.X;
+            var columnMinValue = chessBoard.PositionLowerLimit.X;
+            var columnMaxValue = chessBoard.PositionHigherLimit.X;
+
             Box locationToBeInspected;
             Point destination;
 
             #region Rook behaviour
 
             // Check movement to the west
-            for (int secondaryColumn = location.Y; secondaryColumn >= 1; secondaryColumn--)
+            for (int secondaryColumn = location.Y; secondaryColumn >= columnMinValue; secondaryColumn--)
             {
                 if (secondaryColumn == location.Y)
                     continue;
@@ -69,7 +74,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the east
-            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
+            for (int secondaryColumn = column; secondaryColumn <= columnMaxValue; secondaryColumn++)
             {
                 if (secondaryColumn == column)
                     continue;
@@ -101,7 +106,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the south
-            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
+            for (int secondaryRow = row; secondaryRow >= rowMinValue; secondaryRow--)
             {
                 if (secondaryRow == row)
                     continue;
@@ -133,7 +138,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the north
-            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
+            for (int secondaryRow = row; secondaryRow <= rowMaxValue; secondaryRow++)
             {
                 if (secondaryRow == row)
                     continue;
@@ -169,7 +174,7 @@ namespace ChessApplication.Common.ChessPieces
             #region Bishop behaviour
 
             // Check movement to the south - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= rowMinValue && secondaryColumn >= columnMinValue; secondaryRow--, secondaryColumn--)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;
@@ -202,7 +207,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the north - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= rowMaxValue && secondaryColumn <= columnMaxValue; secondaryRow++, secondaryColumn++)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;
@@ -235,7 +240,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the north - west
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= rowMaxValue && secondaryColumn >= columnMinValue; secondaryRow++, secondaryColumn--)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;
@@ -268,7 +273,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the south - east
-            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
+            for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= rowMinValue && secondaryColumn <= columnMaxValue; secondaryRow--, secondaryColumn++)
             {
                 if (secondaryRow == row && secondaryColumn == column)
                     continue;

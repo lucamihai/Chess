@@ -17,9 +17,9 @@ namespace ChessApplication.Common.Chessboards
         {
             get
             {
-                if (point.X < 0 || point.X > 10)
+                if (point.X < PositionLowerLimit.X || point.X > PositionHigherLimit.Y)
                     return null;
-                if (point.Y < 0 || point.Y > 10)
+                if (point.Y < PositionLowerLimit.Y || point.Y > PositionHigherLimit.Y)
                     return null;
 
                 return Boxes[point.X, point.Y];
@@ -30,9 +30,9 @@ namespace ChessApplication.Common.Chessboards
         {
             get
             {
-                if (row < 0 || row > 10)
+                if (row < PositionLowerLimit.X || row > PositionHigherLimit.Y)
                     return null;
-                if (column < 0 || column > 10)
+                if (column < PositionLowerLimit.Y || column > PositionHigherLimit.Y)
                     return null;
 
                 return Boxes[row, column];

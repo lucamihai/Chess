@@ -31,11 +31,16 @@ namespace ChessApplication.Common.ChessPieces
             var column = location.Y;
             var startLocation = chessBoard[location.X, location.Y];
 
+            var rowMinValue = chessBoard.PositionLowerLimit.X;
+            var rowMaxValue = chessBoard.PositionHigherLimit.X;
+            var columnMinValue = chessBoard.PositionLowerLimit.X;
+            var columnMaxValue = chessBoard.PositionHigherLimit.X;
+
             Box locationToBeInspected;
             Point destination;
 
             // Check movement to the west
-            for (int secondaryColumn = location.Y; secondaryColumn >= 1; secondaryColumn--)
+            for (int secondaryColumn = location.Y; secondaryColumn >= columnMinValue; secondaryColumn--)
             {
                 if (secondaryColumn == location.Y)
                     continue;
@@ -67,7 +72,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the east
-            for (int secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
+            for (int secondaryColumn = column; secondaryColumn <= columnMaxValue; secondaryColumn++)
             {
                 if (secondaryColumn == column)
                     continue;
@@ -99,7 +104,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the south
-            for (int secondaryRow = row; secondaryRow >= 1; secondaryRow--)
+            for (int secondaryRow = row; secondaryRow >= rowMinValue; secondaryRow--)
             {
                 if (secondaryRow == row)
                     continue;
@@ -131,7 +136,7 @@ namespace ChessApplication.Common.ChessPieces
             }
 
             // Check movement to the north
-            for (int secondaryRow = row; secondaryRow <= 8; secondaryRow++)
+            for (int secondaryRow = row; secondaryRow <= rowMaxValue; secondaryRow++)
             {
                 if (secondaryRow == row)
                     continue;
