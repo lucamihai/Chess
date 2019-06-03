@@ -53,6 +53,7 @@
     <Compile Include="ChessPieces\Queen.cs" />
     <Compile Include="ChessPieces\Rook.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums\ChessboardType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Enums\Turn.cs" />
     <Compile Include="Interfaces\IChessboard.cs" />
@@ -86,11 +87,11 @@
     <Compile Include="UserControls\ChessboardOptionsUserControl.Designer.cs">
       <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserTypeSelectionUserControl.cs">
+    <Compile Include="UserControls\GameConfigurationUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UserTypeSelectionUserControl.Designer.cs">
-      <DependentUpon>UserTypeSelectionUserControl.cs</DependentUpon>
+    <Compile Include="UserControls\GameConfigurationUserControl.Designer.cs">
+      <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserType.cs" />
     <Compile Include="Utilities.cs" />
@@ -151,8 +152,8 @@
     <EmbeddedResource Include="UserControls\ChessboardOptionsUserControl.resx">
       <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UserTypeSelectionUserControl.resx">
-      <DependentUpon>UserTypeSelectionUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\GameConfigurationUserControl.resx">
+      <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

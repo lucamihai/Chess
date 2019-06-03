@@ -16,8 +16,6 @@ namespace ChessApplication.Main
 {
     public partial class ChessboardUserControl : UserControl
     {
-        public bool NetworkManagerIsInitialized => networkManager != null;
-
         private NetworkManager networkManager;
         private const string CommandMarker = Network.Constants.CommandMarker;
 
@@ -48,6 +46,7 @@ namespace ChessApplication.Main
 
         private Box FirstClickedBox { get; set; }
         private IChessboard ChessBoard { get; set; }
+        private ChessboardType ChessboardType { get; set; }
 
         private SoundPlayer MoveSound1 { get; } = new SoundPlayer(Properties.Resources.movesound1);
         private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.movesound2);
@@ -61,8 +60,10 @@ namespace ChessApplication.Main
         public delegate void Notification(string notificationMessage);
         public Notification OnNotification { get; set; }
 
-        public ChessboardUserControl(UserType userType, string hostname = null)
+        public ChessboardUserControl(ChessboardType chessboardType, UserType userType, string hostname = null)
         {
+            ChessboardType = chessboardType;
+
             InitializeComponent();
             InitializeNetworkManager(userType, hostname);
             InitializeUsernames(userType);
@@ -73,6 +74,11 @@ namespace ChessApplication.Main
 
         private void InitializeNetworkManager(UserType userType, string hostname)
         {
+            if (userType == UserType.SinglePlayer)
+            {
+                return;
+            }
+
             if (userType == UserType.Server)
             {
                 networkManager = new NetworkManagerServer();
@@ -251,7 +257,7 @@ namespace ChessApplication.Main
         {
             PlayerUsername = username;
             var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
-            networkManager.SendMessage(message);
+            networkManager?.SendMessage(message);
         }
 
         public void SetColorsAndNotifyOpponent(string colorsString)
@@ -271,7 +277,7 @@ namespace ChessApplication.Main
             }
 
             var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
-            networkManager.SendMessage(message);
+            networkManager?.SendMessage(message);
         }
 
         public void RequestNewGame()
@@ -297,7 +303,7 @@ namespace ChessApplication.Main
         {
             if (!message.StartsWith(CommandMarker))
             {
-                networkManager.SendMessage(message);
+                networkManager?.SendMessage(message);
             }
         }
 
@@ -329,7 +335,15 @@ namespace ChessApplication.Main
 
         private void InitializeChessBoard()
         {
-            ChessBoard = new ChessboardClassic();
+            if (ChessboardType == ChessboardType.Classic)
+            {
+                ChessBoard = new ChessboardClassic();
+            }
+
+            if (ChessboardType == ChessboardType.Shatranj)
+            {
+                throw new NotImplementedException();
+            }
 
             for (int row = 1; row < 9; row++)
             {
@@ -409,7 +423,7 @@ namespace ChessApplication.Main
         {
             if (command.StartsWith(CommandMarker))
             {
-                networkManager.SendMessage(command);
+                networkManager?.SendMessage(command);
             }
         }
 

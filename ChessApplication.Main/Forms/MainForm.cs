@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common;
+using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.Main.Forms
@@ -11,9 +12,9 @@ namespace ChessApplication.Main.Forms
     public partial class MainForm : Form
     {
         private readonly Panel menuContainer;
-        private UserTypeSelectionUserControl userTypeSelection;
+        private GameConfigurationUserControl gameConfigurationUserControl;
         private ChessboardMainMenuUserControl mainMenu;
-        private ChessboardUserControl chessboard;
+        private ChessboardUserControl chessboardUserControl;
 
         public MainForm()
         {
@@ -27,7 +28,7 @@ namespace ChessApplication.Main.Forms
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
             };
-            menuContainer.Controls.Add(userTypeSelection);
+            menuContainer.Controls.Add(gameConfigurationUserControl);
             menuContainer.Controls.Add(mainMenu);
 
             Controls.Add(menuContainer);
@@ -49,8 +50,8 @@ namespace ChessApplication.Main.Forms
 
             mainMenu.OnOptionsChanged += (username, colorsString) =>
             {
-                chessboard.SetUsernameAndNotifyOpponent(username);
-                chessboard.SetColorsAndNotifyOpponent(colorsString);
+                chessboardUserControl.SetUsernameAndNotifyOpponent(username);
+                chessboardUserControl.SetColorsAndNotifyOpponent(colorsString);
 
                 chatBox.Username = username;
 
@@ -62,7 +63,7 @@ namespace ChessApplication.Main.Forms
 
         private void InitializeUserTypeSelection()
         {
-            userTypeSelection = new UserTypeSelectionUserControl
+            gameConfigurationUserControl = new GameConfigurationUserControl
             {
                 MinimumSize = new Size(this.Width, this.Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
@@ -70,7 +71,7 @@ namespace ChessApplication.Main.Forms
                 AutoSizeMode = AutoSizeMode.GrowAndShrink
             };
 
-            userTypeSelection.OnUserTypeSelected += userType =>
+            gameConfigurationUserControl.OnConfigurationMade += (userType, chessboardType) =>
             {
                 if (userType == UserType.SinglePlayer)
                 {
@@ -79,9 +80,9 @@ namespace ChessApplication.Main.Forms
                 }
 
                 UpdateApplicationTextByUserType(userType);
-                InitializeChessboard(userType);
+                InitializeChessboard(chessboardType, userType);
                 InitializeChatBox();
-                userTypeSelection.Hide();
+                gameConfigurationUserControl.Hide();
             };
         }
 
@@ -90,31 +91,31 @@ namespace ChessApplication.Main.Forms
             this.Text = string.Format(Strings.ApplicationText, userType);
         }
 
-        private void InitializeChessboard(UserType userType)
+        private void InitializeChessboard(ChessboardType chessboardType, UserType userType)
         {
             if (userType == UserType.Client)
             {
                 var hostname = PromptIpAddress.ShowDialog();
-                chessboard = new ChessboardUserControl(userType, hostname);
+                chessboardUserControl = new ChessboardUserControl(chessboardType, userType, hostname);
             }
             else
             {
-                chessboard = new ChessboardUserControl(userType);
+                chessboardUserControl = new ChessboardUserControl(chessboardType, userType);
             }
 
-            panelChessboard.Controls.Add(chessboard);
+            panelChessboard.Controls.Add(chessboardUserControl);
 
-            chessboard.OnMadeMove += (origin, destination) =>
+            chessboardUserControl.OnMadeMove += (origin, destination) =>
             {
                 historyEntries.AddEntry(origin, destination);
             };
 
-            chessboard.OnNotification += (notificationMessage) =>
+            chessboardUserControl.OnNotification += (notificationMessage) =>
             {
                 notifications.AddNotification(notificationMessage);
             };
 
-            chessboard.OnReceivedChatMessage += (username, message) =>
+            chessboardUserControl.OnReceivedChatMessage += (username, message) =>
             {
                 chatBox.AddChatMessage(username, message);
             };
@@ -122,44 +123,44 @@ namespace ChessApplication.Main.Forms
 
         private void InitializeChatBox()
         {
-            chatBox.Username = chessboard.PlayerUsername;
+            chatBox.Username = chessboardUserControl.PlayerUsername;
             chatBox.OnSentChat += (message) =>
             {
-                chessboard.SendMessageToOpponent(message);
+                chessboardUserControl.SendMessageToOpponent(message);
             };
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)
         {
-            chessboard.SoundEnabled = true;
+            chessboardUserControl.SoundEnabled = true;
             toolStripMenuItemEnableSound.Visible = false;
             toolStripMenuItemDisableSound.Visible = true;
         }
 
         private void ToolStripDisableSound(object sender, EventArgs e)
         {
-            chessboard.SoundEnabled = false;
+            chessboardUserControl.SoundEnabled = false;
             toolStripMenuItemEnableSound.Visible = true;
             toolStripMenuItemDisableSound.Visible = false;
         }
 
         private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
         {
-            chessboard.BeginnersMode = true;
+            chessboardUserControl.BeginnersMode = true;
             toolStripMenuItemEnableBeginnersMode.Available = false;
             toolStripMenuItemDisableBeginnersMode.Available = true;
         }
 
         private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
         {
-            chessboard.BeginnersMode = false;
+            chessboardUserControl.BeginnersMode = false;
             toolStripMenuItemEnableBeginnersMode.Available = true;
             toolStripMenuItemDisableBeginnersMode.Available = false;
         }
 
         private void ToolStripNewGame(object sender, EventArgs e)
         {
-            chessboard.RequestNewGame();
+            chessboardUserControl.RequestNewGame();
         }
 
         private void ToolStripQuit(object sender, EventArgs e)
@@ -169,7 +170,7 @@ namespace ChessApplication.Main.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            chessboard?.StopNetworkStuff();
+            chessboardUserControl?.StopNetworkStuff();
         }
     }
 }
