@@ -130,28 +130,6 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         }
 
         [TestMethod]
-        public void SetAllBoxesAsUnavailableSetsAllBoxesAvailableToFalse()
-        {
-            Chessboard.SetChessBoardBoxesAsUnavailable();
-
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    Assert.IsFalse(Chessboard[row, column].Available);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void ResetBoxesColorsMakesBoxesHaveTheCorrectColors()
-        {
-            Chessboard.ResetChessBoardBoxesColors();
-
-            Assert.IsTrue(BoxesHaveTheCorrectColors());
-        }
-
-        [TestMethod]
         public void IsCheckmateForProvidedColorReturnsTrueForWhiteIfWhiteIsInCheckmate()
         {
             Chessboard = ChessboardProvider.GetChessboardClassicWithProvidedColorInCheckmate(PieceColor.White);
@@ -569,30 +547,5 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
             return true;
         }
 
-        private bool BoxesHaveTheCorrectColors()
-        {
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
-                    {
-                        if (Chessboard[row, column].BoxBackgroundColor != Constants.BoxColorDark)
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (Chessboard[row, column].BoxBackgroundColor != Constants.BoxColorLight)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            return true;
-        }
     }
 }

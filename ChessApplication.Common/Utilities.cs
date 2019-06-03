@@ -3,6 +3,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.Common
@@ -89,5 +90,33 @@ namespace ChessApplication.Common
             return destImage;
         }
 
+        public static void ResetChessboardBoxesColors(IChessboard chessboard)
+        {
+            for (int row = chessboard.PositionLowerLimit.X; row <= chessboard.PositionHigherLimit.X; row++)
+            {
+                for (int column = chessboard.PositionLowerLimit.Y; column <= chessboard.PositionHigherLimit.Y; column++)
+                {
+                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
+                    {
+                        chessboard[row, column].BoxBackgroundColor = Constants.BoxColorDark;
+                    }
+                    else
+                    {
+                        chessboard[row, column].BoxBackgroundColor = Constants.BoxColorLight;
+                    }
+                }
+            }
+        }
+
+        public static void SetChessboardBoxesAsUnavailable(IChessboard chessboard)
+        {
+            for (int row = chessboard.PositionLowerLimit.X; row <= chessboard.PositionHigherLimit.X; row++)
+            {
+                for (int column = chessboard.PositionLowerLimit.Y; column <= chessboard.PositionHigherLimit.Y; column++)
+                {
+                    chessboard[row, column].Available = false;
+                }
+            }
+        }
     }
 }

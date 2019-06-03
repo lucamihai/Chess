@@ -10,6 +10,9 @@ namespace ChessApplication.Common.Chessboards
     {
         private Box[,] Boxes { get; }
 
+        public Point PositionLowerLimit { get; }
+        public Point PositionHigherLimit { get; }
+
         public Box this[Point point]
         {
             get
@@ -60,6 +63,8 @@ namespace ChessApplication.Common.Chessboards
         public ChessboardClassic()
         {
             Boxes = new Box[10, 10];
+            PositionLowerLimit = new Point(1, 1);
+            PositionHigherLimit = new Point(8, 8);
 
             for (int row = 1; row < 9; row++)
             {
@@ -78,35 +83,6 @@ namespace ChessApplication.Common.Chessboards
             AddBlackPieces();
         }
 
-        public void ResetChessBoardBoxesColors()
-        {
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
-                    {
-                        Boxes[row, column].BoxBackgroundColor = Constants.BoxColorDark;
-                    }
-                    else
-                    {
-                        Boxes[row, column].BoxBackgroundColor = Constants.BoxColorLight;
-                    }
-                }
-            }
-        }
-
-        public void SetChessBoardBoxesAsUnavailable()
-        {
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int column = 1; column <= 8; column++)
-                {
-                    Boxes[row, column].Available = false;
-                }
-            }
-        }
-
         public bool IsCheckmateForProvidedColor(PieceColor providedColor)
         {
             for (int row = 1; row <= 8; row++)
@@ -120,7 +96,7 @@ namespace ChessApplication.Common.Chessboards
 
                         if (Boxes[row, column].Piece.CanMove)
                         {
-                            ResetChessBoardBoxesColors();
+                            Utilities.ResetChessboardBoxesColors(this);
                             Boxes[row, column].Piece.CanMove = false;
                             return false;
                         }

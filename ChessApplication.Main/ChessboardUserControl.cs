@@ -317,8 +317,8 @@ namespace ChessApplication.Main
         {
             InitializeChessBoard();
             InitializeCapturedPiecesArea();
-            ChessBoard.ResetChessBoardBoxesColors();
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
+            Utilities.ResetChessboardBoxesColors(ChessBoard);
+            Utilities.SetChessboardBoxesAsUnavailable(ChessBoard);
             AssignClickEventToBoxes();
 
             clickCounter = 0;
@@ -437,7 +437,7 @@ namespace ChessApplication.Main
             var command = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
             SendCommand(command);
 
-            ChessBoard.ResetChessBoardBoxesColors();
+            Utilities.ResetChessboardBoxesColors(ChessBoard);
             PerformMove(origin, destination);
 
             if (destination.Piece is King)
@@ -456,7 +456,7 @@ namespace ChessApplication.Main
 
             EndGameIfCheckMate();
 
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
+            Utilities.SetChessboardBoxesAsUnavailable(ChessBoard);
         }
 
         private void OpponentMovePiece(Box origin, Box destination)
@@ -467,7 +467,7 @@ namespace ChessApplication.Main
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            ChessBoard.ResetChessBoardBoxesColors();
+            Utilities.ResetChessboardBoxesColors(ChessBoard);
             PerformMove(origin, destination);
 
             // If, the king was moved, update its coordinates
@@ -485,7 +485,7 @@ namespace ChessApplication.Main
 
             EndGameIfCheckMate();
 
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
+            Utilities.SetChessboardBoxesAsUnavailable(ChessBoard);
         }
 
         private void PerformMove(Box origin, Box destination)
@@ -645,8 +645,8 @@ namespace ChessApplication.Main
         {
             CurrentTurn = CurrentTurn == Turn.White ? Turn.Black : Turn.White;
 
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
-            ChessBoard.ResetChessBoardBoxesColors();
+            Utilities.SetChessboardBoxesAsUnavailable(ChessBoard);
+            Utilities.ResetChessboardBoxesColors(ChessBoard);
 
             labelTurn.Text = CurrentTurn == Turn.White ? Strings.WhitesTurn : Strings.BlacksTurn;
         }
@@ -685,8 +685,8 @@ namespace ChessApplication.Main
                     // Click on the same box => Cancel moving current chess piece
                     if (clickedBoxObject == FirstClickedBox)
                     {
-                        ChessBoard.SetChessBoardBoxesAsUnavailable();
-                        ChessBoard.ResetChessBoardBoxesColors();
+                        Utilities.SetChessboardBoxesAsUnavailable(ChessBoard);
+                        Utilities.ResetChessboardBoxesColors(ChessBoard);
                         clickCounter = 0;
                     }
 

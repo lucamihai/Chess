@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
@@ -260,5 +262,54 @@ namespace ChessApplication.Common.UnitTests
             Assert.AreEqual(desiredHeight, imageAfterResizing.Height);
         }
 
+        [TestMethod]
+        public void SetAllBoxesAsUnavailableSetsAllBoxesAvailableToFalse()
+        {
+            var chessboard = new ChessboardClassic();
+            Utilities.SetChessboardBoxesAsUnavailable(chessboard);
+
+            for (int row = chessboard.PositionLowerLimit.X; row < chessboard.PositionHigherLimit.X; row++)
+            {
+                for (int column = chessboard.PositionLowerLimit.Y; column < chessboard.PositionHigherLimit.Y; column++)
+                {
+                    Assert.IsFalse(chessboard[row, column].Available);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ResetBoxesColorsMakesBoxesHaveTheCorrectColors()
+        {
+            var chessboard = new ChessboardClassic();
+            Utilities.ResetChessboardBoxesColors(chessboard);
+
+            Assert.IsTrue(BoxesHaveTheCorrectColors(chessboard));
+        }
+
+        private bool BoxesHaveTheCorrectColors(IChessboard chessboard)
+        {
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
+                    {
+                        if (chessboard[row, column].BoxBackgroundColor != Constants.BoxColorDark)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (chessboard[row, column].BoxBackgroundColor != Constants.BoxColorLight)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 }
