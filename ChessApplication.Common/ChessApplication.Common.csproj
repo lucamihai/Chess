@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chessboards\ChessboardClassic.cs" />
+    <Compile Include="Chessboards\ChessboardShatranj.cs" />
     <Compile Include="ChessPieces\Abbreviations.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />

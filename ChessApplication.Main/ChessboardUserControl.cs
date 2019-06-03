@@ -342,7 +342,7 @@ namespace ChessApplication.Main
 
             if (ChessboardType == ChessboardType.Shatranj)
             {
-                throw new NotImplementedException();
+                ChessBoard = new ChessboardShatranj();
             }
 
             for (int row = 1; row < 9; row++)
