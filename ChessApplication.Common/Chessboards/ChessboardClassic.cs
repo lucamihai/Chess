@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -176,6 +177,48 @@ namespace ChessApplication.Common.Chessboards
                 isThreatened = PieceIsThreatenedByQueen(location);
 
             return isThreatened;
+        }
+
+        public List<Box> GetAllBoxesContainingPiecesOfColor(PieceColor pieceColor)
+        {
+            var list = new List<Box>();
+            for (var i = 1; i <= 8; i++)
+            {
+                for (var j = 1; j <= 8; j++)
+                {
+                    var box = this[i, j];
+                    if (box.Piece == null)
+                    {
+                        continue;
+                    }
+
+                    if (box.Piece.Color == pieceColor)
+                    {
+                        list.Add(box);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public List<Box> GetAvailableMoves()
+        {
+            var list = new List<Box>();
+            for (var i = 1; i <= 8; i++)
+            {
+                for (var j = 1; j <= 8; j++)
+                {
+                    var box = this[i, j];
+
+                    if (box.Available)
+                    {
+                        list.Add(box);
+                    }
+                }
+            }
+
+            return list;
         }
 
         public bool PieceIsThreatenedByPawns(Point location)

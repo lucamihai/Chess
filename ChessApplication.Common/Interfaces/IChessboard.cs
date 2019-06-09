@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
 
@@ -16,5 +17,7 @@ namespace ChessApplication.Common.Interfaces
         bool IsCheckmateForProvidedColor(PieceColor providedColor);
         bool MoveTriggersCheck(Point origin, Point destination);
         bool PieceIsThreatened(Point location);
+        List<Box> GetAllBoxesContainingPiecesOfColor(PieceColor pieceColor);
+        List<Box> GetAvailableMoves();
     }
 }

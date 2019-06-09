@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -35,6 +36,7 @@ namespace ChessApplication.Main
         private bool isNewGameRequested = false;
         private bool playerMustSelect = false;
         private bool opponentMustSelect = false;
+        private bool AIOpponent = false;
 
         private Turn CurrentTurn { get; set; } = Turn.White;
         private Turn PlayerTurn { get; set; } = Turn.White;
@@ -43,8 +45,17 @@ namespace ChessApplication.Main
         public string PlayerUsername { get; private set; }
         private string usernameOpponent;
 
-        private CapturedPieceBox capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
-        private CapturedPieceBox capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
+        private CapturedPieceBox capturedWhitePawns,
+            capturedWhiteRooks,
+            capturedWhiteKnights,
+            capturedWhiteBishops,
+            capturedWhiteQueen;
+
+        private CapturedPieceBox capturedBlackPawns,
+            capturedBlackRooks,
+            capturedBlackKnights,
+            capturedBlackBishops,
+            capturedBlackQueen;
 
         private Box FirstClickedBox { get; set; }
         private IChessboard ChessBoard { get; set; }
@@ -53,12 +64,15 @@ namespace ChessApplication.Main
         private SoundPlayer MoveSound2 { get; } = new SoundPlayer(Properties.Resources.movesound2);
 
         public delegate void MoveMade(Box origin, Box destination);
+
         public MoveMade OnMadeMove { get; set; }
 
         public delegate void ReceivedChatMessage(string username, string message);
+
         public ReceivedChatMessage OnReceivedChatMessage { get; set; }
 
         public delegate void Notification(string notificationMessage);
+
         public Notification OnNotification { get; set; }
 
         public ChessboardUserControl(UserType userType, string hostname = null)
@@ -68,6 +82,7 @@ namespace ChessApplication.Main
             InitializeUsernames(userType);
             InitializeTurnsByUserType(userType);
 
+            AIOpponent = userType == UserType.SinglePlayer;
             NewGame();
         }
 
@@ -107,7 +122,8 @@ namespace ChessApplication.Main
 
             networkManager.OnBeginSelection += () =>
             {
-                var beginSelection = new MethodInvoker(() => {
+                var beginSelection = new MethodInvoker(() =>
+                {
                     opponentMustSelect = true;
 
                     var message = string.Format(Strings.UserBeginsSelection, usernameOpponent);
@@ -119,7 +135,8 @@ namespace ChessApplication.Main
 
             networkManager.OnSelection += (location, type, color) =>
             {
-                var selection = new MethodInvoker(() => {
+                var selection = new MethodInvoker(() =>
+                {
                     if (color == PieceColor.White)
                     {
                         if (type == typeof(Rook))
@@ -183,7 +200,8 @@ namespace ChessApplication.Main
 
             networkManager.OnRequestNewGame += () =>
             {
-                var request = new MethodInvoker(() => {
+                var request = new MethodInvoker(() =>
+                {
                     isNewGameRequested = true;
                     NotifyNewGameIsRequested();
                 });
@@ -205,19 +223,13 @@ namespace ChessApplication.Main
 
             networkManager.OnChatMessage += message =>
             {
-                var addChatMessage = new MethodInvoker(() =>
-                {
-                    OnReceivedChatMessage(usernameOpponent, message);
-                });
+                var addChatMessage = new MethodInvoker(() => { OnReceivedChatMessage(usernameOpponent, message); });
                 Invoke(addChatMessage);
             };
 
             networkManager.OnNotification += message =>
             {
-                var triggerNotification = new MethodInvoker(() =>
-                {
-                    OnNotification(message);
-                });
+                var triggerNotification = new MethodInvoker(() => { OnNotification(message); });
                 Invoke(triggerNotification);
             };
         }
@@ -264,7 +276,7 @@ namespace ChessApplication.Main
             var colors = colorsString.Split(' ');
             var currentPlayerColor = Convert.ToInt32(colors[0]);
 
-            if (currentPlayerColor == (int)Turn.White)
+            if (currentPlayerColor == (int) Turn.White)
             {
                 PlayerTurn = Turn.White;
                 OpponentsTurn = Turn.Black;
@@ -451,6 +463,11 @@ namespace ChessApplication.Main
             EndGameIfCheckMate();
 
             ChessBoard.SetChessBoardBoxesAsUnavailable();
+
+            if (CurrentTurn == Turn.Black)
+            {
+                AIOpponentComputeAndMoveTurn();
+            }
         }
 
         private void OpponentMovePiece(Box origin, Box destination)
@@ -577,7 +594,8 @@ namespace ChessApplication.Main
             {
                 if (destination.BoxName.Contains('H') && destination.Piece is Pawn)
                 {
-                    if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count + capturedWhiteQueen.Count > 0)
+                    if (capturedWhiteRooks.Count + capturedWhiteKnights.Count + capturedWhiteRooks.Count +
+                        capturedWhiteQueen.Count > 0)
                     {
                         retakeRow = 8;
                         retakeColumn = destination.BoxName[1] - 48;
@@ -596,7 +614,8 @@ namespace ChessApplication.Main
             {
                 if (destination.BoxName.Contains('A') && destination.Piece is Pawn)
                 {
-                    if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count + capturedBlackQueen.Count > 0)
+                    if (capturedBlackRooks.Count + capturedBlackKnights.Count + capturedBlackBishops.Count +
+                        capturedBlackQueen.Count > 0)
                     {
                         retakeRow = 1;
                         retakeColumn = destination.BoxName[1] - 48;
@@ -613,6 +632,13 @@ namespace ChessApplication.Main
 
         private void EndGameIfCheckMate()
         {
+            if ((ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black) ||
+                 ChessBoard.IsCheckmateForProvidedColor(PieceColor.White)) && AIOpponent)
+            {
+                NewGame();
+                return;
+            }
+
             if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.White))
             {
                 OnNotification(Strings.CheckmateWhite);
@@ -623,6 +649,7 @@ namespace ChessApplication.Main
                 Invoke(newGameInvoker);
                 SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
             }
+
             if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black))
             {
                 OnNotification(Strings.CheckmateBlack);
@@ -645,9 +672,32 @@ namespace ChessApplication.Main
             labelTurn.Text = CurrentTurn == Turn.White ? Strings.WhitesTurn : Strings.BlacksTurn;
         }
 
+        private void AIOpponentComputeAndMoveTurn()
+        {
+//            if(ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black)||
+//               ChessBoard.IsCheckmateForProvidedColor(PieceColor.White)) return;
+            
+            var blackBoxes = ChessBoard.GetAllBoxesContainingPiecesOfColor(PieceColor.Black);
+            if (blackBoxes.Count == 0) return;
+            var sourceBox = blackBoxes[0];
+            var possibleMoves = new List<Box>();
+            while (possibleMoves.Count == 0)
+            {
+                var random = new Random().Next(0, blackBoxes.Count - 1);
+                sourceBox = blackBoxes[random];
+                sourceBox.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, sourceBox.Position);
+                possibleMoves = ChessBoard.GetAvailableMoves();
+            }
+
+            var random1 = new Random().Next(0, possibleMoves.Count - 1);
+            var destinationBox = possibleMoves[random1];
+
+            OpponentMovePiece(sourceBox, destinationBox);
+        }
+
         private void BoxClick(object sender, EventArgs e)
         {
-            var clickedBoxObject = (Box)sender;
+            var clickedBoxObject = (Box) sender;
 
             if (playerMustSelect || opponentMustSelect)
             {
@@ -659,11 +709,12 @@ namespace ChessApplication.Main
                 // First click on a box with a chess piece
                 if (clickCounter == 0 && clickedBoxObject.Piece != null)
                 {
-                    if ((int)PlayerTurn == (int)clickedBoxObject.Piece.Color)
+                    if ((int) PlayerTurn == (int) clickedBoxObject.Piece.Color)
                     {
                         var boxPosition = clickedBoxObject.Position;
 
-                        clickedBoxObject.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition);
+                        clickedBoxObject.Piece
+                            .CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition);
                         if (clickedBoxObject.Piece.CanMove)
                         {
                             FirstClickedBox = clickedBoxObject;
@@ -696,7 +747,7 @@ namespace ChessApplication.Main
 
         private void CapturedPieceBoxClick(object sender, EventArgs e)
         {
-            var clickedCapturedPieceBox = (CapturedPieceBox)sender;
+            var clickedCapturedPieceBox = (CapturedPieceBox) sender;
 
             if (playerMustSelect && clickedCapturedPieceBox.Count > 0)
             {
@@ -706,11 +757,11 @@ namespace ChessApplication.Main
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    var command = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} {recapturedPiece.Abbreviation}";
+                    var command =
+                        $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} {recapturedPiece.Abbreviation}";
                     SendCommand(command);
                 }
             }
         }
-
     }
 }
