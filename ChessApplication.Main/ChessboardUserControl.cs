@@ -268,7 +268,7 @@ namespace ChessApplication.Main
         {
             PlayerUsername = username;
             var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
-            networkManager.SendMessage(message);
+            networkManager?.SendMessage(message);
         }
 
         public void SetColorsAndNotifyOpponent(string colorsString)
@@ -288,7 +288,7 @@ namespace ChessApplication.Main
             }
 
             var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
-            networkManager.SendMessage(message);
+            networkManager?.SendMessage(message);
         }
 
         public void RequestNewGame()
@@ -314,7 +314,7 @@ namespace ChessApplication.Main
         {
             if (!message.StartsWith(CommandMarker))
             {
-                networkManager.SendMessage(message);
+                networkManager?.SendMessage(message);
             }
         }
 
@@ -426,7 +426,7 @@ namespace ChessApplication.Main
         {
             if (command.StartsWith(CommandMarker))
             {
-                networkManager.SendMessage(command);
+                networkManager?.SendMessage(command);
             }
         }
 
