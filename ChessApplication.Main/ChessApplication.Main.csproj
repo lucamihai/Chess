@@ -99,6 +99,10 @@
     <None Include="Resources\movesound2.wav" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChessApplication.AI\ChessApplication.AI.csproj">
+      <Project>{950bc651-03c5-4c2d-81c7-2904aef60973}</Project>
+      <Name>ChessApplication.AI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.ChatBox\ChessApplication.ChatBox.csproj">
       <Project>{72f819d6-5805-4b09-a382-b70d046a267d}</Project>
       <Name>ChessApplication.ChatBox</Name>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network", "ChessApplication.Network\ChessApplication.Network.csproj", "{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}"
 EndProject
@@ -20,6 +20,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsUtilities", "UnitTestsUtilities\UnitTestsUtilities.csproj", "{1F3878D6-864C-4F27-ACE4-AE895ABC8B62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Main", "ChessApplication.Main\ChessApplication.Main.csproj", "{E6EC510D-560E-4564-80CC-BCEE8818072C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.AI", "ChessApplication.AI\ChessApplication.AI.csproj", "{950BC651-03C5-4C2D-81C7-2904AEF60973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.AI.UnitTests", "ChessApplication.AI.UnitTests\ChessApplication.AI.UnitTests.csproj", "{1F392690-65AB-4AC2-9A9A-8EC102348A4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,14 @@ Global
 		{E6EC510D-560E-4564-80CC-BCEE8818072C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6EC510D-560E-4564-80CC-BCEE8818072C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6EC510D-560E-4564-80CC-BCEE8818072C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{950BC651-03C5-4C2D-81C7-2904AEF60973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950BC651-03C5-4C2D-81C7-2904AEF60973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950BC651-03C5-4C2D-81C7-2904AEF60973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950BC651-03C5-4C2D-81C7-2904AEF60973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F392690-65AB-4AC2-9A9A-8EC102348A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F392690-65AB-4AC2-9A9A-8EC102348A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F392690-65AB-4AC2-9A9A-8EC102348A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F392690-65AB-4AC2-9A9A-8EC102348A4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +78,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
 		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
+		{1F392690-65AB-4AC2-9A9A-8EC102348A4B} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A17F387-2CC4-446B-B387-4BB5D3CCC18D}

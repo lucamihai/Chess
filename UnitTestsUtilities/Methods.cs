@@ -1,8 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
+using ChessApplication.Common.UserControls;
 
 namespace UnitTestsUtilities
 {
@@ -25,6 +27,24 @@ namespace UnitTestsUtilities
             }
 
             return counter;
+        }
+
+        public static List<Box> GetAvailableBoxes(IChessboard chessboard)
+        {
+            var availableBoxes = new List<Box>();
+
+            for (int row = 1; row < 9; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    if (chessboard[row, column].Available)
+                    {
+                        availableBoxes.Add(chessboard[row, column]);
+                    }
+                }
+            }
+
+            return availableBoxes;
         }
 
         public static void SurroundBoxWithPawns(PieceColor pawnColor, Point pieceLocation, IChessboard chessBoard)

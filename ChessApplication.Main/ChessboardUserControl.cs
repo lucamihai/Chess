@@ -5,6 +5,7 @@ using System.Linq;
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
+using ChessApplication.AI;
 using ChessApplication.Common;
 using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
@@ -672,48 +673,10 @@ namespace ChessApplication.Main
 
         private void AIOpponentComputeAndMoveTurn()
         {
-            var origin = ChooseOriginForAIOpponent(ChessBoard);
-            var destination = ChooseDestinationForAIOpponent(ChessBoard, origin);
+            var origin = DecisionMaker.ChooseOrigin(ChessBoard, OpponentsTurn);
+            var destination = DecisionMaker.ChooseDestination(ChessBoard, origin);
 
             OpponentMovePiece(origin, destination);
-        }
-
-        private Box ChooseOriginForAIOpponent(IChessboard chessboard)
-        {
-            var AIOpponentPieceColor = (PieceColor) OpponentsTurn;
-            var boxes = chessboard.GetAllBoxesContainingPiecesOfColor(AIOpponentPieceColor);
-
-            var boxesWithPieceThatHaveAvailableMoves = new List<Box>();
-            foreach (var box in boxes)
-            {
-                box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(chessboard, box.Position);
-                var possibleMoves = chessboard.GetAvailableBoxes();
-
-                if (possibleMoves.Count > 0)
-                    boxesWithPieceThatHaveAvailableMoves.Add(box);
-
-                chessboard.SetChessBoardBoxesAsUnavailable();
-            }
-
-            var originIndex = new Random().Next(0, boxesWithPieceThatHaveAvailableMoves.Count - 1);
-
-            return boxesWithPieceThatHaveAvailableMoves[originIndex];
-        }
-
-        private Box ChooseDestinationForAIOpponent(IChessboard chessboard, Box origin)
-        {
-            origin.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(chessboard, origin.Position);
-
-            var possibleDestinations = chessboard.GetAvailableBoxes();
-
-            if (possibleDestinations.Count == 0)
-            {
-                throw new ArgumentException($"{nameof(origin)} must be a box with at least 1 possible move");
-            }
-
-            var destinationIndex = new Random().Next(0, possibleDestinations.Count - 1);
-
-            return possibleDestinations[destinationIndex];
         }
 
         private void BoxClick(object sender, EventArgs e)
