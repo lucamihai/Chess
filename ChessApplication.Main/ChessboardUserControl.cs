@@ -17,8 +17,6 @@ namespace ChessApplication.Main
 {
     public partial class ChessboardUserControl : UserControl
     {
-        public bool NetworkManagerIsInitialized => networkManager != null;
-
         private NetworkManager networkManager;
         private const string CommandMarker = Network.Constants.CommandMarker;
 
@@ -674,25 +672,48 @@ namespace ChessApplication.Main
 
         private void AIOpponentComputeAndMoveTurn()
         {
-//            if(ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black)||
-//               ChessBoard.IsCheckmateForProvidedColor(PieceColor.White)) return;
-            
-            var blackBoxes = ChessBoard.GetAllBoxesContainingPiecesOfColor(PieceColor.Black);
-            if (blackBoxes.Count == 0) return;
-            var sourceBox = blackBoxes[0];
-            var possibleMoves = new List<Box>();
-            while (possibleMoves.Count == 0)
+            var origin = ChooseOriginForAIOpponent(ChessBoard);
+            var destination = ChooseDestinationForAIOpponent(ChessBoard, origin);
+
+            OpponentMovePiece(origin, destination);
+        }
+
+        private Box ChooseOriginForAIOpponent(IChessboard chessboard)
+        {
+            var AIOpponentPieceColor = (PieceColor) OpponentsTurn;
+            var boxes = chessboard.GetAllBoxesContainingPiecesOfColor(AIOpponentPieceColor);
+
+            var boxesWithPieceThatHaveAvailableMoves = new List<Box>();
+            foreach (var box in boxes)
             {
-                var random = new Random().Next(0, blackBoxes.Count - 1);
-                sourceBox = blackBoxes[random];
-                sourceBox.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, sourceBox.Position);
-                possibleMoves = ChessBoard.GetAvailableMoves();
+                box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(chessboard, box.Position);
+                var possibleMoves = chessboard.GetAvailableBoxes();
+
+                if (possibleMoves.Count > 0)
+                    boxesWithPieceThatHaveAvailableMoves.Add(box);
+
+                chessboard.SetChessBoardBoxesAsUnavailable();
             }
 
-            var random1 = new Random().Next(0, possibleMoves.Count - 1);
-            var destinationBox = possibleMoves[random1];
+            var originIndex = new Random().Next(0, boxesWithPieceThatHaveAvailableMoves.Count - 1);
 
-            OpponentMovePiece(sourceBox, destinationBox);
+            return boxesWithPieceThatHaveAvailableMoves[originIndex];
+        }
+
+        private Box ChooseDestinationForAIOpponent(IChessboard chessboard, Box origin)
+        {
+            origin.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(chessboard, origin.Position);
+
+            var possibleDestinations = chessboard.GetAvailableBoxes();
+
+            if (possibleDestinations.Count == 0)
+            {
+                throw new ArgumentException($"{nameof(origin)} must be a box with at least 1 possible move");
+            }
+
+            var destinationIndex = new Random().Next(0, possibleDestinations.Count - 1);
+
+            return possibleDestinations[destinationIndex];
         }
 
         private void BoxClick(object sender, EventArgs e)

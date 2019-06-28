@@ -18,6 +18,6 @@ namespace ChessApplication.Common.Interfaces
         bool MoveTriggersCheck(Point origin, Point destination);
         bool PieceIsThreatened(Point location);
         List<Box> GetAllBoxesContainingPiecesOfColor(PieceColor pieceColor);
-        List<Box> GetAvailableMoves();
+        List<Box> GetAvailableBoxes();
     }
 }

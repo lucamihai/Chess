@@ -202,7 +202,7 @@ namespace ChessApplication.Common.Chessboards
             return list;
         }
 
-        public List<Box> GetAvailableMoves()
+        public List<Box> GetAvailableBoxes()
         {
             var list = new List<Box>();
             for (var i = 1; i <= 8; i++)
