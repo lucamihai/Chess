@@ -112,6 +112,8 @@ namespace ChessApplication.Main.Forms
             {
                 chatBox.AddChatMessage(username, message);
             };
+
+            chessboard.NewGame();
         }
 
         private void InitializeChatBox()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -82,7 +81,32 @@ namespace ChessApplication.Main
             InitializeTurnsByUserType(userType);
 
             AIOpponent = userType == UserType.SinglePlayer;
-            NewGame();
+            //NewGame();
+        }
+
+        public void NewGame()
+        {
+            InitializeChessBoard();
+            InitializeCapturedPiecesArea();
+            ChessBoard.ResetChessBoardBoxesColors();
+            ChessBoard.SetChessBoardBoxesAsUnavailable();
+            AssignClickEventToBoxes();
+
+            clickCounter = 0;
+
+            if (OpponentsTurn == Turn.Black)
+            {
+                PlayerTurn = Turn.White;
+
+                if (AIOpponent && CurrentTurn == Turn.Black)
+                {
+                    AIOpponentComputeAndMoveTurn();
+                }
+            }
+            else
+            {
+                PlayerTurn = Turn.Black;
+            }
         }
 
         private void InitializeNetworkManager(UserType userType, string hostname)
@@ -286,6 +310,11 @@ namespace ChessApplication.Main
                 OpponentsTurn = Turn.White;
             }
 
+            if (CurrentTurn == OpponentsTurn && AIOpponent)
+            {
+                AIOpponentComputeAndMoveTurn();
+            }
+
             var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
             networkManager?.SendMessage(message);
         }
@@ -321,26 +350,6 @@ namespace ChessApplication.Main
         {
             var message = string.Format(Strings.UserRequestsNewGame, usernameOpponent);
             MessageBox.Show(message);
-        }
-
-        private void NewGame()
-        {
-            InitializeChessBoard();
-            InitializeCapturedPiecesArea();
-            ChessBoard.ResetChessBoardBoxesColors();
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
-            AssignClickEventToBoxes();
-
-            clickCounter = 0;
-
-            if (OpponentsTurn == Turn.Black)
-            {
-                PlayerTurn = Turn.White;
-            }
-            else
-            {
-                PlayerTurn = Turn.Black;
-            }
         }
 
         private void InitializeChessBoard()
@@ -463,7 +472,7 @@ namespace ChessApplication.Main
 
             ChessBoard.SetChessBoardBoxesAsUnavailable();
 
-            if (CurrentTurn == Turn.Black)
+            if (AIOpponent)
             {
                 AIOpponentComputeAndMoveTurn();
             }
