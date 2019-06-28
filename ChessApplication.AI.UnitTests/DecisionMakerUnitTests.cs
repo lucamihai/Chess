@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
 
@@ -18,6 +20,18 @@ namespace ChessApplication.AI.UnitTests
         {
             var chessboard = ChessboardProvider.GetChessboardClassicWithProvidedColorInCheckmate(PieceColor.White);
             var origin = DecisionMaker.ChooseOrigin(chessboard, Turn.White);
+        }
+
+        [TestMethod]
+        public void ChooseOriginWillNotAffectBoxesAvailableProperty()
+        {
+            var chessboard = new ChessboardClassic();
+            var availableBoxesBeforeMethodCall = Methods.GetAvailableBoxes(chessboard);
+
+            var origin = DecisionMaker.ChooseOrigin(chessboard, Turn.White);
+            var availableBoxesAfterMethodCall = Methods.GetAvailableBoxes(chessboard);
+
+            Assert.IsTrue(ListOfBoxesAreTheSame(availableBoxesBeforeMethodCall, availableBoxesAfterMethodCall));
         }
 
         [TestMethod]
@@ -78,6 +92,19 @@ namespace ChessApplication.AI.UnitTests
         }
 
         [TestMethod]
+        public void ChooseDestinationWillNotAffectBoxesAvailableProperty()
+        {
+            var chessboard = new ChessboardClassic();
+            var origin = chessboard[2, 1];
+            var availableBoxesBeforeMethodCall = Methods.GetAvailableBoxes(chessboard);
+
+            var destination = DecisionMaker.ChooseDestination(chessboard, origin);
+            var availableBoxesAfterMethodCall = Methods.GetAvailableBoxes(chessboard);
+
+            Assert.IsTrue(ListOfBoxesAreTheSame(availableBoxesBeforeMethodCall, availableBoxesAfterMethodCall));
+        }
+
+        [TestMethod]
         public void ChooseDestinationReturnsBoxThatBelongsToChessboard()
         {
             var chessboard = new ChessboardClassic();
@@ -98,6 +125,20 @@ namespace ChessApplication.AI.UnitTests
             var reachableBoxes = Methods.GetAvailableBoxes(chessboard);
 
             Assert.IsTrue(reachableBoxes.Contains(destination));
+        }
+
+        private bool ListOfBoxesAreTheSame(List<Box> list1, List<Box> list2)
+        {
+            if (list1.Count != list2.Count)
+                return false;
+
+            for (int index = 0; index < list1.Count; index++)
+            {
+                if (list1[index] != list2[index])
+                    return false;
+            }
+
+            return true;
         }
     }
 }
