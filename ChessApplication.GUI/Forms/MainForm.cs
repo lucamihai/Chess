@@ -6,7 +6,7 @@ using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.UserControls;
 
-namespace ChessApplication.Main.Forms
+namespace ChessApplication.GUI.Forms
 {
     [ExcludeFromCodeCoverage]
     public partial class MainForm : Form

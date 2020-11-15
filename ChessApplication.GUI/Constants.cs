@@ -1,4 +1,4 @@
-﻿namespace ChessApplication.Main
+﻿namespace ChessApplication.GUI
 {
     public class Constants
     {

@@ -12,7 +12,7 @@ using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 using ChessApplication.Network;
 
-namespace ChessApplication.Main
+namespace ChessApplication.GUI
 {
     public partial class ChessboardUserControl : UserControl
     {

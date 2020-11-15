@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.Main.Forms
+namespace ChessApplication.GUI.Forms
 {
     partial class MainForm
     {

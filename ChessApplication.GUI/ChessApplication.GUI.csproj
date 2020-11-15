@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6EC510D-560E-4564-80CC-BCEE8818072C}</ProjectGuid>
+    <ProjectGuid>{370CE882-0121-477B-80E4-C7034B331751}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ChessApplication.Main</RootNamespace>
-    <AssemblyName>ChessApplication.Main</AssemblyName>
+    <RootNamespace>ChessApplication.GUI</RootNamespace>
+    <AssemblyName>ChessApplication.GUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -104,7 +104,7 @@
       <Name>ChessApplication.ChatBox</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
-      <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
+      <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.History\ChessApplication.History.csproj">
@@ -112,7 +112,7 @@
       <Name>ChessApplication.History</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj">
-      <Project>{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}</Project>
+      <Project>{9ad7b69a-879a-48ac-b725-e579cb8dffe4}</Project>
       <Name>ChessApplication.Network</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Notifications\ChessApplication.Notifications.csproj">

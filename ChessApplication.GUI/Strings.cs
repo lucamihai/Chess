@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.Main
+namespace ChessApplication.GUI
 {
     [ExcludeFromCodeCoverage]
     public static class Strings

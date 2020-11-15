@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ChessApplication.Main.Forms;
+using ChessApplication.GUI.Forms;
 
-namespace ChessApplication.Main
+namespace ChessApplication.GUI
 {
     static class Program
     {
