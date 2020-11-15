@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chat\ChatBoxUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chat\ChatBoxUserControl.Designer.cs">
+      <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chat\Strings.cs" />
     <Compile Include="ChessboardUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -59,15 +66,46 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="History\HistoryUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\HistoryUserControl.Designer.cs">
+      <DependentUpon>HistoryUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\HistoryEntryUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\HistoryEntryUserControl.Designer.cs">
+      <DependentUpon>HistoryEntryUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\NotificationsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Notifications\NotificationsUserControl.Designer.cs">
+      <DependentUpon>NotificationsUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\Strings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PromptIpAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
+    <EmbeddedResource Include="Chat\ChatBoxUserControl.resx">
+      <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChessboardUserControl.resx">
       <DependentUpon>ChessboardUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History\HistoryUserControl.resx">
+      <DependentUpon>HistoryUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History\HistoryEntryUserControl.resx">
+      <DependentUpon>HistoryEntryUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifications\NotificationsUserControl.resx">
+      <DependentUpon>NotificationsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -99,26 +137,15 @@
     <None Include="Resources\movesound2.wav" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessApplication.ChatBox\ChessApplication.ChatBox.csproj">
-      <Project>{72f819d6-5805-4b09-a382-b70d046a267d}</Project>
-      <Name>ChessApplication.ChatBox</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.History\ChessApplication.History.csproj">
-      <Project>{aadfd0d1-3510-4a81-b84b-caaaeea0accf}</Project>
-      <Name>ChessApplication.History</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj">
       <Project>{9ad7b69a-879a-48ac-b725-e579cb8dffe4}</Project>
       <Name>ChessApplication.Network</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Notifications\ChessApplication.Notifications.csproj">
-      <Project>{a90ef670-de52-44ea-9e58-8a0a9b028c8c}</Project>
-      <Name>ChessApplication.Notifications</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

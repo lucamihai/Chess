@@ -7,12 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common", "ChessApplication.Common\ChessApplication.Common.csproj", "{6B209803-C8D8-402B-8092-0F53BEF6F989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Notifications", "ChessApplication.Notifications\ChessApplication.Notifications.csproj", "{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChatBox", "ChessApplication.ChatBox\ChessApplication.ChatBox.csproj", "{72F819D6-5805-4B09-A382-B70D046A267D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.History", "ChessApplication.History\ChessApplication.History.csproj", "{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common.UnitTests", "ChessApplication.Common.UnitTests\ChessApplication.Common.UnitTests.csproj", "{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}"
@@ -35,18 +29,6 @@ Global
 		{6B209803-C8D8-402B-8092-0F53BEF6F989}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B209803-C8D8-402B-8092-0F53BEF6F989}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B209803-C8D8-402B-8092-0F53BEF6F989}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A90EF670-DE52-44EA-9E58-8A0A9B028C8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72F819D6-5805-4B09-A382-B70D046A267D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72F819D6-5805-4B09-A382-B70D046A267D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72F819D6-5805-4B09-A382-B70D046A267D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72F819D6-5805-4B09-A382-B70D046A267D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AADFD0D1-3510-4A81-B84B-CAAAEEA0ACCF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}.Release|Any CPU.ActiveCfg = Release|Any CPU

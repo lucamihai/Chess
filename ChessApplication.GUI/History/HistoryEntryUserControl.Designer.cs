@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.History
+namespace ChessApplication.GUI.History
 {
-    partial class HistoryEntry
+    partial class HistoryEntryUserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -90,7 +90,7 @@ namespace ChessApplication.History
             this.labelDestinationName.TabIndex = 4;
             this.labelDestinationName.Text = "A2";
             // 
-            // HistoryEntry
+            // HistoryEntryUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -100,7 +100,7 @@ namespace ChessApplication.History
             this.Controls.Add(this.labelMoveNumber);
             this.Controls.Add(this.pictureBoxDestinationPiece);
             this.Controls.Add(this.pictureBoxOriginPiece);
-            this.Name = "HistoryEntry";
+            this.Name = "HistoryEntryUserControl";
             this.Size = new System.Drawing.Size(175, 65);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOriginPiece)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDestinationPiece)).EndInit();

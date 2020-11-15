@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.ChatBox
+namespace ChessApplication.GUI.Chat
 {
     partial class ChatBoxUserControl
     {
@@ -43,9 +43,9 @@ namespace ChessApplication.ChatBox
             this.labelChatBox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelChatBox.Location = new System.Drawing.Point(17, 7);
             this.labelChatBox.Name = "labelChatBox";
-            this.labelChatBox.Size = new System.Drawing.Size(65, 19);
+            this.labelChatBox.Size = new System.Drawing.Size(38, 19);
             this.labelChatBox.TabIndex = 3;
-            this.labelChatBox.Text = "SentChat";
+            this.labelChatBox.Text = "Chat";
             // 
             // textBoxChat
             // 

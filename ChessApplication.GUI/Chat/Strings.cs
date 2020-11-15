@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.ChatBox
+namespace ChessApplication.GUI.Chat
 {
     [ExcludeFromCodeCoverage]
     public static class Strings

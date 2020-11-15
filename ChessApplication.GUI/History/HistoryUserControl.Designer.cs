@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.History
+namespace ChessApplication.GUI.History
 {
-    partial class History
+    partial class HistoryUserControl
     {
         /// <summary> 
         /// Required designer variable.

@@ -3,14 +3,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common.UserControls;
 
-namespace ChessApplication.History
+namespace ChessApplication.GUI.History
 {
     [ExcludeFromCodeCoverage]
-    public partial class History : UserControl
+    public partial class HistoryUserControl : UserControl
     {
         public int EntryCount { get; private set; }
 
-        public History()
+        public HistoryUserControl()
         {
             InitializeComponent();
 
@@ -22,7 +22,7 @@ namespace ChessApplication.History
             ScrollToTopOfPanel();
 
             EntryCount++;
-            var historyEntry = new HistoryEntry(EntryCount, origin, destination);
+            var historyEntry = new HistoryEntryUserControl(EntryCount, origin, destination);
             panelHistoryEntries.Controls.Add(historyEntry);
 
             var entryHeight = (EntryCount - 1) * 75;

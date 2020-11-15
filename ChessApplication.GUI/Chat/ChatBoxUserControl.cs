@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace ChessApplication.ChatBox
+namespace ChessApplication.GUI.Chat
 {
     [ExcludeFromCodeCoverage]
     public partial class ChatBoxUserControl : UserControl

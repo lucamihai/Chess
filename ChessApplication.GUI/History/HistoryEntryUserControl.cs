@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common.UserControls;
 
-namespace ChessApplication.History
+namespace ChessApplication.GUI.History
 {
     [ExcludeFromCodeCoverage]
-    public partial class HistoryEntry : UserControl
+    public partial class HistoryEntryUserControl : UserControl
     {
         public int EntryNumber
         {
@@ -27,7 +27,7 @@ namespace ChessApplication.History
             private set => labelDestinationName.Text = value;
         }
 
-        public HistoryEntry(int entryNumber, Box origin, Box destination)
+        public HistoryEntryUserControl(int entryNumber, Box origin, Box destination)
         {
             InitializeComponent();
 

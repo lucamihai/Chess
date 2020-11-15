@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.Notifications
+namespace ChessApplication.GUI.Notifications
 {
     [ExcludeFromCodeCoverage]
     public static class Strings

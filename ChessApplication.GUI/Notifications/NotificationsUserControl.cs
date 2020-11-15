@@ -2,19 +2,19 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace ChessApplication.Notifications
+namespace ChessApplication.GUI.Notifications
 {
     [ExcludeFromCodeCoverage]
     public partial class NotificationsUserControl : UserControl
     {
-        private readonly string notificationPattern = Strings.NotificationPattern;
-        private readonly string notificationSeparator = Strings.NotificationSeparator;
+        private readonly string notificationPattern = GUI.Notifications.Strings.NotificationPattern;
+        private readonly string notificationSeparator = GUI.Notifications.Strings.NotificationSeparator;
 
         public NotificationsUserControl()
         {
             InitializeComponent();
 
-            labelNotifications.Text = Strings.Notifications;
+            labelNotifications.Text = GUI.Notifications.Strings.Notifications;
         }
 
         public void AddNotification(string notificationMessage, DateTime? notificationTime = null)
