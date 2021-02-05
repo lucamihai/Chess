@@ -5,10 +5,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 {
     public static class AccessibleBoxesUtil
     {
-        public static void MarkAccessibleBoxesForWest(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForWest(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (var secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
@@ -19,7 +19,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[row, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -28,10 +28,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForEast(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForEast(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (var secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
@@ -42,7 +42,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[row, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -51,10 +51,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForSouth(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForSouth(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (var secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
@@ -65,7 +65,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, column];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -74,10 +74,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForNorth(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForNorth(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (var secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
@@ -86,7 +86,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, column];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -95,10 +95,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForSouthWest(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForSouthWest(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
@@ -109,7 +109,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -118,10 +118,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForNorthEast(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForNorthEast(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
@@ -132,7 +132,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -141,10 +141,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForNorthWest(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForNorthWest(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
@@ -155,7 +155,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -164,10 +164,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForSouthEast(IChessboard chessBoard, Point location)
+        public static void MarkAccessibleBoxesForSouthEast(IChessboard chessBoard, Point startPosition)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = startPosition.X;
+            var column = startPosition.Y;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
@@ -178,7 +178,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, location, boxToInspect.Position);
+                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
