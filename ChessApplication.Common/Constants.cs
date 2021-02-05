@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 
 namespace ChessApplication.Common
 {
+    [ExcludeFromCodeCoverage]
     public static class Constants
     {
         public static Color BoxColorLight { get; } = Color.Silver;

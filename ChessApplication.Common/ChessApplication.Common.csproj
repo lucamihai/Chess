@@ -47,6 +47,7 @@
     <Compile Include="ChessPieces\Abbreviations.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
+    <Compile Include="ChessPieces\Helpers\AccessibleBoxesUtil.cs" />
     <Compile Include="ChessPieces\King.cs" />
     <Compile Include="ChessPieces\Knight.cs" />
     <Compile Include="ChessPieces\Pawn.cs" />
@@ -156,5 +157,6 @@
       <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

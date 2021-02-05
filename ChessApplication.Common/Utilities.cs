@@ -11,18 +11,13 @@ namespace ChessApplication.Common
     { 
         public static bool LocationContainsPiece<TChessPiece>(Box location, PieceColor color = PieceColor.Undefined) where TChessPiece : ChessPiece
         {
-            if (location != null)
+            var piece = location?.Piece;
+
+            if (piece is TChessPiece)
             {
-                var piece = location.Piece;
-                if (piece != null)
+                if (piece.Color == color || color == PieceColor.Undefined)
                 {
-                    if (piece is TChessPiece)
-                    {
-                        if (piece.Color == color || color == PieceColor.Undefined)
-                        {
-                            return true;
-                        }
-                    }
+                    return true;
                 }
             }
 

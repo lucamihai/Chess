@@ -1,5 +1,8 @@
-﻿namespace ChessApplication.Common.ChessPieces
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Common.ChessPieces
 {
+    [ExcludeFromCodeCoverage]
     public static class Abbreviations
     {
         public const char Pawn = 'P';

@@ -15,9 +15,13 @@ namespace ChessApplication.Common.Chessboards
             get
             {
                 if (point.X < 0 || point.X > 10)
+                {
                     return null;
+                }
                 if (point.Y < 0 || point.Y > 10)
+                {
                     return null;
+                }
 
                 return Boxes[point.X, point.Y];
             }
@@ -28,9 +32,13 @@ namespace ChessApplication.Common.Chessboards
             get
             {
                 if (row < 0 || row > 10)
+                {
                     return null;
+                }
                 if (column < 0 || column > 10)
+                {
                     return null;
+                }
 
                 return Boxes[row, column];
             }
@@ -737,13 +745,14 @@ namespace ChessApplication.Common.Chessboards
             return threatened;
         }
 
-        private string GenerateBoxNameBasedOnRowAndColumn(int row, int column)
+        private static string GenerateBoxNameBasedOnRowAndColumn(int row, int column)
         {
-            char rowLetter = (char)('A' + row - 1);
+            var rowLetter = (char)('A' + row - 1);
+
             return $"{rowLetter}{column}";
         }
 
-        private Point GenerateBoxLocationBasedOnRowAndColumn(int row, int column)
+        private static Point GenerateBoxLocationBasedOnRowAndColumn(int row, int column)
         {
             return new Point
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -14,6 +15,7 @@ using ChessApplication.Network;
 
 namespace ChessApplication.GUI
 {
+    [ExcludeFromCodeCoverage]
     public partial class ChessboardUserControl : UserControl
     {
         private NetworkManager networkManager;

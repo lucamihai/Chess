@@ -1,5 +1,8 @@
-﻿namespace ChessApplication.Network
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Network
 {
+    [ExcludeFromCodeCoverage]
     public static class CommandStrings
     {
         public const string MoveMade = "";
