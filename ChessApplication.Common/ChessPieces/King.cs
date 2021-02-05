@@ -26,61 +26,33 @@ namespace ChessApplication.Common.ChessPieces
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location)
         {
-            Point newKingPosition;
             var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
                 ? chessBoard.PositionWhiteKing
                 : chessBoard.PositionBlackKing;
 
-            newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y - 1);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
+            var positionNorth = new Point(kingPosition.X, kingPosition.Y + 1);
+            var positionSouth = new Point(kingPosition.X, kingPosition.Y - 1);
+            var positionWest = new Point(kingPosition.X - 1, kingPosition.Y);
+            var positionEast = new Point(kingPosition.X + 1, kingPosition.Y);
+            
+            var positionNorthWest = new Point(kingPosition.X - 1, kingPosition.Y + 1);
+            var positionNorthEast = new Point(kingPosition.X + 1, kingPosition.Y + 1);
+            var positionSouthWest = new Point(kingPosition.X - 1, kingPosition.Y - 1);
+            var positionSouthEast = new Point(kingPosition.X + 1, kingPosition.Y - 1);
 
-            newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y + 1);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionNorth);
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionSouth);
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionWest);
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionEast);
 
-            newKingPosition = new Point(kingPosition.X + 1, kingPosition.Y);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionNorthWest);
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionNorthEast);
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionSouthWest);
+            MarkPositionIfAllowed(chessBoard, kingPosition, positionSouthEast);
+        }
 
-            newKingPosition = new Point(kingPosition.X, kingPosition.Y - 1);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
-
-            newKingPosition = new Point(kingPosition.X, kingPosition.Y + 1);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
-
-            newKingPosition = new Point(kingPosition.X - 1, kingPosition.Y - 1);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
-
-            newKingPosition = new Point(kingPosition.X - 1, kingPosition.Y);
-            if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
-            {
-                chessBoard[newKingPosition].Available = true;
-                chessBoard[kingPosition].Piece.CanMove = true;
-            }
-
-            newKingPosition = new Point(kingPosition.X - 1, kingPosition.Y + 1);
+        private void MarkPositionIfAllowed(IChessboard chessBoard, Point kingPosition, Point newKingPosition)
+        {
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
                 chessBoard[newKingPosition].Available = true;
