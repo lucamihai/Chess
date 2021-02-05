@@ -19,7 +19,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[row, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -42,7 +42,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[row, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -65,7 +65,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, column];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -86,7 +86,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, column];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -109,7 +109,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -132,7 +132,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -155,7 +155,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -178,7 +178,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
                 var boxToInspect = chessBoard[secondaryRow, secondaryColumn];
 
-                MarkStartingBoxIfAccessible(chessBoard, startPosition, boxToInspect.Position);
+                MarkIfAccessible(chessBoard, startPosition, boxToInspect.Position);
 
                 if (boxToInspect.Piece != null)
                 {
@@ -187,8 +187,13 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        private static void MarkStartingBoxIfAccessible(IChessboard chessBoard, Point startPosition, Point destinationPosition)
+        public static void MarkIfAccessible(IChessboard chessBoard, Point startPosition, Point destinationPosition)
         {
+            if (PositionIsOutOfBounds(destinationPosition))
+            {
+                return;
+            }
+
             if (chessBoard[destinationPosition].Piece == null)
             {
                 if (!chessBoard.MoveTriggersCheck(startPosition, destinationPosition))
@@ -208,6 +213,14 @@ namespace ChessApplication.Common.ChessPieces.Helpers
                     }
                 }
             }
+        }
+
+        private static bool PositionIsOutOfBounds(Point position)
+        {
+            return position.X > 8
+                   || position.X < 1
+                   || position.Y > 8
+                   || position.Y < 1;
         }
     }
 }

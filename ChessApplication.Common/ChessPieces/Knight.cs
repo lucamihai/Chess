@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 
@@ -29,224 +30,25 @@ namespace ChessApplication.Common.ChessPieces
             var row = location.X;
             var column = location.Y;
 
-            int destinationRow, destinationColumn;
-            Point destination;
+            var destinationNorthNorthEast = new Point(row + 1, column + 2);
+            var destinationSouthSouthEast = new Point(row + 1, column - 2);
+            var destinationNorthEastEast = new Point(row + 2, column + 1);
+            var destinationSouthEastEast = new Point(row + 2, column - 1);
 
-            if (row < 8 && column < 7)
-            {
-                destinationRow = row + 1;
-                destinationColumn = column + 2;
-                destination = new Point(destinationRow, destinationColumn);
+            var destinationNorthNorthWest = new Point(row - 1, column + 2);
+            var destinationSouthSouthWest = new Point(row - 1, column - 2);
+            var destinationNorthWestWest = new Point(row - 2, column + 1);
+            var destinationSouthWestWest = new Point(row - 2, column -1);
 
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationNorthNorthEast);
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationSouthSouthEast);
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationNorthEastEast);
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationSouthEastEast);
 
-            if (row < 8 && column > 2) 
-            {
-                destinationRow = row + 1;
-                destinationColumn = column - 2;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
-
-            if (row < 7 && column < 8) 
-            {
-                destinationRow = row + 2;
-                destinationColumn = column + 1;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
-
-            if (row < 7 && column > 1) 
-            {
-                destinationRow = row + 2;
-                destinationColumn = column - 1;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
-
-            if (row > 1 && column < 7) 
-            {
-                destinationRow = row - 1;
-                destinationColumn = column + 2;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
-
-            if (row > 1 && column > 2) 
-            {
-                destinationRow = row - 1;
-                destinationColumn = column - 2;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
-
-            if (row > 2 && column < 8) 
-            {
-                destinationRow = row - 2;
-                destinationColumn = column + 1;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
-
-            if (row > 2 && column > 1) 
-            {
-                destinationRow = row - 2;
-                destinationColumn = column - 1;
-                destination = new Point(destinationRow, destinationColumn);
-
-                if (chessBoard[destinationRow, destinationColumn].Piece != null)
-                {
-                    if (chessBoard[destinationRow, destinationColumn].Piece.Color != chessBoard[row, column].Piece.Color)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
-                        {
-                            chessBoard[destinationRow, destinationColumn].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
-                    {
-                        chessBoard[destinationRow, destinationColumn].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
-                }
-            }
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationNorthNorthWest);
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationSouthSouthWest);
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationNorthWestWest);
+            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, location, destinationSouthWestWest);
         }
     }
 }
