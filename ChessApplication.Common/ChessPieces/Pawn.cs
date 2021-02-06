@@ -1,6 +1,6 @@
-﻿using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.ChessPieces.Helpers;
+using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
-using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.Common.ChessPieces
 {
@@ -29,109 +29,59 @@ namespace ChessApplication.Common.ChessPieces
             var row = position.Row;
             var column = position.Column;
 
-            Box locationToBeInspected;
-            Position destination;
-
             if (Color == PieceColor.White)
             {
-                locationToBeInspected = chessBoard[row + 1, column];
-                destination = new Position(row + 1, column);
-                if (locationToBeInspected != null && locationToBeInspected.Piece == null)
+                var positionNorth = new Position(row + 1, column);
+                var positionNorthWest = new Position(row + 1, column - 1);
+                var positionNorthEast = new Position(row + 1, column + 1);
+                var positionNorthNorth = new Position(row + 2, column);
+
+                if (!positionNorth.IsOutOfBounds() && chessBoard[positionNorth].Piece == null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(position, destination))
-                    {
-                        locationToBeInspected.Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorth);
                 }
 
-                locationToBeInspected = chessBoard[row + 1, column + 1];
-                destination = new Position(row + 1, column + 1);
-                if (row < 8 && column < 8 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.Black)
+                if (!positionNorthWest.IsOutOfBounds() && chessBoard[positionNorthWest].Piece != null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(position, destination))
-                    {
-                        chessBoard[row + 1, column + 1].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorthWest);
                 }
 
-                locationToBeInspected = chessBoard[row + 1, column - 1];
-                destination = new Position(row + 1, column - 1);
-                if (row < 8 && column > 1 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.Black)
+                if (!positionNorthEast.IsOutOfBounds() && chessBoard[positionNorthEast].Piece != null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(position, destination))
-                    {
-                        chessBoard[row + 1, column - 1].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorthEast);
                 }
 
-                // Check if pawn can make 2 steps forward
-                locationToBeInspected = chessBoard[row + 2, column];
-                destination = new Position(row + 2, column);
-                if (row == 2 && locationToBeInspected != null )
+                if (row == 2 && !positionNorthNorth.IsOutOfBounds() && chessBoard[positionNorth].Piece == null && chessBoard[positionNorthNorth].Piece == null)
                 {
-                    if (chessBoard[row + 2, column].Piece == null && chessBoard[row + 1, column].Piece == null)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(position, destination))
-                        {
-                            chessBoard[row + 2, column].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorthNorth);
                 }
             }
 
             if (Color == PieceColor.Black)
             {
-                locationToBeInspected = chessBoard[row - 1, column];
-                destination = new Position(row - 1, column);
-                if (locationToBeInspected != null && locationToBeInspected.Piece == null)
+                var positionSouth = new Position(row - 1, column);
+                var positionSouthWest = new Position(row - 1, column - 1);
+                var positionSouthEast = new Position(row - 1, column + 1);
+                var positionSouthNorth = new Position(row - 2, column);
+
+                if (!positionSouth.IsOutOfBounds() && chessBoard[positionSouth].Piece == null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(position, destination))
-                    {
-                        chessBoard[row - 1, column].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }                   
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouth);
                 }
 
-                locationToBeInspected = chessBoard[row - 1, column + 1];
-                destination = new Position(row - 1, column + 1);
-                if (row > 1 && column < 8 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.White)
+                if (!positionSouthWest.IsOutOfBounds() && chessBoard[positionSouthWest].Piece != null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(position, destination))
-                    {
-                        chessBoard[row - 1, column + 1].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouthWest);
                 }
 
-                locationToBeInspected = chessBoard[row - 1, column - 1];
-                destination = new Position(row - 1, column - 1);
-                if (row > 1 && column > 1 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.White)
+                if (!positionSouthEast.IsOutOfBounds() && chessBoard[positionSouthEast].Piece != null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(position, destination))
-                    {
-                        chessBoard[row - 1, column - 1].Available = true;
-                        chessBoard[row, column].Piece.CanMove = true;
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouthEast);
                 }
 
-
-                // Check if pawn can make 2 steps forward
-                locationToBeInspected = chessBoard[row - 2, column];
-                destination = new Position(row - 2, column);
-                if (row == 7 && locationToBeInspected != null)
+                if (row == 7 && !positionSouthNorth.IsOutOfBounds() && chessBoard[positionSouth].Piece == null && chessBoard[positionSouthNorth].Piece == null)
                 {
-                    if (chessBoard[row - 2, column].Piece == null && chessBoard[row - 1, column].Piece == null)
-                    {
-                        if (!chessBoard.MoveTriggersCheck(position, destination))
-                        {
-                            chessBoard[row - 2, column].Available = true;
-                            chessBoard[row, column].Piece.CanMove = true;
-                        }
-                    }
+                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouthNorth);
                 }
             }
         }

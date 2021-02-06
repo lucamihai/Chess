@@ -188,7 +188,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
 
         public static void MarkIfAccessible(IChessboard chessBoard, Position startPosition, Position destinationPosition)
         {
-            if (PositionIsOutOfBounds(destinationPosition))
+            if (destinationPosition.IsOutOfBounds())
             {
                 return;
             }
@@ -214,12 +214,6 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        private static bool PositionIsOutOfBounds(Position position)
-        {
-            return position.Row > 8
-                   || position.Row < 1
-                   || position.Column > 8
-                   || position.Column < 1;
-        }
+        
     }
 }
