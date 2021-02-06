@@ -28,61 +28,58 @@ namespace ChessApplication.Common.ChessPieces
         {
             var row = position.Row;
             var column = position.Column;
+            var startingRow = GetStartingRowForColor();
+            var forwardOffset = GetForwardOffsetForColor();
 
-            if (Color == PieceColor.White)
+            var positionForward = new Position(row + forwardOffset, column);
+            var positionForwardWest = new Position(row + forwardOffset, column - 1);
+            var positionForwardEast = new Position(row + forwardOffset, column + 1);
+            var positionForwardForward = new Position(row + forwardOffset * 2, column);
+
+            if (!positionForward.IsOutOfBounds() && chessBoard[positionForward].Piece == null)
             {
-                var positionNorth = new Position(row + 1, column);
-                var positionNorthWest = new Position(row + 1, column - 1);
-                var positionNorthEast = new Position(row + 1, column + 1);
-                var positionNorthNorth = new Position(row + 2, column);
-
-                if (!positionNorth.IsOutOfBounds() && chessBoard[positionNorth].Piece == null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorth);
-                }
-
-                if (!positionNorthWest.IsOutOfBounds() && chessBoard[positionNorthWest].Piece != null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorthWest);
-                }
-
-                if (!positionNorthEast.IsOutOfBounds() && chessBoard[positionNorthEast].Piece != null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorthEast);
-                }
-
-                if (row == 2 && !positionNorthNorth.IsOutOfBounds() && chessBoard[positionNorth].Piece == null && chessBoard[positionNorthNorth].Piece == null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionNorthNorth);
-                }
+                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForward);
             }
 
-            if (Color == PieceColor.Black)
+            if (!positionForwardWest.IsOutOfBounds() && chessBoard[positionForwardWest].Piece != null)
             {
-                var positionSouth = new Position(row - 1, column);
-                var positionSouthWest = new Position(row - 1, column - 1);
-                var positionSouthEast = new Position(row - 1, column + 1);
-                var positionSouthNorth = new Position(row - 2, column);
+                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForwardWest);
+            }
 
-                if (!positionSouth.IsOutOfBounds() && chessBoard[positionSouth].Piece == null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouth);
-                }
+            if (!positionForwardEast.IsOutOfBounds() && chessBoard[positionForwardEast].Piece != null)
+            {
+                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForwardEast);
+            }
 
-                if (!positionSouthWest.IsOutOfBounds() && chessBoard[positionSouthWest].Piece != null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouthWest);
-                }
+            if (row == startingRow && !positionForwardForward.IsOutOfBounds() && chessBoard[positionForward].Piece == null && chessBoard[positionForwardForward].Piece == null)
+            {
+                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForwardForward);
+            }
+        }
 
-                if (!positionSouthEast.IsOutOfBounds() && chessBoard[positionSouthEast].Piece != null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouthEast);
-                }
+        private int GetStartingRowForColor()
+        {
+            switch (Color)
+            {
+                case PieceColor.White:
+                    return 2;
+                case PieceColor.Black:
+                    return 7;
+                default:
+                    return 100;
+            }
+        }
 
-                if (row == 7 && !positionSouthNorth.IsOutOfBounds() && chessBoard[positionSouth].Piece == null && chessBoard[positionSouthNorth].Piece == null)
-                {
-                    AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionSouthNorth);
-                }
+        private int GetForwardOffsetForColor()
+        {
+            switch (Color)
+            {
+                case PieceColor.White:
+                    return 1;
+                case PieceColor.Black:
+                    return -1;
+                default:
+                    return 100;
             }
         }
     }
