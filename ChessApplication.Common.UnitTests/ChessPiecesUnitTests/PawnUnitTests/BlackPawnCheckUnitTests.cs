@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,9 +22,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCantMoveIfWillCauseCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(7, 7);
-            var whiteQueenPosition = new Point(5, 5);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(7, 7);
+            var whiteQueenPosition = new Position(5, 5);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -41,10 +40,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCantTakePieceIfWillCauseCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(4, 8);
-            var whiteQueenPosition = new Point(1, 8);
-            var whitePawnPosition = new Point(3, 7);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(4, 8);
+            var whiteQueenPosition = new Position(1, 8);
+            var whitePawnPosition = new Position(3, 7);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -61,9 +60,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCantMove1BoxForwardIfCantPreventCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(4, 4);
-            var whiteQueenPosition = new Point(8, 6);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(4, 4);
+            var whiteQueenPosition = new Position(8, 6);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -79,9 +78,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCantMove2BoxesForwardIfCantPreventCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(7, 4);
-            var whiteQueenPosition = new Point(8, 6);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(7, 4);
+            var whiteQueenPosition = new Position(8, 6);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -97,11 +96,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCantTakePiecesIfCantPreventCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var whiteQueenPosition = new Point(blackKingPosition.X, blackKingPosition.Y - 1);
-            var blackPawnPosition = new Point(3, 3);
-            var whitePawnPositionSouthWest = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
-            var whitePawnPositionSouthEast = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y + 1);
+            var blackKingPosition = new Position(8, 8);
+            var whiteQueenPosition = new Position(blackKingPosition.Row, blackKingPosition.Column - 1);
+            var blackPawnPosition = new Position(3, 3);
+            var whitePawnPositionSouthWest = new Position(blackPawnPosition.Row - 1, blackPawnPosition.Column - 1);
+            var whitePawnPositionSouthEast = new Position(blackPawnPosition.Row - 1, blackPawnPosition.Column + 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
@@ -119,9 +118,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCanMove1BoxForwardIfCanPreventCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(8, 7);
-            var whiteQueenPosition = new Point(6, 6);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(8, 7);
+            var whiteQueenPosition = new Position(6, 6);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -131,16 +130,16 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
             Chessboard[blackPawnPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackPawnPosition);
 
-            Assert.IsTrue(Chessboard[blackPawnPosition.X - 1, blackPawnPosition.Y].Available);
+            Assert.IsTrue(Chessboard[blackPawnPosition.Row - 1, blackPawnPosition.Column].Available);
             Assert.AreEqual(1, Methods.GetNumberOfAvailableBoxes(Chessboard));
         }
 
         [TestMethod]
         public void BlackPawnCanMove2BoxesForwardIfCanPreventCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(7, 5);
-            var whiteQueenPosition = new Point(4, 4);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(7, 5);
+            var whiteQueenPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -150,16 +149,16 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
             Chessboard[blackPawnPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackPawnPosition);
 
-            Assert.IsTrue(Chessboard[blackPawnPosition.X - 2, blackPawnPosition.Y].Available);
+            Assert.IsTrue(Chessboard[blackPawnPosition.Row - 2, blackPawnPosition.Column].Available);
             Assert.AreEqual(1, Methods.GetNumberOfAvailableBoxes(Chessboard));
         }
 
         [TestMethod]
         public void BlackPawnCanTakePieceIfCanPreventCheck()
         {
-            var blackKingPosition = new Point(8, 8);
-            var whiteQueenPosition = new Point(4, 4);
-            var blackPawnPosition = new Point(5, 5);
+            var blackKingPosition = new Position(8, 8);
+            var whiteQueenPosition = new Position(4, 4);
+            var blackPawnPosition = new Position(5, 5);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);

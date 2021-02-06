@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
+using ChessApplication.Common;
 using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
@@ -59,9 +59,9 @@ namespace UnitTestsUtilities
             var chessboard = GetChessboardClassicWithNoPieces();
             var opponentColor = providedColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
 
-            var kingPosition = new Point(1, 1);
-            var opponentQueenPosition = new Point(kingPosition.X, kingPosition.Y + 1);
-            var opponentBishopPosition = new Point(kingPosition.X + 1, kingPosition.Y);
+            var kingPosition = new Position(1, 1);
+            var opponentQueenPosition = new Position(kingPosition.Row, kingPosition.Column + 1);
+            var opponentBishopPosition = new Position(kingPosition.Row + 1, kingPosition.Column);
 
             chessboard[kingPosition].Piece = new King(providedColor);
             chessboard[opponentQueenPosition].Piece = new Queen(opponentColor);

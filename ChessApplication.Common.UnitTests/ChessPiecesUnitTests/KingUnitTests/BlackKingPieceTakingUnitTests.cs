@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromNorthWest()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X + 1, blackKingPosition.Y - 1);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row + 1, blackKingPosition.Column - 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -40,8 +39,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromNorth()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X + 1, blackKingPosition.Y);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row + 1, blackKingPosition.Column);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -57,8 +56,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromNorthEast()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X + 1, blackKingPosition.Y + 1);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row + 1, blackKingPosition.Column + 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -74,8 +73,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromEast()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X, blackKingPosition.Y + 1);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row, blackKingPosition.Column + 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -91,8 +90,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromSouthEast()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X - 1, blackKingPosition.Y + 1);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row - 1, blackKingPosition.Column + 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -108,8 +107,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromSouth()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X - 1, blackKingPosition.Y);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row - 1, blackKingPosition.Column);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -125,8 +124,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromSouthWest()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X - 1, blackKingPosition.Y - 1);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row - 1, blackKingPosition.Column - 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -142,8 +141,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanTakeWhitePieceFromWest()
         {
-            var blackKingPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(blackKingPosition.X, blackKingPosition.Y - 1);
+            var blackKingPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(blackKingPosition.Row, blackKingPosition.Column - 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -159,7 +158,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCantTakeAnyBlackPiece()
         {
-            var blackKingPosition = new Point(3, 3);
+            var blackKingPosition = new Position(3, 3);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard.PositionBlackKing = blackKingPosition;

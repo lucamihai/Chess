@@ -1,8 +1,6 @@
-﻿using System.Drawing;
-using ChessApplication.Common.ChessPieces.Helpers;
+﻿using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
-using ChessApplication.Common.UserControls;
 
 namespace ChessApplication.Common.ChessPieces
 {
@@ -26,12 +24,12 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
         {
-            AccessibleBoxesUtil.MarkAccessibleBoxesForWest(chessBoard, location);
-            AccessibleBoxesUtil.MarkAccessibleBoxesForEast(chessBoard, location);
-            AccessibleBoxesUtil.MarkAccessibleBoxesForSouth(chessBoard, location);
-            AccessibleBoxesUtil.MarkAccessibleBoxesForNorth(chessBoard, location);
+            AccessibleBoxesUtil.MarkAccessibleBoxesForWest(chessBoard, position);
+            AccessibleBoxesUtil.MarkAccessibleBoxesForEast(chessBoard, position);
+            AccessibleBoxesUtil.MarkAccessibleBoxesForSouth(chessBoard, position);
+            AccessibleBoxesUtil.MarkAccessibleBoxesForNorth(chessBoard, position);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCanMoveNorthNorthEastIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -33,15 +32,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X + 2, whiteKnightPosition.Y + 1);
+            var positionToBeTested = new Position(whiteKnightPosition.Row + 2, whiteKnightPosition.Column + 1);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveNorthEastEastIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -50,15 +49,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X + 1, whiteKnightPosition.Y + 2);
+            var positionToBeTested = new Position(whiteKnightPosition.Row + 1, whiteKnightPosition.Column + 2);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveSouthEastEastIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -67,15 +66,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X - 1, whiteKnightPosition.Y + 2);
+            var positionToBeTested = new Position(whiteKnightPosition.Row - 1, whiteKnightPosition.Column + 2);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveSouthSouthEastIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -84,15 +83,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X - 2, whiteKnightPosition.Y + 1);
+            var positionToBeTested = new Position(whiteKnightPosition.Row - 2, whiteKnightPosition.Column + 1);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveSouthSouthWestIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -101,15 +100,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X - 2, whiteKnightPosition.Y - 1);
+            var positionToBeTested = new Position(whiteKnightPosition.Row - 2, whiteKnightPosition.Column - 1);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveSouthWestWestIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -118,15 +117,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X - 1, whiteKnightPosition.Y - 2);
+            var positionToBeTested = new Position(whiteKnightPosition.Row - 1, whiteKnightPosition.Column - 2);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveNorthWestWestIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -135,15 +134,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X + 1, whiteKnightPosition.Y - 2);
+            var positionToBeTested = new Position(whiteKnightPosition.Row + 1, whiteKnightPosition.Column - 2);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCanMoveNorthNorthWestIfEmpty()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -152,16 +151,16 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
             Chessboard[whiteKnightPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteKnightPosition);
 
-            var positionToBeTested = new Point(whiteKnightPosition.X + 2, whiteKnightPosition.Y - 1);
+            var positionToBeTested = new Position(whiteKnightPosition.Row + 2, whiteKnightPosition.Column - 1);
             Assert.IsTrue(Chessboard[positionToBeTested].Available);
         }
 
         [TestMethod]
         public void WhiteKnightCantMoveNorthNorthEastIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X + 2, whiteKnightPosition.Y + 1);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row + 2, whiteKnightPosition.Column + 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -177,9 +176,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveNorthEastEastIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X + 1, whiteKnightPosition.Y + 2);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row + 1, whiteKnightPosition.Column + 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -195,9 +194,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveSouthEastEastIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X - 1, whiteKnightPosition.Y + 2);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row - 1, whiteKnightPosition.Column + 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -213,9 +212,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveSouthSouthEastIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X - 2, whiteKnightPosition.Y + 1);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row - 2, whiteKnightPosition.Column + 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -231,9 +230,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveSouthSouthWestIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X - 2, whiteKnightPosition.Y - 1);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row - 2, whiteKnightPosition.Column - 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -249,9 +248,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveSouthWestWestIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X - 1, whiteKnightPosition.Y - 2);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row - 1, whiteKnightPosition.Column - 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -267,9 +266,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveNorthWestWestIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X + 1, whiteKnightPosition.Y - 2);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row + 1, whiteKnightPosition.Column - 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -285,9 +284,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KnightUnitTests
         [TestMethod]
         public void WhiteKnightCantMoveNorthNorthWestIfOccupiedByWhitePiece()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteKnightPosition = new Point(3, 3);
-            var whitePawnPosition = new Point(whiteKnightPosition.X + 2, whiteKnightPosition.Y - 1);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteKnightPosition = new Position(3, 3);
+            var whitePawnPosition = new Position(whiteKnightPosition.Row + 2, whiteKnightPosition.Column - 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);

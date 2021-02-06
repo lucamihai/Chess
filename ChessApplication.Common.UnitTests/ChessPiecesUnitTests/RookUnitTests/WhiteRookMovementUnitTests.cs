@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
         [TestMethod]
         public void WhiteRookCanMoveEastIfUnblocked()
         {
-            var whiteKingPosition = new Point(1, 1);
-            var whiteRookPosition = new Point(1, 2);
+            var whiteKingPosition = new Position(1, 1);
+            var whiteRookPosition = new Position(1, 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -33,15 +32,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var column = whiteRookPosition.Y + 1; column < 9; column++)
-                Assert.IsTrue(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whiteRookPosition.Column + 1; column < 9; column++)
+                Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveWestIfUnblocked()
         {
-            var whiteKingPosition = new Point(1, 1);
-            var whiteRookPosition = new Point(2, 8);
+            var whiteKingPosition = new Position(1, 1);
+            var whiteRookPosition = new Position(2, 8);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -50,15 +49,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var column = whiteRookPosition.Y - 1; column > 0; column--)
-                Assert.IsTrue(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whiteRookPosition.Column - 1; column > 0; column--)
+                Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveNorthIfUnblocked()
         {
-            var whiteKingPosition = new Point(1, 1);
-            var whiteRookPosition = new Point(1, 2);
+            var whiteKingPosition = new Position(1, 1);
+            var whiteRookPosition = new Position(1, 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -67,15 +66,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var row = whiteRookPosition.X + 1; row < 9; row++)
-                Assert.IsTrue(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whiteRookPosition.Row + 1; row < 9; row++)
+                Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveSouthIfUnblocked()
         {
-            var whiteKingPosition = new Point(1, 1);
-            var whiteRookPosition = new Point(8, 2);
+            var whiteKingPosition = new Position(1, 1);
+            var whiteRookPosition = new Position(8, 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -84,16 +83,16 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var row = whiteRookPosition.X - 1; row > 0; row--)
-                Assert.IsTrue(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whiteRookPosition.Row - 1; row > 0; row--)
+                Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveEastAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(1, 1);
-            var whiteRookPosition = new Point(1, 2);
-            var whitePawnPosition = new Point(1, 5);
+            var whiteKingPosition = new Position(1, 1);
+            var whiteRookPosition = new Position(1, 2);
+            var whitePawnPosition = new Position(1, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -103,19 +102,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var column = whiteRookPosition.Y + 1; column < whitePawnPosition.Y; column++)
-                Assert.IsTrue(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whiteRookPosition.Column + 1; column < whitePawnPosition.Column; column++)
+                Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
 
-            for (var column = whitePawnPosition.Y + 1; column < 9; column++)
-                Assert.IsFalse(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whitePawnPosition.Column + 1; column < 9; column++)
+                Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveWestAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(2, 1);
-            var whiteRookPosition = new Point(1, 8);
-            var whitePawnPosition = new Point(1, 5);
+            var whiteKingPosition = new Position(2, 1);
+            var whiteRookPosition = new Position(1, 8);
+            var whitePawnPosition = new Position(1, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -125,19 +124,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var column = whiteRookPosition.Y - 1; column > whitePawnPosition.Y; column--)
-                Assert.IsTrue(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whiteRookPosition.Column - 1; column > whitePawnPosition.Column; column--)
+                Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
 
-            for (var column = whitePawnPosition.Y - 1; column > 0; column--)
-                Assert.IsFalse(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whitePawnPosition.Column - 1; column > 0; column--)
+                Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveNorthAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteRookPosition = new Point(1, 1);
-            var whitePawnPosition = new Point(5, 1);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteRookPosition = new Position(1, 1);
+            var whitePawnPosition = new Position(5, 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -147,19 +146,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var row = whiteRookPosition.X + 1; row < whitePawnPosition.X; row++)
-                Assert.IsTrue(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whiteRookPosition.Row + 1; row < whitePawnPosition.Row; row++)
+                Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
 
-            for (var row = whitePawnPosition.X + 1; row < 9; row++)
-                Assert.IsFalse(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whitePawnPosition.Row + 1; row < 9; row++)
+                Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveSouthAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteRookPosition = new Point(8, 1);
-            var whitePawnPosition = new Point(5, 1);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteRookPosition = new Position(8, 1);
+            var whitePawnPosition = new Position(5, 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -169,19 +168,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var row = whiteRookPosition.X - 1; row > whitePawnPosition.X; row--)
-                Assert.IsTrue(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whiteRookPosition.Row - 1; row > whitePawnPosition.Row; row--)
+                Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
 
-            for (var row = whitePawnPosition.X - 1; row > 0; row--)
-                Assert.IsFalse(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whitePawnPosition.Row - 1; row > 0; row--)
+                Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveEastAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(1, 1);
-            var whiteRookPosition = new Point(1, 2);
-            var blackPawnPosition = new Point(1, 5);
+            var whiteKingPosition = new Position(1, 1);
+            var whiteRookPosition = new Position(1, 2);
+            var blackPawnPosition = new Position(1, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -191,19 +190,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var column = whiteRookPosition.Y + 1; column < blackPawnPosition.Y; column++)
-                Assert.IsTrue(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whiteRookPosition.Column + 1; column < blackPawnPosition.Column; column++)
+                Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
 
-            for (var column = blackPawnPosition.Y + 1; column < 9; column++)
-                Assert.IsFalse(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = blackPawnPosition.Column + 1; column < 9; column++)
+                Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveWestAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(2, 1);
-            var whiteRookPosition = new Point(1, 8);
-            var blackPawnPosition = new Point(1, 5);
+            var whiteKingPosition = new Position(2, 1);
+            var whiteRookPosition = new Position(1, 8);
+            var blackPawnPosition = new Position(1, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -213,19 +212,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var column = whiteRookPosition.Y - 1; column > blackPawnPosition.Y; column--)
-                Assert.IsTrue(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = whiteRookPosition.Column - 1; column > blackPawnPosition.Column; column--)
+                Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
 
-            for (var column = blackPawnPosition.Y - 1; column > 0; column--)
-                Assert.IsFalse(Chessboard[whiteRookPosition.X, column].Available);
+            for (var column = blackPawnPosition.Column - 1; column > 0; column--)
+                Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveNorthAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteRookPosition = new Point(1, 1);
-            var blackPawnPosition = new Point(5, 1);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteRookPosition = new Position(1, 1);
+            var blackPawnPosition = new Position(5, 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -235,19 +234,19 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var row = whiteRookPosition.X + 1; row < blackPawnPosition.X; row++)
-                Assert.IsTrue(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whiteRookPosition.Row + 1; row < blackPawnPosition.Row; row++)
+                Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
 
-            for (var row = blackPawnPosition.X + 1; row < 9; row++)
-                Assert.IsFalse(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = blackPawnPosition.Row + 1; row < 9; row++)
+                Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
         }
 
         [TestMethod]
         public void WhiteRookCanMoveSouthAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteRookPosition = new Point(8, 1);
-            var blackPawnPosition = new Point(5, 1);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteRookPosition = new Position(8, 1);
+            var blackPawnPosition = new Position(5, 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -257,11 +256,11 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            for (var row = whiteRookPosition.X - 1; row > blackPawnPosition.X; row--)
-                Assert.IsTrue(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = whiteRookPosition.Row - 1; row > blackPawnPosition.Row; row--)
+                Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
 
-            for (var row = blackPawnPosition.X - 1; row > 0; row--)
-                Assert.IsFalse(Chessboard[row, whiteRookPosition.Y].Available);
+            for (var row = blackPawnPosition.Row - 1; row > 0; row--)
+                Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
         }
     }
 }

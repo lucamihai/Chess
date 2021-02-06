@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,9 +22,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCantMoveIfWillCauseCheck()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteBishopPosition = new Point(2, 2);
-            var blackQueenPosition = new Point(8, 2);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteBishopPosition = new Position(2, 2);
+            var blackQueenPosition = new Position(8, 2);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -41,10 +40,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCantTakePieceIfWillCauseCheck()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteBishopPosition = new Point(2, 2);
-            var blackQueenPosition = new Point(8, 2);
-            var blackPawnPosition = new Point(whiteBishopPosition.X + 1, whiteBishopPosition.Y + 1);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteBishopPosition = new Position(2, 2);
+            var blackQueenPosition = new Position(8, 2);
+            var blackPawnPosition = new Position(whiteBishopPosition.Row + 1, whiteBishopPosition.Column + 1);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -61,9 +60,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCantMoveIfCantPreventCheck()
         {
-            var whiteKingPosition = new Point(1, 2);
-            var whiteBishopPosition = new Point(3, 2);
-            var blackQueenPosition = new Point(1, 3);
+            var whiteKingPosition = new Position(1, 2);
+            var whiteBishopPosition = new Position(3, 2);
+            var blackQueenPosition = new Position(1, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -79,10 +78,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCantTakePieceIfCantPreventCheck()
         {
-            var whiteKingPosition = new Point(3, 3);
-            var whiteBishopPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(7, 7);
-            var blackQueenPosition = new Point(1, 3);
+            var whiteKingPosition = new Position(3, 3);
+            var whiteBishopPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(7, 7);
+            var blackQueenPosition = new Position(1, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -99,9 +98,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveIfCanPreventCheck()
         {
-            var whiteKingPosition = new Point(3, 3);
-            var whiteBishopPosition = new Point(4, 3);
-            var blackQueenPosition = new Point(3, 8);
+            var whiteKingPosition = new Position(3, 3);
+            var whiteBishopPosition = new Position(4, 3);
+            var blackQueenPosition = new Position(3, 8);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -111,7 +110,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[whiteBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteBishopPosition);
 
-            var defensePosition = new Point(blackQueenPosition.X, whiteBishopPosition.Y + 1);
+            var defensePosition = new Position(blackQueenPosition.Row, whiteBishopPosition.Column + 1);
             Assert.IsTrue(Chessboard[defensePosition].Available);
             Assert.AreEqual(1, Methods.GetNumberOfAvailableBoxes(Chessboard));
         }
@@ -119,9 +118,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanTakePieceIfCanPreventCheck()
         {
-            var whiteKingPosition = new Point(3, 3);
-            var whiteBishopPosition = new Point(2, 4);
-            var blackQueenPosition = new Point(1, 3);
+            var whiteKingPosition = new Position(3, 3);
+            var whiteBishopPosition = new Position(2, 4);
+            var blackQueenPosition = new Position(1, 3);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);

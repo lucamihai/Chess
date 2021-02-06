@@ -39,7 +39,7 @@ namespace ChessApplication.Common.UserControls
                 column -= '1';
                 column += 1;
 
-                Position = new Point(row, column);
+                Position = new Position(row, column);
             }
         }
 
@@ -57,7 +57,7 @@ namespace ChessApplication.Common.UserControls
 
         public bool BeginnersMode { get; set; } = true;
 
-        public Point Position { get; private set; }
+        public Position Position { get; private set; }
 
         public Color BoxBackgroundColor
         {

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
@@ -184,8 +183,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var blackPawnPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
+            var whitePawnPosition = new Position(2, 2);
+            var blackPawnPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column - 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -199,8 +198,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var whitePawnPosition2 = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y - 1);
+            var whitePawnPosition = new Position(2, 2);
+            var whitePawnPosition2 = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column - 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[whitePawnPosition2].Piece = new Pawn(PieceColor.White);
@@ -214,8 +213,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var blackRookPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y);
+            var whitePawnPosition = new Position(2, 2);
+            var blackRookPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
@@ -229,8 +228,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var whiteRookPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y);
+            var whitePawnPosition = new Position(2, 2);
+            var whiteRookPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -244,8 +243,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var blackKnightPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 2);
+            var whitePawnPosition = new Position(2, 2);
+            var blackKnightPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column + 2);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[blackKnightPosition].Piece = new Knight(PieceColor.Black);
@@ -259,8 +258,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var whiteKnightPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 2);
+            var whitePawnPosition = new Position(2, 2);
+            var whiteKnightPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column + 2);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -274,8 +273,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var blackBishopPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+            var whitePawnPosition = new Position(2, 2);
+            var blackBishopPosition = new Position(whitePawnPosition.Row + 2, whitePawnPosition.Column + 2);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -289,8 +288,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var whiteBishopPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+            var whitePawnPosition = new Position(2, 2);
+            var whiteBishopPosition = new Position(whitePawnPosition.Row + 2, whitePawnPosition.Column + 2);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -304,8 +303,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var blackQueenPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+            var whitePawnPosition = new Position(2, 2);
+            var blackQueenPosition = new Position(whitePawnPosition.Row + 2, whitePawnPosition.Column + 2);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -319,8 +318,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var whiteQueenPosition = new Point(whitePawnPosition.X + 2, whitePawnPosition.Y + 2);
+            var whitePawnPosition = new Position(2, 2);
+            var whiteQueenPosition = new Position(whitePawnPosition.Row + 2, whitePawnPosition.Column + 2);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
@@ -334,8 +333,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var blackKingPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
+            var whitePawnPosition = new Position(2, 2);
+            var blackKingPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column + 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
@@ -349,8 +348,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var whitePawnPosition = new Point(2, 2);
-            var whiteKingPosition = new Point(whitePawnPosition.X + 1, whitePawnPosition.Y + 1);
+            var whitePawnPosition = new Position(2, 2);
+            var whiteKingPosition = new Position(whitePawnPosition.Row + 1, whitePawnPosition.Column + 1);
 
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
             chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
@@ -364,8 +363,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var whitePawnPosition = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+            var blackPawnPosition = new Position(2, 2);
+            var whitePawnPosition = new Position(blackPawnPosition.Row - 1, blackPawnPosition.Column - 1);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[whitePawnPosition].Piece = new Pawn(PieceColor.White);
@@ -379,8 +378,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var blackPawnPosition2 = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
+            var blackPawnPosition = new Position(2, 2);
+            var blackPawnPosition2 = new Position(blackPawnPosition.Row - 1, blackPawnPosition.Column - 1);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[blackPawnPosition2].Piece = new Pawn(PieceColor.Black);
@@ -394,8 +393,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var whiteRookPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y);
+            var blackPawnPosition = new Position(2, 2);
+            var whiteRookPosition = new Position(blackPawnPosition.Row + 1, blackPawnPosition.Column);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -409,8 +408,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var blackRookPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y);
+            var blackPawnPosition = new Position(2, 2);
+            var blackRookPosition = new Position(blackPawnPosition.Row + 1, blackPawnPosition.Column);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[blackRookPosition].Piece = new Rook(PieceColor.Black);
@@ -424,8 +423,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var whiteKnightPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 2);
+            var blackPawnPosition = new Position(2, 2);
+            var whiteKnightPosition = new Position(blackPawnPosition.Row + 1, blackPawnPosition.Column + 2);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[whiteKnightPosition].Piece = new Knight(PieceColor.White);
@@ -439,8 +438,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var blackKnightPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 2);
+            var blackPawnPosition = new Position(2, 2);
+            var blackKnightPosition = new Position(blackPawnPosition.Row + 1, blackPawnPosition.Column + 2);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[blackKnightPosition].Piece = new Knight(PieceColor.Black);
@@ -454,8 +453,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var whiteBishopPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+            var blackPawnPosition = new Position(2, 2);
+            var whiteBishopPosition = new Position(blackPawnPosition.Row + 2, blackPawnPosition.Column + 2);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[whiteBishopPosition].Piece = new Bishop(PieceColor.White);
@@ -469,8 +468,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var blackBishopPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+            var blackPawnPosition = new Position(2, 2);
+            var blackBishopPosition = new Position(blackPawnPosition.Row + 2, blackPawnPosition.Column + 2);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -484,8 +483,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var whiteQueenPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+            var blackPawnPosition = new Position(2, 2);
+            var whiteQueenPosition = new Position(blackPawnPosition.Row + 2, blackPawnPosition.Column + 2);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
@@ -499,8 +498,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var blackQueenPosition = new Point(blackPawnPosition.X + 2, blackPawnPosition.Y + 2);
+            var blackPawnPosition = new Position(2, 2);
+            var blackQueenPosition = new Position(blackPawnPosition.Row + 2, blackPawnPosition.Column + 2);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -514,8 +513,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var whiteKingPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 1);
+            var blackPawnPosition = new Position(2, 2);
+            var whiteKingPosition = new Position(blackPawnPosition.Row + 1, blackPawnPosition.Column + 1);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
@@ -529,8 +528,8 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         {
             chessboard = ChessboardProvider.GetChessboardClassicWithNoPieces();
 
-            var blackPawnPosition = new Point(2, 2);
-            var blackKingPosition = new Point(blackPawnPosition.X + 1, blackPawnPosition.Y + 1);
+            var blackPawnPosition = new Position(2, 2);
+            var blackKingPosition = new Position(blackPawnPosition.Row + 1, blackPawnPosition.Column + 1);
 
             chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
             chessboard[blackKingPosition].Piece = new King(PieceColor.Black);

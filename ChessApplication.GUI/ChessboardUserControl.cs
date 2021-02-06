@@ -120,29 +120,29 @@ namespace ChessApplication.GUI
                 Invoke(beginSelection);
             };
 
-            networkManager.OnSelection += (location, type, color) =>
+            networkManager.OnSelection += (position, type, color) =>
             {
                 var selection = new MethodInvoker(() => {
                     if (color == PieceColor.White)
                     {
                         if (type == typeof(Rook))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteRooks, ChessBoard[position]);
                         }
 
                         if (type == typeof(Knight))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteKnights, ChessBoard[position]);
                         }
 
                         if (type == typeof(Bishop))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteBishops, ChessBoard[position]);
                         }
 
                         if (type == typeof(Queen))
                         {
-                            Utilities.RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedWhiteQueen, ChessBoard[position]);
                         }
                     }
 
@@ -150,22 +150,22 @@ namespace ChessApplication.GUI
                     {
                         if (type == typeof(Rook))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackRooks, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedBlackRooks, ChessBoard[position]);
                         }
 
                         if (type == typeof(Knight))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackKnights, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedBlackKnights, ChessBoard[position]);
                         }
 
                         if (type == typeof(Bishop))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackBishops, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedBlackBishops, ChessBoard[position]);
                         }
 
                         if (type == typeof(Queen))
                         {
-                            Utilities.RetakeCapturedPiece(capturedBlackQueen, ChessBoard[location]);
+                            Utilities.RetakeCapturedPiece(capturedBlackQueen, ChessBoard[position]);
                         }
                     }
 
@@ -561,19 +561,19 @@ namespace ChessApplication.GUI
         {
             if (destination.Piece.Color == PieceColor.White)
             {
-                ChessBoard.PositionWhiteKing = new Point
+                ChessBoard.PositionWhiteKing = new Position
                 {
-                    X = destination.BoxName[0] - 64,
-                    Y = destination.BoxName[1] - 48
+                    Row = destination.BoxName[0] - 64,
+                    Column = destination.BoxName[1] - 48
                 };
             }
 
             if (destination.Piece.Color == PieceColor.Black)
             {
-                ChessBoard.PositionBlackKing = new Point
+                ChessBoard.PositionBlackKing = new Position
                 {
-                    X = destination.BoxName[0] - 64,
-                    Y = destination.BoxName[1] - 48
+                    Row = destination.BoxName[0] - 64,
+                    Column = destination.BoxName[1] - 48
                 };
             }
         }

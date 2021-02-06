@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.ChessPieces
@@ -24,21 +23,21 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
         {
-            var kingPosition = chessBoard[location].Piece.Color == PieceColor.White
+            var kingPosition = chessBoard[position].Piece.Color == PieceColor.White
                 ? chessBoard.PositionWhiteKing
                 : chessBoard.PositionBlackKing;
 
-            var positionNorth = new Point(kingPosition.X, kingPosition.Y + 1);
-            var positionSouth = new Point(kingPosition.X, kingPosition.Y - 1);
-            var positionWest = new Point(kingPosition.X - 1, kingPosition.Y);
-            var positionEast = new Point(kingPosition.X + 1, kingPosition.Y);
+            var positionNorth = new Position(kingPosition.Row, kingPosition.Column + 1);
+            var positionSouth = new Position(kingPosition.Row, kingPosition.Column - 1);
+            var positionWest = new Position(kingPosition.Row - 1, kingPosition.Column);
+            var positionEast = new Position(kingPosition.Row + 1, kingPosition.Column);
             
-            var positionNorthWest = new Point(kingPosition.X - 1, kingPosition.Y + 1);
-            var positionNorthEast = new Point(kingPosition.X + 1, kingPosition.Y + 1);
-            var positionSouthWest = new Point(kingPosition.X - 1, kingPosition.Y - 1);
-            var positionSouthEast = new Point(kingPosition.X + 1, kingPosition.Y - 1);
+            var positionNorthWest = new Position(kingPosition.Row - 1, kingPosition.Column + 1);
+            var positionNorthEast = new Position(kingPosition.Row + 1, kingPosition.Column + 1);
+            var positionSouthWest = new Position(kingPosition.Row - 1, kingPosition.Column - 1);
+            var positionSouthEast = new Position(kingPosition.Row + 1, kingPosition.Column - 1);
 
             MarkPositionIfAllowed(chessBoard, kingPosition, positionNorth);
             MarkPositionIfAllowed(chessBoard, kingPosition, positionSouth);
@@ -51,7 +50,7 @@ namespace ChessApplication.Common.ChessPieces
             MarkPositionIfAllowed(chessBoard, kingPosition, positionSouthEast);
         }
 
-        private void MarkPositionIfAllowed(IChessboard chessBoard, Point kingPosition, Point newKingPosition)
+        private void MarkPositionIfAllowed(IChessboard chessBoard, Position kingPosition, Position newKingPosition)
         {
             if (IsMovePossible(chessBoard, kingPosition, newKingPosition))
             {
@@ -60,7 +59,7 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        private bool IsMovePossible(IChessboard chessBoard, Point source, Point destination)
+        private bool IsMovePossible(IChessboard chessBoard, Position source, Position destination)
         {
             if (chessBoard[source] == null || chessBoard[destination] == null)
             {
@@ -109,7 +108,7 @@ namespace ChessApplication.Common.ChessPieces
             return isPossible;
         }
 
-        private bool IsInCheck(IChessboard chessBoard, Point location)
+        private bool IsInCheck(IChessboard chessBoard, Position location)
         {
             return chessBoard.PieceIsThreatened(location);
         }

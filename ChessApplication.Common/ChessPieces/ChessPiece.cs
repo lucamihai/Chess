@@ -31,7 +31,7 @@ namespace ChessApplication.Common.ChessPieces
         [ExcludeFromCodeCoverage]
         public Image ImageSmall { get; protected set; }
 
-        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location);
+        public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position);
 
     }
 }

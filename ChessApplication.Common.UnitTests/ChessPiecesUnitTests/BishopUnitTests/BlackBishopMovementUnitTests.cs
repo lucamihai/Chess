@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void BlackBishopCanMoveNorthEastIfUnblocked()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -33,7 +32,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X + 1, column = blackBishopPosition.Y + 1; row < 9 && column < 9; row++, column++)
+            for (int row = blackBishopPosition.Row + 1, column = blackBishopPosition.Column + 1; row < 9 && column < 9; row++, column++)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
@@ -42,8 +41,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveSouthEastIfUnblocked()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -52,7 +51,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X - 1, column = blackBishopPosition.Y + 1; row > 0 && column < 9; row--, column++)
+            for (int row = blackBishopPosition.Row - 1, column = blackBishopPosition.Column + 1; row > 0 && column < 9; row--, column++)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
@@ -61,8 +60,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveSouthWestIfUnblocked()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -71,7 +70,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X - 1, column = blackBishopPosition.Y - 1; row > 0 && column > 0; row--, column--)
+            for (int row = blackBishopPosition.Row - 1, column = blackBishopPosition.Column - 1; row > 0 && column > 0; row--, column--)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
@@ -80,8 +79,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveNorthWestIfUnblocked()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -90,7 +89,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X + 1, column = blackBishopPosition.Y - 1; row < 9 && column > 0; row++, column--)
+            for (int row = blackBishopPosition.Row + 1, column = blackBishopPosition.Column - 1; row < 9 && column > 0; row++, column--)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
@@ -99,9 +98,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveNorthEastAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(1, 1);
-            var whitePawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(1, 1);
+            var whitePawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -111,12 +110,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X + 1, column = blackBishopPosition.Y + 1; row < whitePawnPosition.X && column < whitePawnPosition.Y; row++, column++)
+            for (int row = blackBishopPosition.Row + 1, column = blackBishopPosition.Column + 1; row < whitePawnPosition.Row && column < whitePawnPosition.Column; row++, column++)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = whitePawnPosition.X + 1, column = whitePawnPosition.Y + 1; row < 9 && column < 9; row++, column++)
+            for (int row = whitePawnPosition.Row + 1, column = whitePawnPosition.Column + 1; row < 9 && column < 9; row++, column++)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -125,9 +124,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveSouthEastAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(8, 1);
-            var whitePawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(8, 1);
+            var whitePawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -137,12 +136,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X - 1, column = blackBishopPosition.Y + 1; row > whitePawnPosition.X && column < whitePawnPosition.Y; row--, column++)
+            for (int row = blackBishopPosition.Row - 1, column = blackBishopPosition.Column + 1; row > whitePawnPosition.Row && column < whitePawnPosition.Column; row--, column++)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = whitePawnPosition.X - 1, column = whitePawnPosition.Y + 1; row > 0 && column < 9; row--, column++)
+            for (int row = whitePawnPosition.Row - 1, column = whitePawnPosition.Column + 1; row > 0 && column < 9; row--, column++)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -151,9 +150,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveSouthWestAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(8, 8);
-            var whitePawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(8, 8);
+            var whitePawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -163,12 +162,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X - 1, column = blackBishopPosition.Y - 1; row > whitePawnPosition.X && column > whitePawnPosition.Y; row--, column--)
+            for (int row = blackBishopPosition.Row - 1, column = blackBishopPosition.Column - 1; row > whitePawnPosition.Row && column > whitePawnPosition.Column; row--, column--)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = whitePawnPosition.X - 1, column = whitePawnPosition.Y - 1; row > 0 && column > 0; row--, column--)
+            for (int row = whitePawnPosition.Row - 1, column = whitePawnPosition.Column - 1; row > 0 && column > 0; row--, column--)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -177,9 +176,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveNorthWestAllTheWayToAWhitePieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(1, 8);
-            var whitePawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(1, 8);
+            var whitePawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -189,12 +188,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X + 1, column = blackBishopPosition.Y - 1; row < whitePawnPosition.X && column > whitePawnPosition.Y; row++, column--)
+            for (int row = blackBishopPosition.Row + 1, column = blackBishopPosition.Column - 1; row < whitePawnPosition.Row && column > whitePawnPosition.Column; row++, column--)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = whitePawnPosition.X + 1, column = whitePawnPosition.Y - 1; row < 9 && column > 0; row++, column--)
+            for (int row = whitePawnPosition.Row + 1, column = whitePawnPosition.Column - 1; row < 9 && column > 0; row++, column--)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -203,9 +202,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveNorthEastAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(1, 1);
-            var blackPawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(1, 1);
+            var blackPawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -215,12 +214,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X + 1, column = blackBishopPosition.Y + 1; row < blackPawnPosition.X && column < blackPawnPosition.Y; row++, column++)
+            for (int row = blackBishopPosition.Row + 1, column = blackBishopPosition.Column + 1; row < blackPawnPosition.Row && column < blackPawnPosition.Column; row++, column++)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = blackPawnPosition.X + 1, column = blackPawnPosition.Y + 1; row < 9 && column < 9; row++, column++)
+            for (int row = blackPawnPosition.Row + 1, column = blackPawnPosition.Column + 1; row < 9 && column < 9; row++, column++)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -229,9 +228,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveSouthEastAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(8, 1);
-            var blackPawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(8, 1);
+            var blackPawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -241,12 +240,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X - 1, column = blackBishopPosition.Y + 1; row > blackPawnPosition.X && column < blackPawnPosition.Y; row--, column++)
+            for (int row = blackBishopPosition.Row - 1, column = blackBishopPosition.Column + 1; row > blackPawnPosition.Row && column < blackPawnPosition.Column; row--, column++)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = blackPawnPosition.X - 1, column = blackPawnPosition.Y + 1; row > 0 && column < 9; row--, column++)
+            for (int row = blackPawnPosition.Row - 1, column = blackPawnPosition.Column + 1; row > 0 && column < 9; row--, column++)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -255,9 +254,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveSouthWestAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -267,12 +266,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X - 1, column = blackBishopPosition.Y - 1; row > blackPawnPosition.X && column > blackPawnPosition.Y; row--, column--)
+            for (int row = blackBishopPosition.Row - 1, column = blackBishopPosition.Column - 1; row > blackPawnPosition.Row && column > blackPawnPosition.Column; row--, column--)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = blackPawnPosition.X - 1, column = blackPawnPosition.Y - 1; row > 0 && column > 0; row--, column--)
+            for (int row = blackPawnPosition.Row - 1, column = blackPawnPosition.Column - 1; row > 0 && column > 0; row--, column--)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }
@@ -281,9 +280,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void WhiteBishopCanMoveNorthWestAllTheWayToABlackPieceButNotBeyondIt()
         {
-            var blackKingPosition = new Point(1, 2);
-            var blackBishopPosition = new Point(1, 8);
-            var blackPawnPosition = new Point(4, 4);
+            var blackKingPosition = new Position(1, 2);
+            var blackBishopPosition = new Position(1, 8);
+            var blackPawnPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -293,12 +292,12 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            for (int row = blackBishopPosition.X + 1, column = blackBishopPosition.Y - 1; row < blackPawnPosition.X && column > blackPawnPosition.Y; row++, column--)
+            for (int row = blackBishopPosition.Row + 1, column = blackBishopPosition.Column - 1; row < blackPawnPosition.Row && column > blackPawnPosition.Column; row++, column--)
             {
                 Assert.IsTrue(Chessboard[row, column].Available);
             }
 
-            for (int row = blackPawnPosition.X + 1, column = blackPawnPosition.Y - 1; row < 9 && column > 0; row++, column--)
+            for (int row = blackPawnPosition.Row + 1, column = blackPawnPosition.Column - 1; row < 9 && column > 0; row++, column--)
             {
                 Assert.IsFalse(Chessboard[row, column].Available);
             }

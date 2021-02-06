@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,22 +22,22 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCanMove1BoxInAnyDirectionIfNotOccupied()
         {
-            var blackKingPosition = new Point(3, 3);
+            var blackKingPosition = new Position(3, 3);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard.PositionBlackKing = blackKingPosition;
             Chessboard[blackKingPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackKingPosition);
 
-            var positionNorth = new Point(blackKingPosition.X + 1, blackKingPosition.Y);
-            var positionSouth = new Point(blackKingPosition.X - 1, blackKingPosition.Y);
-            var positionEast = new Point(blackKingPosition.X, blackKingPosition.Y + 1);
-            var positionWest = new Point(blackKingPosition.X, blackKingPosition.Y - 1);
+            var positionNorth = new Position(blackKingPosition.Row + 1, blackKingPosition.Column);
+            var positionSouth = new Position(blackKingPosition.Row - 1, blackKingPosition.Column);
+            var positionEast = new Position(blackKingPosition.Row, blackKingPosition.Column + 1);
+            var positionWest = new Position(blackKingPosition.Row, blackKingPosition.Column - 1);
 
-            var positionNorthEast = new Point(blackKingPosition.X + 1, blackKingPosition.Y + 1);
-            var positionSouthEast = new Point(blackKingPosition.X - 1, blackKingPosition.Y + 1);
-            var positionSouthWest = new Point(blackKingPosition.X - 1, blackKingPosition.Y - 1);
-            var positionNorthWest = new Point(blackKingPosition.X + 1, blackKingPosition.Y - 1);
+            var positionNorthEast = new Position(blackKingPosition.Row + 1, blackKingPosition.Column + 1);
+            var positionSouthEast = new Position(blackKingPosition.Row - 1, blackKingPosition.Column + 1);
+            var positionSouthWest = new Position(blackKingPosition.Row - 1, blackKingPosition.Column - 1);
+            var positionNorthWest = new Position(blackKingPosition.Row + 1, blackKingPosition.Column - 1);
 
             Assert.IsTrue(Chessboard[positionNorth].Available);
             Assert.IsTrue(Chessboard[positionSouth].Available);
@@ -56,7 +55,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
         [TestMethod]
         public void BlackKingCantMoveOverOccupiedBoxesByBlackPiecesInAnyDirection()
         {
-            var blackKingPosition = new Point(3, 3);
+            var blackKingPosition = new Position(3, 3);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard.PositionBlackKing = blackKingPosition;

@@ -1,14 +1,13 @@
-﻿using System.Drawing;
-using ChessApplication.Common.Interfaces;
+﻿using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.ChessPieces.Helpers
 {
     public static class AccessibleBoxesUtil
     {
-        public static void MarkAccessibleBoxesForWest(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForWest(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (var secondaryColumn = column; secondaryColumn >= 1; secondaryColumn--)
             {
@@ -28,10 +27,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForEast(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForEast(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (var secondaryColumn = column; secondaryColumn <= 8; secondaryColumn++)
             {
@@ -51,10 +50,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForSouth(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForSouth(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (var secondaryRow = row; secondaryRow >= 1; secondaryRow--)
             {
@@ -74,10 +73,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForNorth(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForNorth(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (var secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
@@ -95,10 +94,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForSouthWest(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForSouthWest(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn >= 1; secondaryRow--, secondaryColumn--)
             {
@@ -118,10 +117,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForNorthEast(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForNorthEast(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn <= 8; secondaryRow++, secondaryColumn++)
             {
@@ -141,10 +140,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForNorthWest(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForNorthWest(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow <= 8 && secondaryColumn >= 1; secondaryRow++, secondaryColumn--)
             {
@@ -164,10 +163,10 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkAccessibleBoxesForSouthEast(IChessboard chessBoard, Point startPosition)
+        public static void MarkAccessibleBoxesForSouthEast(IChessboard chessBoard, Position startPosition)
         {
-            var row = startPosition.X;
-            var column = startPosition.Y;
+            var row = startPosition.Row;
+            var column = startPosition.Column;
 
             for (int secondaryRow = row, secondaryColumn = column; secondaryRow >= 1 && secondaryColumn <= 8; secondaryRow--, secondaryColumn++)
             {
@@ -187,7 +186,7 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        public static void MarkIfAccessible(IChessboard chessBoard, Point startPosition, Point destinationPosition)
+        public static void MarkIfAccessible(IChessboard chessBoard, Position startPosition, Position destinationPosition)
         {
             if (PositionIsOutOfBounds(destinationPosition))
             {
@@ -215,12 +214,12 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             }
         }
 
-        private static bool PositionIsOutOfBounds(Point position)
+        private static bool PositionIsOutOfBounds(Position position)
         {
-            return position.X > 8
-                   || position.X < 1
-                   || position.Y > 8
-                   || position.Y < 1;
+            return position.Row > 8
+                   || position.Row < 1
+                   || position.Column > 8
+                   || position.Column < 1;
         }
     }
 }

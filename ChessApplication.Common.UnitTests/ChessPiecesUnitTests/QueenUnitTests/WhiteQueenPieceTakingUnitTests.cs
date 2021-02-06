@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void WhiteQueenCanTakeBlackPiecesFromAnyDirection()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteQueenPosition = new Point(5, 5);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteQueenPosition = new Position(5, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);
@@ -34,15 +33,15 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             Chessboard[whiteQueenPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteQueenPosition);
 
-            var positionNorth = new Point(whiteQueenPosition.X + 1, whiteQueenPosition.Y);
-            var positionSouth = new Point(whiteQueenPosition.X - 1, whiteQueenPosition.Y);
-            var positionEast = new Point(whiteQueenPosition.X, whiteQueenPosition.Y + 1);
-            var positionWest = new Point(whiteQueenPosition.X, whiteQueenPosition.Y - 1);
+            var positionNorth = new Position(whiteQueenPosition.Row + 1, whiteQueenPosition.Column);
+            var positionSouth = new Position(whiteQueenPosition.Row - 1, whiteQueenPosition.Column);
+            var positionEast = new Position(whiteQueenPosition.Row, whiteQueenPosition.Column + 1);
+            var positionWest = new Position(whiteQueenPosition.Row, whiteQueenPosition.Column - 1);
 
-            var positionNorthEast = new Point(whiteQueenPosition.X + 1, whiteQueenPosition.Y + 1);
-            var positionSouthEast = new Point(whiteQueenPosition.X - 1, whiteQueenPosition.Y + 1);
-            var positionSouthWest = new Point(whiteQueenPosition.X - 1, whiteQueenPosition.Y - 1);
-            var positionNorthWest = new Point(whiteQueenPosition.X + 1, whiteQueenPosition.Y - 1);
+            var positionNorthEast = new Position(whiteQueenPosition.Row + 1, whiteQueenPosition.Column + 1);
+            var positionSouthEast = new Position(whiteQueenPosition.Row - 1, whiteQueenPosition.Column + 1);
+            var positionSouthWest = new Position(whiteQueenPosition.Row - 1, whiteQueenPosition.Column - 1);
+            var positionNorthWest = new Position(whiteQueenPosition.Row + 1, whiteQueenPosition.Column - 1);
 
             Assert.IsTrue(Chessboard[positionNorth].Available);
             Assert.IsTrue(Chessboard[positionSouth].Available);
@@ -60,8 +59,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void WhiteQueenCantTakeAnyWhitePieces()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteQueenPosition = new Point(5, 5);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteQueenPosition = new Position(5, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteQueenPosition].Piece = new Queen(PieceColor.White);

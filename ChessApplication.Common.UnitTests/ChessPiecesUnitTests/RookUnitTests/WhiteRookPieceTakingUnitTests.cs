@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
         [TestMethod]
         public void WhiteRookCanOnlyTakeBlackPiecesFromNorthSouthEastAndWest()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteRookPosition = new Point(5, 5);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteRookPosition = new Position(5, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);
@@ -34,10 +33,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
             Chessboard[whiteRookPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
-            var positionNorth = new Point(whiteRookPosition.X + 1, whiteRookPosition.Y);
-            var positionSouth = new Point(whiteRookPosition.X - 1, whiteRookPosition.Y);
-            var positionEast = new Point(whiteRookPosition.X, whiteRookPosition.Y + 1);
-            var positionWest = new Point(whiteRookPosition.X, whiteRookPosition.Y - 1);
+            var positionNorth = new Position(whiteRookPosition.Row + 1, whiteRookPosition.Column);
+            var positionSouth = new Position(whiteRookPosition.Row - 1, whiteRookPosition.Column);
+            var positionEast = new Position(whiteRookPosition.Row, whiteRookPosition.Column + 1);
+            var positionWest = new Position(whiteRookPosition.Row, whiteRookPosition.Column - 1);
 
             Assert.IsTrue(Chessboard[positionNorth].Available);
             Assert.IsTrue(Chessboard[positionSouth].Available);
@@ -49,8 +48,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
         [TestMethod]
         public void WhiteRookCantTakeAnyWhitePieces()
         {
-            var whiteKingPosition = new Point(8, 8);
-            var whiteRookPosition = new Point(5, 5);
+            var whiteKingPosition = new Position(8, 8);
+            var whiteRookPosition = new Position(5, 5);
 
             Chessboard[whiteKingPosition].Piece = new King(PieceColor.White);
             Chessboard[whiteRookPosition].Piece = new Rook(PieceColor.White);

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
@@ -16,7 +16,7 @@ namespace ChessApplication.Network
 
         public abstract void Stop();
 
-        public delegate void MadeMove(Point origin, Point destination);
+        public delegate void MadeMove(Position origin, Position destination);
         public MadeMove OnMadeMove { get; set; }
 
         public delegate void ChangedUsername(string username);
@@ -34,7 +34,7 @@ namespace ChessApplication.Network
         public delegate void BeginSelection();
         public BeginSelection OnBeginSelection { get; set; }
 
-        public delegate void Selection(Point selectionPoint, Type chessPieceType, PieceColor chessPieceColor);
+        public delegate void Selection(Position selectionPosition, Type chessPieceType, PieceColor chessPieceColor);
         public Selection OnSelection { get; set; }
 
         public delegate void ChatMessage(string message);
@@ -71,8 +71,8 @@ namespace ChessApplication.Network
                     var destinationRow = Convert.ToInt32(coordinates[1][0]) - 64;
                     var destinationColumn = Convert.ToInt32(coordinates[1][1]) - 48;
 
-                    var origin = new Point(originRow, originColumn);
-                    var destination = new Point(destinationRow, destinationColumn);
+                    var origin = new Position(originRow, originColumn);
+                    var destination = new Position(destinationRow, destinationColumn);
 
                     OnMadeMove(origin, destination);
                 }
@@ -118,7 +118,7 @@ namespace ChessApplication.Network
 
                     var row = Convert.ToInt32(retakeDetails[0]);
                     var column = Convert.ToInt32(retakeDetails[1]);
-                    var selectionPoint = new Point(row, column);
+                    var selectionPosition = new Position(row, column);
 
                     var retakenPieceColor = retakeDetails[2][1] == Abbreviations.White ? PieceColor.White : PieceColor.Black;
                     var retakenPieceType = retakeDetails[2][0];
@@ -144,7 +144,7 @@ namespace ChessApplication.Network
                         chessPieceType = typeof(Queen);
                     }
 
-                    OnSelection(selectionPoint, chessPieceType, retakenPieceColor);
+                    OnSelection(selectionPosition, chessPieceType, retakenPieceColor);
                 }
             }
 

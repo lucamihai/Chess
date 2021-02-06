@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,9 +22,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void BlackQueenCantMoveIfWillCauseCheck()
         {
-            var blackKingPosition = new Point(1, 1);
-            var blackQueenPosition = new Point(2, 1);
-            var whiteQueenPosition = new Point(4, 1);
+            var blackKingPosition = new Position(1, 1);
+            var blackQueenPosition = new Position(2, 1);
+            var whiteQueenPosition = new Position(4, 1);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -36,7 +35,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackQueenPosition);
 
             var numberOfMoves = Methods.GetNumberOfAvailableBoxes(Chessboard);
-            for (int row = blackQueenPosition.X + 1; row <= whiteQueenPosition.X; row++)
+            for (int row = blackQueenPosition.Row + 1; row <= whiteQueenPosition.Row; row++)
             {
                 numberOfMoves--;
             }
@@ -47,10 +46,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void BlackQueenCantTakePieceIfWillCauseCheck()
         {
-            var blackKingPosition = new Point(1, 1);
-            var blackQueenPosition = new Point(2, 1);
-            var whiteQueenPosition = new Point(4, 1);
-            var whitePawnPosition = new Point(2, 8);
+            var blackKingPosition = new Position(1, 1);
+            var blackQueenPosition = new Position(2, 1);
+            var whiteQueenPosition = new Position(4, 1);
+            var whitePawnPosition = new Position(2, 8);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -67,9 +66,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void BlackQueenCantMoveIfCantPreventCheck()
         {
-            var blackKingPosition = new Point(3, 3);
-            var blackQueenPosition = new Point(3, 2);
-            var whiteQueenPosition = new Point(4, 4);
+            var blackKingPosition = new Position(3, 3);
+            var blackQueenPosition = new Position(3, 2);
+            var whiteQueenPosition = new Position(4, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -85,10 +84,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void BlackQueenCantTakePieceIfCantPreventCheck()
         {
-            var blackKingPosition = new Point(3, 3);
-            var blackQueenPosition = new Point(8, 8);
-            var whitePawnPosition = new Point(7, 8);
-            var whiteQueenPosition = new Point(1, 3);
+            var blackKingPosition = new Position(3, 3);
+            var blackQueenPosition = new Position(8, 8);
+            var whitePawnPosition = new Position(7, 8);
+            var whiteQueenPosition = new Position(1, 3);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -105,9 +104,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void BlackQueenCanMoveIfCanPreventCheck()
         {
-            var blackKingPosition = new Point(3, 3);
-            var blackQueenPosition = new Point(1, 7);
-            var whiteQueenPosition = new Point(3, 6);
+            var blackKingPosition = new Position(3, 3);
+            var blackQueenPosition = new Position(1, 7);
+            var whiteQueenPosition = new Position(3, 6);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);
@@ -117,7 +116,7 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
             Chessboard[blackQueenPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackQueenPosition);
 
-            var defensePosition = new Point(whiteQueenPosition.X, whiteQueenPosition.Y - 1);
+            var defensePosition = new Position(whiteQueenPosition.Row, whiteQueenPosition.Column - 1);
             Assert.IsTrue(Chessboard[defensePosition].Available);
             Assert.AreEqual(1, Methods.GetNumberOfAvailableBoxes(Chessboard));
         }
@@ -125,9 +124,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.QueenUnitTests
         [TestMethod]
         public void BlackQueenCanTakePieceIfCanPreventCheck()
         {
-            var blackKingPosition = new Point(3, 3);
-            var blackQueenPosition = new Point(2, 3);
-            var whiteQueenPosition = new Point(3, 4);
+            var blackKingPosition = new Position(3, 3);
+            var blackQueenPosition = new Position(2, 3);
+            var whiteQueenPosition = new Position(3, 4);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackQueenPosition].Piece = new Queen(PieceColor.Black);

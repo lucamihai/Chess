@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void BlackBishopCanOnlyTakeWhitePiecesFromNorthEastAndSouthEastAndSouthWestAndNorthWest()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackBishopPosition = new Point(5, 5);
+            var blackKingPosition = new Position(8, 8);
+            var blackBishopPosition = new Position(5, 5);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);
@@ -34,10 +33,10 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
             Chessboard[blackBishopPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackBishopPosition);
 
-            var positionNorthEast = new Point(blackBishopPosition.X + 1, blackBishopPosition.Y + 1);
-            var positionSouthEast = new Point(blackBishopPosition.X - 1, blackBishopPosition.Y + 1);
-            var positionSouthWest = new Point(blackBishopPosition.X - 1, blackBishopPosition.Y - 1);
-            var positionNorthWest = new Point(blackBishopPosition.X + 1, blackBishopPosition.Y - 1);
+            var positionNorthEast = new Position(blackBishopPosition.Row + 1, blackBishopPosition.Column + 1);
+            var positionSouthEast = new Position(blackBishopPosition.Row - 1, blackBishopPosition.Column + 1);
+            var positionSouthWest = new Position(blackBishopPosition.Row - 1, blackBishopPosition.Column - 1);
+            var positionNorthWest = new Position(blackBishopPosition.Row + 1, blackBishopPosition.Column - 1);
 
             Assert.IsTrue(Chessboard[positionNorthEast].Available);
             Assert.IsTrue(Chessboard[positionSouthEast].Available);
@@ -49,8 +48,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.BishopUnitTests
         [TestMethod]
         public void BlackBishopCantTakeAnyBlackPieces()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackBishopPosition = new Point(5, 5);
+            var blackKingPosition = new Position(8, 8);
+            var blackBishopPosition = new Position(5, 5);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackBishopPosition].Piece = new Bishop(PieceColor.Black);

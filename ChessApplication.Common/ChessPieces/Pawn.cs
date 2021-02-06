@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 using ChessApplication.Common.UserControls;
 
@@ -25,21 +24,21 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Point location)
+        public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
         {
-            var row = location.X;
-            var column = location.Y;
+            var row = position.Row;
+            var column = position.Column;
 
             Box locationToBeInspected;
-            Point destination;
+            Position destination;
 
             if (Color == PieceColor.White)
             {
                 locationToBeInspected = chessBoard[row + 1, column];
-                destination = new Point(row + 1, column);
+                destination = new Position(row + 1, column);
                 if (locationToBeInspected != null && locationToBeInspected.Piece == null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
+                    if (!chessBoard.MoveTriggersCheck(position, destination))
                     {
                         locationToBeInspected.Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
@@ -47,10 +46,10 @@ namespace ChessApplication.Common.ChessPieces
                 }
 
                 locationToBeInspected = chessBoard[row + 1, column + 1];
-                destination = new Point(row + 1, column + 1);
+                destination = new Position(row + 1, column + 1);
                 if (row < 8 && column < 8 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.Black)
                 {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
+                    if (!chessBoard.MoveTriggersCheck(position, destination))
                     {
                         chessBoard[row + 1, column + 1].Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
@@ -58,10 +57,10 @@ namespace ChessApplication.Common.ChessPieces
                 }
 
                 locationToBeInspected = chessBoard[row + 1, column - 1];
-                destination = new Point(row + 1, column - 1);
+                destination = new Position(row + 1, column - 1);
                 if (row < 8 && column > 1 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.Black)
                 {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
+                    if (!chessBoard.MoveTriggersCheck(position, destination))
                     {
                         chessBoard[row + 1, column - 1].Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
@@ -70,12 +69,12 @@ namespace ChessApplication.Common.ChessPieces
 
                 // Check if pawn can make 2 steps forward
                 locationToBeInspected = chessBoard[row + 2, column];
-                destination = new Point(row + 2, column);
+                destination = new Position(row + 2, column);
                 if (row == 2 && locationToBeInspected != null )
                 {
                     if (chessBoard[row + 2, column].Piece == null && chessBoard[row + 1, column].Piece == null)
                     {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
+                        if (!chessBoard.MoveTriggersCheck(position, destination))
                         {
                             chessBoard[row + 2, column].Available = true;
                             chessBoard[row, column].Piece.CanMove = true;
@@ -87,10 +86,10 @@ namespace ChessApplication.Common.ChessPieces
             if (Color == PieceColor.Black)
             {
                 locationToBeInspected = chessBoard[row - 1, column];
-                destination = new Point(row - 1, column);
+                destination = new Position(row - 1, column);
                 if (locationToBeInspected != null && locationToBeInspected.Piece == null)
                 {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
+                    if (!chessBoard.MoveTriggersCheck(position, destination))
                     {
                         chessBoard[row - 1, column].Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
@@ -98,10 +97,10 @@ namespace ChessApplication.Common.ChessPieces
                 }
 
                 locationToBeInspected = chessBoard[row - 1, column + 1];
-                destination = new Point(row - 1, column + 1);
+                destination = new Position(row - 1, column + 1);
                 if (row > 1 && column < 8 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.White)
                 {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
+                    if (!chessBoard.MoveTriggersCheck(position, destination))
                     {
                         chessBoard[row - 1, column + 1].Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
@@ -109,10 +108,10 @@ namespace ChessApplication.Common.ChessPieces
                 }
 
                 locationToBeInspected = chessBoard[row - 1, column - 1];
-                destination = new Point(row - 1, column - 1);
+                destination = new Position(row - 1, column - 1);
                 if (row > 1 && column > 1 && locationToBeInspected.Piece != null && locationToBeInspected.Piece.Color == PieceColor.White)
                 {
-                    if (!chessBoard.MoveTriggersCheck(location, destination))
+                    if (!chessBoard.MoveTriggersCheck(position, destination))
                     {
                         chessBoard[row - 1, column - 1].Available = true;
                         chessBoard[row, column].Piece.CanMove = true;
@@ -122,12 +121,12 @@ namespace ChessApplication.Common.ChessPieces
 
                 // Check if pawn can make 2 steps forward
                 locationToBeInspected = chessBoard[row - 2, column];
-                destination = new Point(row - 2, column);
+                destination = new Position(row - 2, column);
                 if (row == 7 && locationToBeInspected != null)
                 {
                     if (chessBoard[row - 2, column].Piece == null && chessBoard[row - 1, column].Piece == null)
                     {
-                        if (!chessBoard.MoveTriggersCheck(location, destination))
+                        if (!chessBoard.MoveTriggersCheck(position, destination))
                         {
                             chessBoard[row - 2, column].Available = true;
                             chessBoard[row, column].Piece.CanMove = true;

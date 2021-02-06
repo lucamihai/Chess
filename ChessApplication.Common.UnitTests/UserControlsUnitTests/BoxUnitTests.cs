@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,7 +14,7 @@ namespace ChessApplication.Common.UnitTests.UserControlsUnitTests
         public void BoxPositionIsGeneratedCorrectlyFromBoxName1()
         {
             box = new Box("A1");
-            var expectedPosition = new Point(1, 1);
+            var expectedPosition = new Position(1, 1);
             
             Assert.AreEqual(expectedPosition, box.Position);
         }
@@ -24,7 +23,7 @@ namespace ChessApplication.Common.UnitTests.UserControlsUnitTests
         public void BoxPositionIsGeneratedCorrectlyFromBoxName2()
         {
             box = new Box("B3");
-            var expectedPosition = new Point(2, 3);
+            var expectedPosition = new Position(2, 3);
 
             Assert.AreEqual(expectedPosition, box.Position);
         }
@@ -33,7 +32,7 @@ namespace ChessApplication.Common.UnitTests.UserControlsUnitTests
         public void BoxPositionIsGeneratedCorrectlyFromBoxName3()
         {
             box = new Box("D4");
-            var expectedPosition = new Point(4, 4);
+            var expectedPosition = new Position(4, 4);
 
             Assert.AreEqual(expectedPosition, box.Position);
         }
@@ -42,7 +41,7 @@ namespace ChessApplication.Common.UnitTests.UserControlsUnitTests
         public void BoxPositionIsGeneratedCorrectlyFromBoxName4()
         {
             box = new Box("F5");
-            var expectedPosition = new Point(6, 5);
+            var expectedPosition = new Position(6, 5);
 
             Assert.AreEqual(expectedPosition, box.Position);
         }

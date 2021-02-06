@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -23,8 +22,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCanTakeWhitePieceOnlyFromSouthWestAndSouthEast()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(3, 3);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(3, 3);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
@@ -34,8 +33,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
             Chessboard[blackPawnPosition].Piece
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, blackPawnPosition);
 
-            var positionSouthWest = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y - 1);
-            var positionSouthEast = new Point(blackPawnPosition.X - 1, blackPawnPosition.Y + 1);
+            var positionSouthWest = new Position(blackPawnPosition.Row - 1, blackPawnPosition.Column - 1);
+            var positionSouthEast = new Position(blackPawnPosition.Row - 1, blackPawnPosition.Column + 1);
 
             Assert.IsTrue(Chessboard[positionSouthWest].Available);
             Assert.IsTrue(Chessboard[positionSouthEast].Available);
@@ -45,8 +44,8 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.PawnUnitTests
         [TestMethod]
         public void BlackPawnCantTakeAnyBlackPiece()
         {
-            var blackKingPosition = new Point(8, 8);
-            var blackPawnPosition = new Point(3, 3);
+            var blackKingPosition = new Position(8, 8);
+            var blackPawnPosition = new Position(3, 3);
 
             Chessboard[blackKingPosition].Piece = new King(PieceColor.Black);
             Chessboard[blackPawnPosition].Piece = new Pawn(PieceColor.Black);
