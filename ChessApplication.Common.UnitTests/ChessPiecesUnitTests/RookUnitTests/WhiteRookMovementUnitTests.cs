@@ -33,7 +33,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var column = whiteRookPosition.Column + 1; column < 9; column++)
+            {
                 Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
+            }
         }
 
         [TestMethod]
@@ -50,7 +52,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var column = whiteRookPosition.Column - 1; column > 0; column--)
+            {
                 Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
+            }
         }
 
         [TestMethod]
@@ -67,7 +71,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var row = whiteRookPosition.Row + 1; row < 9; row++)
+            {
                 Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
+            }
         }
 
         [TestMethod]
@@ -84,7 +90,9 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var row = whiteRookPosition.Row - 1; row > 0; row--)
+            {
                 Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
+            }
         }
 
         [TestMethod]
@@ -103,10 +111,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var column = whiteRookPosition.Column + 1; column < whitePawnPosition.Column; column++)
+            {
                 Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
+            }
 
             for (var column = whitePawnPosition.Column + 1; column < 9; column++)
+            {
                 Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
+            }
         }
 
         [TestMethod]
@@ -125,10 +137,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var column = whiteRookPosition.Column - 1; column > whitePawnPosition.Column; column--)
+            {
                 Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
+            }
 
             for (var column = whitePawnPosition.Column - 1; column > 0; column--)
+            {
                 Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
+            }
         }
 
         [TestMethod]
@@ -147,10 +163,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var row = whiteRookPosition.Row + 1; row < whitePawnPosition.Row; row++)
+            {
                 Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
+            }
 
             for (var row = whitePawnPosition.Row + 1; row < 9; row++)
+            {
                 Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
+            }
         }
 
         [TestMethod]
@@ -169,10 +189,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var row = whiteRookPosition.Row - 1; row > whitePawnPosition.Row; row--)
+            {
                 Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
+            }
 
             for (var row = whitePawnPosition.Row - 1; row > 0; row--)
+            {
                 Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
+            }
         }
 
         [TestMethod]
@@ -191,10 +215,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var column = whiteRookPosition.Column + 1; column < blackPawnPosition.Column; column++)
+            {
                 Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
+            }
 
             for (var column = blackPawnPosition.Column + 1; column < 9; column++)
+            {
                 Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
+            }
         }
 
         [TestMethod]
@@ -213,10 +241,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var column = whiteRookPosition.Column - 1; column > blackPawnPosition.Column; column--)
+            {
                 Assert.IsTrue(Chessboard[whiteRookPosition.Row, column].Available);
+            }
 
             for (var column = blackPawnPosition.Column - 1; column > 0; column--)
+            {
                 Assert.IsFalse(Chessboard[whiteRookPosition.Row, column].Available);
+            }
         }
 
         [TestMethod]
@@ -235,10 +267,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var row = whiteRookPosition.Row + 1; row < blackPawnPosition.Row; row++)
+            {
                 Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
+            }
 
             for (var row = blackPawnPosition.Row + 1; row < 9; row++)
+            {
                 Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
+            }
         }
 
         [TestMethod]
@@ -257,10 +293,14 @@ namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.RookUnitTests
                 .CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, whiteRookPosition);
 
             for (var row = whiteRookPosition.Row - 1; row > blackPawnPosition.Row; row--)
+            {
                 Assert.IsTrue(Chessboard[row, whiteRookPosition.Column].Available);
+            }
 
             for (var row = blackPawnPosition.Row - 1; row > 0; row--)
+            {
                 Assert.IsFalse(Chessboard[row, whiteRookPosition.Column].Available);
+            }
         }
     }
 }

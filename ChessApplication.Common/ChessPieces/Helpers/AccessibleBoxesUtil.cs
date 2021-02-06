@@ -81,7 +81,9 @@ namespace ChessApplication.Common.ChessPieces.Helpers
             for (var secondaryRow = row; secondaryRow <= 8; secondaryRow++)
             {
                 if (secondaryRow == row)
+                {
                     continue;
+                }
 
                 var boxToInspect = chessBoard[secondaryRow, column];
 
