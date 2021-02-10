@@ -24,57 +24,52 @@ namespace ChessApplication.Network
                 Environment.Exit(0);
             }
 
-            NetworkThread = new Thread(new ThreadStart(ServerListen));
+            NetworkThreadRunning = true;
+            NetworkThread = new Thread(ServerListen);
             NetworkThread.Start();
-            networkThreadRunning = true;
+            
         }
 
         public override void Stop()
         {
             try
             {
-                networkThreadRunning = false;
+                NetworkThreadRunning = false;
                 NetworkStream.Close();
+
+                ServerTcpListener.Stop();
             }
 
             catch (Exception exception)
             {
                 Application.Exit();
             }
-
-            ServerTcpListener.Stop();
         }
 
         private void ServerListen()
         {
-            while (networkThreadRunning)
+            var socketServer = ServerTcpListener.AcceptSocket();
+            NetworkStream = new NetworkStream(socketServer);
+            var streamReader = new StreamReader(NetworkStream);
+
+            while (NetworkThreadRunning)
             {
-                try
+                //if (!NetworkStream.DataAvailable)
+                //{
+                //    continue;
+                //}
+
+                var receivedData = streamReader.ReadLine();
+
+                if (receivedData == null)
                 {
-                    var socketServer = ServerTcpListener.AcceptSocket();
-                    NetworkStream = new NetworkStream(socketServer);
-
-                    var streamReader = new StreamReader(NetworkStream);
-
-                    while (networkThreadRunning)
-                    {
-                        var receivedData = streamReader.ReadLine();
-
-                        if (receivedData == null)
-                        {
-                            break;
-                        }
-
-                        InterpretReceivedData(receivedData);
-                    }
-
-                    NetworkStream.Close();
+                    break;
                 }
-                catch (Exception)
-                {
 
-                }
+                InterpretReceivedData(receivedData);
             }
+
+            NetworkStream.Close();
         }
     }
 }

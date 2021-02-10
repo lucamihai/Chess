@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsUtilities", "UnitT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.GUI", "ChessApplication.GUI\ChessApplication.GUI.csproj", "{370CE882-0121-477B-80E4-C7034B331751}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network.UnitTests", "ChessApplication.Network.UnitTests\ChessApplication.Network.UnitTests.csproj", "{3A17AA3E-3368-49AE-A194-F1431B089904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{370CE882-0121-477B-80E4-C7034B331751}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{370CE882-0121-477B-80E4-C7034B331751}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{370CE882-0121-477B-80E4-C7034B331751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A17AA3E-3368-49AE-A194-F1431B089904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A17AA3E-3368-49AE-A194-F1431B089904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A17AA3E-3368-49AE-A194-F1431B089904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A17AA3E-3368-49AE-A194-F1431B089904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EFD6F1D0-06B7-4F50-917E-B4FB328CD885} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
 		{1F3878D6-864C-4F27-ACE4-AE895ABC8B62} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
+		{3A17AA3E-3368-49AE-A194-F1431B089904} = {CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A17F387-2CC4-446B-B387-4BB5D3CCC18D}

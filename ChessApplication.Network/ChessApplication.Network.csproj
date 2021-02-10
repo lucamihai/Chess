@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="CommandStrings.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Entities\CommandType.cs" />
+    <Compile Include="Entities\Message.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkManagerClient.cs" />
     <Compile Include="NetworkManagerServer.cs" />
@@ -56,5 +58,6 @@
       <Name>ChessApplication.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

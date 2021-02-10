@@ -12,18 +12,23 @@ namespace ChessApplication.Network
         public NetworkManagerClient(string hostname)
         {
             TcpClient = new TcpClient(hostname, Constants.PortNumber);
+
             NetworkStream = TcpClient.GetStream();
 
-            NetworkThread = new Thread(new ThreadStart(ServerListen));
+            NetworkThreadRunning = true;
+            NetworkThread = new Thread(ServerListen);
             NetworkThread.Start();
-            networkThreadRunning = true;
         }
 
         public override void Stop()
         {
             try
             {
-                networkThreadRunning = false;
+                NetworkThreadRunning = false;
+
+                TcpClient.Close();
+                TcpClient.Dispose();
+                
                 NetworkStream.Close();
             }
 
@@ -36,31 +41,33 @@ namespace ChessApplication.Network
 
         private void ServerListen()
         {
-            while (networkThreadRunning)
+            var streamReader = new StreamReader(NetworkStream);
+
+            while (NetworkThreadRunning)
             {
-                try
+                //if (!NetworkStream.DataAvailable)
+                //{
+                //    continue;
+                //}
+
+                var receivedData = streamReader.ReadLine();
+
+                if (receivedData == null)
                 {
-                    var streamReader = new StreamReader(NetworkStream);
-
-                    while (networkThreadRunning)
-                    {
-                        var receivedData = streamReader.ReadLine();
-
-                        if (receivedData == null)
-                        {
-                            break;
-                        }
-
-                        InterpretReceivedData(receivedData);
-                    }
-
-                    NetworkStream.Close();
+                    break;
                 }
-                catch (Exception)
-                {
 
-                }
+                InterpretReceivedData(receivedData);
             }
+
+            NetworkStream.Close();
+        }
+
+        public override void Dispose()
+        {
+            Stop();
+            base.Dispose();
+            TcpClient?.Dispose();
         }
     }
 }

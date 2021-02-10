@@ -5,163 +5,255 @@ using System.Threading;
 using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Network.Entities;
 
 namespace ChessApplication.Network
 {
-    public abstract class NetworkManager
+    public abstract class NetworkManager : IDisposable
     {
         protected Thread NetworkThread { get; set; }
-        protected bool networkThreadRunning;
+        protected bool NetworkThreadRunning;
         protected NetworkStream NetworkStream { get; set; }
 
         public abstract void Stop();
 
         public delegate void MadeMove(Position origin, Position destination);
-        public MadeMove OnMadeMove { get; set; }
-
         public delegate void ChangedUsername(string username);
-        public ChangedUsername OnChangedUsername { get; set; }
-
         public delegate void ChangedColors(Turn currentPlayersTurn, Turn opponentsTurn);
-        public ChangedColors OnChangedColors { get; set; }
-
-        public delegate void RequestNewGame();
-        public RequestNewGame OnRequestNewGame { get; set; }
-
-        public delegate void NewGame();
-        public NewGame OnNewGame { get; set; }
-
-        public delegate void BeginSelection();
-        public BeginSelection OnBeginSelection { get; set; }
-
-        public delegate void Selection(Position selectionPosition, Type chessPieceType, PieceColor chessPieceColor);
-        public Selection OnSelection { get; set; }
-
+        public delegate void RequestedNewGame();
+        public delegate void IssuedNewGame();
+        public delegate void BegunRetakeSelection();
+        public delegate void MadeRetakeSelection(Position selectionPosition, Type chessPieceType, PieceColor chessPieceColor);
         public delegate void ChatMessage(string message);
-        public ChatMessage OnChatMessage { get; set; }
-
         public delegate void Notification(string notificationMessage);
+
+        public MadeMove OnMadeMove { get; set; }
+        public ChangedUsername OnChangedUsername { get; set; }
+        public ChangedColors OnChangedColors { get; set; }
+        public RequestedNewGame OnRequestedNewGame { get; set; }
+        public IssuedNewGame OnIssuedNewGame { get; set; }
+        public BegunRetakeSelection OnBegunRetakeSelection { get; set; }
+        public MadeRetakeSelection OnMadeRetakeSelection { get; set; }
+        public ChatMessage OnChatMessage { get; set; }
         public Notification OnNotification { get; set; }
 
-        public void SendMessage(string message)
+        public void ChangeUsername(string newUsername)
         {
+            var message = new Message(CommandType.UsernameChange, newUsername);
+            SendMessage(message);
+        }
+
+        [Obsolete("Method signature left for compatibility. Will be changed.")]
+        public void ChangeColors(string colorsString1, string colorsString2)
+        {
+            var message = new Message(CommandType.ColorsChange, colorsString1, colorsString2);
+            SendMessage(message);
+        }
+
+        public void RequestNewGame()
+        {
+            var message = new Message(CommandType.RequestNewGame);
+            SendMessage(message);
+        }
+
+        public void IssueNewGame()
+        {
+            var message = new Message(CommandType.NewGame);
+            SendMessage(message);
+        }
+
+        public void NotifyOfMove(Position origin, Position destination)
+        {
+            var message = new Message(
+                CommandType.Move,
+                origin.Row.ToString(), origin.Column.ToString(),
+                destination.Row.ToString(), destination.Column.ToString());
+
+            SendMessage(message);
+        }
+
+        public void BeginRetakeSelection()
+        {
+            var message = new Message(CommandType.BeginRetakeSelection);
+            SendMessage(message);
+        }
+
+        public void NotifyOfRetakeSelection(Position position, ChessPiece selectedPiece)
+        {
+            var message = new Message(CommandType.RetakeSelection,
+                position.Row.ToString(), position.Column.ToString(),
+                selectedPiece.Color == PieceColor.White ? Abbreviations.White.ToString() : Abbreviations.Black.ToString(),
+                selectedPiece.Abbreviation);
+
+            SendMessage(message);
+        }
+
+        public void SendChatMessage(string chatMessage)
+        {
+            var message = new Message(CommandType.Chat, chatMessage);
+            SendMessage(message);
+        }
+
+        private void SendMessage(Message message)
+        {
+            var stringMessage = message.ToString();
             var writer = new StreamWriter(NetworkStream) {AutoFlush = true};
-            writer.WriteLine(message);
+            writer.WriteLine(stringMessage);
         }
 
         protected void InterpretReceivedData(string receivedData)
         {
-            if (MessageIsACommand(receivedData))
+            var message = Message.FromString(receivedData);
+
+            switch (message.CommandType)
             {
-                var command = GetCommandFromMessage(receivedData);
-
-                if (command == CommandStrings.Disconnect)
+                case CommandType.Unrecognized:
                 {
-                    networkThreadRunning = false;
+                    throw new InvalidOperationException();
                 }
 
-                // Client has made a move, receiving origin and destination coordinates
-                // e.g. "#B1 B2"
-                if (receivedData.Length == 6)
+                case CommandType.Disconnect:
                 {
-                    var coordinates = receivedData.Substring(1).Split();
-
-                    var originRow = Convert.ToInt32(coordinates[0][0]) - 64;
-                    var originColumn = Convert.ToInt32(coordinates[0][1]) - 48;
-                    var destinationRow = Convert.ToInt32(coordinates[1][0]) - 64;
-                    var destinationColumn = Convert.ToInt32(coordinates[1][1]) - 48;
-
-                    var origin = new Position(originRow, originColumn);
-                    var destination = new Position(destinationRow, destinationColumn);
-
-                    OnMadeMove(origin, destination);
+                    HandleDisconnect(message);
+                    break;
                 }
 
-                // e.g. "#usernameNewCoolUsername"
-                if (command.StartsWith(CommandStrings.ChangedUsername))
+                case CommandType.Move:
                 {
-                    var username = receivedData.Substring(9);
-                    OnChangedUsername(username);
+                    HandleMove(message);
+                    break;
                 }
 
-                // e.g. "#culori 1 2"
-                if (command.StartsWith(CommandStrings.ChangedColors))
+                case CommandType.UsernameChange:
                 {
-                    var colorsString = receivedData.Substring(8);
-                    var colors = colorsString.Split(' ');
-
-                    var currentPlayersTurn = (Turn)Convert.ToInt32(colors[0]);
-                    var opponentsTurn = (Turn)Convert.ToInt32(colors[1]);
-
-                    OnChangedColors(currentPlayersTurn, opponentsTurn);
+                    HandleUsernameChange(message);
+                    break;
                 }
 
-                if (command == CommandStrings.RequestNewGame)
+                case CommandType.ColorsChange:
                 {
-                    OnRequestNewGame();
+                    HandleColorsChange(message);
+                    break;
                 }
 
-                if (command == CommandStrings.NewGame)
+                case CommandType.RequestNewGame:
                 {
-                    OnNewGame();
+                    HandleRequestNewGame(message);
+                    break;
                 }
 
-                if (command == CommandStrings.BeginSelection)
+                case CommandType.NewGame:
                 {
-                    OnBeginSelection();
+                    HandleNewGame(message);
+                    break;
                 }
 
-                // e.g. "#selectat 2 3 AC"
-                if (command.StartsWith(CommandStrings.Selection))
+                case CommandType.BeginRetakeSelection:
                 {
-                    var retakeDetails = receivedData.Substring(10).Split();
-
-                    var row = Convert.ToInt32(retakeDetails[0]);
-                    var column = Convert.ToInt32(retakeDetails[1]);
-                    var selectionPosition = new Position(row, column);
-
-                    var retakenPieceColor = retakeDetails[2][1] == Abbreviations.White ? PieceColor.White : PieceColor.Black;
-                    var retakenPieceType = retakeDetails[2][0];
-
-                    var chessPieceType = typeof(ChessPiece);
-                    if (retakenPieceType == Abbreviations.Rook)
-                    {
-                        chessPieceType = typeof(Rook);
-                    }
-
-                    if (retakenPieceType == Abbreviations.Knight)
-                    {
-                        chessPieceType = typeof(Knight);
-                    }
-
-                    if (retakenPieceType == Abbreviations.Bishop)
-                    {
-                        chessPieceType = typeof(Bishop);
-                    }
-
-                    if (retakenPieceType == Abbreviations.Queen)
-                    {
-                        chessPieceType = typeof(Queen);
-                    }
-
-                    OnSelection(selectionPosition, chessPieceType, retakenPieceColor);
+                    HandleBeginSelection(message);
+                    break;
                 }
-            }
 
-            else
-            {
-                OnChatMessage(receivedData);
+                case CommandType.RetakeSelection:
+                {
+                    HandleSelection(message);
+                    break;
+                }
+
+                case CommandType.Chat:
+                {
+                    HandleChat(message);
+                    break;
+                }
             }
         }
 
-        private bool MessageIsACommand(string message)
+        private void HandleDisconnect(Message message)
         {
-            return message.StartsWith(Constants.CommandMarker);
+            NetworkThreadRunning = false;
         }
 
-        private string GetCommandFromMessage(string message)
+        private void HandleMove(Message message)
         {
-            return message.Substring(1);
+            var originRow = Convert.ToInt32(message.Arguments[0]);
+            var originColumn = Convert.ToInt32(message.Arguments[1]);
+            var origin = new Position(originRow, originColumn);
+
+            var destinationRow = Convert.ToInt32(message.Arguments[2]);
+            var destinationColumn = Convert.ToInt32(message.Arguments[3]);
+            var destination = new Position(destinationRow, destinationColumn);
+
+            OnMadeMove(origin, destination);
+        }
+
+        private void HandleUsernameChange(Message message)
+        {
+            var username = string.Join(" ", message.Arguments);
+            OnChangedUsername(username);
+        }
+
+        private void HandleColorsChange(Message message)
+        {
+            var currentPlayersTurn = (Turn)Convert.ToInt32(message.Arguments[0]);
+            var opponentsTurn = (Turn)Convert.ToInt32(message.Arguments[1]);
+
+            OnChangedColors(currentPlayersTurn, opponentsTurn);
+        }
+
+        private void HandleRequestNewGame(Message message)
+        {
+            OnRequestedNewGame();
+        }
+
+        private void HandleNewGame(Message message)
+        {
+            OnIssuedNewGame();
+        }
+
+        private void HandleBeginSelection(Message message)
+        {
+            OnBegunRetakeSelection();
+        }
+
+        private void HandleSelection(Message message)
+        {
+            var row = Convert.ToInt32(message.Arguments[0]);
+            var column = Convert.ToInt32(message.Arguments[1]);
+            var selectionPosition = new Position(row, column);
+
+            var retakenPieceColor = message.Arguments[2][0] == Abbreviations.White ? PieceColor.White : PieceColor.Black;
+            var retakenPieceType = message.Arguments[3][0];
+
+            var chessPieceType = typeof(ChessPiece);
+            switch (retakenPieceType)
+            {
+                case Abbreviations.Rook:
+                    chessPieceType = typeof(Rook);
+                    break;
+                case Abbreviations.Knight:
+                    chessPieceType = typeof(Knight);
+                    break;
+                case Abbreviations.Bishop:
+                    chessPieceType = typeof(Bishop);
+                    break;
+                case Abbreviations.Queen:
+                    chessPieceType = typeof(Queen);
+                    break;
+            }
+
+            OnMadeRetakeSelection(selectionPosition, chessPieceType, retakenPieceColor);
+        }
+
+        private void HandleChat(Message message)
+        {
+            OnChatMessage(string.Join(" ", message.Arguments));
+        }
+
+        public virtual void Dispose()
+        {
+            Stop();
+            NetworkStream?.Close();
+            NetworkStream?.Dispose();
         }
     }
 }

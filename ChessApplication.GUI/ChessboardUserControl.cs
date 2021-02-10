@@ -19,9 +19,9 @@ namespace ChessApplication.GUI
     public partial class ChessboardUserControl : UserControl
     {
         private NetworkManager networkManager;
-        private const string CommandMarker = Network.Constants.CommandMarker;
 
         private int clickCounter;
+        // TODO: Store these in a Position struct
         private int retakeRow, retakeColumn; // Will hold the row and column of where retaken pieces will be placed
 
         public bool BeginnersMode
@@ -108,7 +108,7 @@ namespace ChessApplication.GUI
                 Invoke(changeOpponentUsername);
             };
 
-            networkManager.OnBeginSelection += () =>
+            networkManager.OnBegunRetakeSelection += () =>
             {
                 var beginSelection = new MethodInvoker(() => {
                     opponentMustSelect = true;
@@ -120,7 +120,7 @@ namespace ChessApplication.GUI
                 Invoke(beginSelection);
             };
 
-            networkManager.OnSelection += (position, type, color) =>
+            networkManager.OnMadeRetakeSelection += (position, type, color) =>
             {
                 var selection = new MethodInvoker(() => {
                     if (color == PieceColor.White)
@@ -184,7 +184,7 @@ namespace ChessApplication.GUI
                 Invoke(move);
             };
 
-            networkManager.OnRequestNewGame += () =>
+            networkManager.OnRequestedNewGame += () =>
             {
                 var request = new MethodInvoker(() => {
                     isNewGameRequested = true;
@@ -194,7 +194,7 @@ namespace ChessApplication.GUI
                 Invoke(request);
             };
 
-            networkManager.OnNewGame += () =>
+            networkManager.OnIssuedNewGame += () =>
             {
                 var newGame = new MethodInvoker(() =>
                 {
@@ -258,8 +258,7 @@ namespace ChessApplication.GUI
         public void SetUsernameAndNotifyOpponent(string username)
         {
             PlayerUsername = username;
-            var message = $"{CommandMarker}{CommandStrings.ChangedUsername}{username}";
-            networkManager?.SendMessage(message);
+            networkManager?.ChangeUsername(username);
         }
 
         public void SetColorsAndNotifyOpponent(string colorsString)
@@ -278,21 +277,20 @@ namespace ChessApplication.GUI
                 OpponentsTurn = Turn.White;
             }
 
-            var message = $"{CommandMarker}{CommandStrings.ChangedColors} {colors[1]} {colors[0]}";
-            networkManager?.SendMessage(message);
+            networkManager?.ChangeColors(colors[1], colors[0]);
         }
 
         public void RequestNewGame()
         {
             if (!isNewGameRequested)
             {
-                SendCommand($"{CommandMarker}{CommandStrings.RequestNewGame}");
+                networkManager?.RequestNewGame();
             }
             else
             {
                 NewGame();
                 isNewGameRequested = false;
-                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
+                networkManager?.IssueNewGame();
             }
         }
 
@@ -303,10 +301,7 @@ namespace ChessApplication.GUI
 
         public void SendMessageToOpponent(string message)
         {
-            if (!message.StartsWith(CommandMarker))
-            {
-                networkManager?.SendMessage(message);
-            }
+            networkManager?.SendChatMessage(message);
         }
 
         private void NotifyNewGameIsRequested()
@@ -347,9 +342,11 @@ namespace ChessApplication.GUI
                 throw new NotImplementedException();
             }
 
-            for (int row = 1; row < 9; row++)
+            panelChessBoard.Controls.Clear();
+
+            for (var row = 1; row < 9; row++)
             {
-                for (int column = 1; column < 9; column++)
+                for (var column = 1; column < 9; column++)
                 {
                     panelChessBoard.Controls.Add(ChessBoard[row, column]);
                 }
@@ -421,14 +418,6 @@ namespace ChessApplication.GUI
             }
         }
 
-        private void SendCommand(string command)
-        {
-            if (command.StartsWith(CommandMarker))
-            {
-                networkManager?.SendMessage(command);
-            }
-        }
-
         private void CurrentPlayerMovePiece(Box origin, Box destination)
         {
             if (destination.Piece != null)
@@ -436,8 +425,7 @@ namespace ChessApplication.GUI
                 UpdateCapturedPiecesCounter(destination);
             }
 
-            var command = $"{CommandMarker}{CommandStrings.MoveMade}{origin.BoxName} {destination.BoxName}";
-            SendCommand(command);
+            networkManager?.NotifyOfMove(origin.Position, destination.Position);
 
             ChessBoard.ResetChessBoardBoxesColors();
             PerformMove(origin, destination);
@@ -591,7 +579,7 @@ namespace ChessApplication.GUI
                         retakeColumn = destination.BoxName[1] - 48;
                         playerMustSelect = true;
 
-                        SendCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
+                        networkManager?.BeginRetakeSelection();
 
                         var message = string.Format(Strings.UserBeginsSelection, PlayerUsername);
                         OnNotification(message);
@@ -610,7 +598,7 @@ namespace ChessApplication.GUI
                         retakeColumn = destination.BoxName[1] - 48;
                         playerMustSelect = true;
 
-                        SendCommand($"{CommandMarker}{CommandStrings.BeginSelection}");
+                        networkManager?.BeginRetakeSelection();
 
                         var message = string.Format(Strings.UserBeginsSelection, PlayerUsername);
                         OnNotification(message);
@@ -629,7 +617,7 @@ namespace ChessApplication.GUI
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
+                networkManager?.IssueNewGame();
             }
             if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black))
             {
@@ -639,7 +627,7 @@ namespace ChessApplication.GUI
                 var newGameInvoker = new MethodInvoker(NewGame);
 
                 Invoke(newGameInvoker);
-                SendCommand($"{CommandMarker}{CommandStrings.NewGame}");
+                networkManager?.IssueNewGame();
             }
         }
 
@@ -714,8 +702,7 @@ namespace ChessApplication.GUI
                 var recapturedPiece = ChessBoard[retakeRow, retakeColumn].Piece;
                 if (recapturedPiece != null)
                 {
-                    var command = $"{CommandMarker}{CommandStrings.Selection} {retakeRow} {retakeColumn} {recapturedPiece.Abbreviation}";
-                    SendCommand(command);
+                    networkManager?.NotifyOfRetakeSelection(new Position(retakeRow, retakeColumn), recapturedPiece);
                 }
             }
         }
