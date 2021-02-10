@@ -54,11 +54,6 @@ namespace ChessApplication.Network
 
             while (NetworkThreadRunning)
             {
-                //if (!NetworkStream.DataAvailable)
-                //{
-                //    continue;
-                //}
-
                 var receivedData = streamReader.ReadLine();
 
                 if (receivedData == null)

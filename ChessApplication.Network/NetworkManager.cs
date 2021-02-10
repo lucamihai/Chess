@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
+using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
 using ChessApplication.Network.Entities;
 
@@ -82,8 +83,8 @@ namespace ChessApplication.Network
         {
             var message = new Message(CommandType.RetakeSelection,
                 position.Row.ToString(), position.Column.ToString(),
-                selectedPiece.Color == PieceColor.White ? Abbreviations.White.ToString() : Abbreviations.Black.ToString(),
-                selectedPiece.Abbreviation);
+                selectedPiece.Color.ToString(),
+                selectedPiece.GetType().Name);
 
             SendMessage(message);
         }
@@ -114,7 +115,7 @@ namespace ChessApplication.Network
 
                 case CommandType.Disconnect:
                 {
-                    HandleDisconnect(message);
+                    HandleDisconnect();
                     break;
                 }
 
@@ -138,19 +139,19 @@ namespace ChessApplication.Network
 
                 case CommandType.RequestNewGame:
                 {
-                    HandleRequestNewGame(message);
+                    HandleRequestNewGame();
                     break;
                 }
 
                 case CommandType.NewGame:
                 {
-                    HandleNewGame(message);
+                    HandleNewGame();
                     break;
                 }
 
                 case CommandType.BeginRetakeSelection:
                 {
-                    HandleBeginSelection(message);
+                    HandleBeginSelection();
                     break;
                 }
 
@@ -165,10 +166,14 @@ namespace ChessApplication.Network
                     HandleChat(message);
                     break;
                 }
+                default:
+                {
+                    throw new InvalidOperationException();
+                }
             }
         }
 
-        private void HandleDisconnect(Message message)
+        private void HandleDisconnect()
         {
             NetworkThreadRunning = false;
         }
@@ -200,17 +205,17 @@ namespace ChessApplication.Network
             OnChangedColors(currentPlayersTurn, opponentsTurn);
         }
 
-        private void HandleRequestNewGame(Message message)
+        private void HandleRequestNewGame()
         {
             OnRequestedNewGame();
         }
 
-        private void HandleNewGame(Message message)
+        private void HandleNewGame()
         {
             OnIssuedNewGame();
         }
 
-        private void HandleBeginSelection(Message message)
+        private void HandleBeginSelection()
         {
             OnBegunRetakeSelection();
         }
@@ -221,25 +226,8 @@ namespace ChessApplication.Network
             var column = Convert.ToInt32(message.Arguments[1]);
             var selectionPosition = new Position(row, column);
 
-            var retakenPieceColor = message.Arguments[2][0] == Abbreviations.White ? PieceColor.White : PieceColor.Black;
-            var retakenPieceType = message.Arguments[3][0];
-
-            var chessPieceType = typeof(ChessPiece);
-            switch (retakenPieceType)
-            {
-                case Abbreviations.Rook:
-                    chessPieceType = typeof(Rook);
-                    break;
-                case Abbreviations.Knight:
-                    chessPieceType = typeof(Knight);
-                    break;
-                case Abbreviations.Bishop:
-                    chessPieceType = typeof(Bishop);
-                    break;
-                case Abbreviations.Queen:
-                    chessPieceType = typeof(Queen);
-                    break;
-            }
+            var retakenPieceColor = ChessPieceInfoProvider.GetPieceColorFromString(message.Arguments[2]);
+            var chessPieceType = ChessPieceInfoProvider.GetChessPieceTypeFromString(message.Arguments[3]);
 
             OnMadeRetakeSelection(selectionPosition, chessPieceType, retakenPieceColor);
         }

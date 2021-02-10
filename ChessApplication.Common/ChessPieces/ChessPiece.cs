@@ -26,8 +26,6 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        public abstract string Abbreviation { get; }
-
         [ExcludeFromCodeCoverage]
         public Image ImageSmall { get; protected set; }
 

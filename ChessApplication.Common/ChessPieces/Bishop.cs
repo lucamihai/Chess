@@ -12,18 +12,6 @@ namespace ChessApplication.Common.ChessPieces
             Image = Color == PieceColor.White ? Properties.Resources.WhiteBishop : Properties.Resources.BlackBishop;
         }
 
-        public override string Abbreviation
-        {
-            get
-            {
-                var abbreviation = string.Empty;
-                abbreviation += Abbreviations.Bishop;
-                abbreviation += Color == PieceColor.White ? Abbreviations.White : Abbreviations.Black;
-
-                return abbreviation;
-            }
-        }
-
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
         {
             AccessibleBoxesUtil.MarkAccessibleBoxesForSouthWest(chessBoard, position);

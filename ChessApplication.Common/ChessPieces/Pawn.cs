@@ -12,18 +12,6 @@ namespace ChessApplication.Common.ChessPieces
             Image = pieceColor == PieceColor.White ? Properties.Resources.WhitePawn : Properties.Resources.BlackPawn;
         }
 
-        public override string Abbreviation
-        {
-            get
-            {
-                var abbreviation = string.Empty;
-                abbreviation += Abbreviations.Pawn;
-                abbreviation += Color == PieceColor.White ? Abbreviations.White : Abbreviations.Black;
-
-                return abbreviation;
-            }
-        }
-
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
         {
             var row = position.Row;

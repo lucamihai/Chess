@@ -44,10 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chessboards\ChessboardClassic.cs" />
-    <Compile Include="ChessPieces\Abbreviations.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
     <Compile Include="ChessPieces\Helpers\AccessibleBoxesUtil.cs" />
+    <Compile Include="ChessPieces\Helpers\ChessPieceInfoProvider.cs" />
     <Compile Include="ChessPieces\King.cs" />
     <Compile Include="ChessPieces\Knight.cs" />
     <Compile Include="ChessPieces\Pawn.cs" />
