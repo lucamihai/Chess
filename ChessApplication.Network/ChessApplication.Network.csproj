@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandStrings.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entities\CommandType.cs" />
     <Compile Include="Entities\Message.cs" />

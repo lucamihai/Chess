@@ -20,7 +20,7 @@ namespace ChessApplication.Network
 
         public delegate void MadeMove(Position origin, Position destination);
         public delegate void ChangedUsername(string username);
-        public delegate void ChangedColors(Turn currentPlayersTurn, Turn opponentsTurn);
+        public delegate void ChangedColor(Turn opponentsTurn);
         public delegate void RequestedNewGame();
         public delegate void IssuedNewGame();
         public delegate void BegunRetakeSelection();
@@ -30,7 +30,7 @@ namespace ChessApplication.Network
 
         public MadeMove OnMadeMove { get; set; }
         public ChangedUsername OnChangedUsername { get; set; }
-        public ChangedColors OnChangedColors { get; set; }
+        public ChangedColor OnChangedColor { get; set; }
         public RequestedNewGame OnRequestedNewGame { get; set; }
         public IssuedNewGame OnIssuedNewGame { get; set; }
         public BegunRetakeSelection OnBegunRetakeSelection { get; set; }
@@ -44,10 +44,9 @@ namespace ChessApplication.Network
             SendMessage(message);
         }
 
-        [Obsolete("Method signature left for compatibility. Will be changed.")]
-        public void ChangeColors(string colorsString1, string colorsString2)
+        public void ChangeColor(Turn color)
         {
-            var message = new Message(CommandType.ColorsChange, colorsString1, colorsString2);
+            var message = new Message(CommandType.ColorChange, color.ToString());
             SendMessage(message);
         }
 
@@ -131,7 +130,7 @@ namespace ChessApplication.Network
                     break;
                 }
 
-                case CommandType.ColorsChange:
+                case CommandType.ColorChange:
                 {
                     HandleColorsChange(message);
                     break;
@@ -199,10 +198,9 @@ namespace ChessApplication.Network
 
         private void HandleColorsChange(Message message)
         {
-            var currentPlayersTurn = (Turn)Convert.ToInt32(message.Arguments[0]);
-            var opponentsTurn = (Turn)Convert.ToInt32(message.Arguments[1]);
+            var opponentChosenColor = ChessPieceInfoProvider.GetColorFromString(message.Arguments[0]);
 
-            OnChangedColors(currentPlayersTurn, opponentsTurn);
+            OnChangedColor(opponentChosenColor);
         }
 
         private void HandleRequestNewGame()

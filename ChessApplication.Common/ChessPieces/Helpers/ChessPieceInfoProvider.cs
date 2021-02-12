@@ -36,5 +36,12 @@ namespace ChessApplication.Common.ChessPieces.Helpers
                 ? pieceColor
                 : PieceColor.Undefined;
         }
+
+        public static Turn GetColorFromString(string value)
+        {
+            return Enum.TryParse<Turn>(value, out var pieceColor)
+                ? pieceColor
+                : Turn.Undefined;
+        }
     }
 }

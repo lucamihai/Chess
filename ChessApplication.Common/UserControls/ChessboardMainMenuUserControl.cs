@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
+using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Common.UserControls
 {
@@ -11,7 +12,7 @@ namespace ChessApplication.Common.UserControls
         public delegate void StartGame();
         public StartGame OnStartGame { get; set; }
 
-        public delegate void OptionsChanged(string username, string colorsString);
+        public delegate void OptionsChanged(string username, Turn color);
         public OptionsChanged OnOptionsChanged { get; set; }
 
         public ChessboardMainMenuUserControl()
@@ -52,12 +53,12 @@ namespace ChessApplication.Common.UserControls
                 Controls.Remove(optionsUserControl);
             };
 
-            optionsUserControl.OnConfirm += (username, colorsString) =>
+            optionsUserControl.OnConfirm += (username, color) =>
             {
                 optionsUserControl.Hide();
                 Controls.Remove(optionsUserControl);
 
-                OnOptionsChanged(username, colorsString);
+                OnOptionsChanged(username, color);
             };
 
             return optionsUserControl;

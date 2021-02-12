@@ -6,12 +6,11 @@
         Disconnect,
         Move,
         UsernameChange,
-        ColorsChange,
+        ColorChange,
         RequestNewGame,
         NewGame,
         BeginRetakeSelection,
         RetakeSelection,
-        Chat,
-
+        Chat
     }
 }

@@ -34,7 +34,7 @@ namespace ChessApplication.Network.Entities
                 return new Message();
             }
 
-            if (messageString[0] != '#')
+            if (messageString[0] != Constants.CommandMarker)
             {
                 return new Message();
             }

@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
+using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Common.UserControls
 {
@@ -10,7 +11,7 @@ namespace ChessApplication.Common.UserControls
     {
         private readonly char[] forbiddenUsernameCharacters = { '#', '!', ':' };
 
-        public delegate void Confirm(string username, string colorsString);
+        public delegate void Confirm(string username, Turn color);
         public Confirm OnConfirm { get; set; }
 
         public delegate void Cancel();
@@ -29,9 +30,9 @@ namespace ChessApplication.Common.UserControls
 
             if (IsUsernameValid(enteredUsername))
             {
-                var colorsString = radioButtonWhite.Checked ? "1 2" : "2 1";
+                var color = radioButtonWhite.Checked ? Turn.White : Turn.Black;
 
-                OnConfirm(enteredUsername, colorsString);
+                OnConfirm(enteredUsername, color);
             }
         }
 

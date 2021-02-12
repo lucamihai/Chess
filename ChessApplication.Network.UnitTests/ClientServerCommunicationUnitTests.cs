@@ -10,7 +10,7 @@ namespace ChessApplication.Network.UnitTests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class ServerClientCommunicationUnitTests
+    public class ClientServerCommunicationUnitTests
     {
         private NetworkManagerServer server;
         private NetworkManagerClient client;
@@ -23,12 +23,12 @@ namespace ChessApplication.Network.UnitTests
         }
 
         [TestMethod]
-        public void TestThatNotifyOfMoveTriggersClientOnMadeMove()
+        public void TestThatNotifyOfMoveTriggersServerOnMadeMove()
         {
             var received = false;
             var receivedOrigin = new Position();
             var receivedDestination = new Position();
-            client.OnMadeMove += (origin, destination) =>
+            server.OnMadeMove += (origin, destination) =>
             {
                 received = true;
                 receivedOrigin = origin;
@@ -37,7 +37,7 @@ namespace ChessApplication.Network.UnitTests
 
             var originToSend = new Position(2, 3);
             var destinationToSend = new Position(3, 3);
-            server.NotifyOfMove(originToSend, destinationToSend);
+            client.NotifyOfMove(originToSend, destinationToSend);
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
@@ -46,18 +46,18 @@ namespace ChessApplication.Network.UnitTests
         }
 
         [TestMethod]
-        public void TestThatChangeUsernameTriggersClientOnChangedUsername()
+        public void TestThatChangeUsernameTriggersServerOnChangedUsername()
         {
             var received = false;
             var receivedUsername = string.Empty;
-            client.OnChangedUsername += username =>
+            server.OnChangedUsername += username =>
             {
                 received = true;
                 receivedUsername = username;
             };
 
             const string usernameToSend = "CoolUsername62";
-            server.ChangeUsername(usernameToSend);
+            client.ChangeUsername(usernameToSend);
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
@@ -65,18 +65,18 @@ namespace ChessApplication.Network.UnitTests
         }
 
         [TestMethod]
-        public void TestThatChangeColorsTriggersClientOnChangedColors()
+        public void TestThatChangeColorsTriggersServerOnChangedColors()
         {
             var received = false;
             var receivedColor = Turn.Undefined;
-            client.OnChangedColor += (color) =>
+            server.OnChangedColor += (color) =>
             {
                 received = true;
                 receivedColor = color;
             };
 
             const Turn colorToSend = Turn.Black;
-            server.ChangeColor(colorToSend);
+            client.ChangeColor(colorToSend);
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
@@ -84,49 +84,49 @@ namespace ChessApplication.Network.UnitTests
         }
 
         [TestMethod]
-        public void TestThatRequestNewGameTriggersClientOnRequestedNewGame()
+        public void TestThatRequestNewGameTriggersServerOnRequestedNewGame()
         {
             var received = false;
-            client.OnRequestedNewGame += () => received = true;
+            server.OnRequestedNewGame += () => received = true;
 
-            server.RequestNewGame();
+            client.RequestNewGame();
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
         }
 
         [TestMethod]
-        public void TestThatIssueNewGameTriggersClientOnIssuedNewGame()
+        public void TestThatIssueNewGameTriggersServerOnIssuedNewGame()
         {
             var received = false;
-            client.OnIssuedNewGame += () => received = true;
+            server.OnIssuedNewGame += () => received = true;
 
-            server.IssueNewGame();
+            client.IssueNewGame();
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
         }
 
         [TestMethod]
-        public void TestThatBeginRetakeSelectionTriggersClientOnBegunRetakeSelection()
+        public void TestThatBeginRetakeSelectionTriggersServerOnBegunRetakeSelection()
         {
             var received = false;
-            client.OnBegunRetakeSelection += () => received = true;
+            server.OnBegunRetakeSelection += () => received = true;
 
-            server.BeginRetakeSelection();
+            client.BeginRetakeSelection();
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
         }
 
         [TestMethod]
-        public void TestThatNotifyOfRetakeSelectionTriggersClientOnMadeRetakeSelection()
+        public void TestThatNotifyOfRetakeSelectionTriggersServerOnMadeRetakeSelection()
         {
             var received = false;
             var receivedPosition = new Position();
             Type receivedChessPieceType = null;
             var receivedChessPieceColor = PieceColor.Undefined;
-            client.OnMadeRetakeSelection += (selectionPosition, chessPieceType, chessPieceColor) =>
+            server.OnMadeRetakeSelection += (selectionPosition, chessPieceType, chessPieceColor) =>
             {
                 received = true;
                 receivedPosition = selectionPosition;
@@ -136,7 +136,7 @@ namespace ChessApplication.Network.UnitTests
 
             var selectionPositionToSend = new Position(2, 3);
             var chessPieceToSend = new Rook(PieceColor.Black);
-            server.NotifyOfRetakeSelection(selectionPositionToSend, chessPieceToSend);
+            client.NotifyOfRetakeSelection(selectionPositionToSend, chessPieceToSend);
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);
@@ -146,18 +146,18 @@ namespace ChessApplication.Network.UnitTests
         }
 
         [TestMethod]
-        public void TestThatSendChatMessageTriggersClientOnChatMessage()
+        public void TestThatSendChatMessageTriggersServerOnChatMessage()
         {
             var received = false;
             var receivedChatMessage = string.Empty;
-            client.OnChatMessage += chatMessage =>
+            server.OnChatMessage += chatMessage =>
             {
                 received = true;
                 receivedChatMessage = chatMessage;
             };
 
             const string chatMessageToSend = "Hello world";
-            server.SendChatMessage(chatMessageToSend);
+            client.SendChatMessage(chatMessageToSend);
             Thread.Sleep(1000);
 
             Assert.IsTrue(received);

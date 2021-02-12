@@ -91,11 +91,11 @@ namespace ChessApplication.GUI
                 networkManager = new NetworkManagerClient(hostname);
             }
 
-            networkManager.OnChangedColors += (currentPlayersTurn, opponentsTurn) =>
+            networkManager.OnChangedColor += (opponentsTurn) =>
             {
                 var opponentChangedColors = new MethodInvoker(() =>
                 {
-                    PlayerTurn = currentPlayersTurn;
+                    PlayerTurn = opponentsTurn == Turn.White ? Turn.Black : Turn.White;
                     OpponentsTurn = opponentsTurn;
                 });
 
@@ -261,23 +261,12 @@ namespace ChessApplication.GUI
             networkManager?.ChangeUsername(username);
         }
 
-        public void SetColorsAndNotifyOpponent(string colorsString)
+        public void SetColorsAndNotifyOpponent(Turn chosenColor)
         {
-            var colors = colorsString.Split(' ');
-            var currentPlayerColor = Convert.ToInt32(colors[0]);
+            PlayerTurn = chosenColor;
+            OpponentsTurn = chosenColor == Turn.White ? Turn.Black : Turn.White;
 
-            if (currentPlayerColor == (int)Turn.White)
-            {
-                PlayerTurn = Turn.White;
-                OpponentsTurn = Turn.Black;
-            }
-            else
-            {
-                PlayerTurn = Turn.Black;
-                OpponentsTurn = Turn.White;
-            }
-
-            networkManager?.ChangeColors(colors[1], colors[0]);
+            networkManager?.ChangeColor(chosenColor);
         }
 
         public void RequestNewGame()

@@ -48,10 +48,10 @@ namespace ChessApplication.GUI.Forms
                 AutoSizeMode = AutoSizeMode.GrowAndShrink
             };
 
-            mainMenu.OnOptionsChanged += (username, colorsString) =>
+            mainMenu.OnOptionsChanged += (username, chosenColor) =>
             {
                 chessboardUserControl.SetUsernameAndNotifyOpponent(username);
-                chessboardUserControl.SetColorsAndNotifyOpponent(colorsString);
+                chessboardUserControl.SetColorsAndNotifyOpponent(chosenColor);
 
                 chatBox.Username = username;
 
