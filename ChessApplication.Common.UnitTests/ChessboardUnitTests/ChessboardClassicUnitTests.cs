@@ -20,16 +20,17 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         }
 
         [TestMethod]
-        public void BoxesHaveCorrectNamesSet()
+        public void BoxesHaveCorrectPositionsSet()
         {
             for (int row = 1; row < 9; row++)
             {
                 for (int column = 1; column < 9; column++)
                 {
-                    var rowLetter = (char)('A' + row - 1);
-                    var expectedName = $"{rowLetter}{column}";
+                    var actualRow = chessboard[row, column].Position.Row;
+                    var actualColumn = chessboard[row, column].Position.Column;
 
-                    Assert.AreEqual(expectedName, chessboard[row, column].BoxName);
+                    Assert.AreEqual(row, chessboard[row, column].Position.Row);
+                    Assert.AreEqual(column, chessboard[row, column].Position.Column);
                 }
             }
         }
@@ -140,14 +141,6 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
                     Assert.IsFalse(chessboard[row, column].Available);
                 }
             }
-        }
-
-        [TestMethod]
-        public void ResetBoxesColorsMakesBoxesHaveTheCorrectColors()
-        {
-            chessboard.ResetChessBoardBoxesColors();
-
-            Assert.IsTrue(BoxesHaveTheCorrectColors());
         }
 
         [TestMethod]
@@ -562,32 +555,6 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
                 if (!(currentPiece is Pawn) && currentPiece.Color != PieceColor.Black)
                 {
                     return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool BoxesHaveTheCorrectColors()
-        {
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
-                    {
-                        if (chessboard[row, column].BoxBackgroundColor != Constants.BoxColorDark)
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (chessboard[row, column].BoxBackgroundColor != Constants.BoxColorLight)
-                        {
-                            return false;
-                        }
-                    }
                 }
             }
 

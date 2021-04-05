@@ -24,7 +24,7 @@ namespace ChessApplication.Network
         public delegate void RequestedNewGame();
         public delegate void IssuedNewGame();
         public delegate void BegunRetakeSelection();
-        public delegate void MadeRetakeSelection(Position selectionPosition, Type chessPieceType, PieceColor chessPieceColor);
+        public delegate void MadeRetakeSelection(Position selectionPosition, string chessPieceType, string chessPieceColor);
         public delegate void ChatMessage(string message);
         public delegate void Notification(string notificationMessage);
 
@@ -82,8 +82,8 @@ namespace ChessApplication.Network
         {
             var message = new Message(CommandType.RetakeSelection,
                 position.Row.ToString(), position.Column.ToString(),
-                selectedPiece.Color.ToString(),
-                selectedPiece.GetType().Name);
+                selectedPiece.GetType().Name,
+                selectedPiece.Color.ToString());
 
             SendMessage(message);
         }
@@ -224,10 +224,7 @@ namespace ChessApplication.Network
             var column = Convert.ToInt32(message.Arguments[1]);
             var selectionPosition = new Position(row, column);
 
-            var retakenPieceColor = ChessPieceInfoProvider.GetPieceColorFromString(message.Arguments[2]);
-            var chessPieceType = ChessPieceInfoProvider.GetChessPieceTypeFromString(message.Arguments[3]);
-
-            OnMadeRetakeSelection(selectionPosition, chessPieceType, retakenPieceColor);
+            OnMadeRetakeSelection(selectionPosition, message.Arguments[2], message.Arguments[3]);
         }
 
         private void HandleChat(Message message)

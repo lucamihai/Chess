@@ -2,7 +2,6 @@
 using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.UserControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestsUtilities;
 
@@ -147,7 +146,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceDecrementCapturedPieceBoxCount()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Bishop(PieceColor.White)) {Count = 2};
             var countBeforeRetaking = capturedPieceBox.Count;
 
@@ -160,7 +159,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewWhiteRookForBoxIfCapturedPieceBoxHasWhiteRook()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Rook(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -171,7 +170,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewWhiteKnightForBoxIfCapturedPieceBoxHasWhiteKnight()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Knight(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -182,7 +181,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewWhiteBishopForBoxIfCapturedPieceBoxHasWhiteBishop()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Bishop(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -193,7 +192,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewWhiteQueenForBoxIfCapturedPieceBoxHasWhiteQueen()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Queen(PieceColor.White)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -204,7 +203,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewBlackRookForBoxIfCapturedPieceBoxHasBlackRook()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Rook(PieceColor.Black)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -215,7 +214,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewBlackKnightForBoxIfCapturedPieceBoxHasBlackKnight()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Knight(PieceColor.Black)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -226,7 +225,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewBlackBishopForBoxIfCapturedPieceBoxHasBlackBishop()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Bishop(PieceColor.Black)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);
@@ -237,7 +236,7 @@ namespace ChessApplication.Common.UnitTests
         [TestMethod]
         public void RetakeCapturedPieceCreatesNewBlackQueenForBoxIfCapturedPieceBoxHasBlackQueen()
         {
-            var box = new Box("H1");
+            var box = new Box(new Position());
             var capturedPieceBox = new CapturedPieceBox(new Queen(PieceColor.Black)) { Count = 2 };
 
             Utilities.RetakeCapturedPiece(capturedPieceBox, box);

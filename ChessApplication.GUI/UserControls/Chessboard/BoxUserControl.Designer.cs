@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.Common.UserControls
+namespace ChessApplication.GUI.UserControls.Chessboard
 {
-    partial class Box
+    partial class BoxUserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -50,7 +50,7 @@ namespace ChessApplication.Common.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pictureBoxPiece);
-            this.Name = "Box";
+            this.Name = "BoxUserControl";
             this.Size = new System.Drawing.Size(64, 64);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPiece)).EndInit();
             this.ResumeLayout(false);

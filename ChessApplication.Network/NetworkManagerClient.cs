@@ -11,7 +11,7 @@ namespace ChessApplication.Network
 
         public NetworkManagerClient(string hostname)
         {
-            TcpClient = new TcpClient(hostname, Constants.PortNumber);
+            TcpClient = new TcpClient(hostname, Constants.DefaultPortNumber);
 
             NetworkStream = TcpClient.GetStream();
 

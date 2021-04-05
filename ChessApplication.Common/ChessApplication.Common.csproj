@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Box.cs" />
+    <Compile Include="CapturedPieceBox.cs" />
+    <Compile Include="CapturedPieceCollection.cs" />
     <Compile Include="Chessboards\ChessboardClassic.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
@@ -53,7 +56,6 @@
     <Compile Include="ChessPieces\Pawn.cs" />
     <Compile Include="ChessPieces\Queen.cs" />
     <Compile Include="ChessPieces\Rook.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Enums\ChessboardType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Enums\Turn.cs" />
@@ -64,18 +66,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Box.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\Box.Designer.cs">
-      <DependentUpon>Box.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CapturedPieceBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\CapturedPieceBox.Designer.cs">
-      <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ChessboardMainMenuUserControl.cs">
       <SubType>UserControl</SubType>
@@ -141,12 +131,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Box.resx">
-      <DependentUpon>Box.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CapturedPieceBox.resx">
-      <DependentUpon>CapturedPieceBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ChessboardMainMenuUserControl.resx">
       <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>

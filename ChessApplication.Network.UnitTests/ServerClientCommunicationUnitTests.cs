@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using ChessApplication.Common;
@@ -124,8 +123,8 @@ namespace ChessApplication.Network.UnitTests
         {
             var received = false;
             var receivedPosition = new Position();
-            Type receivedChessPieceType = null;
-            var receivedChessPieceColor = PieceColor.Undefined;
+            var receivedChessPieceType = "Rook";
+            var receivedChessPieceColor = "Undefined";
             client.OnMadeRetakeSelection += (selectionPosition, chessPieceType, chessPieceColor) =>
             {
                 received = true;
@@ -141,8 +140,8 @@ namespace ChessApplication.Network.UnitTests
 
             Assert.IsTrue(received);
             Assert.AreEqual(selectionPositionToSend, receivedPosition);
-            Assert.AreEqual(chessPieceToSend.GetType(), receivedChessPieceType);
-            Assert.AreEqual(chessPieceToSend.Color, receivedChessPieceColor);
+            Assert.AreEqual(chessPieceToSend.GetType().Name, receivedChessPieceType);
+            Assert.AreEqual(chessPieceToSend.Color.ToString(), receivedChessPieceColor);
         }
 
         [TestMethod]

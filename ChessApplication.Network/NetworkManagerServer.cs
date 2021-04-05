@@ -14,7 +14,7 @@ namespace ChessApplication.Network
         {
             try
             {
-                ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, Constants.PortNumber);
+                ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, Constants.DefaultPortNumber);
                 ServerTcpListener.Start();
             }
 

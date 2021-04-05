@@ -6,6 +6,12 @@ namespace ChessApplication.Common.ChessPieces
 {
     public class Bishop : ChessPiece
     {
+        public Bishop()
+        {
+            Color = PieceColor.Undefined;
+            Image = Color == PieceColor.White ? Properties.Resources.WhiteBishop : Properties.Resources.BlackBishop;
+        }
+
         public Bishop(PieceColor pieceColor)
         {
             Color = pieceColor;

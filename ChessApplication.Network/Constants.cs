@@ -5,7 +5,7 @@ namespace ChessApplication.Network
     [ExcludeFromCodeCoverage]
     public static class Constants
     {
-        public const int PortNumber = 3000;
-        public const char CommandMarker = '#';
+        public static readonly int DefaultPortNumber = 3000;
+        public static readonly char CommandMarker = '#';
     }
 }

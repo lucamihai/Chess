@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.Common.UserControls
+namespace ChessApplication.GUI.UserControls.Chessboard
 {
-    partial class CapturedPieceBox
+    partial class CapturedPieceBoxUserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -65,7 +65,7 @@ namespace ChessApplication.Common.UserControls
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.pictureBoxPiece);
-            this.Name = "CapturedPieceBox";
+            this.Name = "CapturedPieceBoxUserControl";
             this.Size = new System.Drawing.Size(64, 88);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPiece)).EndInit();
             this.ResumeLayout(false);

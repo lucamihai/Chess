@@ -2,7 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
-using ChessApplication.Common.UserControls;
+using ChessApplication.Common;
+using ChessApplication.GUI.UserControls.Chessboard;
 
 namespace ChessApplication.GUI.History
 {
@@ -27,20 +28,28 @@ namespace ChessApplication.GUI.History
             private set => labelDestinationName.Text = value;
         }
 
-        public HistoryEntryUserControl(int entryNumber, Box origin, Box destination)
+        public HistoryEntryUserControl(int entryNumber, BoxUserControl origin, BoxUserControl destination)
         {
             InitializeComponent();
 
             EntryNumber = entryNumber;
 
-            OriginName = origin.BoxName;
-            DestinationName = destination.BoxName;
+            OriginName = GenerateNameForPosition(origin.Position);
+            DestinationName = GenerateNameForPosition(destination.Position);
 
-            pictureBoxOriginPiece.Image = origin.Piece.ImageSmall;
+            pictureBoxOriginPiece.Image = (origin.Piece != null) ? origin.Piece.ImageSmall : new Bitmap(32, 32);
             pictureBoxOriginPiece.BackColor = origin.BoxBackgroundColor;
 
             pictureBoxDestinationPiece.Image = (destination.Piece != null) ? destination.Piece.ImageSmall : new Bitmap(32, 32);
             pictureBoxDestinationPiece.BackColor = destination.BoxBackgroundColor;
+        }
+
+        private static string GenerateNameForPosition(Position position)
+        {
+            var firstChar = (char)('A' + position.Row - 1);
+            var secondChar = position.Column.ToString();
+
+            return $"{firstChar}{secondChar}";
         }
     }
 }

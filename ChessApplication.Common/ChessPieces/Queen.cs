@@ -6,10 +6,16 @@ namespace ChessApplication.Common.ChessPieces
 {
     public class Queen : ChessPiece
     {
+        public Queen()
+        {
+            Color = PieceColor.Undefined;
+            Image = Color == PieceColor.White ? Properties.Resources.WhiteQueen : Properties.Resources.BlackQueen;
+        }
+
         public Queen(PieceColor pieceColor)
         {
             Color = pieceColor;
-            Image = pieceColor == PieceColor.White ? Properties.Resources.WhiteQueen : Properties.Resources.BlackQueen;
+            Image = Color == PieceColor.White ? Properties.Resources.WhiteQueen : Properties.Resources.BlackQueen;
         }
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)

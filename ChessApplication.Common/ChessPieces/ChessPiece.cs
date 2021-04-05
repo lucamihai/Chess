@@ -7,7 +7,7 @@ namespace ChessApplication.Common.ChessPieces
 {
     public abstract class ChessPiece
     {
-        public PieceColor Color { get; protected set; }
+        public PieceColor Color { get; set; }
 
         public bool CanMove { get; set; } = false;
 
@@ -30,7 +30,6 @@ namespace ChessApplication.Common.ChessPieces
         public Image ImageSmall { get; protected set; }
 
         public abstract void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position);
-
     }
 }
 

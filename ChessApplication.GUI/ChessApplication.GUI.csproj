@@ -89,6 +89,18 @@
     <Compile Include="PromptIpAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
+    <Compile Include="UserControls\Chessboard\BoxUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Chessboard\BoxUserControl.Designer.cs">
+      <DependentUpon>BoxUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Chessboard\CapturedPieceBoxUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Chessboard\CapturedPieceBoxUserControl.Designer.cs">
+      <DependentUpon>CapturedPieceBoxUserControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Chat\ChatBoxUserControl.resx">
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -117,6 +129,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\Chessboard\BoxUserControl.resx">
+      <DependentUpon>BoxUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Chessboard\CapturedPieceBoxUserControl.resx">
+      <DependentUpon>CapturedPieceBoxUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -146,6 +164,8 @@
       <Name>ChessApplication.Network</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\boxborder.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

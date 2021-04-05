@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
-using ChessApplication.Common.UserControls;
+using ChessApplication.GUI.UserControls.Chessboard;
 
 namespace ChessApplication.GUI.History
 {
@@ -17,7 +17,8 @@ namespace ChessApplication.GUI.History
             panelHistoryEntries.AutoScroll = true;
         }
 
-        public void AddEntry(Box origin, Box destination)
+        // TODO: See if this could be made fire and forget
+        public void AddEntry(BoxUserControl origin, BoxUserControl destination)
         {
             ScrollToTopOfPanel();
 
