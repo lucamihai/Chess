@@ -7,6 +7,7 @@ using ChessApplication.Common.ChessPieces;
 
 namespace ChessApplication.GUI.UserControls.Chessboard
 {
+    [ExcludeFromCodeCoverage]
     public partial class BoxUserControl : UserControl
     {
         public Box Box { get; set; }
@@ -51,7 +52,6 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             pictureBoxPiece.Image = Box.Piece?.Image;
         }
 
-        [ExcludeFromCodeCoverage]
         private void pictureBoxPiece_Click(object sender, EventArgs e)
         {
             this.OnClick(EventArgs.Empty);
