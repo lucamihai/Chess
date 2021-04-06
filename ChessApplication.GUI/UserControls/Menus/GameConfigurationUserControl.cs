@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
+using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 
-namespace ChessApplication.Common.UserControls
+namespace ChessApplication.GUI.UserControls.Menus
 {
     [ExcludeFromCodeCoverage]
     public partial class GameConfigurationUserControl : UserControl

@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.UserControls;
+using ChessApplication.GUI.UserControls.Menus;
 
 namespace ChessApplication.GUI.Forms
 {

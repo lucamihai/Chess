@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ChessApplication.Common.Enums;
 
-namespace ChessApplication.Common.UserControls
+namespace ChessApplication.GUI.UserControls.Menus
 {
     [ExcludeFromCodeCoverage]
     public partial class ChessboardOptionsUserControl : UserControl

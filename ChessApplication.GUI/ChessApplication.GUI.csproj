@@ -102,6 +102,24 @@
     <Compile Include="UserControls\Chessboard\CapturedPieceBoxUserControl.Designer.cs">
       <DependentUpon>CapturedPieceBoxUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Menus\ChessboardMainMenuUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Menus\ChessboardMainMenuUserControl.Designer.cs">
+      <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Menus\ChessboardOptionsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Menus\ChessboardOptionsUserControl.Designer.cs">
+      <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Menus\GameConfigurationUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Menus\GameConfigurationUserControl.Designer.cs">
+      <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Chat\ChatBoxUserControl.resx">
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +153,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Chessboard\CapturedPieceBoxUserControl.resx">
       <DependentUpon>CapturedPieceBoxUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Menus\ChessboardMainMenuUserControl.resx">
+      <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Menus\ChessboardOptionsUserControl.resx">
+      <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Menus\GameConfigurationUserControl.resx">
+      <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -204,5 +231,6 @@
   <ItemGroup>
     <None Include="Resources\whiterook.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

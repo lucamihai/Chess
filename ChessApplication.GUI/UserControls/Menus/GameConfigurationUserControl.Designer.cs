@@ -1,4 +1,4 @@
-﻿namespace ChessApplication.Common.UserControls
+﻿namespace ChessApplication.GUI.UserControls.Menus
 {
     partial class GameConfigurationUserControl
     {
