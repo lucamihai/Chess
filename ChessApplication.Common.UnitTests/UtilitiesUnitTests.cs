@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -243,21 +242,5 @@ namespace ChessApplication.Common.UnitTests
 
             Assert.IsTrue(Utilities.LocationContainsPiece<Queen>(box, capturedPieceBox.ChessPiece.Color));
         }
-
-        [TestMethod]
-        public void ResizeImageReturnsImageWithDesiredSize()
-        {
-            var originalWidth = 100;
-            var originalHeight = 100;
-            var imageBeforeResizing = new Bitmap(originalWidth, originalHeight);
-
-            var desiredWidth = 75;
-            var desiredHeight = 75;
-            var imageAfterResizing = Utilities.ResizeImage(imageBeforeResizing, desiredWidth, desiredHeight);
-
-            Assert.AreEqual(desiredWidth, imageAfterResizing.Width);
-            Assert.AreEqual(desiredHeight, imageAfterResizing.Height);
-        }
-
     }
 }

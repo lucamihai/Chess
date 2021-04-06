@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace ChessApplication.Network
 {
@@ -18,9 +17,8 @@ namespace ChessApplication.Network
                 ServerTcpListener.Start();
             }
 
-            catch (Exception exception)
+            catch (Exception)
             {
-                MessageBox.Show(exception.Message);
                 Environment.Exit(0);
             }
 
@@ -40,9 +38,9 @@ namespace ChessApplication.Network
                 ServerTcpListener.Stop();
             }
 
-            catch (Exception exception)
+            catch (Exception)
             {
-                Application.Exit();
+                Environment.Exit(0);
             }
         }
 
