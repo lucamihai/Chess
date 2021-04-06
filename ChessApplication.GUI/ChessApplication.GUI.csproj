@@ -52,7 +52,7 @@
     <Compile Include="Chat\ChatBoxUserControl.Designer.cs">
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chat\Strings.cs" />
+    <Compile Include="Chat\Constants.cs" />
     <Compile Include="ChessboardUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
