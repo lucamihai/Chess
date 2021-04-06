@@ -10,7 +10,7 @@ namespace ChessApplication.Common.Interfaces
         Position PositionWhiteKing { get; set; }
         Position PositionBlackKing { get; set; }
         CapturedPieceCollection CapturedPieceCollection { get; set; }
-        Turn CurrentTurn { get; }
+        PieceColor CurrentTurn { get; }
         bool BeginnersMode { get; set; }
         bool RetakingIsActive { get; }
         Position RetakingPosition { get; }

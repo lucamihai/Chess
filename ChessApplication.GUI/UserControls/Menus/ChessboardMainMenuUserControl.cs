@@ -12,7 +12,7 @@ namespace ChessApplication.GUI.UserControls.Menus
         public delegate void StartGame();
         public StartGame OnStartGame { get; set; }
 
-        public delegate void OptionsChanged(string username, Turn color);
+        public delegate void OptionsChanged(string username, PieceColor color);
         public OptionsChanged OnOptionsChanged { get; set; }
 
         public ChessboardMainMenuUserControl()

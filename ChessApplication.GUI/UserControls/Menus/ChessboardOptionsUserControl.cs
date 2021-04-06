@@ -11,7 +11,7 @@ namespace ChessApplication.GUI.UserControls.Menus
     {
         private readonly char[] forbiddenUsernameCharacters = { '#', '!', ':' };
 
-        public delegate void Confirm(string username, Turn color);
+        public delegate void Confirm(string username, PieceColor color);
         public Confirm OnConfirm { get; set; }
 
         public delegate void Cancel();
@@ -30,7 +30,7 @@ namespace ChessApplication.GUI.UserControls.Menus
 
             if (IsUsernameValid(enteredUsername))
             {
-                var color = radioButtonWhite.Checked ? Turn.White : Turn.Black;
+                var color = radioButtonWhite.Checked ? PieceColor.White : PieceColor.Black;
 
                 OnConfirm(enteredUsername, color);
             }

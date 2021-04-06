@@ -20,7 +20,7 @@ namespace ChessApplication.Network
 
         public delegate void MadeMove(Position origin, Position destination);
         public delegate void ChangedUsername(string username);
-        public delegate void ChangedColor(Turn opponentsTurn);
+        public delegate void ChangedColor(PieceColor opponentsTurn);
         public delegate void RequestedNewGame();
         public delegate void IssuedNewGame();
         public delegate void BegunRetakeSelection();
@@ -44,7 +44,7 @@ namespace ChessApplication.Network
             SendMessage(message);
         }
 
-        public void ChangeColor(Turn color)
+        public void ChangeColor(PieceColor color)
         {
             var message = new Message(CommandType.ColorChange, color.ToString());
             SendMessage(message);

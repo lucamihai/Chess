@@ -67,14 +67,14 @@ namespace ChessApplication.Network.UnitTests
         public void TestThatChangeColorsTriggersClientOnChangedColors()
         {
             var received = false;
-            var receivedColor = Turn.Undefined;
+            var receivedColor = PieceColor.Undefined;
             client.OnChangedColor += (color) =>
             {
                 received = true;
                 receivedColor = color;
             };
 
-            const Turn colorToSend = Turn.Black;
+            const PieceColor colorToSend = PieceColor.Black;
             server.ChangeColor(colorToSend);
             Thread.Sleep(1000);
 

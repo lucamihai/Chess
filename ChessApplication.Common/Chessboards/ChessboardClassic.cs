@@ -33,7 +33,7 @@ namespace ChessApplication.Common.Chessboards
         public Position PositionBlackKing { get; set; } = new Position(8, 4);
         public CapturedPieceCollection CapturedPieceCollection { get; set; }
 
-        public Turn CurrentTurn { get; set; } = Turn.White;
+        public PieceColor CurrentTurn { get; set; } = PieceColor.White;
 
         private bool beginnersMode = true;
         public bool BeginnersMode
@@ -150,9 +150,9 @@ namespace ChessApplication.Common.Chessboards
 
         private void NextTurn()
         {
-            CurrentTurn = CurrentTurn == Turn.White
-                ? Turn.Black
-                : Turn.White;
+            CurrentTurn = CurrentTurn == PieceColor.White
+                ? PieceColor.Black
+                : PieceColor.White;
 
             SetChessBoardBoxesAsUnavailable();
         }

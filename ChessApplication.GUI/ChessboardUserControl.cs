@@ -34,8 +34,8 @@ namespace ChessApplication.GUI
         private CapturedPieceBoxUserControl capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
         private CapturedPieceBoxUserControl capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
         
-        private Turn PlayerTurn { get; set; } = Turn.White;
-        private Turn OpponentsTurn { get; set; } = Turn.Black;
+        private PieceColor PlayerTurn { get; set; } = PieceColor.White;
+        private PieceColor OpponentsTurn { get; set; } = PieceColor.Black;
 
         public string PlayerUsername { get; private set; }
         private string usernameOpponent;
@@ -92,7 +92,7 @@ namespace ChessApplication.GUI
             {
                 var opponentChangedColors = new MethodInvoker(() =>
                 {
-                    PlayerTurn = opponentsTurn == Turn.White ? Turn.Black : Turn.White;
+                    PlayerTurn = opponentsTurn == PieceColor.White ? PieceColor.Black : PieceColor.White;
                     OpponentsTurn = opponentsTurn;
                 });
 
@@ -202,13 +202,13 @@ namespace ChessApplication.GUI
         {
             if (userType == UserType.Client)
             {
-                PlayerTurn = Turn.Black;
-                OpponentsTurn = Turn.White;
+                PlayerTurn = PieceColor.Black;
+                OpponentsTurn = PieceColor.White;
             }
             else
             {
-                PlayerTurn = Turn.White;
-                OpponentsTurn = Turn.Black;
+                PlayerTurn = PieceColor.White;
+                OpponentsTurn = PieceColor.Black;
             }
         }
 
@@ -218,10 +218,10 @@ namespace ChessApplication.GUI
             networkManager?.ChangeUsername(username);
         }
 
-        public void SetColorsAndNotifyOpponent(Turn chosenColor)
+        public void SetColorsAndNotifyOpponent(PieceColor chosenColor)
         {
             PlayerTurn = chosenColor;
-            OpponentsTurn = chosenColor == Turn.White ? Turn.Black : Turn.White;
+            OpponentsTurn = chosenColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
 
             networkManager?.ChangeColor(chosenColor);
         }
@@ -267,9 +267,9 @@ namespace ChessApplication.GUI
             AssignClickEventToBoxes();
             UpdateCapturedPiecesCounter();
 
-            PlayerTurn = OpponentsTurn == Turn.Black
-                ? Turn.White
-                : Turn.Black;
+            PlayerTurn = OpponentsTurn == PieceColor.Black
+                ? PieceColor.White
+                : PieceColor.Black;
         }
 
         private void InitializeChessBoard()
@@ -477,7 +477,7 @@ namespace ChessApplication.GUI
             RedrawChessboardBoxes();
             UpdateCapturedPiecesCounter();
 
-            labelTurn.Text = ChessBoard.CurrentTurn == Turn.White
+            labelTurn.Text = ChessBoard.CurrentTurn == PieceColor.White
                 ? Strings.WhitesTurn
                 : Strings.BlacksTurn;
         }
@@ -499,7 +499,7 @@ namespace ChessApplication.GUI
             // TODO: Clean if-else bodies
             if (FirstClickedBox == null && clickedBox.Piece != null)
             {
-                if ((int)PlayerTurn == (int)clickedBox.Piece.Color)
+                if (PlayerTurn == clickedBox.Piece.Color)
                 {
                     var boxPosition = clickedBox.Position;
 

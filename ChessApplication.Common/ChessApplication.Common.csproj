@@ -56,7 +56,6 @@
     <Compile Include="ChessPieces\Rook.cs" />
     <Compile Include="Enums\ChessboardType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
-    <Compile Include="Enums\Turn.cs" />
     <Compile Include="Interfaces\IChessboard.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
