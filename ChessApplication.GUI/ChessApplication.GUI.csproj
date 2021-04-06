@@ -85,7 +85,7 @@
     <Compile Include="Notifications\NotificationsUserControl.Designer.cs">
       <DependentUpon>NotificationsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notifications\Strings.cs" />
+    <Compile Include="Notifications\Constants.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PromptIpAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

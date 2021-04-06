@@ -7,25 +7,20 @@ namespace ChessApplication.GUI.Notifications
     [ExcludeFromCodeCoverage]
     public partial class NotificationsUserControl : UserControl
     {
-        private readonly string notificationPattern = GUI.Notifications.Strings.NotificationPattern;
-        private readonly string notificationSeparator = GUI.Notifications.Strings.NotificationSeparator;
+        private readonly string notificationSeparator = Constants.NotificationTextSeparator;
 
         public NotificationsUserControl()
         {
             InitializeComponent();
 
-            labelNotifications.Text = GUI.Notifications.Strings.Notifications;
+            labelNotifications.Text = Constants.NotificationsLabelText;
         }
 
-        public void AddNotification(string notificationMessage, DateTime? notificationTime = null)
+        public void AddNotification(string notificationMessage)
         {
-            var currentTime = notificationTime == null
-                ? DateTime.Now.ToString("h:mm:ss tt")
-                : notificationTime.Value.ToString("h:mm:ss tt");
-
-            var notification = string.Format(notificationPattern, currentTime, notificationMessage,
-                notificationSeparator);
-            textBoxNotifications.Text += notification;
+            var currentTime = DateTime.Now.ToString("h:mm:ss tt");
+            var notificationText = $"{currentTime} -> {notificationMessage}{notificationSeparator}";
+            textBoxNotifications.Text += notificationText;
         }
 
         public void ClearNotifications()
