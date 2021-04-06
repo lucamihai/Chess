@@ -8,7 +8,6 @@ namespace ChessApplication.Common.ChessPieces
         public King(PieceColor pieceColor)
         {
             Color = pieceColor;
-            Image = Color == PieceColor.White ? Properties.Resources.WhiteKing : Properties.Resources.BlackKing;
         }
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)

@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common;
+using ChessApplication.GUI.Helpers;
 using ChessApplication.GUI.UserControls.Chessboard;
 
 namespace ChessApplication.GUI.History
@@ -36,11 +37,11 @@ namespace ChessApplication.GUI.History
 
             OriginName = GenerateNameForPosition(origin.Position);
             DestinationName = GenerateNameForPosition(destination.Position);
-
-            pictureBoxOriginPiece.Image = (origin.Piece != null) ? origin.Piece.ImageSmall : new Bitmap(32, 32);
+            
+            pictureBoxOriginPiece.Image = ChessPieceImageProvider.GetImageForChessPiece(origin.Piece, new Size(32, 32));
             pictureBoxOriginPiece.BackColor = origin.BoxBackgroundColor;
-
-            pictureBoxDestinationPiece.Image = (destination.Piece != null) ? destination.Piece.ImageSmall : new Bitmap(32, 32);
+            
+            pictureBoxDestinationPiece.Image = ChessPieceImageProvider.GetImageForChessPiece(destination.Piece, new Size(32, 32));
             pictureBoxDestinationPiece.BackColor = destination.BoxBackgroundColor;
         }
 

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
+using ChessApplication.GUI.Helpers;
 
 namespace ChessApplication.GUI.UserControls.Chessboard
 {
@@ -49,7 +50,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
         public void Draw()
         {
-            pictureBoxPiece.Image = Box.Piece?.Image;
+            pictureBoxPiece.Image = ChessPieceImageProvider.GetImageForChessPiece(Box.Piece);
         }
 
         private void pictureBoxPiece_Click(object sender, EventArgs e)

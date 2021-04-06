@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using ChessApplication.Common.ChessPieces;
+using ChessApplication.GUI.Helpers;
 
 namespace ChessApplication.GUI.UserControls.Chessboard
 {
@@ -29,7 +30,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             InitializeComponent();
 
             ChessPiece = chessPiece;
-            pictureBoxPiece.Image = chessPiece.Image;
+            pictureBoxPiece.Image = ChessPieceImageProvider.GetImageForChessPiece(chessPiece);
 
             Count = 0;
         }

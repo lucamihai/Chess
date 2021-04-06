@@ -66,6 +66,7 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ChessPieceImageProvider.cs" />
     <Compile Include="History\HistoryUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -166,6 +167,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\boxborder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackbishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackknight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackpawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackqueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackrook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whitebishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whiteking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whiteknight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whitepawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whitequeen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whiterook.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

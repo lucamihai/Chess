@@ -9,13 +9,11 @@ namespace ChessApplication.Common.ChessPieces
         public Knight()
         {
             Color = PieceColor.Undefined;
-            Image = Color == PieceColor.White ? Properties.Resources.WhiteKnight : Properties.Resources.BlackKnight;
         }
 
         public Knight(PieceColor pieceColor)
         {
             Color = pieceColor;
-            Image = Color == PieceColor.White ? Properties.Resources.WhiteKnight : Properties.Resources.BlackKnight;
         }
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)

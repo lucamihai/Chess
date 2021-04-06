@@ -9,13 +9,11 @@ namespace ChessApplication.Common.ChessPieces
         public Bishop()
         {
             Color = PieceColor.Undefined;
-            Image = Color == PieceColor.White ? Properties.Resources.WhiteBishop : Properties.Resources.BlackBishop;
         }
 
         public Bishop(PieceColor pieceColor)
         {
             Color = pieceColor;
-            Image = Color == PieceColor.White ? Properties.Resources.WhiteBishop : Properties.Resources.BlackBishop;
         }
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
