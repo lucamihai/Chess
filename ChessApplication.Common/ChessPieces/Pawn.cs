@@ -20,8 +20,8 @@ namespace ChessApplication.Common.ChessPieces
         {
             var row = position.Row;
             var column = position.Column;
-            var startingRow = GetStartingRowForColor();
-            var forwardOffset = GetForwardOffsetForColor();
+            var startingRow = GetStartingRow();
+            var forwardOffset = GetForwardOffset();
 
             var positionForward = new Position(row + forwardOffset, column);
             var positionForwardWest = new Position(row + forwardOffset, column - 1);
@@ -49,30 +49,18 @@ namespace ChessApplication.Common.ChessPieces
             }
         }
 
-        private int GetStartingRowForColor()
+        private int GetStartingRow()
         {
-            switch (Color)
-            {
-                case PieceColor.White:
-                    return 2;
-                case PieceColor.Black:
-                    return 7;
-                default:
-                    return 100;
-            }
+            return Color == PieceColor.White
+                ? 2
+                : 7;
         }
 
-        private int GetForwardOffsetForColor()
+        private int GetForwardOffset()
         {
-            switch (Color)
-            {
-                case PieceColor.White:
-                    return 1;
-                case PieceColor.Black:
-                    return -1;
-                default:
-                    return 100;
-            }
+            return Color == PieceColor.White
+                ? 1
+                : -1;
         }
     }
 }

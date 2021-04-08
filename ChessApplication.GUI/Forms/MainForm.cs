@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common;
 using ChessApplication.Common.Enums;
+using ChessApplication.GUI.UserControls.Chessboard;
 using ChessApplication.GUI.UserControls.Menus;
 
 namespace ChessApplication.GUI.Forms
@@ -50,8 +51,8 @@ namespace ChessApplication.GUI.Forms
 
             mainMenu.OnOptionsChanged += (username, chosenColor) =>
             {
-                chessboardUserControl.SetUsernameAndNotifyOpponent(username);
-                chessboardUserControl.SetColorsAndNotifyOpponent(chosenColor);
+                chessboardUserControl.SetPlayerUsername(username);
+                chessboardUserControl.SetPlayerColor(chosenColor);
 
                 chatBox.Username = username;
 

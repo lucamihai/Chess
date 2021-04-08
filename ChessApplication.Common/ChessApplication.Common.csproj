@@ -48,6 +48,7 @@
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
     <Compile Include="ChessPieces\Helpers\AccessibleBoxesUtil.cs" />
+    <Compile Include="ChessPieces\Helpers\ChessboardChessPieceFinder.cs" />
     <Compile Include="ChessPieces\Helpers\ChessPieceInfoProvider.cs" />
     <Compile Include="ChessPieces\King.cs" />
     <Compile Include="ChessPieces\Knight.cs" />

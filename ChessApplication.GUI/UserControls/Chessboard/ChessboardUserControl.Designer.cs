@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.GUI
+namespace ChessApplication.GUI.UserControls.Chessboard
 {
     partial class ChessboardUserControl
     {

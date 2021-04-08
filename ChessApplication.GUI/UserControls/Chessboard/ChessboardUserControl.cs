@@ -10,10 +10,9 @@ using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
-using ChessApplication.GUI.UserControls.Chessboard;
 using ChessApplication.Network;
 
-namespace ChessApplication.GUI
+namespace ChessApplication.GUI.UserControls.Chessboard
 {
     [ExcludeFromCodeCoverage]
     public partial class ChessboardUserControl : UserControl
@@ -22,14 +21,13 @@ namespace ChessApplication.GUI
         
         public bool BeginnersMode
         {
-            get => ChessBoard.BeginnersMode;
-            set => ChessBoard.BeginnersMode = value;
+            get => Chessboard.BeginnersMode;
+            set => Chessboard.BeginnersMode = value;
         }
 
         public bool SoundEnabled { get; set; } = true;
 
-        private bool isNewGameRequested = false;
-        private bool opponentMustSelect = false;
+        private bool isNewGameRequested;
 
         private CapturedPieceBoxUserControl capturedWhitePawns, capturedWhiteRooks, capturedWhiteKnights, capturedWhiteBishops, capturedWhiteQueen;
         private CapturedPieceBoxUserControl capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
@@ -38,9 +36,9 @@ namespace ChessApplication.GUI
         private PieceColor OpponentsTurn { get; set; } = PieceColor.Black;
 
         public string PlayerUsername { get; private set; }
-        private string usernameOpponent;
+        private string opponentUsername;
 
-        private IChessboard ChessBoard { get; set; }
+        private IChessboard Chessboard { get; set; }
         private ChessboardType ChessboardType { get; set; }
         private BoxUserControl FirstClickedBox { get; set; }
         private BoxUserControl[,] BoxUserControls { get; set; }
@@ -63,12 +61,39 @@ namespace ChessApplication.GUI
             ChessboardType = chessboardType;
 
             InitializeComponent();
-            InitializeChessBoard();
+            InitializeChessboard();
             InitializeNetworkManager(userType, hostname);
             InitializeUsernames(userType);
-            InitializeTurnsByUserType(userType);
+            InitializeTurns(userType);
 
             NewGame();
+        }
+
+        public void SetPlayerUsername(string username)
+        {
+            PlayerUsername = username;
+            networkManager?.ChangeUsername(username);
+        }
+
+        public void SetPlayerColor(PieceColor chosenColor)
+        {
+            PlayerTurn = chosenColor;
+            OpponentsTurn = chosenColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
+
+            networkManager?.ChangeColor(chosenColor);
+        }
+
+        private void InitializeChessboard()
+        {
+            if (ChessboardType == ChessboardType.Classic)
+            {
+                Chessboard = new ChessboardClassic();
+            }
+
+            else if (ChessboardType == ChessboardType.Shatranj)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private void InitializeNetworkManager(UserType userType, string hostname)
@@ -88,117 +113,33 @@ namespace ChessApplication.GUI
                 networkManager = new NetworkManagerClient(hostname);
             }
 
-            networkManager.OnChangedColor += (opponentsTurn) =>
-            {
-                var opponentChangedColors = new MethodInvoker(() =>
-                {
-                    PlayerTurn = opponentsTurn == PieceColor.White ? PieceColor.Black : PieceColor.White;
-                    OpponentsTurn = opponentsTurn;
-                });
-
-                Invoke(opponentChangedColors);
-            };
-
-            networkManager.OnChangedUsername += username =>
-            {
-                var changeOpponentUsername = new MethodInvoker(() => usernameOpponent = username);
-                Invoke(changeOpponentUsername);
-            };
-
-            networkManager.OnBegunRetakeSelection += () =>
-            {
-                var beginSelection = new MethodInvoker(() => {
-                    opponentMustSelect = true;
-
-                    var message = string.Format(Strings.UserBeginsSelection, usernameOpponent);
-                    OnNotification(message);
-                });
-
-                Invoke(beginSelection);
-            };
-
-            networkManager.OnMadeRetakeSelection += (position, type, color) =>
-            {
-                var selection = new MethodInvoker(() =>
-                {
-                    var pieceType = ChessPieceInfoProvider.GetChessPieceTypeFromString(type);
-                    var pieceColor = ChessPieceInfoProvider.GetPieceColorFromString(color);
-
-                    ChessBoard.RetakePiece(position, pieceType, pieceColor);
-                    NextTurn();
-
-                    opponentMustSelect = false;
-                });
-
-                Invoke(selection);
-            };
-
-            networkManager.OnMadeMove += (origin, destination) =>
-            {
-                var move = new MethodInvoker(
-                    () => MovePiece(ChessBoard[origin], ChessBoard[destination])
-                );
-
-                Invoke(move);
-            };
-
-            networkManager.OnRequestedNewGame += () =>
-            {
-                var request = new MethodInvoker(() => {
-                    isNewGameRequested = true;
-                    NotifyNewGameIsRequested();
-                });
-
-                Invoke(request);
-            };
-
-            networkManager.OnIssuedNewGame += () =>
-            {
-                var newGame = new MethodInvoker(() =>
-                {
-                    var message = Strings.NewGameHasBegun;
-                    OnNotification(message);
-
-                    NewGame();
-                });
-                Invoke(newGame);
-            };
-
-            networkManager.OnChatMessage += message =>
-            {
-                var addChatMessage = new MethodInvoker(() =>
-                {
-                    OnReceivedChatMessage(usernameOpponent, message);
-                });
-                Invoke(addChatMessage);
-            };
-
-            networkManager.OnNotification += message =>
-            {
-                var triggerNotification = new MethodInvoker(() =>
-                {
-                    OnNotification(message);
-                });
-                Invoke(triggerNotification);
-            };
+            networkManager.OnChangedColor += NetworkManagerOnChangedColor;
+            networkManager.OnChangedUsername += NetworkManagerOnChangedUsername;
+            networkManager.OnBegunRetakeSelection += NetworkManagerOnBegunRetakeSelection;
+            networkManager.OnMadeRetakeSelection += NetworkManagerOnMadeRetakeSelection;
+            networkManager.OnMadeMove += NetworkManagerOnMadeMove;
+            networkManager.OnRequestedNewGame += NetworkManagerOnRequestedNewGame;
+            networkManager.OnIssuedNewGame += NetworkManagerOnIssuedNewGame;
+            networkManager.OnChatMessage += NetworkManagerOnChatMessage;
+            networkManager.OnNotification += NetworkManagerOnNotification;
         }
 
-        private void InitializeUsernames(UserType currentPlayerUserType)
+        private void InitializeUsernames(UserType userType)
         {
-            if (currentPlayerUserType == UserType.Server)
+            if (userType == UserType.Server)
             {
                 PlayerUsername = Constants.DefaultUsernameServer;
-                usernameOpponent = Constants.DefaultUsernameClient;
+                opponentUsername = Constants.DefaultUsernameClient;
             }
 
-            if (currentPlayerUserType == UserType.Client)
+            if (userType == UserType.Client)
             {
                 PlayerUsername = Constants.DefaultUsernameClient;
-                usernameOpponent = Constants.DefaultUsernameServer;
+                opponentUsername = Constants.DefaultUsernameServer;
             }
         }
 
-        private void InitializeTurnsByUserType(UserType userType)
+        private void InitializeTurns(UserType userType)
         {
             if (userType == UserType.Client)
             {
@@ -212,19 +153,7 @@ namespace ChessApplication.GUI
             }
         }
 
-        public void SetUsernameAndNotifyOpponent(string username)
-        {
-            PlayerUsername = username;
-            networkManager?.ChangeUsername(username);
-        }
-
-        public void SetColorsAndNotifyOpponent(PieceColor chosenColor)
-        {
-            PlayerTurn = chosenColor;
-            OpponentsTurn = chosenColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
-
-            networkManager?.ChangeColor(chosenColor);
-        }
+        
 
         public void RequestNewGame()
         {
@@ -252,37 +181,24 @@ namespace ChessApplication.GUI
 
         private void NotifyNewGameIsRequested()
         {
-            var message = string.Format(Strings.UserRequestsNewGame, usernameOpponent);
+            var message = string.Format(Strings.UserRequestsNewGame, opponentUsername);
             MessageBox.Show(message);
         }
 
         private void NewGame()
         {
-            ChessBoard.NewGame();
+            Chessboard.NewGame();
 
             InitializeChessboardBoxesArea();
             InitializeCapturedPiecesArea();
 
-            SetChessBoardBoxesColors();
+            SetChessboardBoxesColors();
             AssignClickEventToBoxes();
             UpdateCapturedPiecesCounter();
 
             PlayerTurn = OpponentsTurn == PieceColor.Black
                 ? PieceColor.White
                 : PieceColor.Black;
-        }
-
-        private void InitializeChessBoard()
-        {
-            if (ChessboardType == ChessboardType.Classic)
-            {
-                ChessBoard = new ChessboardClassic();
-            }
-
-            else if (ChessboardType == ChessboardType.Shatranj)
-            {
-                throw new NotImplementedException();
-            }
         }
 
         private void InitializeChessboardBoxesArea()
@@ -294,7 +210,7 @@ namespace ChessApplication.GUI
             {
                 for (var column = 1; column < 9; column++)
                 {
-                    BoxUserControls[row, column] = new BoxUserControl(ChessBoard[row, column]);
+                    BoxUserControls[row, column] = new BoxUserControl(Chessboard[row, column]);
                     BoxUserControls[row, column].Location = new Point
                     {
                         X = (column - 1) * 64,
@@ -359,7 +275,7 @@ namespace ChessApplication.GUI
             capturedBlackQueen.Click += CapturedPieceBoxClick;
         }
 
-        public void SetChessBoardBoxesColors(bool ignoreIsAvailableFlag = false)
+        public void SetChessboardBoxesColors(bool ignoreIsAvailableFlag = false)
         {
             for (var row = 1; row < 9; row++)
             {
@@ -398,25 +314,25 @@ namespace ChessApplication.GUI
         {
             // TODO: Check if move is valid
 
-            if (ChessBoard.CurrentTurn == PlayerTurn)
+            if (Chessboard.CurrentTurn == PlayerTurn)
             {
                 networkManager?.NotifyOfMove(origin.Position, destination.Position);
             }
 
-            SetChessBoardBoxesColors(ignoreIsAvailableFlag: true);
+            SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
             TriggerOnMadeMove(origin, destination);
-            ChessBoard.Move(origin.Position, destination.Position);
+            Chessboard.Move(origin.Position, destination.Position);
 
             //BeginPieceRecapturingIfPawnReachedTheEnd(destination);
 
-            if (!ChessBoard.RetakingIsActive)
+            if (!Chessboard.RetakingIsActive)
             {
                 NextTurn();
             }
 
             if (SoundEnabled)
             {
-                var soundToPlay = ChessBoard.CurrentTurn == PlayerTurn ? MoveSound1 : MoveSound2;
+                var soundToPlay = Chessboard.CurrentTurn == PlayerTurn ? MoveSound1 : MoveSound2;
                 soundToPlay.Play();
             }
 
@@ -433,22 +349,22 @@ namespace ChessApplication.GUI
 
         private void UpdateCapturedPiecesCounter()
         {
-            capturedWhitePawns.Count = ChessBoard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.White);
-            capturedWhiteRooks.Count = ChessBoard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.White);
-            capturedWhiteKnights.Count = ChessBoard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.White);
-            capturedWhiteBishops.Count = ChessBoard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.White);
-            capturedWhiteQueen.Count = ChessBoard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.White);
+            capturedWhitePawns.Count = Chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.White);
+            capturedWhiteRooks.Count = Chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.White);
+            capturedWhiteKnights.Count = Chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.White);
+            capturedWhiteBishops.Count = Chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.White);
+            capturedWhiteQueen.Count = Chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.White);
 
-            capturedBlackPawns.Count = ChessBoard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.Black);
-            capturedBlackRooks.Count = ChessBoard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.Black);
-            capturedBlackKnights.Count = ChessBoard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.Black);
-            capturedBlackBishops.Count = ChessBoard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.Black);
-            capturedBlackQueen.Count = ChessBoard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.Black);
+            capturedBlackPawns.Count = Chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.Black);
+            capturedBlackRooks.Count = Chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.Black);
+            capturedBlackKnights.Count = Chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.Black);
+            capturedBlackBishops.Count = Chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.Black);
+            capturedBlackQueen.Count = Chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.Black);
         }
 
         private void EndGameIfCheckMate()
         {
-            if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.White))
+            if (Chessboard.IsCheckmateForProvidedColor(PieceColor.White))
             {
                 OnNotification(Strings.CheckmateWhite);
 
@@ -458,7 +374,7 @@ namespace ChessApplication.GUI
                 Invoke(newGameInvoker);
                 networkManager?.IssueNewGame();
             }
-            if (ChessBoard.IsCheckmateForProvidedColor(PieceColor.Black))
+            if (Chessboard.IsCheckmateForProvidedColor(PieceColor.Black))
             {
                 OnNotification(Strings.CheckmateBlack);
 
@@ -472,24 +388,24 @@ namespace ChessApplication.GUI
 
         private void NextTurn()
         {
-            ChessBoard.SetChessBoardBoxesAsUnavailable();
-            SetChessBoardBoxesColors(ignoreIsAvailableFlag: true);
+            Chessboard.SetChessBoardBoxesAsUnavailable();
+            SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
             RedrawChessboardBoxes();
             UpdateCapturedPiecesCounter();
 
-            labelTurn.Text = ChessBoard.CurrentTurn == PieceColor.White
+            labelTurn.Text = Chessboard.CurrentTurn == PieceColor.White
                 ? Strings.WhitesTurn
                 : Strings.BlacksTurn;
         }
 
         private void BoxClick(object sender, EventArgs e)
         {
-            if (ChessBoard.RetakingIsActive)
+            if (Chessboard.RetakingIsActive)
             {
                 return;
             }
 
-            if (ChessBoard.CurrentTurn != PlayerTurn)
+            if (Chessboard.CurrentTurn != PlayerTurn)
             {
                 return;
             }
@@ -503,9 +419,9 @@ namespace ChessApplication.GUI
                 {
                     var boxPosition = clickedBox.Position;
 
-                    ChessBoard.SetChessBoardBoxesAsUnavailable();
-                    clickedBox.Box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(ChessBoard, boxPosition);
-                    SetChessBoardBoxesColors();
+                    Chessboard.SetChessBoardBoxesAsUnavailable();
+                    clickedBox.Box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, boxPosition);
+                    SetChessboardBoxesColors();
 
                     if (clickedBox.Box.Piece.CanMove)
                     {
@@ -517,8 +433,8 @@ namespace ChessApplication.GUI
             {
                 if (clickedBox == FirstClickedBox)
                 {
-                    ChessBoard.SetChessBoardBoxesAsUnavailable();
-                    SetChessBoardBoxesColors();
+                    Chessboard.SetChessBoardBoxesAsUnavailable();
+                    SetChessboardBoxesColors();
                     FirstClickedBox = null;
                 }
 
@@ -526,8 +442,8 @@ namespace ChessApplication.GUI
                 {
                     MovePiece(FirstClickedBox.Box, clickedBox.Box);
                     FirstClickedBox = null;
-                    ChessBoard.SetChessBoardBoxesAsUnavailable();
-                    SetChessBoardBoxesColors();
+                    Chessboard.SetChessBoardBoxesAsUnavailable();
+                    SetChessboardBoxesColors();
                     RedrawChessboardBoxes();
                 }
             }
@@ -536,20 +452,20 @@ namespace ChessApplication.GUI
 
         private void CapturedPieceBoxClick(object sender, EventArgs e)
         {
-            if (!ChessBoard.RetakingIsActive)
+            if (!Chessboard.RetakingIsActive)
             {
                 return;
             }
 
             var clickedCapturedPieceBox = (CapturedPieceBoxUserControl)sender;
             var chessPieceToRetake = clickedCapturedPieceBox.ChessPiece;
-            var count = ChessBoard.CapturedPieceCollection.GetEntry(chessPieceToRetake);
+            var count = Chessboard.CapturedPieceCollection.GetEntry(chessPieceToRetake);
 
-            if (ChessBoard.CurrentTurn == PlayerTurn && count > 0)
+            if (Chessboard.CurrentTurn == PlayerTurn && count > 0)
             {
-                var retakingPosition = ChessBoard.RetakingPosition;
-                ChessBoard.RetakePiece(retakingPosition, chessPieceToRetake.GetType(), chessPieceToRetake.Color);
-                networkManager?.NotifyOfRetakeSelection(retakingPosition, ChessBoard[retakingPosition].Piece);
+                var retakingPosition = Chessboard.RetakingPosition;
+                Chessboard.RetakePiece(retakingPosition, chessPieceToRetake.GetType(), chessPieceToRetake.Color);
+                networkManager?.NotifyOfRetakeSelection(retakingPosition, Chessboard[retakingPosition].Piece);
                 NextTurn();
             }
         }
@@ -564,6 +480,93 @@ namespace ChessApplication.GUI
                 }
             }
         }
-        
+
+        #region NetworkManager delegates
+
+        private void NetworkManagerOnChangedColor(PieceColor opponentsTurn)
+        {
+            var opponentChangedColors = new MethodInvoker(() =>
+            {
+                PlayerTurn = opponentsTurn == PieceColor.White ? PieceColor.Black : PieceColor.White;
+                OpponentsTurn = opponentsTurn;
+            });
+
+            Invoke(opponentChangedColors);
+        }
+
+        private void NetworkManagerOnChangedUsername(string username)
+        {
+            var changeOpponentUsername = new MethodInvoker(() => opponentUsername = username);
+            Invoke(changeOpponentUsername);
+        }
+
+        private void NetworkManagerOnBegunRetakeSelection()
+        {
+            var beginSelection = new MethodInvoker(() =>
+            {
+                var message = string.Format(Strings.UserBeginsSelection, opponentUsername);
+                OnNotification(message);
+            });
+
+            Invoke(beginSelection);
+        }
+
+        private void NetworkManagerOnMadeRetakeSelection(Position position, string type, string color)
+        {
+            var selection = new MethodInvoker(() =>
+            {
+                var pieceType = ChessPieceInfoProvider.GetChessPieceTypeFromString(type);
+                var pieceColor = ChessPieceInfoProvider.GetPieceColorFromString(color);
+
+                Chessboard.RetakePiece(position, pieceType, pieceColor);
+                NextTurn();
+            });
+
+            Invoke(selection);
+        }
+
+        private void NetworkManagerOnMadeMove(Position origin, Position destination)
+        {
+            var move = new MethodInvoker(() => MovePiece(Chessboard[origin], Chessboard[destination]));
+
+            Invoke(move);
+        }
+
+        private void NetworkManagerOnRequestedNewGame()
+        {
+            var request = new MethodInvoker(() =>
+            {
+                isNewGameRequested = true;
+                NotifyNewGameIsRequested();
+            });
+
+            Invoke(request);
+        }
+
+        private void NetworkManagerOnIssuedNewGame()
+        {
+            var newGame = new MethodInvoker(() =>
+            {
+                var message = Strings.NewGameHasBegun;
+                OnNotification(message);
+
+                NewGame();
+            });
+            Invoke(newGame);
+        }
+
+        private void NetworkManagerOnChatMessage(string message)
+        {
+            var addChatMessage = new MethodInvoker(() => { OnReceivedChatMessage(opponentUsername, message); });
+            Invoke(addChatMessage);
+        }
+
+        private void NetworkManagerOnNotification(string message)
+        {
+            var triggerNotification = new MethodInvoker(() => { OnNotification(message); });
+            Invoke(triggerNotification);
+        }
+
+        #endregion
     }
 }

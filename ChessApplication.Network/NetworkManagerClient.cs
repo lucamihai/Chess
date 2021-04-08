@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -22,21 +21,12 @@ namespace ChessApplication.Network
 
         public override void Stop()
         {
-            try
-            {
-                NetworkThreadRunning = false;
+            NetworkThreadRunning = false;
 
-                TcpClient.Close();
-                TcpClient.Dispose();
-                
-                NetworkStream.Close();
-            }
-
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                throw;
-            }
+            TcpClient.Close();
+            TcpClient.Dispose();
+            
+            NetworkStream.Close();
         }
 
         private void ServerListen()

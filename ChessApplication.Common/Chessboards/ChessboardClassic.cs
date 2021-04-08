@@ -1,5 +1,6 @@
 ﻿using System;
 using ChessApplication.Common.ChessPieces;
+using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 
@@ -54,9 +55,7 @@ namespace ChessApplication.Common.Chessboards
         }
 
         public bool RetakingIsActive { get; private set; }
-
-        // TODO: Maybe make this nullable and remove RetakingIsActive?
-        public Position RetakingPosition { get; private set; } = new Position();
+        public Position RetakingPosition { get; private set; }
 
 
         public ChessboardClassic()
@@ -227,21 +226,23 @@ namespace ChessApplication.Common.Chessboards
             return triggersCheck;
         }
 
-        public bool PieceIsThreatened(Position location)
+        public bool PieceIsThreatened(Position position)
         {
-            return PieceIsThreatenedByPawns(location)
-                   || PieceIsThreatenedByKing(location)
-                   || PieceIsThreatenedByKnights(location)
-                   || PieceIsThreatenedByRooks(location)
-                   || PieceIsThreatenedByBishops(location)
-                   || PieceIsThreatenedByQueen(location);
+            return PieceIsThreatenedByPawns(position)
+                   || PieceIsThreatenedByKing(position)
+                   || PieceIsThreatenedByKnights(position)
+                   || PieceIsThreatenedByRooks(position)
+                   || PieceIsThreatenedByBishops(position)
+                   || PieceIsThreatenedByQueen(position);
         }
 
         public bool PieceIsThreatenedByPawns(Position position)
         {
             var pieceColor = this[position].Piece.Color;
             var forwardOffset = GetForwardOffsetForColor(pieceColor);
-            var opponentColor = pieceColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
+            var opponentColor = pieceColor == PieceColor.White
+                ? PieceColor.Black
+                : PieceColor.White;
 
             return Utilities.LocationContainsPiece<Pawn>(this[position.Row + forwardOffset, position.Column - 1], opponentColor)
                 || Utilities.LocationContainsPiece<Pawn>(this[position.Row + forwardOffset, position.Column + 1], opponentColor);
@@ -276,406 +277,39 @@ namespace ChessApplication.Common.Chessboards
                    || Utilities.LocationContainsPiece<Knight>(this[position.Row - 2, position.Column + 1], opponentColor)
                    || Utilities.LocationContainsPiece<Knight>(this[position.Row - 2, position.Column - 1], opponentColor);
         }
-
+        
         public bool PieceIsThreatenedByBishops(Position position)
         {
-            var currentLocation = this[position];
-            var threatened = false;
-            var containsBishop = false;
+            var opponentColor = GetOpponentPieceColor(this[position].Piece.Color);
 
-            Box locationToBeInspected;
-
-            // South - west
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
-                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsBishop && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // North - east
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
-                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsBishop && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // North - west
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
-                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsBishop && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // South - east
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsBishop = Utilities.LocationContainsPiece<Bishop>(locationToBeInspected);
-                threatened = (containsBishop && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsBishop && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsBishop && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            return threatened;
+            return this.ChessPieceExistsInSouthWest<Bishop>(position, opponentColor)
+                   || this.ChessPieceExistsInNorthEast<Bishop>(position, opponentColor)
+                   || this.ChessPieceExistsInNorthWest<Bishop>(position, opponentColor)
+                   || this.ChessPieceExistsInSouthEast<Bishop>(position, opponentColor);
         }
-
+        
         public bool PieceIsThreatenedByRooks(Position position)
         {
-            var currentLocation = this[position];
-            var threatened = false;
-            var containsRook = false;
+            var opponentColor = GetOpponentPieceColor(this[position].Piece.Color);
 
-            Box locationToBeInspected;
-
-            // West
-            for (var secondaryColumn = position.Column; secondaryColumn >= 1 && !threatened; secondaryColumn--)
-            {
-                if (secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[position.Row, secondaryColumn];
-                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
-                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsRook && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // East
-            for (var secondaryColumn = position.Column; secondaryColumn <= 8 && !threatened; secondaryColumn++)
-            {
-                if (secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[position.Row, secondaryColumn];
-                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
-                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsRook && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // South
-            for (var secondaryRow = position.Row; secondaryRow >= 1 && !threatened; secondaryRow--)
-            {
-                if (secondaryRow == position.Row)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, position.Column];
-                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
-                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsRook && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // North
-            for (var secondaryRow = position.Row; secondaryRow <= 8 && !threatened; secondaryRow++)
-            {
-                if (secondaryRow == position.Row)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, position.Column];
-                containsRook = Utilities.LocationContainsPiece<Rook>(locationToBeInspected);
-                threatened = (containsRook && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsRook && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsRook && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            return threatened;
+            return this.ChessPieceExistsInWest<Rook>(position, opponentColor)
+                   || this.ChessPieceExistsInEast<Rook>(position, opponentColor)
+                   || this.ChessPieceExistsInSouth<Rook>(position, opponentColor)
+                   || this.ChessPieceExistsInNorth<Rook>(position, opponentColor);
         }
-
+        
         public bool PieceIsThreatenedByQueen(Position position)
         {
-            var currentLocation = this[position];
-            var threatened = false;
-            var containsQueen = false;
+            var opponentColor = GetOpponentPieceColor(this[position].Piece.Color);
 
-            Box locationToBeInspected;
-
-            // South - west
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow >= 1 && secondaryColumn >= 1 && !threatened; secondaryRow--, secondaryColumn--)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // North - east
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow <= 8 && secondaryColumn <= 8 && !threatened; secondaryRow++, secondaryColumn++)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // North - west
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow <= 8 && secondaryColumn >= 1 && !threatened; secondaryRow++, secondaryColumn--)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // South - east
-            for (int secondaryRow = position.Row, secondaryColumn = position.Column; secondaryRow >= 1 && secondaryColumn <= 8 && !threatened; secondaryRow--, secondaryColumn++)
-            {
-                if (secondaryRow == position.Row && secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, secondaryColumn];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // West
-            for (var secondaryColumn = position.Column; secondaryColumn >= 1 && !threatened; secondaryColumn--)
-            {
-                if (secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[position.Row, secondaryColumn];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // East
-            for (var secondaryColumn = position.Column; secondaryColumn <= 8 && !threatened; secondaryColumn++)
-            {
-                if (secondaryColumn == position.Column)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[position.Row, secondaryColumn];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // South
-            for (var secondaryRow = position.Row; secondaryRow >= 1 && !threatened; secondaryRow--)
-            {
-                if (secondaryRow == position.Row)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, position.Column];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            // North
-            for (var secondaryRow = position.Row; secondaryRow <= 8 && !threatened; secondaryRow++)
-            {
-                if (secondaryRow == position.Row)
-                {
-                    continue;
-                }
-
-                locationToBeInspected = this[secondaryRow, position.Column];
-                containsQueen = Utilities.LocationContainsPiece<Queen>(locationToBeInspected);
-                threatened = (containsQueen && locationToBeInspected.Piece.Color != currentLocation.Piece.Color);
-
-                if (containsQueen && locationToBeInspected.Piece.Color == currentLocation.Piece.Color)
-                {
-                    break;
-                }
-
-                if (!containsQueen && locationToBeInspected.Piece != null)
-                {
-                    break;
-                }
-            }
-
-            return threatened;
+            return this.ChessPieceExistsInSouthWest<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInNorthEast<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInNorthWest<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInSouthEast<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInWest<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInEast<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInSouth<Queen>(position, opponentColor)
+                   || this.ChessPieceExistsInNorth<Queen>(position, opponentColor);
         }
 
         private void InitializeBoxCollection()
@@ -743,17 +377,18 @@ namespace ChessApplication.Common.Chessboards
             CapturedPieceCollection.AddEntry<Queen>(PieceColor.Black);
         }
 
-        private int GetForwardOffsetForColor(PieceColor pieceColor)
+        private static int GetForwardOffsetForColor(PieceColor pieceColor)
         {
-            switch (pieceColor)
-            {
-                case PieceColor.White:
-                    return 1;
-                case PieceColor.Black:
-                    return -1;
-                default:
-                    return 100;
-            }
+            return pieceColor == PieceColor.White
+                ? 1
+                : -1;
+        }
+
+        private static PieceColor GetOpponentPieceColor(PieceColor pieceColor)
+        {
+            return pieceColor == PieceColor.White
+                ? PieceColor.Black
+                : PieceColor.White;
         }
     }
 }

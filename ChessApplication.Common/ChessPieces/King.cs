@@ -95,9 +95,9 @@ namespace ChessApplication.Common.ChessPieces
             return isPossible;
         }
 
-        private bool IsInCheck(IChessboard chessBoard, Position location)
+        private bool IsInCheck(IChessboard chessBoard, Position position)
         {
-            return chessBoard.PieceIsThreatened(location);
+            return chessBoard.PieceIsThreatened(position);
         }
     }
 }

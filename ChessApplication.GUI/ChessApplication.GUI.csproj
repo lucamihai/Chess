@@ -53,10 +53,10 @@
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Chat\Constants.cs" />
-    <Compile Include="ChessboardUserControl.cs">
+    <Compile Include="UserControls\Chessboard\ChessboardUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ChessboardUserControl.Designer.cs">
+    <Compile Include="UserControls\Chessboard\ChessboardUserControl.Designer.cs">
       <DependentUpon>ChessboardUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Constants.cs" />
@@ -123,7 +123,7 @@
     <EmbeddedResource Include="Chat\ChatBoxUserControl.resx">
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChessboardUserControl.resx">
+    <EmbeddedResource Include="UserControls\Chessboard\ChessboardUserControl.resx">
       <DependentUpon>ChessboardUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">

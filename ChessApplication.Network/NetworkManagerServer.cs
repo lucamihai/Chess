@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -11,17 +10,9 @@ namespace ChessApplication.Network
 
         public NetworkManagerServer()
         {
-            try
-            {
-                ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, Constants.DefaultPortNumber);
-                ServerTcpListener.Start();
-            }
-
-            catch (Exception)
-            {
-                Environment.Exit(0);
-            }
-
+            ServerTcpListener = new TcpListener(System.Net.IPAddress.Any, Constants.DefaultPortNumber);
+            ServerTcpListener.Start();
+            
             NetworkThreadRunning = true;
             NetworkThread = new Thread(ServerListen);
             NetworkThread.Start();
@@ -30,18 +21,10 @@ namespace ChessApplication.Network
 
         public override void Stop()
         {
-            try
-            {
-                NetworkThreadRunning = false;
-                NetworkStream.Close();
+            NetworkThreadRunning = false;
+            NetworkStream.Close();
 
-                ServerTcpListener.Stop();
-            }
-
-            catch (Exception)
-            {
-                Environment.Exit(0);
-            }
+            ServerTcpListener.Stop();
         }
 
         private void ServerListen()
