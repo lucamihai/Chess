@@ -2,7 +2,7 @@
 
 namespace ChessApplication.GUI.History
 {
-    partial class HistoryUserControl
+    public partial class HistoryUserControl
     {
         /// <summary> 
         /// Required designer variable.

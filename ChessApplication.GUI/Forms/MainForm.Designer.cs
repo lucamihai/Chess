@@ -5,7 +5,7 @@ using ChessApplication.GUI.Notifications;
 
 namespace ChessApplication.GUI.Forms
 {
-    partial class MainForm
+    public partial class MainForm
     {
         /// <summary>
         /// Required designer variable.

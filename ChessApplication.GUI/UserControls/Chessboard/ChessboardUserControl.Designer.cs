@@ -2,7 +2,7 @@
 
 namespace ChessApplication.GUI.UserControls.Chessboard
 {
-    partial class ChessboardUserControl
+    public partial class ChessboardUserControl
     {
         /// <summary> 
         /// Required designer variable.

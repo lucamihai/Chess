@@ -2,7 +2,7 @@
 
 namespace ChessApplication.GUI.UserControls.Chessboard
 {
-    partial class CapturedPieceBoxUserControl
+    public partial class CapturedPieceBoxUserControl
     {
         /// <summary> 
         /// Required designer variable.

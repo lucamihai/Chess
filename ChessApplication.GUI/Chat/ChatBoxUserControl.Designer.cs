@@ -2,7 +2,7 @@
 
 namespace ChessApplication.GUI.Chat
 {
-    partial class ChatBoxUserControl
+    public partial class ChatBoxUserControl
     {
         /// <summary> 
         /// Required designer variable.

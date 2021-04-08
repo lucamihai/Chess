@@ -2,7 +2,7 @@
 
 namespace ChessApplication.GUI.Notifications
 {
-    partial class NotificationsUserControl
+    public partial class NotificationsUserControl
     {
         /// <summary> 
         /// Required designer variable.

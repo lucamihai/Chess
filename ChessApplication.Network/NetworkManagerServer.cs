@@ -22,7 +22,7 @@ namespace ChessApplication.Network
         public override void Stop()
         {
             NetworkThreadRunning = false;
-            NetworkStream.Close();
+            NetworkStream?.Close();
 
             ServerTcpListener.Stop();
         }
