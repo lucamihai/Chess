@@ -194,9 +194,12 @@ namespace ChessApplication.Common.Chessboards
                         if (boxes[row, column].Piece.CanMove)
                         {
                             boxes[row, column].Piece.CanMove = false;
+                            SetChessBoardBoxesAsUnavailable();
 
                             return false;
                         }
+
+                        SetChessBoardBoxesAsUnavailable();
                     }
                 }
             }

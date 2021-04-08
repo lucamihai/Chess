@@ -412,14 +412,12 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
             var clickedBox = (BoxUserControl)sender;
             
-            // TODO: Clean if-else bodies
             if (FirstClickedBox == null && clickedBox.Piece != null)
             {
                 if (PlayerTurn == clickedBox.Piece.Color)
                 {
                     var boxPosition = clickedBox.Position;
-
-                    Chessboard.SetChessBoardBoxesAsUnavailable();
+                    
                     clickedBox.Box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(Chessboard, boxPosition);
                     SetChessboardBoxesColors();
 
@@ -442,8 +440,6 @@ namespace ChessApplication.GUI.UserControls.Chessboard
                 {
                     MovePiece(FirstClickedBox.Box, clickedBox.Box);
                     FirstClickedBox = null;
-                    Chessboard.SetChessBoardBoxesAsUnavailable();
-                    SetChessboardBoxesColors();
                     RedrawChessboardBoxes();
                 }
             }
