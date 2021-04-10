@@ -279,7 +279,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
                 {
                     var currentBox = boxUserControls[row, column];
 
-                    if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
+                    if ((row + column) % 2 == 0)
                     {
                         boxUserControls[row, column].BoxBackgroundColor = !ignoreIsAvailableFlag && ShouldHighlightBoxAsAvailable(currentBox)
                             ? Constants.BoxColorAvailable

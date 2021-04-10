@@ -9,7 +9,6 @@ using ChessApplication.Common.Enums;
 
 namespace ChessApplication.GUI.Helpers
 {
-    // TODO: Consider supporting different chessboards' pieces
 
     [ExcludeFromCodeCoverage]
     public static class ChessPieceImageProvider
