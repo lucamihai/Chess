@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace ChessApplication.GUI.Notifications
+namespace ChessApplication.GUI.UserControls.Notifications
 {
     [ExcludeFromCodeCoverage]
     public partial class NotificationsUserControl : UserControl

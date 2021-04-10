@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.GUI.Notifications
+namespace ChessApplication.GUI.UserControls.Notifications
 {
     public partial class NotificationsUserControl
     {

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ChessApplication.GUI.Chat;
-using ChessApplication.GUI.History;
-using ChessApplication.GUI.Notifications;
+using ChessApplication.GUI.UserControls.Chat;
+using ChessApplication.GUI.UserControls.History;
+using ChessApplication.GUI.UserControls.Notifications;
 
 namespace ChessApplication.GUI.Forms
 {
@@ -49,7 +49,7 @@ namespace ChessApplication.GUI.Forms
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.notifications = new NotificationsUserControl();
             this.chatBox = new ChatBoxUserControl();
-            this.historyEntries = new History.HistoryUserControl();
+            this.historyEntries = new HistoryUserControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -221,7 +221,7 @@ namespace ChessApplication.GUI.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableSound;
         private System.Windows.Forms.Panel panelChessboard;
         private System.Windows.Forms.MenuStrip menuStrip2;
-        private Notifications.NotificationsUserControl notifications;
+        private NotificationsUserControl notifications;
         private ChatBoxUserControl chatBox;
         private HistoryUserControl historyEntries;
     }

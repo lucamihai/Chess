@@ -46,13 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chat\ChatBoxUserControl.cs">
+    <Compile Include="UserControls\Chat\ChatBoxUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Chat\ChatBoxUserControl.Designer.cs">
+    <Compile Include="UserControls\Chat\ChatBoxUserControl.Designer.cs">
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chat\Constants.cs" />
+    <Compile Include="UserControls\Chat\Constants.cs" />
     <Compile Include="UserControls\Chessboard\ChessboardUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -67,27 +67,27 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ChessPieceImageProvider.cs" />
-    <Compile Include="History\HistoryUserControl.cs">
+    <Compile Include="UserControls\History\HistoryUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="History\HistoryUserControl.Designer.cs">
+    <Compile Include="UserControls\History\HistoryUserControl.Designer.cs">
       <DependentUpon>HistoryUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="History\HistoryEntryUserControl.cs">
+    <Compile Include="UserControls\History\HistoryEntryUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="History\HistoryEntryUserControl.Designer.cs">
+    <Compile Include="UserControls\History\HistoryEntryUserControl.Designer.cs">
       <DependentUpon>HistoryEntryUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notifications\NotificationsUserControl.cs">
+    <Compile Include="UserControls\Notifications\NotificationsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Notifications\NotificationsUserControl.Designer.cs">
+    <Compile Include="UserControls\Notifications\NotificationsUserControl.Designer.cs">
       <DependentUpon>NotificationsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notifications\Constants.cs" />
+    <Compile Include="UserControls\Notifications\Constants.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="PromptIpAddress.cs" />
+    <Compile Include="Helpers\PromptIpAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="UserControls\Chessboard\BoxUserControl.cs">
@@ -120,7 +120,7 @@
     <Compile Include="UserControls\Menus\GameConfigurationUserControl.Designer.cs">
       <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Chat\ChatBoxUserControl.resx">
+    <EmbeddedResource Include="UserControls\Chat\ChatBoxUserControl.resx">
       <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Chessboard\ChessboardUserControl.resx">
@@ -129,13 +129,13 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="History\HistoryUserControl.resx">
+    <EmbeddedResource Include="UserControls\History\HistoryUserControl.resx">
       <DependentUpon>HistoryUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="History\HistoryEntryUserControl.resx">
+    <EmbeddedResource Include="UserControls\History\HistoryEntryUserControl.resx">
       <DependentUpon>HistoryEntryUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Notifications\NotificationsUserControl.resx">
+    <EmbeddedResource Include="UserControls\Notifications\NotificationsUserControl.resx">
       <DependentUpon>NotificationsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

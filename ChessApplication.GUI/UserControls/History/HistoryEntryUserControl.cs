@@ -6,7 +6,7 @@ using ChessApplication.Common;
 using ChessApplication.GUI.Helpers;
 using ChessApplication.GUI.UserControls.Chessboard;
 
-namespace ChessApplication.GUI.History
+namespace ChessApplication.GUI.UserControls.History
 {
     [ExcludeFromCodeCoverage]
     public partial class HistoryEntryUserControl : UserControl

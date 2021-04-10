@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace ChessApplication.GUI
+namespace ChessApplication.GUI.Helpers
 {
     [ExcludeFromCodeCoverage]
     public static class PromptIpAddress

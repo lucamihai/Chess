@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.GUI.Chat
+namespace ChessApplication.GUI.UserControls.Chat
 {
     [ExcludeFromCodeCoverage]
     internal static class Constants

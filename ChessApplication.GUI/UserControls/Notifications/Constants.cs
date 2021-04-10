@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.GUI.Notifications
+namespace ChessApplication.GUI.UserControls.Notifications
 {
     [ExcludeFromCodeCoverage]
     internal static class Constants

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.GUI.History
+namespace ChessApplication.GUI.UserControls.History
 {
     public partial class HistoryEntryUserControl
     {

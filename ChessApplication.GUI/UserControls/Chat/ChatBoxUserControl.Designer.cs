@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ChessApplication.GUI.Chat
+namespace ChessApplication.GUI.UserControls.Chat
 {
     public partial class ChatBoxUserControl
     {

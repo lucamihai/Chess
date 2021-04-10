@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.GUI.UserControls.Chessboard;
 
-namespace ChessApplication.GUI.History
+namespace ChessApplication.GUI.UserControls.History
 {
     [ExcludeFromCodeCoverage]
     public partial class HistoryUserControl : UserControl
