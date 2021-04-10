@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
-using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 using ChessApplication.GUI.Helpers;
 using ChessApplication.GUI.UserControls.Chessboard;
@@ -36,7 +35,7 @@ namespace ChessApplication.GUI.Forms
             Controls.Add(menuContainer);
             menuContainer.BringToFront();
 
-            toolStripMenuItemEnableBeginnersMode.Available = false;
+            toolStripMenuItemEnableHighlightAvailableMoves.Available = false;
             toolStripMenuItemEnableSound.Available = false;
         }
 
@@ -149,15 +148,15 @@ namespace ChessApplication.GUI.Forms
         private void ToolStripEnableHighlightAvailableMoves(object sender, EventArgs e)
         {
             chessboardUserControl.HighlightAvailableMoves = true;
-            toolStripMenuItemEnableBeginnersMode.Available = false;
-            toolStripMenuItemDisableBeginnersMode.Available = true;
+            toolStripMenuItemEnableHighlightAvailableMoves.Available = false;
+            toolStripMenuItemDisableHighlightAvailableMoves.Available = true;
         }
 
         private void ToolStripDisableHighlightAvailableMoves(object sender, EventArgs e)
         {
             chessboardUserControl.HighlightAvailableMoves = false;
-            toolStripMenuItemEnableBeginnersMode.Available = true;
-            toolStripMenuItemDisableBeginnersMode.Available = false;
+            toolStripMenuItemEnableHighlightAvailableMoves.Available = true;
+            toolStripMenuItemDisableHighlightAvailableMoves.Available = false;
         }
 
         private void ToolStripNewGame(object sender, EventArgs e)

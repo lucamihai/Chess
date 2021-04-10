@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
-using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 
 namespace ChessApplication.GUI.UserControls.Menus

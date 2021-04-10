@@ -39,17 +39,17 @@ namespace ChessApplication.GUI.Forms
             this.newGameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.quitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modIncepatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemEnableBeginnersMode = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDisableBeginnersMode = new System.Windows.Forms.ToolStripMenuItem();
-            this.sunetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHighlightAvailableMoves = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEnableHighlightAvailableMoves = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDisableHighlightAvailableMoves = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSound = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEnableSound = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDisableSound = new System.Windows.Forms.ToolStripMenuItem();
             this.panelChessboard = new System.Windows.Forms.Panel();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.notifications = new NotificationsUserControl();
-            this.chatBox = new ChatBoxUserControl();
-            this.historyEntries = new HistoryUserControl();
+            this.notifications = new ChessApplication.GUI.UserControls.Notifications.NotificationsUserControl();
+            this.chatBox = new ChessApplication.GUI.UserControls.Chat.ChatBoxUserControl();
+            this.historyEntries = new ChessApplication.GUI.UserControls.History.HistoryUserControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,56 +90,56 @@ namespace ChessApplication.GUI.Forms
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.modIncepatorToolStripMenuItem,
-            this.sunetToolStripMenuItem});
+            this.toolStripMenuItemHighlightAvailableMoves,
+            this.toolStripMenuItemSound});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // modIncepatorToolStripMenuItem
+            // toolStripMenuItemHighlightAvailableMoves
             // 
-            this.modIncepatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemEnableBeginnersMode,
-            this.toolStripMenuItemDisableBeginnersMode});
-            this.modIncepatorToolStripMenuItem.Name = "modIncepatorToolStripMenuItem";
-            this.modIncepatorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.modIncepatorToolStripMenuItem.Text = "Mod incepator";
+            this.toolStripMenuItemHighlightAvailableMoves.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemEnableHighlightAvailableMoves,
+            this.toolStripMenuItemDisableHighlightAvailableMoves});
+            this.toolStripMenuItemHighlightAvailableMoves.Name = "toolStripMenuItemHighlightAvailableMoves";
+            this.toolStripMenuItemHighlightAvailableMoves.Size = new System.Drawing.Size(211, 22);
+            this.toolStripMenuItemHighlightAvailableMoves.Text = "Highlight available moves";
             // 
             // toolStripMenuItemEnableBeginnersMode
             // 
-            this.toolStripMenuItemEnableBeginnersMode.Name = "toolStripMenuItemEnableBeginnersMode";
-            this.toolStripMenuItemEnableBeginnersMode.Size = new System.Drawing.Size(149, 22);
-            this.toolStripMenuItemEnableBeginnersMode.Text = "Activeaza-l";
-            this.toolStripMenuItemEnableBeginnersMode.Click += new System.EventHandler(this.ToolStripEnableHighlightAvailableMoves);
+            this.toolStripMenuItemEnableHighlightAvailableMoves.Name = "toolStripMenuItemEnableHighlightAvailableMoves";
+            this.toolStripMenuItemEnableHighlightAvailableMoves.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnableHighlightAvailableMoves.Text = "Enable";
+            this.toolStripMenuItemEnableHighlightAvailableMoves.Click += new System.EventHandler(this.ToolStripEnableHighlightAvailableMoves);
             // 
             // toolStripMenuItemDisableBeginnersMode
             // 
-            this.toolStripMenuItemDisableBeginnersMode.Name = "toolStripMenuItemDisableBeginnersMode";
-            this.toolStripMenuItemDisableBeginnersMode.Size = new System.Drawing.Size(149, 22);
-            this.toolStripMenuItemDisableBeginnersMode.Text = "Dezactiveaza-l";
-            this.toolStripMenuItemDisableBeginnersMode.Click += new System.EventHandler(this.ToolStripDisableHighlightAvailableMoves);
+            this.toolStripMenuItemDisableHighlightAvailableMoves.Name = "toolStripMenuItemDisableHighlightAvailableMoves";
+            this.toolStripMenuItemDisableHighlightAvailableMoves.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemDisableHighlightAvailableMoves.Text = "Disable";
+            this.toolStripMenuItemDisableHighlightAvailableMoves.Click += new System.EventHandler(this.ToolStripDisableHighlightAvailableMoves);
             // 
-            // sunetToolStripMenuItem
+            // toolStripMenuItemSound
             // 
-            this.sunetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSound.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemEnableSound,
             this.toolStripMenuItemDisableSound});
-            this.sunetToolStripMenuItem.Name = "sunetToolStripMenuItem";
-            this.sunetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sunetToolStripMenuItem.Text = "Sunet";
+            this.toolStripMenuItemSound.Name = "toolStripMenuItemSound";
+            this.toolStripMenuItemSound.Size = new System.Drawing.Size(211, 22);
+            this.toolStripMenuItemSound.Text = "Sound";
             // 
             // toolStripMenuItemEnableSound
             // 
             this.toolStripMenuItemEnableSound.Name = "toolStripMenuItemEnableSound";
-            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(149, 22);
-            this.toolStripMenuItemEnableSound.Text = "Activeaza-l";
+            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnableSound.Text = "Enable";
             this.toolStripMenuItemEnableSound.Click += new System.EventHandler(this.ToolStripEnableSound);
             // 
             // toolStripMenuItemDisableSound
             // 
             this.toolStripMenuItemDisableSound.Name = "toolStripMenuItemDisableSound";
-            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(149, 22);
-            this.toolStripMenuItemDisableSound.Text = "Dezactiveaza-l";
+            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemDisableSound.Text = "Disable";
             this.toolStripMenuItemDisableSound.Click += new System.EventHandler(this.ToolStripDisableSound);
             // 
             // panelChessboard
@@ -213,10 +213,10 @@ namespace ChessApplication.GUI.Forms
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem quitApplicationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem modIncepatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableBeginnersMode;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableBeginnersMode;
-        private System.Windows.Forms.ToolStripMenuItem sunetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHighlightAvailableMoves;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableHighlightAvailableMoves;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableHighlightAvailableMoves;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSound;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableSound;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableSound;
         private System.Windows.Forms.Panel panelChessboard;
