@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ChessboardProvider.cs" />
+    <Compile Include="Helpers\NetworkManagerProvider.cs" />
     <Compile Include="UserControls\Chat\ChatBoxUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -10,6 +10,7 @@ using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Helpers;
 using ChessApplication.Common.Interfaces;
+using ChessApplication.GUI.Helpers;
 using ChessApplication.Network;
 
 namespace ChessApplication.GUI.UserControls.Chessboard
@@ -18,7 +19,6 @@ namespace ChessApplication.GUI.UserControls.Chessboard
     public partial class ChessboardUserControl : UserControl
     {
         private NetworkManager networkManager;
-        private readonly ChessboardType chessboardType;
         private IChessboard chessboard;
         private BoxUserControl firstClickedBox;
         private BoxUserControl[,] boxUserControls;
@@ -54,10 +54,8 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             moveSound1 = new SoundPlayer(Properties.Resources.movesound1);
             moveSound2 = new SoundPlayer(Properties.Resources.movesound2);
 
-            this.chessboardType = chessboardType;
-
             InitializeComponent();
-            InitializeChessboard();
+            InitializeChessboard(chessboardType);
             InitializeNetworkManager(userType, hostname);
             InitializeUsernames(userType);
             InitializeTurns(userType);
@@ -80,38 +78,15 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
             networkManager?.ChangeColor(chosenColor);
         }
-
-        // TODO: Maybe use factory pattern
-        private void InitializeChessboard()
+        
+        private void InitializeChessboard(ChessboardType chessboardType)
         {
-            if (chessboardType == ChessboardType.Classic)
-            {
-                chessboard = new ChessboardClassic();
-            }
-
-            else if (chessboardType == ChessboardType.Shatranj)
-            {
-                throw new NotImplementedException();
-            }
+            chessboard = ChessboardProvider.GetChessboard(chessboardType);
         }
 
         private void InitializeNetworkManager(UserType userType, string hostname)
         {
-            if (userType == UserType.SinglePlayer)
-            {
-                return;
-            }
-
-            // TODO: Maybe use factory pattern
-            if (userType == UserType.Server)
-            {
-                networkManager = new NetworkManagerServer();
-            }
-
-            if (userType == UserType.Client)
-            {
-                networkManager = new NetworkManagerClient(hostname);
-            }
+            networkManager = NetworkManagerProvider.GetNetworkManager(userType, hostname);
 
             networkManager.OnChangedColor += NetworkManagerOnChangedColor;
             networkManager.OnChangedUsername += NetworkManagerOnChangedUsername;
