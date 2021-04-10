@@ -4,7 +4,7 @@ using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
-namespace UnitTestsUtilities
+namespace ChessApplication.Tests.Utilities
 {
     [ExcludeFromCodeCoverage]
     public static class ChessboardProvider

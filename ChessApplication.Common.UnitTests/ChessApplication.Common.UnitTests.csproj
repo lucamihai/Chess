@@ -95,9 +95,9 @@
       <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnitTestsUtilities\UnitTestsUtilities.csproj">
-      <Project>{1f3878d6-864c-4f27-ace4-ae895abc8b62}</Project>
-      <Name>UnitTestsUtilities</Name>
+    <ProjectReference Include="..\ChessApplication.Tests.Utilities\ChessApplication.Tests.Utilities.csproj">
+      <Project>{B1C4ED30-41E1-4EA5-AE78-F3165826E479}</Project>
+      <Name>ChessApplication.Tests.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

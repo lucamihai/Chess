@@ -4,7 +4,7 @@ using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 
-namespace UnitTestsUtilities
+namespace ChessApplication.Tests.Utilities
 {
     [ExcludeFromCodeCoverage]
     public static class Methods

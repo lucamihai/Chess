@@ -2,8 +2,8 @@
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
+using ChessApplication.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTestsUtilities;
 
 namespace ChessApplication.Common.UnitTests.ChessPiecesUnitTests.KingUnitTests
 {

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
+using ChessApplication.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTestsUtilities;
 
 namespace ChessApplication.Common.UnitTests
 {
