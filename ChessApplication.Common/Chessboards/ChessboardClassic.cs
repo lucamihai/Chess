@@ -36,19 +36,19 @@ namespace ChessApplication.Common.Chessboards
 
         public PieceColor CurrentTurn { get; set; } = PieceColor.White;
 
-        private bool beginnersMode = true;
-        public bool BeginnersMode
+        private bool highlightAvailableMoves = true;
+        public bool HighlightAvailableMoves
         {
-            get => beginnersMode;
+            get => highlightAvailableMoves;
             set
             {
-                beginnersMode = value;
+                highlightAvailableMoves = value;
 
                 for (var row = 1; row <= 8; row++)
                 {
                     for (var column = 1; column <= 8; column++)
                     {
-                        boxes[row, column].BeginnersMode = BeginnersMode;
+                        boxes[row, column].HighlightAvailableMove = HighlightAvailableMoves;
                     }
                 }
             }
@@ -60,6 +60,9 @@ namespace ChessApplication.Common.Chessboards
 
         public ChessboardClassic()
         {
+            InitializeBoxCollection();
+            CapturedPieceCollection = new CapturedPieceCollection();
+
             NewGame();
         }
 
@@ -120,10 +123,12 @@ namespace ChessApplication.Common.Chessboards
 
         public void NewGame()
         {
-            InitializeBoxCollection();
+            SetChessboardBoxesAsUnavailable();
+            CapturedPieceCollection.Clear();
+
+            ClearPieces();
             AddWhitePieces();
             AddBlackPieces();
-            InitializeCapturedPieceCollection();
         }
 
         // TODO: Refactor
@@ -153,7 +158,7 @@ namespace ChessApplication.Common.Chessboards
                 ? PieceColor.Black
                 : PieceColor.White;
 
-            SetChessBoardBoxesAsUnavailable();
+            SetChessboardBoxesAsUnavailable();
         }
 
         private void UpdateKingPosition(Box destination)
@@ -169,7 +174,7 @@ namespace ChessApplication.Common.Chessboards
             }
         }
 
-        public void SetChessBoardBoxesAsUnavailable()
+        public void SetChessboardBoxesAsUnavailable()
         {
             for (var row = 1; row <= 8; row++)
             {
@@ -194,12 +199,12 @@ namespace ChessApplication.Common.Chessboards
                         if (boxes[row, column].Piece.CanMove)
                         {
                             boxes[row, column].Piece.CanMove = false;
-                            SetChessBoardBoxesAsUnavailable();
+                            SetChessboardBoxesAsUnavailable();
 
                             return false;
                         }
 
-                        SetChessBoardBoxesAsUnavailable();
+                        SetChessboardBoxesAsUnavailable();
                     }
                 }
             }
@@ -326,7 +331,18 @@ namespace ChessApplication.Common.Chessboards
                     var position = new Position(row, column);
 
                     boxes[row, column] = new Box(position);
-                    boxes[row, column].BeginnersMode = true;
+                    boxes[row, column].HighlightAvailableMove = true;
+                }
+            }
+        }
+
+        private void ClearPieces()
+        {
+            for (var row = 1; row < 9; row++)
+            {
+                for (var column = 1; column < 9; column++)
+                {
+                    boxes[row, column].Piece = null;
                 }
             }
         }
@@ -363,21 +379,6 @@ namespace ChessApplication.Common.Chessboards
             {
                 boxes[7, column].Piece = new Pawn(PieceColor.Black);
             }
-        }
-
-        private void InitializeCapturedPieceCollection()
-        {
-            CapturedPieceCollection = new CapturedPieceCollection();
-
-            CapturedPieceCollection.AddEntry<Rook>(PieceColor.White);
-            CapturedPieceCollection.AddEntry<Knight>(PieceColor.White);
-            CapturedPieceCollection.AddEntry<Bishop>(PieceColor.White);
-            CapturedPieceCollection.AddEntry<Queen>(PieceColor.White);
-
-            CapturedPieceCollection.AddEntry<Rook>(PieceColor.Black);
-            CapturedPieceCollection.AddEntry<Knight>(PieceColor.Black);
-            CapturedPieceCollection.AddEntry<Bishop>(PieceColor.Black);
-            CapturedPieceCollection.AddEntry<Queen>(PieceColor.Black);
         }
 
         private static int GetForwardOffsetForColor(PieceColor pieceColor)

@@ -145,16 +145,16 @@ namespace ChessApplication.GUI.Forms
             toolStripMenuItemDisableSound.Visible = false;
         }
 
-        private void ToolStripEnableBeginnerMode(object sender, EventArgs e)
+        private void ToolStripEnableHighlightAvailableMoves(object sender, EventArgs e)
         {
-            chessboardUserControl.BeginnersMode = true;
+            chessboardUserControl.HighlightAvailableMoves = true;
             toolStripMenuItemEnableBeginnersMode.Available = false;
             toolStripMenuItemDisableBeginnersMode.Available = true;
         }
 
-        private void ToolStripDisableBeginnerMode(object sender, EventArgs e)
+        private void ToolStripDisableHighlightAvailableMoves(object sender, EventArgs e)
         {
-            chessboardUserControl.BeginnersMode = false;
+            chessboardUserControl.HighlightAvailableMoves = false;
             toolStripMenuItemEnableBeginnersMode.Available = true;
             toolStripMenuItemDisableBeginnersMode.Available = false;
         }
@@ -171,7 +171,7 @@ namespace ChessApplication.GUI.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            chessboardUserControl?.StopNetworkStuff();
+            chessboardUserControl?.Disconnect();
         }
     }
 }

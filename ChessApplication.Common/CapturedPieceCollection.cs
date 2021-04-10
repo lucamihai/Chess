@@ -27,7 +27,7 @@ namespace ChessApplication.Common
                 dictionaryForColor[chessPieceType]++;
             }
 
-            dictionaryForColor.Add(chessPieceType, 0);
+            dictionaryForColor.Add(chessPieceType, 1);
         }
 
         public void AddEntry<T>(T piece) where T : ChessPiece
@@ -41,7 +41,7 @@ namespace ChessApplication.Common
             }
             else
             {
-                dictionaryForColor.Add(chessPieceType, 0);
+                dictionaryForColor.Add(chessPieceType, 1);
             }
         }
 
@@ -94,6 +94,11 @@ namespace ChessApplication.Common
             return dictionaryForColor
                 .Where(x => !typesToExclude.Contains(x.Key))
                 .Sum(x => x.Value);
+        }
+
+        public void Clear()
+        {
+            capturedPiecesCount.Clear();
         }
 
         private Dictionary<Type, int> GetOrCreateDictionaryForColor(PieceColor pieceColor)

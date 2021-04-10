@@ -110,14 +110,14 @@ namespace ChessApplication.GUI.Forms
             this.toolStripMenuItemEnableBeginnersMode.Name = "toolStripMenuItemEnableBeginnersMode";
             this.toolStripMenuItemEnableBeginnersMode.Size = new System.Drawing.Size(149, 22);
             this.toolStripMenuItemEnableBeginnersMode.Text = "Activeaza-l";
-            this.toolStripMenuItemEnableBeginnersMode.Click += new System.EventHandler(this.ToolStripEnableBeginnerMode);
+            this.toolStripMenuItemEnableBeginnersMode.Click += new System.EventHandler(this.ToolStripEnableHighlightAvailableMoves);
             // 
             // toolStripMenuItemDisableBeginnersMode
             // 
             this.toolStripMenuItemDisableBeginnersMode.Name = "toolStripMenuItemDisableBeginnersMode";
             this.toolStripMenuItemDisableBeginnersMode.Size = new System.Drawing.Size(149, 22);
             this.toolStripMenuItemDisableBeginnersMode.Text = "Dezactiveaza-l";
-            this.toolStripMenuItemDisableBeginnersMode.Click += new System.EventHandler(this.ToolStripDisableBeginnerMode);
+            this.toolStripMenuItemDisableBeginnersMode.Click += new System.EventHandler(this.ToolStripDisableHighlightAvailableMoves);
             // 
             // sunetToolStripMenuItem
             // 
