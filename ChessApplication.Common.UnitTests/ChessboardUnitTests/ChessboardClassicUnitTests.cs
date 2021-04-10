@@ -102,34 +102,6 @@ namespace ChessApplication.Common.UnitTests.ChessboardUnitTests
         }
 
         [TestMethod]
-        public void SettingBeginnersModeSetsBeginnersModeForEachBox()
-        {
-            chessboard.HighlightAvailableMoves = true;
-
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    Assert.IsTrue(chessboard[row, column].HighlightAvailableMove);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void ResettingBeginnersModeResetsBeginnersModeForEachBox()
-        {
-            chessboard.HighlightAvailableMoves = false;
-
-            for (int row = 1; row < 9; row++)
-            {
-                for (int column = 1; column < 9; column++)
-                {
-                    Assert.IsFalse(chessboard[row, column].HighlightAvailableMove);
-                }
-            }
-        }
-
-        [TestMethod]
         public void SetAllBoxesAsUnavailableSetsAllBoxesAvailableToFalse()
         {
             chessboard.SetChessboardBoxesAsUnavailable();

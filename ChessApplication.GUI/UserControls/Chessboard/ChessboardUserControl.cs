@@ -36,12 +36,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         private readonly SoundPlayer moveSound2;
 
         public bool SoundEnabled { get; set; } = true;
-
-        public bool HighlightAvailableMoves
-        {
-            get => chessboard.HighlightAvailableMoves;
-            set => chessboard.HighlightAvailableMoves = value;
-        }
+        public bool HighlightAvailableMoves { get; set; } = true;
 
         public string PlayerUsername { get; private set; }
         private string opponentUsername;
@@ -282,22 +277,27 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             {
                 for (var column = 1; column < 9; column++)
                 {
-                    var isAvailable = boxUserControls[row, column].Box.Available;
+                    var currentBox = boxUserControls[row, column];
 
                     if ((row % 2 == 0 && column % 2 == 0) || (row % 2 == 1 && column % 2 == 1))
                     {
-                        boxUserControls[row, column].BoxBackgroundColor = isAvailable && !ignoreIsAvailableFlag
+                        boxUserControls[row, column].BoxBackgroundColor = !ignoreIsAvailableFlag && ShouldHighlightBoxAsAvailable(currentBox)
                             ? Constants.BoxColorAvailable
                             : Constants.BoxColorDark;
                     }
                     else
                     {
-                        boxUserControls[row, column].BoxBackgroundColor = isAvailable && !ignoreIsAvailableFlag
+                        boxUserControls[row, column].BoxBackgroundColor = !ignoreIsAvailableFlag && ShouldHighlightBoxAsAvailable(currentBox)
                             ? Constants.BoxColorAvailable
                             : Constants.BoxColorLight;
                     }
                 }
             }
+        }
+
+        private bool ShouldHighlightBoxAsAvailable(BoxUserControl boxUserControl)
+        {
+            return boxUserControl.Box.Available && HighlightAvailableMoves;
         }
 
         private void MovePiece(Box origin, Box destination)

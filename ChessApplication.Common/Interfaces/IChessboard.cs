@@ -11,7 +11,6 @@ namespace ChessApplication.Common.Interfaces
         Position PositionBlackKing { get; set; }
         CapturedPieceCollection CapturedPieceCollection { get; set; }
         PieceColor CurrentTurn { get; }
-        bool HighlightAvailableMoves { get; set; }
         bool RetakingIsActive { get; }
         Position RetakingPosition { get; }
         void Move(Position origin, Position destination);

@@ -36,27 +36,8 @@ namespace ChessApplication.Common.Chessboards
 
         public PieceColor CurrentTurn { get; set; } = PieceColor.White;
 
-        private bool highlightAvailableMoves = true;
-        public bool HighlightAvailableMoves
-        {
-            get => highlightAvailableMoves;
-            set
-            {
-                highlightAvailableMoves = value;
-
-                for (var row = 1; row <= 8; row++)
-                {
-                    for (var column = 1; column <= 8; column++)
-                    {
-                        boxes[row, column].HighlightAvailableMove = HighlightAvailableMoves;
-                    }
-                }
-            }
-        }
-
         public bool RetakingIsActive { get; private set; }
         public Position RetakingPosition { get; private set; }
-
 
         public ChessboardClassic()
         {
@@ -331,7 +312,6 @@ namespace ChessApplication.Common.Chessboards
                     var position = new Position(row, column);
 
                     boxes[row, column] = new Box(position);
-                    boxes[row, column].HighlightAvailableMove = true;
                 }
             }
         }

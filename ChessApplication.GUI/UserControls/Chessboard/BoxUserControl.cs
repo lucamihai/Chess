@@ -13,24 +13,8 @@ namespace ChessApplication.GUI.UserControls.Chessboard
     {
         public Box Box { get; set; }
 
-        public bool Available
-        {
-            get => Box.Available;
-            set
-            {
-                Box.Available = value;
-
-                if (Box.Available && BeginnersMode)
-                {
-                    pictureBoxPiece.BackColor = Constants.BoxColorAvailable;
-                }
-            }
-        }
-
+        public bool Available => Box.Available;
         public ChessPiece Piece => Box.Piece;
-
-        public bool BeginnersMode { get; set; } = true;
-
         public Position Position => Box.Position;
 
         public Color BoxBackgroundColor
