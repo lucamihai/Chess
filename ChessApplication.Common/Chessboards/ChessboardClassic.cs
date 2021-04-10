@@ -1,7 +1,7 @@
 ﻿using System;
 using ChessApplication.Common.ChessPieces;
-using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Helpers;
 using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.Chessboards

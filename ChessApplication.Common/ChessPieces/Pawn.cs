@@ -1,5 +1,5 @@
-﻿using ChessApplication.Common.ChessPieces.Helpers;
-using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.Enums;
+using ChessApplication.Common.Helpers;
 using ChessApplication.Common.Interfaces;
 
 namespace ChessApplication.Common.ChessPieces

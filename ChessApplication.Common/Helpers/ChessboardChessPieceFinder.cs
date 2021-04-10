@@ -1,7 +1,8 @@
-﻿using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.ChessPieces;
+using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 
-namespace ChessApplication.Common.ChessPieces.Helpers
+namespace ChessApplication.Common.Helpers
 {
     public static class ChessboardChessPieceFinder 
     {

@@ -4,8 +4,8 @@ using System.Net.Sockets;
 using System.Threading;
 using ChessApplication.Common;
 using ChessApplication.Common.ChessPieces;
-using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Helpers;
 using ChessApplication.Network.Entities;
 
 namespace ChessApplication.Network

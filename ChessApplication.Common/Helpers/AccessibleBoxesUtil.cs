@@ -1,6 +1,6 @@
 ﻿using ChessApplication.Common.Interfaces;
 
-namespace ChessApplication.Common.ChessPieces.Helpers
+namespace ChessApplication.Common.Helpers
 {
     public static class AccessibleBoxesUtil
     {

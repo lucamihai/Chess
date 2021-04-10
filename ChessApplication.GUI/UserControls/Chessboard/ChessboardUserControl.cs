@@ -7,8 +7,8 @@ using System.Windows.Forms;
 using ChessApplication.Common;
 using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
-using ChessApplication.Common.ChessPieces.Helpers;
 using ChessApplication.Common.Enums;
+using ChessApplication.Common.Helpers;
 using ChessApplication.Common.Interfaces;
 using ChessApplication.Network;
 

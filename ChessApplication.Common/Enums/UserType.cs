@@ -1,4 +1,4 @@
-﻿namespace ChessApplication.Common
+﻿namespace ChessApplication.Common.Enums
 {
     public enum UserType
     {

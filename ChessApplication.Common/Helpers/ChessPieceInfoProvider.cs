@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
-namespace ChessApplication.Common.ChessPieces.Helpers
+namespace ChessApplication.Common.Helpers
 {
     [ExcludeFromCodeCoverage]
     public static class ChessPieceInfoProvider
