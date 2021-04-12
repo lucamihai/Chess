@@ -19,40 +19,5 @@ namespace ChessApplication.Common
 
             return false;
         }
-
-        public static void RetakeCapturedPiece(CapturedPieceBox capturedPieceBox, Box destination)
-        {
-            var capturedPieceColor = capturedPieceBox.ChessPiece.Color;
-            var retakingWasSuccessful = false;
-
-            if (capturedPieceBox.ChessPiece is Rook)
-            {
-                destination.Piece = new Rook(capturedPieceColor);
-                retakingWasSuccessful = true;
-            }
-
-            if (capturedPieceBox.ChessPiece is Knight)
-            {
-                destination.Piece = new Knight(capturedPieceColor);
-                retakingWasSuccessful = true;
-            }
-
-            if (capturedPieceBox.ChessPiece is Bishop)
-            {
-                destination.Piece = new Bishop(capturedPieceColor);
-                retakingWasSuccessful = true;
-            }
-
-            if (capturedPieceBox.ChessPiece is Queen)
-            {
-                destination.Piece = new Queen(capturedPieceColor);
-                retakingWasSuccessful = true;
-            }
-
-            if (retakingWasSuccessful)
-            {
-                capturedPieceBox.Count--;
-            }
-        }
     }
 }
