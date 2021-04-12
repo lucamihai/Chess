@@ -5,7 +5,6 @@ using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using ChessApplication.Common;
-using ChessApplication.Common.Chessboards;
 using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Helpers;
@@ -51,9 +50,6 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
         public ChessboardUserControl(ChessboardType chessboardType, UserType userType, string hostname = null)
         {
-            moveSound1 = new SoundPlayer(Properties.Resources.movesound1);
-            moveSound2 = new SoundPlayer(Properties.Resources.movesound2);
-
             InitializeComponent();
             InitializeChessboard(chessboardType);
             InitializeNetworkManager(userType, hostname);
@@ -61,6 +57,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             InitializeTurns(userType);
             InitializeChessboardBoxesArea();
             InitializeCapturedPiecesArea();
+
+            moveSound1 = new SoundPlayer(Properties.Resources.movesound1);
+            moveSound2 = new SoundPlayer(Properties.Resources.movesound2);
 
             NewGame();
         }
@@ -74,11 +73,234 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         public void SetPlayerColor(PieceColor chosenColor)
         {
             playerTurn = chosenColor;
-            opponentTurn = chosenColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
+            opponentTurn = chosenColor == PieceColor.White
+                ? PieceColor.Black
+                : PieceColor.White;
 
             networkManager?.ChangeColor(chosenColor);
         }
-        
+
+        public void RequestNewGame()
+        {
+            if (!isNewGameRequested)
+            {
+                networkManager?.RequestNewGame();
+            }
+            else
+            {
+                NewGame();
+                isNewGameRequested = false;
+                networkManager?.IssueNewGame();
+            }
+        }
+
+        public void Disconnect()
+        {
+            networkManager?.Stop();
+        }
+
+        public void SendChatMessageToOpponent(string message)
+        {
+            networkManager?.SendChatMessage(message);
+        }
+
+        public void SetChessboardBoxesColors(bool ignoreIsAvailableFlag = false)
+        {
+            for (var row = 1; row < 9; row++)
+            {
+                for (var column = 1; column < 9; column++)
+                {
+                    var currentBox = boxUserControls[row, column];
+                    var boxColorUnavailable = (row + column) % 2 == 0
+                        ? Constants.BoxColorDark
+                        : Constants.BoxColorLight;
+
+                    currentBox.BoxBackgroundColor = !ignoreIsAvailableFlag && ShouldHighlightBoxAsAvailable(currentBox)
+                        ? Constants.BoxColorAvailable
+                        : boxColorUnavailable;
+                }
+            }
+        }
+
+        private bool ShouldHighlightBoxAsAvailable(BoxUserControl boxUserControl)
+        {
+            return boxUserControl.Box.Available && HighlightAvailableMoves;
+        }
+
+        private void NewGame()
+        {
+            chessboard.NewGame();
+
+            SetChessboardBoxesColors();
+            RedrawChessboardBoxes();
+            UpdateCapturedPiecesCounter();
+
+            playerTurn = opponentTurn == PieceColor.Black
+                ? PieceColor.White
+                : PieceColor.Black;
+        }
+
+        private void UpdateCapturedPiecesCounter()
+        {
+            capturedWhitePawns.Count = chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.White);
+            capturedWhiteRooks.Count = chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.White);
+            capturedWhiteKnights.Count = chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.White);
+            capturedWhiteBishops.Count = chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.White);
+            capturedWhiteQueen.Count = chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.White);
+
+            capturedBlackPawns.Count = chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.Black);
+            capturedBlackRooks.Count = chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.Black);
+            capturedBlackKnights.Count = chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.Black);
+            capturedBlackBishops.Count = chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.Black);
+            capturedBlackQueen.Count = chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.Black);
+        }
+
+        private void NextTurn()
+        {
+            chessboard.SetChessboardBoxesAsUnavailable();
+            SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
+            RedrawChessboardBoxes();
+            UpdateCapturedPiecesCounter();
+
+            labelTurn.Text = chessboard.CurrentTurn == PieceColor.White
+                ? Strings.WhitesTurn
+                : Strings.BlacksTurn;
+        }
+
+        private void BoxClick(object sender, EventArgs e)
+        {
+            if (chessboard.RetakingIsActive || chessboard.CurrentTurn != playerTurn)
+            {
+                return;
+            }
+
+            var clickedBox = (BoxUserControl)sender;
+            
+            if (firstClickedBox == null && clickedBox.Piece != null && playerTurn == clickedBox.Piece.Color)
+            {
+                var boxPosition = clickedBox.Position;
+                
+                clickedBox.Box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(chessboard, boxPosition);
+                SetChessboardBoxesColors();
+
+                if (clickedBox.Box.Piece.CanMove)
+                {
+                    firstClickedBox = clickedBox;
+                }
+            }
+
+            else if (firstClickedBox != null)
+            {
+                if (clickedBox == firstClickedBox)
+                {
+                    chessboard.SetChessboardBoxesAsUnavailable();
+                    SetChessboardBoxesColors();
+                    firstClickedBox = null;
+                }
+
+                else if (clickedBox != firstClickedBox && clickedBox.Available)
+                {
+                    MovePiece(firstClickedBox.Box, clickedBox.Box);
+                    firstClickedBox = null;
+                    RedrawChessboardBoxes();
+                }
+            }
+        }
+
+        private void MovePiece(Box origin, Box destination)
+        {
+            // TODO: Check if move is valid
+
+            if (chessboard.CurrentTurn == playerTurn)
+            {
+                networkManager?.NotifyOfMove(origin.Position, destination.Position);
+            }
+
+            SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
+            TriggerOnMadeMove(origin, destination);
+            chessboard.Move(origin.Position, destination.Position);
+
+            if (!chessboard.RetakingIsActive)
+            {
+                NextTurn();
+            }
+
+            if (SoundEnabled)
+            {
+                var soundToPlay = chessboard.CurrentTurn == playerTurn ? moveSound1 : moveSound2;
+                soundToPlay.Play();
+            }
+
+            EndGameIfCheckMate();
+        }
+
+        private void TriggerOnMadeMove(Box origin, Box destination)
+        {
+            var originBoxUserControl = boxUserControls[origin.Position.Row, origin.Position.Column];
+            var destinationBoxUserControl = boxUserControls[destination.Position.Row, destination.Position.Column];
+
+            OnMadeMove(originBoxUserControl, destinationBoxUserControl);
+        }
+
+        private void EndGameIfCheckMate()
+        {
+            if (chessboard.IsCheckmateForProvidedColor(PieceColor.White))
+            {
+                OnNotification(Strings.CheckmateWhite);
+
+                Thread.Sleep(2000);
+                var newGameInvoker = new MethodInvoker(NewGame);
+
+                Invoke(newGameInvoker);
+                networkManager?.IssueNewGame();
+            }
+            if (chessboard.IsCheckmateForProvidedColor(PieceColor.Black))
+            {
+                OnNotification(Strings.CheckmateBlack);
+
+                Thread.Sleep(2000);
+                var newGameInvoker = new MethodInvoker(NewGame);
+
+                Invoke(newGameInvoker);
+                networkManager?.IssueNewGame();
+            }
+        }
+
+        private void CapturedPieceBoxClick(object sender, EventArgs e)
+        {
+            if (!chessboard.RetakingIsActive || chessboard.CurrentTurn != playerTurn)
+            {
+                return;
+            }
+
+            var clickedCapturedPieceBox = (CapturedPieceBoxUserControl)sender;
+            var chessPieceToRetake = clickedCapturedPieceBox.ChessPiece;
+            var count = chessboard.CapturedPieceCollection.GetEntry(chessPieceToRetake);
+
+            if (count <= 0)
+            {
+                return;
+            }
+
+            var retakingPosition = chessboard.RetakingPosition;
+            chessboard.RetakePiece(retakingPosition, chessPieceToRetake.GetType(), chessPieceToRetake.Color);
+            networkManager?.NotifyOfRetakeSelection(retakingPosition, chessboard[retakingPosition].Piece);
+            NextTurn();
+        }
+
+        private void RedrawChessboardBoxes()
+        {
+            for (var row = 1; row < 9; row++)
+            {
+                for (var column = 1; column < 9; column++)
+                {
+                    boxUserControls[row, column].Draw();
+                }
+            }
+        }
+
+        #region Initialization methods
+
         private void InitializeChessboard(ChessboardType chessboardType)
         {
             chessboard = ChessboardProvider.GetChessboard(chessboardType);
@@ -126,49 +348,6 @@ namespace ChessApplication.GUI.UserControls.Chessboard
                 playerTurn = PieceColor.White;
                 opponentTurn = PieceColor.Black;
             }
-        }
-
-        public void RequestNewGame()
-        {
-            if (!isNewGameRequested)
-            {
-                networkManager?.RequestNewGame();
-            }
-            else
-            {
-                NewGame();
-                isNewGameRequested = false;
-                networkManager?.IssueNewGame();
-            }
-        }
-
-        public void Disconnect()
-        {
-            networkManager?.Stop();
-        }
-
-        public void SendMessageToOpponent(string message)
-        {
-            networkManager?.SendChatMessage(message);
-        }
-
-        private void NotifyNewGameIsRequested()
-        {
-            var message = string.Format(Strings.UserRequestsNewGame, opponentUsername);
-            MessageBox.Show(message);
-        }
-
-        private void NewGame()
-        {
-            chessboard.NewGame();
-
-            SetChessboardBoxesColors();
-            RedrawChessboardBoxes();
-            UpdateCapturedPiecesCounter();
-
-            playerTurn = opponentTurn == PieceColor.Black
-                ? PieceColor.White
-                : PieceColor.Black;
         }
 
         private void InitializeChessboardBoxesArea()
@@ -246,199 +425,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             capturedBlackQueen.Click += CapturedPieceBoxClick;
         }
 
-        public void SetChessboardBoxesColors(bool ignoreIsAvailableFlag = false)
-        {
-            for (var row = 1; row < 9; row++)
-            {
-                for (var column = 1; column < 9; column++)
-                {
-                    var currentBox = boxUserControls[row, column];
-
-                    if ((row + column) % 2 == 0)
-                    {
-                        boxUserControls[row, column].BoxBackgroundColor = !ignoreIsAvailableFlag && ShouldHighlightBoxAsAvailable(currentBox)
-                            ? Constants.BoxColorAvailable
-                            : Constants.BoxColorDark;
-                    }
-                    else
-                    {
-                        boxUserControls[row, column].BoxBackgroundColor = !ignoreIsAvailableFlag && ShouldHighlightBoxAsAvailable(currentBox)
-                            ? Constants.BoxColorAvailable
-                            : Constants.BoxColorLight;
-                    }
-                }
-            }
-        }
-
-        private bool ShouldHighlightBoxAsAvailable(BoxUserControl boxUserControl)
-        {
-            return boxUserControl.Box.Available && HighlightAvailableMoves;
-        }
-
-        private void MovePiece(Box origin, Box destination)
-        {
-            // TODO: Check if move is valid
-
-            if (chessboard.CurrentTurn == playerTurn)
-            {
-                networkManager?.NotifyOfMove(origin.Position, destination.Position);
-            }
-
-            SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
-            TriggerOnMadeMove(origin, destination);
-            chessboard.Move(origin.Position, destination.Position);
-
-            if (!chessboard.RetakingIsActive)
-            {
-                NextTurn();
-            }
-
-            if (SoundEnabled)
-            {
-                var soundToPlay = chessboard.CurrentTurn == playerTurn ? moveSound1 : moveSound2;
-                soundToPlay.Play();
-            }
-
-            EndGameIfCheckMate();
-        }
-
-        private void TriggerOnMadeMove(Box origin, Box destination)
-        {
-            var originBoxUserControl = boxUserControls[origin.Position.Row, origin.Position.Column];
-            var destinationBoxUserControl = boxUserControls[destination.Position.Row, destination.Position.Column];
-
-            OnMadeMove(originBoxUserControl, destinationBoxUserControl);
-        }
-
-        private void UpdateCapturedPiecesCounter()
-        {
-            capturedWhitePawns.Count = chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.White);
-            capturedWhiteRooks.Count = chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.White);
-            capturedWhiteKnights.Count = chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.White);
-            capturedWhiteBishops.Count = chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.White);
-            capturedWhiteQueen.Count = chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.White);
-
-            capturedBlackPawns.Count = chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.Black);
-            capturedBlackRooks.Count = chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.Black);
-            capturedBlackKnights.Count = chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.Black);
-            capturedBlackBishops.Count = chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.Black);
-            capturedBlackQueen.Count = chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.Black);
-        }
-
-        private void EndGameIfCheckMate()
-        {
-            if (chessboard.IsCheckmateForProvidedColor(PieceColor.White))
-            {
-                OnNotification(Strings.CheckmateWhite);
-
-                Thread.Sleep(2000);
-                var newGameInvoker = new MethodInvoker(NewGame);
-
-                Invoke(newGameInvoker);
-                networkManager?.IssueNewGame();
-            }
-            if (chessboard.IsCheckmateForProvidedColor(PieceColor.Black))
-            {
-                OnNotification(Strings.CheckmateBlack);
-
-                Thread.Sleep(2000);
-                var newGameInvoker = new MethodInvoker(NewGame);
-
-                Invoke(newGameInvoker);
-                networkManager?.IssueNewGame();
-            }
-        }
-
-        private void NextTurn()
-        {
-            chessboard.SetChessboardBoxesAsUnavailable();
-            SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
-            RedrawChessboardBoxes();
-            UpdateCapturedPiecesCounter();
-
-            labelTurn.Text = chessboard.CurrentTurn == PieceColor.White
-                ? Strings.WhitesTurn
-                : Strings.BlacksTurn;
-        }
-
-        private void BoxClick(object sender, EventArgs e)
-        {
-            if (chessboard.RetakingIsActive)
-            {
-                return;
-            }
-
-            if (chessboard.CurrentTurn != playerTurn)
-            {
-                return;
-            }
-
-            var clickedBox = (BoxUserControl)sender;
-            
-            if (firstClickedBox == null && clickedBox.Piece != null)
-            {
-                if (playerTurn == clickedBox.Piece.Color)
-                {
-                    var boxPosition = clickedBox.Position;
-                    
-                    clickedBox.Box.Piece.CheckPossibilitiesForProvidedLocationAndMarkThem(chessboard, boxPosition);
-                    SetChessboardBoxesColors();
-
-                    if (clickedBox.Box.Piece.CanMove)
-                    {
-                        firstClickedBox = clickedBox;
-                    }
-                }
-            }
-            else if (firstClickedBox != null)
-            {
-                if (clickedBox == firstClickedBox)
-                {
-                    chessboard.SetChessboardBoxesAsUnavailable();
-                    SetChessboardBoxesColors();
-                    firstClickedBox = null;
-                }
-
-                else if (clickedBox != firstClickedBox && clickedBox.Available)
-                {
-                    MovePiece(firstClickedBox.Box, clickedBox.Box);
-                    firstClickedBox = null;
-                    RedrawChessboardBoxes();
-                }
-            }
-            
-        }
-
-        private void CapturedPieceBoxClick(object sender, EventArgs e)
-        {
-            if (!chessboard.RetakingIsActive)
-            {
-                return;
-            }
-
-            var clickedCapturedPieceBox = (CapturedPieceBoxUserControl)sender;
-            var chessPieceToRetake = clickedCapturedPieceBox.ChessPiece;
-            var count = chessboard.CapturedPieceCollection.GetEntry(chessPieceToRetake);
-
-            if (chessboard.CurrentTurn == playerTurn && count > 0)
-            {
-                var retakingPosition = chessboard.RetakingPosition;
-                chessboard.RetakePiece(retakingPosition, chessPieceToRetake.GetType(), chessPieceToRetake.Color);
-                networkManager?.NotifyOfRetakeSelection(retakingPosition, chessboard[retakingPosition].Piece);
-                NextTurn();
-            }
-        }
-
-        private void RedrawChessboardBoxes()
-        {
-            for (var row = 1; row < 9; row++)
-            {
-                for (var column = 1; column < 9; column++)
-                {
-                    boxUserControls[row, column].Draw();
-                }
-            }
-        }
+        #endregion
 
         #region NetworkManager delegates
 
@@ -527,5 +514,11 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         }
 
         #endregion
+
+        private void NotifyNewGameIsRequested()
+        {
+            var message = string.Format(Strings.UserRequestsNewGame, opponentUsername);
+            MessageBox.Show(message);
+        }
     }
 }

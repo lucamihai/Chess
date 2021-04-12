@@ -26,7 +26,7 @@ namespace ChessApplication.GUI.Forms
 
             menuContainer = new Panel
             {
-                MinimumSize = new Size(this.Width, this.Height),
+                MinimumSize = new Size(Width, Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
             };
             menuContainer.Controls.Add(gameConfigurationUserControl);
@@ -43,7 +43,7 @@ namespace ChessApplication.GUI.Forms
         {
             mainMenu = new ChessboardMainMenuUserControl
             {
-                MinimumSize = new Size(this.Width, this.Height),
+                MinimumSize = new Size(Width, Height),
                 MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height),
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink
@@ -89,7 +89,7 @@ namespace ChessApplication.GUI.Forms
 
         private void UpdateApplicationTextByUserType(UserType userType)
         {
-            this.Text = string.Format(Strings.ApplicationText, userType);
+            Text = string.Format(Strings.ApplicationText, userType);
         }
 
         private void InitializeChessboard(ChessboardType chessboardType, UserType userType)
@@ -106,29 +106,15 @@ namespace ChessApplication.GUI.Forms
 
             panelChessboard.Controls.Add(chessboardUserControl);
 
-            chessboardUserControl.OnMadeMove += (origin, destination) =>
-            {
-                historyEntries.AddEntry(origin, destination);
-            };
-
-            chessboardUserControl.OnNotification += (notificationMessage) =>
-            {
-                notifications.AddNotification(notificationMessage);
-            };
-
-            chessboardUserControl.OnReceivedChatMessage += (username, message) =>
-            {
-                chatBox.AddChatMessage(username, message);
-            };
+            chessboardUserControl.OnMadeMove += (origin, destination) => historyEntries.AddEntry(origin, destination);
+            chessboardUserControl.OnNotification += notificationMessage => notifications.AddNotification(notificationMessage);
+            chessboardUserControl.OnReceivedChatMessage += (username, message) => chatBox.AddChatMessage(username, message);
         }
 
         private void InitializeChatBox()
         {
             chatBox.Username = chessboardUserControl.PlayerUsername;
-            chatBox.OnSentChat += (message) =>
-            {
-                chessboardUserControl.SendMessageToOpponent(message);
-            };
+            chatBox.OnSentChat += chatMessage => chessboardUserControl.SendChatMessageToOpponent(chatMessage);
         }
 
         private void ToolStripEnableSound(object sender, EventArgs e)
