@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using ChessApplication.Common;
@@ -17,6 +16,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
     [ExcludeFromCodeCoverage]
     public partial class ChessboardUserControl : UserControl
     {
+        private readonly SoundManager soundManager;
         private NetworkManager networkManager;
         private IChessboard chessboard;
         private BoxUserControl firstClickedBox;
@@ -29,10 +29,6 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         private CapturedPieceBoxUserControl capturedBlackPawns, capturedBlackRooks, capturedBlackKnights, capturedBlackBishops, capturedBlackQueen;
 
         private bool isNewGameRequested;
-
-        // TODO: Extract sound logic in a separate class
-        private readonly SoundPlayer moveSound1;
-        private readonly SoundPlayer moveSound2;
 
         public bool SoundEnabled { get; set; } = true;
         public bool HighlightAvailableMoves { get; set; } = true;
@@ -58,8 +54,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             InitializeChessboardBoxesArea();
             InitializeCapturedPiecesArea();
 
-            moveSound1 = new SoundPlayer(Properties.Resources.movesound1);
-            moveSound2 = new SoundPlayer(Properties.Resources.movesound2);
+            soundManager = new SoundManager();
 
             NewGame();
         }
@@ -227,8 +222,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
             if (SoundEnabled)
             {
-                var soundToPlay = chessboard.CurrentTurn == playerTurn ? moveSound1 : moveSound2;
-                soundToPlay.Play();
+                soundManager.PlayMoveSound();
             }
 
             EndGameIfCheckMate();

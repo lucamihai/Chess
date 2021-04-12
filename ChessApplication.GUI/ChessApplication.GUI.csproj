@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Helpers\ChessboardProvider.cs" />
     <Compile Include="Helpers\NetworkManagerProvider.cs" />
+    <Compile Include="Helpers\SoundManager.cs" />
     <Compile Include="UserControls\Chat\ChatBoxUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
