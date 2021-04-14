@@ -6,11 +6,17 @@ using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 using ChessApplication.Network.Entities;
 using ChessApplication.Providers;
+using Newtonsoft.Json;
 
 namespace ChessApplication.Network
 {
     public abstract class NetworkManager : IDisposable
     {
+        private static JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All
+        };
+
         protected Thread NetworkThread { get; set; }
         protected bool NetworkThreadRunning;
         protected NetworkStream NetworkStream { get; set; }
@@ -23,7 +29,7 @@ namespace ChessApplication.Network
         public delegate void RequestedNewGame();
         public delegate void IssuedNewGame();
         public delegate void BegunRetakeSelection();
-        public delegate void MadeRetakeSelection(Position selectionPosition, string chessPieceType, string chessPieceColor);
+        public delegate void MadeRetakeSelection(Position selectionPosition, ChessPiece chessPiece);
         public delegate void ChatMessage(string message);
         public delegate void Notification(string notificationMessage);
 
@@ -81,8 +87,7 @@ namespace ChessApplication.Network
         {
             var message = new Message(CommandType.RetakeSelection,
                 position.Row.ToString(), position.Column.ToString(),
-                selectedPiece.GetType().Name,
-                selectedPiece.Color.ToString());
+                JsonConvert.SerializeObject(selectedPiece, jsonSerializerSettings));
 
             SendMessage(message);
         }
@@ -95,14 +100,19 @@ namespace ChessApplication.Network
 
         private void SendMessage(Message message)
         {
-            var stringMessage = message.ToString();
+            var stringMessage = JsonConvert.SerializeObject(message);
             var writer = new StreamWriter(NetworkStream) {AutoFlush = true};
             writer.WriteLine(stringMessage);
         }
 
         protected void InterpretReceivedData(string receivedData)
         {
-            var message = Message.FromString(receivedData);
+            var message = JsonConvert.DeserializeObject<Message>(receivedData);
+
+            if (message == null)
+            {
+                throw new InvalidOperationException();
+            }
 
             switch (message.CommandType)
             {
@@ -210,6 +220,7 @@ namespace ChessApplication.Network
         private void HandleNewGame()
         {
             OnIssuedNewGame();
+            
         }
 
         private void HandleBeginSelection()
@@ -222,8 +233,9 @@ namespace ChessApplication.Network
             var row = Convert.ToInt32(message.Arguments[0]);
             var column = Convert.ToInt32(message.Arguments[1]);
             var selectionPosition = new Position(row, column);
+            var chessPiece = JsonConvert.DeserializeObject<ChessPiece>(message.Arguments[2], jsonSerializerSettings);
 
-            OnMadeRetakeSelection(selectionPosition, message.Arguments[2], message.Arguments[3]);
+            OnMadeRetakeSelection(selectionPosition, chessPiece);
         }
 
         private void HandleChat(Message message)

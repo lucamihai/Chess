@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace ChessApplication.Network.Entities
 {
@@ -21,43 +19,5 @@ namespace ChessApplication.Network.Entities
 
         public CommandType CommandType { get; set; }
         public string[] Arguments { get; set; }
-
-        public override string ToString()
-        {
-            return $"#{CommandType} {string.Join(" ", Arguments)}";
-        }
-
-        public static Message FromString(string messageString)
-        {
-            if (string.IsNullOrEmpty(messageString))
-            {
-                return new Message();
-            }
-
-            if (messageString[0] != Constants.CommandMarker)
-            {
-                return new Message();
-            }
-            
-            var tokens = messageString.Substring(1).Split();
-
-            if (tokens.Length < 1)
-            {
-                return new Message();
-            }
-
-            return new Message
-            {
-                CommandType = GetCommandTypeFromString(tokens[0]),
-                Arguments = tokens.Skip(1).ToArray()
-            };
-        }
-
-        private static CommandType GetCommandTypeFromString(string stringCommandType)
-        {
-            return Enum.TryParse<CommandType>(stringCommandType, out var command)
-                ? command
-                : CommandType.Unrecognized;
-        }
     }
 }

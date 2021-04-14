@@ -277,7 +277,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             }
 
             var retakingPosition = chessboard.RetakingPosition;
-            chessboard.RetakePiece(retakingPosition, chessPieceToRetake.GetType(), chessPieceToRetake.Color);
+            chessboard.RetakePiece(retakingPosition, chessPieceToRetake);
             networkManager?.NotifyOfRetakeSelection(retakingPosition, chessboard[retakingPosition].Piece);
             NextTurn();
         }
@@ -451,14 +451,11 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             Invoke(beginSelection);
         }
 
-        private void NetworkManagerOnMadeRetakeSelection(Position position, string type, string color)
+        private void NetworkManagerOnMadeRetakeSelection(Position position, ChessPiece chessPiece)
         {
             var selection = new MethodInvoker(() =>
             {
-                var pieceType = ChessPieceInfoProvider.GetChessPieceTypeFromString(type);
-                var pieceColor = ChessPieceInfoProvider.GetPieceColorFromString(color);
-
-                chessboard.RetakePiece(position, pieceType, pieceColor);
+                chessboard.RetakePiece(position, chessPiece);
                 NextTurn();
             });
 

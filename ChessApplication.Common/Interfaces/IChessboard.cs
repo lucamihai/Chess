@@ -14,7 +14,7 @@ namespace ChessApplication.Common.Interfaces
         bool RetakingIsActive { get; }
         Position RetakingPosition { get; }
         void Move(Position origin, Position destination);
-        void RetakePiece(Position position, Type pieceType, PieceColor pieceColor);
+        void RetakePiece(Position position, ChessPiece chessPiece);
         void NewGame();
         void SetChessboardBoxesAsUnavailable();
         bool IsCheckmateForProvidedColor(PieceColor providedColor);

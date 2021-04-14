@@ -77,17 +77,9 @@ namespace ChessApplication.ChessboardClassicLogic
         }
 
         // TODO: Refactor arguments
-        public void RetakePiece(Position position, Type pieceType, PieceColor pieceColor)
+        public void RetakePiece(Position position, ChessPiece chessPiece)
         {
-            var piece = (ChessPiece)Activator.CreateInstance(pieceType);
-
-            if (piece == null)
-            {
-                return;
-            }
-
-            piece.Color = pieceColor;
-            var entries = CapturedPieceCollection.GetEntry(piece);
+            var entries = CapturedPieceCollection.GetEntry(chessPiece);
 
             if (entries == 0)
             {
@@ -96,8 +88,8 @@ namespace ChessApplication.ChessboardClassicLogic
             }
 
             var box = this[position];
-            box.Piece = piece;
-            CapturedPieceCollection.DecrementEntry(piece);
+            box.Piece = chessPiece;
+            CapturedPieceCollection.DecrementEntry(chessPiece);
 
             NextTurn();
             RetakingIsActive = false;

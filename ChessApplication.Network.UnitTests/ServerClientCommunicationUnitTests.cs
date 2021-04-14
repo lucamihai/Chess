@@ -4,6 +4,7 @@ using System.Threading;
 using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common;
 using ChessApplication.Common.Enums;
+using KellermanSoftware.CompareNetObjects;
 
 namespace ChessApplication.Network.UnitTests
 {
@@ -13,12 +14,15 @@ namespace ChessApplication.Network.UnitTests
     {
         private NetworkManagerServer server;
         private NetworkManagerClient client;
+        private CompareLogic compareLogic;
         
         [TestInitialize]
         public void Setup()
         {
             server = new NetworkManagerServer();
             client = new NetworkManagerClient("127.0.0.1");
+
+            compareLogic = new CompareLogic();
         }
 
         [TestMethod]
@@ -123,14 +127,12 @@ namespace ChessApplication.Network.UnitTests
         {
             var received = false;
             var receivedPosition = new Position();
-            var receivedChessPieceType = "Rook";
-            var receivedChessPieceColor = "Undefined";
-            client.OnMadeRetakeSelection += (selectionPosition, chessPieceType, chessPieceColor) =>
+            ChessPiece receivedChessPiece = new Rook(PieceColor.Undefined);
+            client.OnMadeRetakeSelection += (selectionPosition, chessPiece) =>
             {
                 received = true;
                 receivedPosition = selectionPosition;
-                receivedChessPieceType = chessPieceType;
-                receivedChessPieceColor = chessPieceColor;
+                receivedChessPiece = chessPiece;
             };
 
             var selectionPositionToSend = new Position(2, 3);
@@ -140,8 +142,7 @@ namespace ChessApplication.Network.UnitTests
 
             Assert.IsTrue(received);
             Assert.AreEqual(selectionPositionToSend, receivedPosition);
-            Assert.AreEqual(chessPieceToSend.GetType().Name, receivedChessPieceType);
-            Assert.AreEqual(chessPieceToSend.Color.ToString(), receivedChessPieceColor);
+            Assert.IsTrue(compareLogic.Compare(chessPieceToSend, receivedChessPiece).AreEqual);
         }
 
         [TestMethod]
