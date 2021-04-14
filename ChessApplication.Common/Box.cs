@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ChessApplication.Common.ChessPieces;
 
 namespace ChessApplication.Common
 {

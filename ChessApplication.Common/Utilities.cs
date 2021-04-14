@@ -1,5 +1,4 @@
-﻿using ChessApplication.Common.ChessPieces;
-using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Common
 {

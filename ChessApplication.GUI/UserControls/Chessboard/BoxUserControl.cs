@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ChessApplication.Common;
-using ChessApplication.Common.ChessPieces;
 using ChessApplication.GUI.Helpers;
 
 namespace ChessApplication.GUI.UserControls.Chessboard

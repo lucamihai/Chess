@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ChessApplication.Common.ChessPieces;
+using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

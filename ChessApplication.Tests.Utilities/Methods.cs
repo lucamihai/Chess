@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common;
-using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 

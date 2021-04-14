@@ -1,6 +1,4 @@
-﻿using ChessApplication.Common.ChessPieces;
-
-namespace ChessApplication.Common
+﻿namespace ChessApplication.Common
 {
     public class CapturedPieceBox
     {

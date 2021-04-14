@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using ChessApplication.ChessboardClassicLogic;
+using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common;
-using ChessApplication.Common.Chessboards;
-using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Tests.Utilities

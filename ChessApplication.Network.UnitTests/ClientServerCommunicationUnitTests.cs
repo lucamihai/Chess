@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common;
-using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Network.UnitTests

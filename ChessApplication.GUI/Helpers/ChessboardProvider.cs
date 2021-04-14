@@ -1,5 +1,5 @@
 ﻿using System;
-using ChessApplication.Common.Chessboards;
+using ChessApplication.ChessboardClassicLogic;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
 

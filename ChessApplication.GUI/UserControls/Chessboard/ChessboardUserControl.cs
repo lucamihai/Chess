@@ -3,13 +3,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common;
-using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
-using ChessApplication.Common.Helpers;
 using ChessApplication.Common.Interfaces;
 using ChessApplication.GUI.Helpers;
 using ChessApplication.Network;
+using ChessApplication.Providers;
 
 namespace ChessApplication.GUI.UserControls.Chessboard
 {

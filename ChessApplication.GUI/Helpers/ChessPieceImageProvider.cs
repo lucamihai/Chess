@@ -4,7 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using ChessApplication.Common.ChessPieces;
+using ChessApplication.ChessboardClassicLogic.ChessPieces;
+using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 
 namespace ChessApplication.GUI.Helpers

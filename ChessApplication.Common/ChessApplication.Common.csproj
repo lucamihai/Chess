@@ -44,17 +44,7 @@
     <Compile Include="Box.cs" />
     <Compile Include="CapturedPieceBox.cs" />
     <Compile Include="CapturedPieceCollection.cs" />
-    <Compile Include="Chessboards\ChessboardClassic.cs" />
-    <Compile Include="ChessPieces\Bishop.cs" />
-    <Compile Include="ChessPieces\ChessPiece.cs" />
-    <Compile Include="Helpers\AccessibleBoxesUtil.cs" />
-    <Compile Include="Helpers\ChessboardChessPieceFinder.cs" />
-    <Compile Include="Helpers\ChessPieceInfoProvider.cs" />
-    <Compile Include="ChessPieces\King.cs" />
-    <Compile Include="ChessPieces\Knight.cs" />
-    <Compile Include="ChessPieces\Pawn.cs" />
-    <Compile Include="ChessPieces\Queen.cs" />
-    <Compile Include="ChessPieces\Rook.cs" />
+    <Compile Include="ChessPiece.cs" />
     <Compile Include="Enums\ChessboardType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
     <Compile Include="Interfaces\IChessboard.cs" />
@@ -63,6 +53,8 @@
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

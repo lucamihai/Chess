@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
-using ChessApplication.Common.ChessPieces;
+using ChessApplication.Common;
 using ChessApplication.GUI.Helpers;
 
 namespace ChessApplication.GUI.UserControls.Chessboard

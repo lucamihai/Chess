@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ChessApplication.Common.ChessPieces;
 using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Common

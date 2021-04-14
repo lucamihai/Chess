@@ -186,13 +186,25 @@
     <None Include="Resources\movesound2.wav" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj">
+      <Project>{C73AAB28-C1AA-4AF6-B051-E16786B747AB}</Project>
+      <Name>ChessApplication.ChessboardClassicLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Helpers\ChessApplication.Helpers.csproj">
+      <Project>{A7EB8C80-A2D5-40B6-995A-866356D9F08A}</Project>
+      <Name>ChessApplication.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj">
       <Project>{9ad7b69a-879a-48ac-b725-e579cb8dffe4}</Project>
       <Name>ChessApplication.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Providers\ChessApplication.Providers.csproj">
+      <Project>{FED65789-71A1-4F5A-844A-465C88DC3534}</Project>
+      <Name>ChessApplication.Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -49,48 +49,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChessboardUnitTests\ChessboardClassicUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingThreatUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingThreatUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookPieceTakingUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControlsUnitTests\CapturedPieceBoxUnitTests.cs" />
     <Compile Include="UtilitiesUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj">
+      <Project>{C73AAB28-C1AA-4AF6-B051-E16786B747AB}</Project>
+      <Name>ChessApplication.ChessboardClassicLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>
