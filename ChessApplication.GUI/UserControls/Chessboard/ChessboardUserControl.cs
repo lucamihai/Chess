@@ -137,17 +137,17 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
         private void UpdateCapturedPiecesCounter()
         {
-            capturedWhitePawns.Count = chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.White);
-            capturedWhiteRooks.Count = chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.White);
-            capturedWhiteKnights.Count = chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.White);
-            capturedWhiteBishops.Count = chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.White);
-            capturedWhiteQueen.Count = chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.White);
+            capturedWhitePawns.Count = chessboard.CapturedPieceCollection.GetEntryCount<Pawn>(PieceColor.White);
+            capturedWhiteRooks.Count = chessboard.CapturedPieceCollection.GetEntryCount<Rook>(PieceColor.White);
+            capturedWhiteKnights.Count = chessboard.CapturedPieceCollection.GetEntryCount<Knight>(PieceColor.White);
+            capturedWhiteBishops.Count = chessboard.CapturedPieceCollection.GetEntryCount<Bishop>(PieceColor.White);
+            capturedWhiteQueen.Count = chessboard.CapturedPieceCollection.GetEntryCount<Queen>(PieceColor.White);
 
-            capturedBlackPawns.Count = chessboard.CapturedPieceCollection.GetEntry<Pawn>(PieceColor.Black);
-            capturedBlackRooks.Count = chessboard.CapturedPieceCollection.GetEntry<Rook>(PieceColor.Black);
-            capturedBlackKnights.Count = chessboard.CapturedPieceCollection.GetEntry<Knight>(PieceColor.Black);
-            capturedBlackBishops.Count = chessboard.CapturedPieceCollection.GetEntry<Bishop>(PieceColor.Black);
-            capturedBlackQueen.Count = chessboard.CapturedPieceCollection.GetEntry<Queen>(PieceColor.Black);
+            capturedBlackPawns.Count = chessboard.CapturedPieceCollection.GetEntryCount<Pawn>(PieceColor.Black);
+            capturedBlackRooks.Count = chessboard.CapturedPieceCollection.GetEntryCount<Rook>(PieceColor.Black);
+            capturedBlackKnights.Count = chessboard.CapturedPieceCollection.GetEntryCount<Knight>(PieceColor.Black);
+            capturedBlackBishops.Count = chessboard.CapturedPieceCollection.GetEntryCount<Bishop>(PieceColor.Black);
+            capturedBlackQueen.Count = chessboard.CapturedPieceCollection.GetEntryCount<Queen>(PieceColor.Black);
         }
 
         private void NextTurn()
@@ -269,7 +269,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
 
             var clickedCapturedPieceBox = (CapturedPieceBoxUserControl)sender;
             var chessPieceToRetake = clickedCapturedPieceBox.ChessPiece;
-            var count = chessboard.CapturedPieceCollection.GetEntry(chessPieceToRetake);
+            var count = chessboard.CapturedPieceCollection.GetEntryCount(chessPieceToRetake);
 
             if (count <= 0)
             {

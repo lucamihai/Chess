@@ -1,5 +1,8 @@
-﻿namespace ChessApplication.Common
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ChessApplication.Common
 {
+    [ExcludeFromCodeCoverage]
     public class CapturedPieceBox
     {
         public CapturedPieceBox(ChessPiece chessPiece)

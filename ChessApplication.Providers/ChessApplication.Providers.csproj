@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChessPieceInfoProvider.cs" />
+    <Compile Include="ChessboardProvider.cs" />
+    <Compile Include="NetworkManagerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +53,10 @@
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
       <Name>ChessApplication.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj">
+      <Project>{9AD7B69A-879A-48AC-B725-E579CB8DFFE4}</Project>
+      <Name>ChessApplication.Network</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

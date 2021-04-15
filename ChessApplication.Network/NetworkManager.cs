@@ -5,14 +5,13 @@ using System.Threading;
 using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 using ChessApplication.Network.Entities;
-using ChessApplication.Providers;
 using Newtonsoft.Json;
 
 namespace ChessApplication.Network
 {
     public abstract class NetworkManager : IDisposable
     {
-        private static JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All
         };
@@ -87,7 +86,7 @@ namespace ChessApplication.Network
         {
             var message = new Message(CommandType.RetakeSelection,
                 position.Row.ToString(), position.Column.ToString(),
-                JsonConvert.SerializeObject(selectedPiece, jsonSerializerSettings));
+                JsonConvert.SerializeObject(selectedPiece, JsonSerializerSettings));
 
             SendMessage(message);
         }
@@ -207,7 +206,7 @@ namespace ChessApplication.Network
 
         private void HandleColorsChange(Message message)
         {
-            var opponentChosenColor = ChessPieceInfoProvider.GetColorFromString(message.Arguments[0]);
+            var opponentChosenColor = GetColorFromString(message.Arguments[0]);
 
             OnChangedColor(opponentChosenColor);
         }
@@ -233,7 +232,7 @@ namespace ChessApplication.Network
             var row = Convert.ToInt32(message.Arguments[0]);
             var column = Convert.ToInt32(message.Arguments[1]);
             var selectionPosition = new Position(row, column);
-            var chessPiece = JsonConvert.DeserializeObject<ChessPiece>(message.Arguments[2], jsonSerializerSettings);
+            var chessPiece = JsonConvert.DeserializeObject<ChessPiece>(message.Arguments[2], JsonSerializerSettings);
 
             OnMadeRetakeSelection(selectionPosition, chessPiece);
         }
@@ -248,6 +247,13 @@ namespace ChessApplication.Network
             Stop();
             NetworkStream?.Close();
             NetworkStream?.Dispose();
+        }
+
+        private static PieceColor GetColorFromString(string value)
+        {
+            return Enum.TryParse<PieceColor>(value, out var pieceColor)
+                ? pieceColor
+                : PieceColor.Undefined;
         }
     }
 }

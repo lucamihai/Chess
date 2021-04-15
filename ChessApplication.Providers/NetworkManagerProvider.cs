@@ -1,5 +1,6 @@
 ﻿using System;
 using ChessApplication.Common.Enums;
+using ChessApplication.Network;
 
 namespace ChessApplication.Providers
 {

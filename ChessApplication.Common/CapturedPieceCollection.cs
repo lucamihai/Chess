@@ -44,7 +44,7 @@ namespace ChessApplication.Common
             }
         }
 
-        public int GetEntry<T>(PieceColor pieceColor) where T : ChessPiece, new()
+        public int GetEntryCount<T>(PieceColor pieceColor) where T : ChessPiece, new()
         {
             var dictionaryForColor = GetOrCreateDictionaryForColor(pieceColor);
             var chessPiece = new T();
@@ -55,7 +55,7 @@ namespace ChessApplication.Common
                 : 0;
         }
 
-        public int GetEntry<T>(T piece) where T : ChessPiece
+        public int GetEntryCount<T>(T piece) where T : ChessPiece
         {
             var dictionaryForColor = GetOrCreateDictionaryForColor(piece.Color);
 

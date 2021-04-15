@@ -1,5 +1,4 @@
-﻿using System;
-using ChessApplication.Common.Enums;
+﻿using ChessApplication.Common.Enums;
 
 namespace ChessApplication.Common.Interfaces
 {

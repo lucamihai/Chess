@@ -1,5 +1,4 @@
-﻿using System;
-using ChessApplication.ChessboardClassicLogic.ChessPieces;
+﻿using ChessApplication.ChessboardClassicLogic.ChessPieces;
 using ChessApplication.Common;
 using ChessApplication.Common.Enums;
 using ChessApplication.Common.Interfaces;
@@ -79,7 +78,7 @@ namespace ChessApplication.ChessboardClassicLogic
         // TODO: Refactor arguments
         public void RetakePiece(Position position, ChessPiece chessPiece)
         {
-            var entries = CapturedPieceCollection.GetEntry(chessPiece);
+            var entries = CapturedPieceCollection.GetEntryCount(chessPiece);
 
             if (entries == 0)
             {
