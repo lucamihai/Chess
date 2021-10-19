@@ -74,12 +74,6 @@ namespace ChessApplication.GUI.Forms
 
             gameConfigurationUserControl.OnConfigurationMade += (userType, chessboardType) =>
             {
-                if (userType == UserType.SinglePlayer)
-                {
-                    MessageBox.Show("Single player not supported yet. Exiting application.");
-                    Environment.Exit(0);
-                }
-
                 UpdateApplicationTextByUserType(userType);
                 InitializeChessboard(chessboardType, userType);
                 InitializeChatBox();

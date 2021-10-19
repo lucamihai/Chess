@@ -17,7 +17,7 @@ namespace ChessApplication.ChessboardClassicLogic.UnitTests.ChessPiecesUnitTests
         [TestInitialize]
         public void Setup()
         {
-            chessboard = ChessboardProvider.GetChessboardClassicFilledWithWhitePawns();
+            chessboard = ChessboardProvider.GetChessboardClassicFilledWithPawns(PieceColor.White);
         }
 
         [TestMethod]

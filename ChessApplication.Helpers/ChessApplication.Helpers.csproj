@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessibleBoxesUtil.cs" />
+    <Compile Include="ChessboardAccessibleBoxesHelper.cs" />
+    <Compile Include="ChessboardBoxesHelper.cs" />
     <Compile Include="ChessboardChessPieceFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

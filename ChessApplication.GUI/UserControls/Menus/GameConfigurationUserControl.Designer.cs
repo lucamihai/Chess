@@ -30,7 +30,7 @@
         {
             this.radioButtonServer = new System.Windows.Forms.RadioButton();
             this.radioButtonClient = new System.Windows.Forms.RadioButton();
-            this.radioButtonSinglePlayer = new System.Windows.Forms.RadioButton();
+            this.radioButtonSinglePlayerVersusComputer = new System.Windows.Forms.RadioButton();
             this.labelSelectUserType = new System.Windows.Forms.Label();
             this.labelPlayerVsPlayer = new System.Windows.Forms.Label();
             this.labelPlayerVsComputer = new System.Windows.Forms.Label();
@@ -40,6 +40,7 @@
             this.labelSelectChessboard = new System.Windows.Forms.Label();
             this.radioButtonChessboardClassic = new System.Windows.Forms.RadioButton();
             this.radioButtonChessboardShatranj = new System.Windows.Forms.RadioButton();
+            this.radioButtonSinglePlayer = new System.Windows.Forms.RadioButton();
             this.panelSelectUserType.SuspendLayout();
             this.panelSelectChessboard.SuspendLayout();
             this.SuspendLayout();
@@ -71,15 +72,15 @@
             // 
             // radioButtonSinglePlayer
             // 
-            this.radioButtonSinglePlayer.AutoSize = true;
-            this.radioButtonSinglePlayer.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(120, 203);
-            this.radioButtonSinglePlayer.Name = "radioButtonSinglePlayer";
-            this.radioButtonSinglePlayer.Size = new System.Drawing.Size(104, 23);
-            this.radioButtonSinglePlayer.TabIndex = 2;
-            this.radioButtonSinglePlayer.TabStop = true;
-            this.radioButtonSinglePlayer.Text = "Single player";
-            this.radioButtonSinglePlayer.UseVisualStyleBackColor = true;
+            this.radioButtonSinglePlayerVersusComputer.AutoSize = true;
+            this.radioButtonSinglePlayerVersusComputer.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSinglePlayerVersusComputer.Location = new System.Drawing.Point(120, 225);
+            this.radioButtonSinglePlayerVersusComputer.Name = "radioButtonSinglePlayerVersusComputer";
+            this.radioButtonSinglePlayerVersusComputer.Size = new System.Drawing.Size(104, 23);
+            this.radioButtonSinglePlayerVersusComputer.TabIndex = 2;
+            this.radioButtonSinglePlayerVersusComputer.TabStop = true;
+            this.radioButtonSinglePlayerVersusComputer.Text = "Single player";
+            this.radioButtonSinglePlayerVersusComputer.UseVisualStyleBackColor = true;
             // 
             // labelSelectUserType
             // 
@@ -105,7 +106,7 @@
             // 
             this.labelPlayerVsComputer.AutoSize = true;
             this.labelPlayerVsComputer.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayerVsComputer.Location = new System.Drawing.Point(88, 178);
+            this.labelPlayerVsComputer.Location = new System.Drawing.Point(88, 200);
             this.labelPlayerVsComputer.Name = "labelPlayerVsComputer";
             this.labelPlayerVsComputer.Size = new System.Drawing.Size(172, 22);
             this.labelPlayerVsComputer.TabIndex = 5;
@@ -124,12 +125,13 @@
             // 
             // panelSelectUserType
             // 
+            this.panelSelectUserType.Controls.Add(this.radioButtonSinglePlayer);
             this.panelSelectUserType.Controls.Add(this.labelSelectUserType);
             this.panelSelectUserType.Controls.Add(this.radioButtonServer);
             this.panelSelectUserType.Controls.Add(this.labelPlayerVsComputer);
             this.panelSelectUserType.Controls.Add(this.radioButtonClient);
             this.panelSelectUserType.Controls.Add(this.labelPlayerVsPlayer);
-            this.panelSelectUserType.Controls.Add(this.radioButtonSinglePlayer);
+            this.panelSelectUserType.Controls.Add(this.radioButtonSinglePlayerVersusComputer);
             this.panelSelectUserType.Location = new System.Drawing.Point(91, 86);
             this.panelSelectUserType.Name = "panelSelectUserType";
             this.panelSelectUserType.Size = new System.Drawing.Size(299, 279);
@@ -180,6 +182,18 @@
             this.radioButtonChessboardShatranj.Text = "Shatranj";
             this.radioButtonChessboardShatranj.UseVisualStyleBackColor = true;
             // 
+            // radioButton1
+            // 
+            this.radioButtonSinglePlayer.AutoSize = true;
+            this.radioButtonSinglePlayer.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(120, 163);
+            this.radioButtonSinglePlayer.Name = "radioButtonSinglePlayer";
+            this.radioButtonSinglePlayer.Size = new System.Drawing.Size(104, 23);
+            this.radioButtonSinglePlayer.TabIndex = 6;
+            this.radioButtonSinglePlayer.TabStop = true;
+            this.radioButtonSinglePlayer.Text = "Single player";
+            this.radioButtonSinglePlayer.UseVisualStyleBackColor = true;
+            // 
             // GameConfigurationUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,7 +216,7 @@
 
         private System.Windows.Forms.RadioButton radioButtonServer;
         private System.Windows.Forms.RadioButton radioButtonClient;
-        private System.Windows.Forms.RadioButton radioButtonSinglePlayer;
+        private System.Windows.Forms.RadioButton radioButtonSinglePlayerVersusComputer;
         private System.Windows.Forms.Label labelSelectUserType;
         private System.Windows.Forms.Label labelPlayerVsPlayer;
         private System.Windows.Forms.Label labelPlayerVsComputer;
@@ -212,5 +226,6 @@
         private System.Windows.Forms.Label labelSelectChessboard;
         private System.Windows.Forms.RadioButton radioButtonChessboardClassic;
         private System.Windows.Forms.RadioButton radioButtonChessboardShatranj;
+        private System.Windows.Forms.RadioButton radioButtonSinglePlayer;
     }
 }

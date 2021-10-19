@@ -31,22 +31,22 @@ namespace ChessApplication.ChessboardClassicLogic.ChessPieces
 
             if (!positionForward.IsOutOfBounds() && chessBoard[positionForward].Piece == null)
             {
-                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForward);
+                ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, positionForward);
             }
 
             if (!positionForwardWest.IsOutOfBounds() && chessBoard[positionForwardWest].Piece != null)
             {
-                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForwardWest);
+                ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, positionForwardWest);
             }
 
             if (!positionForwardEast.IsOutOfBounds() && chessBoard[positionForwardEast].Piece != null)
             {
-                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForwardEast);
+                ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, positionForwardEast);
             }
 
             if (row == startingRow && !positionForwardForward.IsOutOfBounds() && chessBoard[positionForward].Piece == null && chessBoard[positionForwardForward].Piece == null)
             {
-                AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, positionForwardForward);
+                ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, positionForwardForward);
             }
         }
 

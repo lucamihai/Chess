@@ -22,6 +22,8 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         private BoxUserControl firstClickedBox;
         private BoxUserControl[,] boxUserControls;
 
+        private IAIPlayer aiPlayer;
+
         private PieceColor playerTurn = PieceColor.White;
         private PieceColor opponentTurn = PieceColor.Black;
 
@@ -48,6 +50,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         {
             InitializeComponent();
             InitializeChessboard(chessboardType);
+            InitializeAiPlayer(chessboardType, userType);
             InitializeNetworkManager(userType, hostname);
             InitializeUsernames(userType);
             InitializeTurns(userType);
@@ -71,6 +74,11 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             opponentTurn = chosenColor == PieceColor.White
                 ? PieceColor.Black
                 : PieceColor.White;
+
+            if (aiPlayer != null)
+            {
+                aiPlayer.Turn = opponentTurn;
+            }
 
             networkManager?.ChangeColor(chosenColor);
         }
@@ -150,7 +158,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             capturedBlackQueen.Count = chessboard.CapturedPieceCollection.GetEntryCount<Queen>(PieceColor.Black);
         }
 
-        private void NextTurn()
+        private void EndTurn()
         {
             chessboard.SetChessboardBoxesAsUnavailable();
             SetChessboardBoxesColors(ignoreIsAvailableFlag: true);
@@ -160,6 +168,25 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             labelTurn.Text = chessboard.CurrentTurn == PieceColor.White
                 ? Strings.WhitesTurn
                 : Strings.BlacksTurn;
+
+            EndGameIfCheckMate();
+
+            if (aiPlayer != null && aiPlayer.Turn == chessboard.CurrentTurn)
+            {
+                var response = aiPlayer.PerformMove(chessboard);
+
+                if (response == AIResponse.NoMovesLeft || response == AIResponse.NoPiecesLeft)
+                {
+                    NewGame();
+                }
+
+                if (response != AIResponse.SuccessfulMove)
+                {
+                    return;
+                }
+
+                EndTurn();
+            }
         }
 
         private void BoxClick(object sender, EventArgs e)
@@ -215,17 +242,15 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             TriggerOnMadeMove(origin, destination);
             chessboard.Move(origin.Position, destination.Position);
 
-            if (!chessboard.RetakingIsActive)
-            {
-                NextTurn();
-            }
-
             if (SoundEnabled)
             {
                 soundManager.PlayMoveSound();
             }
 
-            EndGameIfCheckMate();
+            if (!chessboard.RetakingIsActive)
+            {
+                EndTurn();
+            }
         }
 
         private void TriggerOnMadeMove(Box origin, Box destination)
@@ -279,7 +304,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             var retakingPosition = chessboard.RetakingPosition;
             chessboard.RetakePiece(retakingPosition, chessPieceToRetake);
             networkManager?.NotifyOfRetakeSelection(retakingPosition, chessboard[retakingPosition].Piece);
-            NextTurn();
+            EndTurn();
         }
 
         private void RedrawChessboardBoxes()
@@ -298,6 +323,11 @@ namespace ChessApplication.GUI.UserControls.Chessboard
         private void InitializeChessboard(ChessboardType chessboardType)
         {
             chessboard = ChessboardProvider.GetChessboard(chessboardType);
+        }
+
+        private void InitializeAiPlayer(ChessboardType chessboardType, UserType userType)
+        {
+            aiPlayer = AiPlayerProvider.GetAiPlayer(chessboardType, userType);
         }
 
         private void InitializeNetworkManager(UserType userType, string hostname)
@@ -341,6 +371,11 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             {
                 playerTurn = PieceColor.White;
                 opponentTurn = PieceColor.Black;
+            }
+
+            if (aiPlayer != null)
+            {
+                aiPlayer.Turn = opponentTurn;
             }
         }
 
@@ -429,6 +464,11 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             {
                 playerTurn = opponentsTurn == PieceColor.White ? PieceColor.Black : PieceColor.White;
                 this.opponentTurn = opponentsTurn;
+
+                if (aiPlayer != null)
+                {
+                    aiPlayer.Turn = opponentTurn;
+                }
             });
 
             Invoke(opponentChangedColors);
@@ -456,7 +496,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             var selection = new MethodInvoker(() =>
             {
                 chessboard.RetakePiece(position, chessPiece);
-                NextTurn();
+                EndTurn();
             });
 
             Invoke(selection);

@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\RandomMovesAIPlayer.cs" />
     <Compile Include="ChessboardClassic.cs" />
+    <Compile Include="ChessPieces\ChessPieceProvider.cs" />
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\King.cs" />
     <Compile Include="ChessPieces\Knight.cs" />
@@ -60,5 +62,6 @@
       <Name>ChessApplication.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

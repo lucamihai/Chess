@@ -30,11 +30,11 @@ namespace ChessApplication.ChessboardClassicLogic
             }
         }
 
-        public Position PositionWhiteKing { get; set; } = new Position(1, 5);
-        public Position PositionBlackKing { get; set; } = new Position(8, 4);
+        public Position PositionWhiteKing { get; set; }
+        public Position PositionBlackKing { get; set; }
         public CapturedPieceCollection CapturedPieceCollection { get; set; }
 
-        public PieceColor CurrentTurn { get; set; } = PieceColor.White;
+        public PieceColor CurrentTurn { get; set; }
 
         public bool RetakingIsActive { get; private set; }
         public Position RetakingPosition { get; private set; }
@@ -102,6 +102,10 @@ namespace ChessApplication.ChessboardClassicLogic
             ClearPieces();
             AddWhitePieces();
             AddBlackPieces();
+
+            CurrentTurn = PieceColor.White;
+            PositionWhiteKing = new Position(1, 5);
+            PositionBlackKing = new Position(8, 4);
         }
 
         // TODO: Refactor

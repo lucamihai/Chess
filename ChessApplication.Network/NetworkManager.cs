@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using ChessApplication.Common;
@@ -97,12 +96,7 @@ namespace ChessApplication.Network
             SendMessage(message);
         }
 
-        private void SendMessage(Message message)
-        {
-            var stringMessage = JsonConvert.SerializeObject(message);
-            var writer = new StreamWriter(NetworkStream) {AutoFlush = true};
-            writer.WriteLine(stringMessage);
-        }
+        protected abstract void SendMessage(Message message);
 
         protected void InterpretReceivedData(string receivedData)
         {

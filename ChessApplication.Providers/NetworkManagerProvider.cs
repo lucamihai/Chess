@@ -12,8 +12,11 @@ namespace ChessApplication.Providers
             {
                 case UserType.SinglePlayer:
                 {
-                    // TODO: Implement a SinglePlayer NetworkManager
-                    throw new NotImplementedException();
+                    return new NetworkManagerSinglePlayer();
+                }
+                case UserType.SinglePlayerVersusAI:
+                {
+                    return new NetworkManagerSinglePlayer();
                 }
                 case UserType.Server:
                 {

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AiPlayerProvider.cs" />
     <Compile Include="ChessboardProvider.cs" />
     <Compile Include="NetworkManagerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,5 +60,6 @@
       <Name>ChessApplication.Network</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

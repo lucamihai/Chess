@@ -95,6 +95,15 @@ namespace ChessApplication.Common
                 .Sum(x => x.Value);
         }
 
+        public Dictionary<Type, int> GetIndividualCountsForCapturedPieces(PieceColor pieceColor, params Type[] typesToExclude)
+        {
+            var dictionaryForColor = GetOrCreateDictionaryForColor(pieceColor);
+
+            return dictionaryForColor
+                .Where(x => !typesToExclude.Contains(x.Key))
+                .ToDictionary(x => x.Key, x => x.Value);
+        }
+
         public void Clear()
         {
             capturedPiecesCount.Clear();

@@ -19,10 +19,10 @@ namespace ChessApplication.ChessboardClassicLogic.ChessPieces
 
         public override void CheckPossibilitiesForProvidedLocationAndMarkThem(IChessboard chessBoard, Position position)
         {
-            AccessibleBoxesUtil.MarkAccessibleBoxesForWest(chessBoard, position);
-            AccessibleBoxesUtil.MarkAccessibleBoxesForEast(chessBoard, position);
-            AccessibleBoxesUtil.MarkAccessibleBoxesForSouth(chessBoard, position);
-            AccessibleBoxesUtil.MarkAccessibleBoxesForNorth(chessBoard, position);
+            ChessboardAccessibleBoxesHelper.MarkAccessibleBoxesForWest(chessBoard, position);
+            ChessboardAccessibleBoxesHelper.MarkAccessibleBoxesForEast(chessBoard, position);
+            ChessboardAccessibleBoxesHelper.MarkAccessibleBoxesForSouth(chessBoard, position);
+            ChessboardAccessibleBoxesHelper.MarkAccessibleBoxesForNorth(chessBoard, position);
         }
     }
 }

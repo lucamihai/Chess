@@ -45,8 +45,10 @@
     <Compile Include="CapturedPieceBox.cs" />
     <Compile Include="CapturedPieceCollection.cs" />
     <Compile Include="ChessPiece.cs" />
+    <Compile Include="Enums\AIResponse.cs" />
     <Compile Include="Enums\ChessboardType.cs" />
     <Compile Include="Enums\PieceColor.cs" />
+    <Compile Include="Interfaces\IAIPlayer.cs" />
     <Compile Include="Interfaces\IChessboard.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

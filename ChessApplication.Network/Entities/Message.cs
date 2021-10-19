@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ChessApplication.Network.Entities
 {
@@ -8,7 +9,7 @@ namespace ChessApplication.Network.Entities
         public Message()
         {
             CommandType = CommandType.Unrecognized;
-            Arguments = new string[0];
+            Arguments = Array.Empty<string>();
         }
 
         public Message(CommandType commandType, params string[] arguments)

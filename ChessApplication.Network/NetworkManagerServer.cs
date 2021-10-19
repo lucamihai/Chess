@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using ChessApplication.Network.Entities;
+using Newtonsoft.Json;
 
 namespace ChessApplication.Network
 {
@@ -17,6 +19,13 @@ namespace ChessApplication.Network
             NetworkThread = new Thread(ServerListen);
             NetworkThread.Start();
             
+        }
+
+        protected override void SendMessage(Message message)
+        {
+            var stringMessage = JsonConvert.SerializeObject(message);
+            var writer = new StreamWriter(NetworkStream) { AutoFlush = true };
+            writer.WriteLine(stringMessage);
         }
 
         public override void Stop()

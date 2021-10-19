@@ -50,9 +50,14 @@
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkManagerClient.cs" />
     <Compile Include="NetworkManagerServer.cs" />
+    <Compile Include="NetworkManagerSinglePlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj">
+      <Project>{C73AAB28-C1AA-4AF6-B051-E16786B747AB}</Project>
+      <Name>ChessApplication.ChessboardClassicLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
       <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
       <Name>ChessApplication.Common</Name>

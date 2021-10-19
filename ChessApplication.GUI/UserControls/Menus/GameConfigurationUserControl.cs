@@ -41,6 +41,11 @@ namespace ChessApplication.GUI.UserControls.Menus
                 return UserType.SinglePlayer;
             }
 
+            if (radioButtonSinglePlayerVersusComputer.Checked)
+            {
+                return UserType.SinglePlayerVersusAI;
+            }
+
             throw new InvalidOperationException("User type must be selected");
         }
 

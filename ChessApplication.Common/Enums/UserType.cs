@@ -4,6 +4,7 @@
     {
         Server,
         Client,
-        SinglePlayer
+        SinglePlayer,
+        SinglePlayerVersusAI
     }
 }

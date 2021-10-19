@@ -32,15 +32,15 @@ namespace ChessApplication.ChessboardClassicLogic.ChessPieces
             var destinationNorthWestWest = new Position(row + 1, column - 2);
             var destinationSouthWestWest = new Position(row - 1, column - 2);
 
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationNorthNorthEast);
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationSouthSouthEast);
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationNorthEastEast);
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationSouthEastEast);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationNorthNorthEast);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationSouthSouthEast);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationNorthEastEast);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationSouthEastEast);
 
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationNorthNorthWest);
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationSouthSouthWest);
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationNorthWestWest);
-            AccessibleBoxesUtil.MarkIfAccessible(chessBoard, position, destinationSouthWestWest);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationNorthNorthWest);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationSouthSouthWest);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationNorthWestWest);
+            ChessboardAccessibleBoxesHelper.MarkIfAccessible(chessBoard, position, destinationSouthWestWest);
         }
     }
 }
