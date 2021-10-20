@@ -189,7 +189,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             }
         }
 
-        private void BoxClick(object sender, EventArgs e)
+        private async void BoxClick(object sender, EventArgs e)
         {
             if (chessboard.RetakingIsActive || chessboard.CurrentTurn != playerTurn)
             {

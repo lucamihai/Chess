@@ -9,19 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CEAEC5D0-D9AE-4B19-89AC-AAFE78447B33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common.UnitTests", "ChessApplication.Common.UnitTests\ChessApplication.Common.UnitTests.csproj", "{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Common.UnitTests", "Tests\ChessApplication.Common.UnitTests\ChessApplication.Common.UnitTests.csproj", "{EFD6F1D0-06B7-4F50-917E-B4FB328CD885}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.GUI", "ChessApplication.GUI\ChessApplication.GUI.csproj", "{370CE882-0121-477B-80E4-C7034B331751}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network.UnitTests", "ChessApplication.Network.UnitTests\ChessApplication.Network.UnitTests.csproj", "{3A17AA3E-3368-49AE-A194-F1431B089904}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Network.UnitTests", "Tests\ChessApplication.Network.UnitTests\ChessApplication.Network.UnitTests.csproj", "{3A17AA3E-3368-49AE-A194-F1431B089904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Tests.Utilities", "ChessApplication.Tests.Utilities\ChessApplication.Tests.Utilities.csproj", "{B1C4ED30-41E1-4EA5-AE78-F3165826E479}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Tests.Utilities", "Tests\ChessApplication.Tests.Utilities\ChessApplication.Tests.Utilities.csproj", "{B1C4ED30-41E1-4EA5-AE78-F3165826E479}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChessboardClassicLogic", "ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj", "{C73AAB28-C1AA-4AF6-B051-E16786B747AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Helpers", "ChessApplication.Helpers\ChessApplication.Helpers.csproj", "{A7EB8C80-A2D5-40B6-995A-866356D9F08A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChessboardClassicLogic.UnitTests", "ChessApplication.ChessboardClassicLogic.UnitTests\ChessApplication.ChessboardClassicLogic.UnitTests.csproj", "{EECF8B0B-F7A3-4ACD-83D7-3FA56983996D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.ChessboardClassicLogic.UnitTests", "Tests\ChessApplication.ChessboardClassicLogic.UnitTests\ChessApplication.ChessboardClassicLogic.UnitTests.csproj", "{EECF8B0B-F7A3-4ACD-83D7-3FA56983996D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApplication.Providers", "ChessApplication.Providers\ChessApplication.Providers.csproj", "{FED65789-71A1-4F5A-844A-465C88DC3534}"
 EndProject
