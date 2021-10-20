@@ -1,133 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EECF8B0B-F7A3-4ACD-83D7-3FA56983996D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChessApplication.ChessboardClassicLogic.UnitTests</RootNamespace>
-    <AssemblyName>ChessApplication.ChessboardClassicLogic.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj" />
+    <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj" />
+    <ProjectReference Include="..\ChessApplication.Tests.Utilities\ChessApplication.Tests.Utilities.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AIUnitTests\RandomMovesAIPlayerUnitTests.cs" />
-    <Compile Include="ChessboardClassicUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\BlackBishopPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\BishopUnitTests\WhiteBishopPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\BlackKingThreatUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KingUnitTests\WhiteKingThreatUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\BlackKnightPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\KnightUnitTests\WhiteKnightPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\BlackPawnPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\PawnUnitTests\WhitePawnPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\BlackQueenPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\QueenUnitTests\WhiteQueenPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\BlackRookPieceTakingUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookCheckUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookMovementUnitTests.cs" />
-    <Compile Include="ChessPiecesUnitTests\RookUnitTests\WhiteRookPieceTakingUnitTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj">
-      <Project>{C73AAB28-C1AA-4AF6-B051-E16786B747AB}</Project>
-      <Name>ChessApplication.ChessboardClassicLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
-      <Project>{6B209803-C8D8-402B-8092-0F53BEF6F989}</Project>
-      <Name>ChessApplication.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Tests.Utilities\ChessApplication.Tests.Utilities.csproj">
-      <Project>{B1C4ED30-41E1-4EA5-AE78-F3165826E479}</Project>
-      <Name>ChessApplication.Tests.Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props'))" />
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets'))" />
-  </Target>
-  <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" />
+
 </Project>

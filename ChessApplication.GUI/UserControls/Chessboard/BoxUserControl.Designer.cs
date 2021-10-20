@@ -37,19 +37,21 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // 
             // pictureBoxPiece
             // 
-            this.pictureBoxPiece.BackgroundImage = Properties.Resources.BoxBorder;
+            this.pictureBoxPiece.BackgroundImage = global::ChessApplication.GUI.Properties.Resources.BoxBorder;
             this.pictureBoxPiece.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxPiece.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxPiece.Name = "pictureBoxPiece";
             this.pictureBoxPiece.Size = new System.Drawing.Size(64, 64);
             this.pictureBoxPiece.TabIndex = 0;
             this.pictureBoxPiece.TabStop = false;
             this.pictureBoxPiece.Click += new System.EventHandler(this.pictureBoxPiece_Click);
             // 
-            // Box
+            // BoxUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pictureBoxPiece);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "BoxUserControl";
             this.Size = new System.Drawing.Size(64, 64);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPiece)).EndInit();

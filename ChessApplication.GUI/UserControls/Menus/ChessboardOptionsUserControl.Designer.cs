@@ -41,7 +41,9 @@
             // radioButtonBlack
             // 
             this.radioButtonBlack.AutoSize = true;
+            this.radioButtonBlack.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.radioButtonBlack.Location = new System.Drawing.Point(474, 228);
+            this.radioButtonBlack.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radioButtonBlack.Name = "radioButtonBlack";
             this.radioButtonBlack.Size = new System.Drawing.Size(52, 17);
             this.radioButtonBlack.TabIndex = 25;
@@ -52,7 +54,9 @@
             // 
             this.radioButtonWhite.AutoSize = true;
             this.radioButtonWhite.Checked = true;
+            this.radioButtonWhite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.radioButtonWhite.Location = new System.Drawing.Point(383, 228);
+            this.radioButtonWhite.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radioButtonWhite.Name = "radioButtonWhite";
             this.radioButtonWhite.Size = new System.Drawing.Size(53, 17);
             this.radioButtonWhite.TabIndex = 24;
@@ -63,37 +67,41 @@
             // labelError
             // 
             this.labelError.AutoSize = true;
-            this.labelError.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelError.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelError.Location = new System.Drawing.Point(383, 399);
+            this.labelError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(92, 18);
+            this.labelError.Size = new System.Drawing.Size(81, 20);
             this.labelError.TabIndex = 23;
             this.labelError.Text = "Error label";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(425, 295);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 16);
+            this.label2.Size = new System.Drawing.Size(70, 16);
             this.label2.TabIndex = 22;
             this.label2.Text = "Username";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(401, 200);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(125, 16);
+            this.label1.Size = new System.Drawing.Size(124, 16);
             this.label1.TabIndex = 21;
             this.label1.Text = "Choose piece color";
             // 
             // btnConfirm
             // 
             this.btnConfirm.Location = new System.Drawing.Point(465, 339);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
             this.btnConfirm.TabIndex = 20;
@@ -104,6 +112,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(383, 340);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -113,15 +122,17 @@
             // 
             // textBoxUsername
             // 
+            this.textBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBoxUsername.Location = new System.Drawing.Point(383, 314);
+            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(157, 20);
             this.textBoxUsername.TabIndex = 18;
             this.textBoxUsername.Text = "Server";
             // 
-            // Options
+            // ChessboardOptionsUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Controls.Add(this.radioButtonBlack);
@@ -132,7 +143,8 @@
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBoxUsername);
-            this.Name = "Options";
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "ChessboardOptionsUserControl";
             this.Size = new System.Drawing.Size(923, 616);
             this.ResumeLayout(false);
             this.PerformLayout();

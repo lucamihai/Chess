@@ -62,8 +62,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label16.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label16.Location = new System.Drawing.Point(79, -5);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 31);
             this.label16.TabIndex = 18;
@@ -72,8 +73,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label15.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label15.Location = new System.Drawing.Point(207, -5);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(28, 31);
             this.label15.TabIndex = 17;
@@ -82,8 +84,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label14.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label14.Location = new System.Drawing.Point(143, -5);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(28, 31);
             this.label14.TabIndex = 16;
@@ -92,8 +95,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label13.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label13.Location = new System.Drawing.Point(463, -5);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(28, 31);
             this.label13.TabIndex = 15;
@@ -102,8 +106,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label12.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label12.Location = new System.Drawing.Point(399, -5);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(28, 31);
             this.label12.TabIndex = 14;
@@ -112,8 +117,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label11.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label11.Location = new System.Drawing.Point(335, -5);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 31);
             this.label11.TabIndex = 13;
@@ -122,8 +128,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label10.Location = new System.Drawing.Point(271, -5);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(28, 31);
             this.label10.TabIndex = 12;
@@ -132,6 +139,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // panelCapturedBlackPieces
             // 
             this.panelCapturedBlackPieces.Location = new System.Drawing.Point(136, 712);
+            this.panelCapturedBlackPieces.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelCapturedBlackPieces.Name = "panelCapturedBlackPieces";
             this.panelCapturedBlackPieces.Size = new System.Drawing.Size(320, 88);
             this.panelCapturedBlackPieces.TabIndex = 76;
@@ -139,6 +147,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // panelCapturedWhitePieces
             // 
             this.panelCapturedWhitePieces.Location = new System.Drawing.Point(148, 20);
+            this.panelCapturedWhitePieces.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelCapturedWhitePieces.Name = "panelCapturedWhitePieces";
             this.panelCapturedWhitePieces.Size = new System.Drawing.Size(320, 88);
             this.panelCapturedWhitePieces.TabIndex = 83;
@@ -146,8 +155,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // labelTurn
             // 
             this.labelTurn.AutoSize = true;
-            this.labelTurn.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.labelTurn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelTurn.Location = new System.Drawing.Point(510, 60);
+            this.labelTurn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTurn.Name = "labelTurn";
             this.labelTurn.Size = new System.Drawing.Size(36, 19);
             this.labelTurn.TabIndex = 82;
@@ -156,7 +166,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label18.Location = new System.Drawing.Point(248, 696);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(66, 13);
             this.label18.TabIndex = 74;
@@ -165,7 +177,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label17
             // 
             this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label17.Location = new System.Drawing.Point(329, 3);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(66, 13);
             this.label17.TabIndex = 81;
@@ -182,6 +196,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Location = new System.Drawing.Point(73, 632);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(512, 35);
             this.panel3.TabIndex = 73;
@@ -189,8 +204,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label9.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label9.Location = new System.Drawing.Point(15, -5);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(28, 31);
             this.label9.TabIndex = 11;
@@ -199,8 +215,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label8.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(15, 77);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 31);
             this.label8.TabIndex = 12;
@@ -209,8 +226,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(15, 269);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 31);
             this.label5.TabIndex = 9;
@@ -219,8 +237,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(15, 333);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 31);
             this.label4.TabIndex = 8;
@@ -229,8 +248,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(15, 13);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 31);
             this.label1.TabIndex = 5;
@@ -239,8 +259,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label6.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(15, 205);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 31);
             this.label6.TabIndex = 10;
@@ -249,8 +270,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(15, 397);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 31);
             this.label3.TabIndex = 7;
@@ -259,8 +281,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(15, 141);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 31);
             this.label7.TabIndex = 11;
@@ -277,6 +300,7 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Location = new System.Drawing.Point(0, 114);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(54, 512);
             this.panel1.TabIndex = 77;
@@ -284,8 +308,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 20F);
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(15, 461);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 31);
             this.label2.TabIndex = 6;
@@ -294,13 +319,14 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // panelChessBoard
             // 
             this.panelChessBoard.Location = new System.Drawing.Point(60, 114);
+            this.panelChessBoard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelChessBoard.Name = "panelChessBoard";
             this.panelChessBoard.Size = new System.Drawing.Size(525, 512);
             this.panelChessBoard.TabIndex = 75;
             // 
-            // Chessboard
+            // ChessboardUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelCapturedBlackPieces);
             this.Controls.Add(this.panelCapturedWhitePieces);
@@ -310,7 +336,8 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelChessBoard);
-            this.Name = "Chessboard";
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "ChessboardUserControl";
             this.Size = new System.Drawing.Size(595, 800);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

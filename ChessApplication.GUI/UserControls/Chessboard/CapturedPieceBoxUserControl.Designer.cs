@@ -38,8 +38,9 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // 
             // labelCount
             // 
-            this.labelCount.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCount.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelCount.Location = new System.Drawing.Point(0, 67);
+            this.labelCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(64, 19);
             this.labelCount.TabIndex = 1;
@@ -50,21 +51,23 @@ namespace ChessApplication.GUI.UserControls.Chessboard
             // pictureBoxPiece
             // 
             this.pictureBoxPiece.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pictureBoxPiece.BackgroundImage = Properties.Resources.BoxBorder;
+            this.pictureBoxPiece.BackgroundImage = global::ChessApplication.GUI.Properties.Resources.BoxBorder;
             this.pictureBoxPiece.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxPiece.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxPiece.Name = "pictureBoxPiece";
             this.pictureBoxPiece.Size = new System.Drawing.Size(64, 64);
             this.pictureBoxPiece.TabIndex = 0;
             this.pictureBoxPiece.TabStop = false;
             this.pictureBoxPiece.Click += new System.EventHandler(this.pictureBoxPiece_Click);
             // 
-            // CapturedPieceBox
+            // CapturedPieceBoxUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.pictureBoxPiece);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "CapturedPieceBoxUserControl";
             this.Size = new System.Drawing.Size(64, 88);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPiece)).EndInit();

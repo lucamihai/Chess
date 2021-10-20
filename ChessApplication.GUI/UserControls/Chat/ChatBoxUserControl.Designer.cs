@@ -40,8 +40,9 @@ namespace ChessApplication.GUI.UserControls.Chat
             // labelChatBox
             // 
             this.labelChatBox.AutoSize = true;
-            this.labelChatBox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelChatBox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelChatBox.Location = new System.Drawing.Point(17, 7);
+            this.labelChatBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelChatBox.Name = "labelChatBox";
             this.labelChatBox.Size = new System.Drawing.Size(38, 19);
             this.labelChatBox.TabIndex = 3;
@@ -50,6 +51,7 @@ namespace ChessApplication.GUI.UserControls.Chat
             // textBoxChat
             // 
             this.textBoxChat.Location = new System.Drawing.Point(3, 39);
+            this.textBoxChat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxChat.Multiline = true;
             this.textBoxChat.Name = "textBoxChat";
             this.textBoxChat.ReadOnly = true;
@@ -60,6 +62,7 @@ namespace ChessApplication.GUI.UserControls.Chat
             // textBoxInput
             // 
             this.textBoxInput.Location = new System.Drawing.Point(3, 174);
+            this.textBoxInput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxInput.Multiline = true;
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -70,6 +73,7 @@ namespace ChessApplication.GUI.UserControls.Chat
             // buttonSend
             // 
             this.buttonSend.Location = new System.Drawing.Point(21, 218);
+            this.buttonSend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(75, 23);
             this.buttonSend.TabIndex = 5;
@@ -79,13 +83,14 @@ namespace ChessApplication.GUI.UserControls.Chat
             // 
             // ChatBoxUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.textBoxInput);
             this.Controls.Add(this.labelChatBox);
             this.Controls.Add(this.textBoxChat);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "ChatBoxUserControl";
             this.Size = new System.Drawing.Size(560, 260);
             this.ResumeLayout(false);

@@ -42,14 +42,16 @@ namespace ChessApplication.GUI.UserControls.History
             this.panelHistoryEntries.AutoScroll = true;
             this.panelHistoryEntries.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panelHistoryEntries.Location = new System.Drawing.Point(0, 30);
+            this.panelHistoryEntries.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelHistoryEntries.Name = "panelHistoryEntries";
             this.panelHistoryEntries.Size = new System.Drawing.Size(200, 270);
             this.panelHistoryEntries.TabIndex = 0;
             // 
             // labelMoveNumber
             // 
-            this.labelMoveNumber.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMoveNumber.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelMoveNumber.Location = new System.Drawing.Point(3, 9);
+            this.labelMoveNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMoveNumber.Name = "labelMoveNumber";
             this.labelMoveNumber.Size = new System.Drawing.Size(35, 18);
             this.labelMoveNumber.TabIndex = 1;
@@ -57,8 +59,9 @@ namespace ChessApplication.GUI.UserControls.History
             // 
             // labelFrom
             // 
-            this.labelFrom.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFrom.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelFrom.Location = new System.Drawing.Point(44, 9);
+            this.labelFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFrom.Name = "labelFrom";
             this.labelFrom.Size = new System.Drawing.Size(74, 18);
             this.labelFrom.TabIndex = 2;
@@ -66,23 +69,25 @@ namespace ChessApplication.GUI.UserControls.History
             // 
             // labelTo
             // 
-            this.labelTo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelTo.Location = new System.Drawing.Point(124, 9);
+            this.labelTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTo.Name = "labelTo";
             this.labelTo.Size = new System.Drawing.Size(73, 18);
             this.labelTo.TabIndex = 3;
             this.labelTo.Text = "To";
             // 
-            // History
+            // HistoryUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Controls.Add(this.labelTo);
             this.Controls.Add(this.labelFrom);
             this.Controls.Add(this.labelMoveNumber);
             this.Controls.Add(this.panelHistoryEntries);
-            this.Name = "History";
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "HistoryUserControl";
             this.Size = new System.Drawing.Size(200, 300);
             this.ResumeLayout(false);
 

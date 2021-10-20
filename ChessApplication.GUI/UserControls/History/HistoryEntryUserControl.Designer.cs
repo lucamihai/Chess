@@ -45,6 +45,7 @@ namespace ChessApplication.GUI.UserControls.History
             this.pictureBoxOriginPiece.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBoxOriginPiece.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxOriginPiece.Location = new System.Drawing.Point(47, 3);
+            this.pictureBoxOriginPiece.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxOriginPiece.Name = "pictureBoxOriginPiece";
             this.pictureBoxOriginPiece.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxOriginPiece.TabIndex = 0;
@@ -55,6 +56,7 @@ namespace ChessApplication.GUI.UserControls.History
             this.pictureBoxDestinationPiece.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBoxDestinationPiece.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxDestinationPiece.Location = new System.Drawing.Point(115, 3);
+            this.pictureBoxDestinationPiece.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxDestinationPiece.Name = "pictureBoxDestinationPiece";
             this.pictureBoxDestinationPiece.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxDestinationPiece.TabIndex = 1;
@@ -63,8 +65,9 @@ namespace ChessApplication.GUI.UserControls.History
             // labelMoveNumber
             // 
             this.labelMoveNumber.AutoSize = true;
-            this.labelMoveNumber.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMoveNumber.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelMoveNumber.Location = new System.Drawing.Point(3, 16);
+            this.labelMoveNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMoveNumber.Name = "labelMoveNumber";
             this.labelMoveNumber.Size = new System.Drawing.Size(21, 19);
             this.labelMoveNumber.TabIndex = 2;
@@ -73,8 +76,9 @@ namespace ChessApplication.GUI.UserControls.History
             // labelOriginName
             // 
             this.labelOriginName.AutoSize = true;
-            this.labelOriginName.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOriginName.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelOriginName.Location = new System.Drawing.Point(48, 38);
+            this.labelOriginName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOriginName.Name = "labelOriginName";
             this.labelOriginName.Size = new System.Drawing.Size(28, 19);
             this.labelOriginName.TabIndex = 3;
@@ -83,8 +87,9 @@ namespace ChessApplication.GUI.UserControls.History
             // labelDestinationName
             // 
             this.labelDestinationName.AutoSize = true;
-            this.labelDestinationName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDestinationName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelDestinationName.Location = new System.Drawing.Point(116, 37);
+            this.labelDestinationName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDestinationName.Name = "labelDestinationName";
             this.labelDestinationName.Size = new System.Drawing.Size(29, 20);
             this.labelDestinationName.TabIndex = 4;
@@ -92,7 +97,7 @@ namespace ChessApplication.GUI.UserControls.History
             // 
             // HistoryEntryUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.Controls.Add(this.labelDestinationName);
@@ -100,6 +105,7 @@ namespace ChessApplication.GUI.UserControls.History
             this.Controls.Add(this.labelMoveNumber);
             this.Controls.Add(this.pictureBoxDestinationPiece);
             this.Controls.Add(this.pictureBoxOriginPiece);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "HistoryEntryUserControl";
             this.Size = new System.Drawing.Size(175, 65);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOriginPiece)).EndInit();

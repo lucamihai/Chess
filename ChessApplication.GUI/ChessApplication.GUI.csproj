@@ -1,249 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{370CE882-0121-477B-80E4-C7034B331751}</ProjectGuid>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ChessApplication.GUI</RootNamespace>
-    <AssemblyName>ChessApplication.GUI</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Helpers\SoundManager.cs" />
-    <Compile Include="UserControls\Chat\ChatBoxUserControl.cs">
+    <Compile Update="UserControls\Chat\ChatBoxUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Chat\ChatBoxUserControl.Designer.cs">
-      <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Chat\Constants.cs" />
-    <Compile Include="UserControls\Chessboard\ChessboardUserControl.cs">
+    <Compile Update="UserControls\Chessboard\ChessboardUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Chessboard\ChessboardUserControl.Designer.cs">
-      <DependentUpon>ChessboardUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Constants.cs" />
-    <Compile Include="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\ChessPieceImageProvider.cs" />
-    <Compile Include="UserControls\History\HistoryUserControl.cs">
+    <Compile Update="UserControls\History\HistoryUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\History\HistoryUserControl.Designer.cs">
-      <DependentUpon>HistoryUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\History\HistoryEntryUserControl.cs">
+    <Compile Update="UserControls\History\HistoryEntryUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\History\HistoryEntryUserControl.Designer.cs">
-      <DependentUpon>HistoryEntryUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Notifications\NotificationsUserControl.cs">
+    <Compile Update="UserControls\Notifications\NotificationsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Notifications\NotificationsUserControl.Designer.cs">
-      <DependentUpon>NotificationsUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Notifications\Constants.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Helpers\PromptIpAddress.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strings.cs" />
-    <Compile Include="UserControls\Chessboard\BoxUserControl.cs">
+    <Compile Update="UserControls\Chessboard\BoxUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Chessboard\BoxUserControl.Designer.cs">
-      <DependentUpon>BoxUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Chessboard\CapturedPieceBoxUserControl.cs">
+    <Compile Update="UserControls\Chessboard\CapturedPieceBoxUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Chessboard\CapturedPieceBoxUserControl.Designer.cs">
-      <DependentUpon>CapturedPieceBoxUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Menus\ChessboardMainMenuUserControl.cs">
+    <Compile Update="UserControls\Menus\ChessboardMainMenuUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Menus\ChessboardMainMenuUserControl.Designer.cs">
-      <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Menus\ChessboardOptionsUserControl.cs">
+    <Compile Update="UserControls\Menus\ChessboardOptionsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Menus\ChessboardOptionsUserControl.Designer.cs">
-      <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Menus\GameConfigurationUserControl.cs">
+    <Compile Update="UserControls\Menus\GameConfigurationUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Menus\GameConfigurationUserControl.Designer.cs">
-      <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="UserControls\Chat\ChatBoxUserControl.resx">
-      <DependentUpon>ChatBoxUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Chessboard\ChessboardUserControl.resx">
-      <DependentUpon>ChessboardUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\History\HistoryUserControl.resx">
-      <DependentUpon>HistoryUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\History\HistoryEntryUserControl.resx">
-      <DependentUpon>HistoryEntryUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Notifications\NotificationsUserControl.resx">
-      <DependentUpon>NotificationsUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="UserControls\Chessboard\BoxUserControl.resx">
-      <DependentUpon>BoxUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Chessboard\CapturedPieceBoxUserControl.resx">
-      <DependentUpon>CapturedPieceBoxUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Menus\ChessboardMainMenuUserControl.resx">
-      <DependentUpon>ChessboardMainMenuUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Menus\ChessboardOptionsUserControl.resx">
-      <DependentUpon>ChessboardOptionsUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Menus\GameConfigurationUserControl.resx">
-      <DependentUpon>GameConfigurationUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj" />
+    <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj" />
+    <ProjectReference Include="..\ChessApplication.Helpers\ChessApplication.Helpers.csproj" />
+    <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj" />
+    <ProjectReference Include="..\ChessApplication.Providers\ChessApplication.Providers.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\movesound1.wav" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.246501">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\movesound2.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChessApplication.ChessboardClassicLogic\ChessApplication.ChessboardClassicLogic.csproj">
-      <Project>{C73AAB28-C1AA-4AF6-B051-E16786B747AB}</Project>
-      <Name>ChessApplication.ChessboardClassicLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Common\ChessApplication.Common.csproj">
-      <Project>{6b209803-c8d8-402b-8092-0f53bef6f989}</Project>
-      <Name>ChessApplication.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Helpers\ChessApplication.Helpers.csproj">
-      <Project>{A7EB8C80-A2D5-40B6-995A-866356D9F08A}</Project>
-      <Name>ChessApplication.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Network\ChessApplication.Network.csproj">
-      <Project>{9ad7b69a-879a-48ac-b725-e579cb8dffe4}</Project>
-      <Name>ChessApplication.Network</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChessApplication.Providers\ChessApplication.Providers.csproj">
-      <Project>{FED65789-71A1-4F5A-844A-465C88DC3534}</Project>
-      <Name>ChessApplication.Providers</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\boxborder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blackbishop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blackking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blackknight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blackpawn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blackqueen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blackrook.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whitebishop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whiteking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whiteknight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whitepawn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whitequeen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whiterook.png" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

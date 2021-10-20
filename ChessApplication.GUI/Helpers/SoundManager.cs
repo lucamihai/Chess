@@ -7,6 +7,7 @@ namespace ChessApplication.GUI.Helpers
     [ExcludeFromCodeCoverage]
     public class SoundManager
     {
+        // TODO: Investigate cross-platform options, currently this is only supported on Windows.
         private readonly List<SoundPlayer> moveSounds;
         private int moveSoundIndex;
 

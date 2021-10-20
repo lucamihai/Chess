@@ -38,6 +38,7 @@ namespace ChessApplication.GUI.UserControls.Notifications
             // textBoxNotifications
             // 
             this.textBoxNotifications.Location = new System.Drawing.Point(3, 43);
+            this.textBoxNotifications.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxNotifications.Multiline = true;
             this.textBoxNotifications.Name = "textBoxNotifications";
             this.textBoxNotifications.ReadOnly = true;
@@ -48,8 +49,9 @@ namespace ChessApplication.GUI.UserControls.Notifications
             // labelNotifications
             // 
             this.labelNotifications.AutoSize = true;
-            this.labelNotifications.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNotifications.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelNotifications.Location = new System.Drawing.Point(17, 11);
+            this.labelNotifications.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNotifications.Name = "labelNotifications";
             this.labelNotifications.Size = new System.Drawing.Size(85, 19);
             this.labelNotifications.TabIndex = 1;
@@ -57,11 +59,12 @@ namespace ChessApplication.GUI.UserControls.Notifications
             // 
             // NotificationsUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.Controls.Add(this.labelNotifications);
             this.Controls.Add(this.textBoxNotifications);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "NotificationsUserControl";
             this.Size = new System.Drawing.Size(350, 175);
             this.ResumeLayout(false);

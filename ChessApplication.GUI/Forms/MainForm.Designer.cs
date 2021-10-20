@@ -60,6 +60,7 @@ namespace ChessApplication.GUI.Forms
             this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
@@ -105,17 +106,17 @@ namespace ChessApplication.GUI.Forms
             this.toolStripMenuItemHighlightAvailableMoves.Size = new System.Drawing.Size(211, 22);
             this.toolStripMenuItemHighlightAvailableMoves.Text = "Highlight available moves";
             // 
-            // toolStripMenuItemEnableBeginnersMode
+            // toolStripMenuItemEnableHighlightAvailableMoves
             // 
             this.toolStripMenuItemEnableHighlightAvailableMoves.Name = "toolStripMenuItemEnableHighlightAvailableMoves";
-            this.toolStripMenuItemEnableHighlightAvailableMoves.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnableHighlightAvailableMoves.Size = new System.Drawing.Size(112, 22);
             this.toolStripMenuItemEnableHighlightAvailableMoves.Text = "Enable";
             this.toolStripMenuItemEnableHighlightAvailableMoves.Click += new System.EventHandler(this.ToolStripEnableHighlightAvailableMoves);
             // 
-            // toolStripMenuItemDisableBeginnersMode
+            // toolStripMenuItemDisableHighlightAvailableMoves
             // 
             this.toolStripMenuItemDisableHighlightAvailableMoves.Name = "toolStripMenuItemDisableHighlightAvailableMoves";
-            this.toolStripMenuItemDisableHighlightAvailableMoves.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemDisableHighlightAvailableMoves.Size = new System.Drawing.Size(112, 22);
             this.toolStripMenuItemDisableHighlightAvailableMoves.Text = "Disable";
             this.toolStripMenuItemDisableHighlightAvailableMoves.Click += new System.EventHandler(this.ToolStripDisableHighlightAvailableMoves);
             // 
@@ -131,20 +132,21 @@ namespace ChessApplication.GUI.Forms
             // toolStripMenuItemEnableSound
             // 
             this.toolStripMenuItemEnableSound.Name = "toolStripMenuItemEnableSound";
-            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnableSound.Size = new System.Drawing.Size(112, 22);
             this.toolStripMenuItemEnableSound.Text = "Enable";
             this.toolStripMenuItemEnableSound.Click += new System.EventHandler(this.ToolStripEnableSound);
             // 
             // toolStripMenuItemDisableSound
             // 
             this.toolStripMenuItemDisableSound.Name = "toolStripMenuItemDisableSound";
-            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemDisableSound.Size = new System.Drawing.Size(112, 22);
             this.toolStripMenuItemDisableSound.Text = "Disable";
             this.toolStripMenuItemDisableSound.Click += new System.EventHandler(this.ToolStripDisableSound);
             // 
             // panelChessboard
             // 
             this.panelChessboard.Location = new System.Drawing.Point(25, 37);
+            this.panelChessboard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelChessboard.Name = "panelChessboard";
             this.panelChessboard.Size = new System.Drawing.Size(595, 800);
             this.panelChessboard.TabIndex = 7;
@@ -152,8 +154,9 @@ namespace ChessApplication.GUI.Forms
             // menuStrip2
             // 
             this.menuStrip2.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStrip2.Location = new System.Drawing.Point(48, 0);
+            this.menuStrip2.Location = new System.Drawing.Point(56, 0);
             this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip2.Size = new System.Drawing.Size(202, 24);
             this.menuStrip2.TabIndex = 6;
             this.menuStrip2.Text = "menuStrip2";
@@ -162,6 +165,7 @@ namespace ChessApplication.GUI.Forms
             // 
             this.notifications.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.notifications.Location = new System.Drawing.Point(830, 37);
+            this.notifications.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.notifications.Name = "notifications";
             this.notifications.Size = new System.Drawing.Size(350, 175);
             this.notifications.TabIndex = 9;
@@ -170,6 +174,7 @@ namespace ChessApplication.GUI.Forms
             // 
             this.chatBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.chatBox.Location = new System.Drawing.Point(624, 361);
+            this.chatBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.chatBox.Name = "chatBox";
             this.chatBox.OnSentChat = null;
             this.chatBox.Size = new System.Drawing.Size(560, 260);
@@ -180,13 +185,14 @@ namespace ChessApplication.GUI.Forms
             // 
             this.historyEntries.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.historyEntries.Location = new System.Drawing.Point(626, 37);
+            this.historyEntries.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.historyEntries.Name = "historyEntries";
             this.historyEntries.Size = new System.Drawing.Size(200, 300);
             this.historyEntries.TabIndex = 11;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(1184, 836);
@@ -196,6 +202,7 @@ namespace ChessApplication.GUI.Forms
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelChessboard);
             this.Controls.Add(this.menuStrip2);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainForm";
             this.Text = "Chess application";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
